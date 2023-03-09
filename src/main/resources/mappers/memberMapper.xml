@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- src/main/resources 폴더 mappers 만들고 파일 memberMapper.xml 만들기 -->
+
+<!-- 파일이름 대신에 namespace 이름을 불러서 사용 -->
+<mapper namespace="com.itwillbs.mappers.memberMapper">
+  
+  	<insert id="insertMember">
+  		insert into members (id,pass,name,date) 
+  					values  (#{id},#{pass},#{name},#{date}) 
+  	</insert>
+  	  
+    <select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
+    <!-- 메서드이름은 통일시킬 필요는 없지만 통일하기! -->
+        select * 
+        from members 
+        where id = #{id} and pass = #{pass} 
+    </select>
+    
+<!--     <update id=""> -->
+<!--     </update> -->
+    
+<!--    <delete id=""> -->
+<!--    </delete>  -->
+   
+</mapper>
+
+<!-- src/main/resources 폴더를 만들지 않고 설정파일 만들기.  -->
+<!-- mybatis-config.xml 파일 만들기 -->
