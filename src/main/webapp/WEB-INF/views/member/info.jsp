@@ -9,23 +9,18 @@
 
 </script>
 <!-- 스크립트 끝. -->
-
-
 <div class="content_body"> <!-- 지우면안됨 -->
 <!-- 내용시작 -->
-<%
-//세션값 전체 삭제
-session.invalidate();
-//로그아웃 메시지 출력  main.jsp 이동
-%>
-<script type="text/javascript">
-	alert("로그아웃");
-	location.href="main.jsp";
-</script>
-
+<table border="1">
+<tr><td>아이디</td><td>비밀번호</td><td>이름</td><td>가입날짜</td></tr>
+	<tr><td>${memberDTO.id}</td>
+	    <td>${memberDTO.pass}</td>
+	    <td>${memberDTO.name}</td>
+	    <td>${memberDTO.date}</td>
+	</tr>
+</table>
+<a href="${pageContext.request.contextPath }/member/main">메인으로 이동</a>
 <!-- 내용끝 -->
 </div><!-- 지우면안됨 -->
 <!-- 헤더 -->
 <%@ include file="../inc/footer.jsp" %><!-- 지우면안됨 -->
-
-

@@ -10,22 +10,17 @@
 </script>
 <!-- 스크립트 끝. -->
 
-
 <div class="content_body"> <!-- 지우면안됨 -->
 <!-- 내용시작 -->
-<%
-//세션값 전체 삭제
-session.invalidate();
-//로그아웃 메시지 출력  main.jsp 이동
-%>
-<script type="text/javascript">
-	alert("로그아웃");
-	location.href="main.jsp";
-</script>
-
+<form action="${pageContext.request.contextPath }/member/deletePro" method="post">
+아이디 : <input type="text" name="id" value="${sessionScope.id }" readonly><br>
+비밀번호 : <input type="password" name="pass"><br>
+<input type="submit" value="회원정보삭제">
+</form>	
 <!-- 내용끝 -->
 </div><!-- 지우면안됨 -->
 <!-- 헤더 -->
 <%@ include file="../inc/footer.jsp" %><!-- 지우면안됨 -->
+
 
 
