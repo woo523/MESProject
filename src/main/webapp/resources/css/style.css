@@ -102,6 +102,7 @@ header img {
 	/* width: 210px; */
 	/* padding-top: 35px; */
 	height: 80px;
+	cursor: pointer;
 }
 
 header nav ul li a {

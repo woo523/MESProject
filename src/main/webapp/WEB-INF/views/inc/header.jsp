@@ -33,7 +33,7 @@
 		</div>
 		
 		<header>
-			<img src="/resources/image/logo.png" title="로고">
+			<img src="/resources/image/logo.png" title="로고" onclick="location.href='${pageContext.request.contextPath }/member/login'">
 		</header>
 		
 		<div class="containerBody">
