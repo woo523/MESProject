@@ -8,4 +8,11 @@
 
 <configuration>
 
+ 	<settings>
+    
+        <!-- 카멜 케이스 VO 매핑 -->       
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        
+    </settings>
+    
 </configuration>
