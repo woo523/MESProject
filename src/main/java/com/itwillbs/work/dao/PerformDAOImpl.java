@@ -5,9 +5,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import com.itwillbs.work.domain.PerformDTO;
 
+@Repository
 public class PerformDAOImpl implements PerformDAO {
 
 	@Inject
@@ -20,7 +22,7 @@ public class PerformDAOImpl implements PerformDAO {
 		System.out.println("PerformDAOImpl performList()");
 		
 		return sqlSession.selectList(namespace+".performlist");
-				
+						
 	}
 
 	

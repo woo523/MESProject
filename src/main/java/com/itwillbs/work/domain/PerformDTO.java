@@ -14,9 +14,9 @@ public class PerformDTO { // 생산실적
 	private int performQty; // 실적수량
 	private String dbReason; // 불량사유
 	private String note; // 비고
-	private String insertId; // 등록자
+	private String insertId; // 등록한 사람
 	private Timestamp insertDate; // 등록일
-	private String updateId; // 변경자
+	private String updateId; // 변경한 사람
 	private Timestamp updateDate; // 변경일
 	
 	public int getPerformId() {
