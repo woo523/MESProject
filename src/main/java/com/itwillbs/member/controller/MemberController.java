@@ -19,19 +19,19 @@ import com.itwillbs.member.service.MemberService;
 public class MemberController {
 
 	@Inject
-	private MemberService memberService; // 4ë²„ì „.ìë™ìœ¼ë¡œ ê°ì²´ìƒì„± í•œ ê²ƒ.
+	private MemberService memberService; // 4¹öÀü.ÀÚµ¿À¸·Î °´Ã¼»ı¼º ÇÑ °Í.
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/insert
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/insert
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/insert
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/insert
 	@RequestMapping(value = "/member/insert", method = RequestMethod.GET)
 	public String insert() {
-		// ì£¼ì†Œë³€ê²½ ì—†ì´ ì´ë™
+		// ÁÖ¼Òº¯°æ ¾øÀÌ ÀÌµ¿
 		// /WEB-INF/views/member/insertForm.jsp
 		return "member/insertForm";
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/insertPro
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/insertPro
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/insertPro
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/insertPro
 	@RequestMapping(value = "/member/insertPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO) {
 		System.out.println("MemberController insertPro()");
@@ -40,117 +40,117 @@ public class MemberController {
 		System.out.println(memberDTO.getName());
 
 
-		// ë©”ì„œë“œ í˜¸ì¶œ
+		// ¸Ş¼­µå È£Ãâ
 		memberService.insertMember(memberDTO);
 
-		// ì£¼ì†Œ ë³€ê²½ë˜ë©´ì„œ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™
+		// ÁÖ¼Ò º¯°æµÇ¸é¼­ ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
 		// response.sendRedirect("/member/login");
 		return "redirect:/member/login";
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/login
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/login
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/login
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/login
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public String login() {
-		// ì£¼ì†Œë³€ê²½ ì—†ì´ ì´ë™
+		// ÁÖ¼Òº¯°æ ¾øÀÌ ÀÌµ¿
 		// /WEB-INF/views/member/loginForm.jsp
 		return "member/loginForm";
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/loginPro
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/loginPro
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/loginPro
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/loginPro
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("MemberController loginPro()");
-		// ë””ë¹„ ë¡œê·¸ì¸ ì²˜ë¦¬ => ì²˜ë¦¬ => ë””ë¹„ ìë°” ë©”ì„œë“œ í˜¸ì¶œ
+		// µğºñ ·Î±×ÀÎ Ã³¸® => Ã³¸® => µğºñ ÀÚ¹Ù ¸Ş¼­µå È£Ãâ
 		System.out.println(memberDTO.getId());
 		System.out.println(memberDTO.getPass());
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 
 		if (memberDTO2 != null) {
-			// ì•„ì´ë””,ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜
-			System.out.println("memberController.loginPro.ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜");
+			// ¾ÆÀÌµğ,ºñ¹Ğ¹øÈ£ ÀÏÄ¡
+			System.out.println("memberController.loginPro.¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ÀÏÄ¡");
 			session.setAttribute("id", memberDTO.getId());
-			// ì£¼ì†Œ ë³€ê²½ë˜ë©´ì„œ ë©”ì¸í˜ì´ì§€ë¡œ ì´ë™
+			// ÁÖ¼Ò º¯°æµÇ¸é¼­ ¸ŞÀÎÆäÀÌÁö·Î ÀÌµ¿
 			return "redirect:/member/main";
 		} else {
-			// ì•„ì´ë””,ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼
-			System.out.println("memberController.loginPro.ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼");
-			// member/msg.jsp ë§Œë“¤ì–´ì„œ "ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼" ë©”ì‹œì§€ ì¶œë ¥í•˜ê³  ë’¤ë¡œì´ë™
+			// ¾ÆÀÌµğ,ºñ¹Ğ¹øÈ£ Æ²¸²
+			System.out.println("memberController.loginPro.¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ Æ²¸²");
+			// member/msg.jsp ¸¸µé¾î¼­ "¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ Æ²¸²" ¸Ş½ÃÁö Ãâ·ÂÇÏ°í µÚ·ÎÀÌµ¿
 			return "member/msg";
 		}
-		// ì£¼ì†Œ ë³€ê²½ë˜ë©´ì„œ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™
+		// ÁÖ¼Ò º¯°æµÇ¸é¼­ ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
 		// response.sendRedirect("/member/main");
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/main
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/main
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/main
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/main
 	@RequestMapping(value = "/member/main", method = RequestMethod.GET)
 	public String main() {
-		// ì£¼ì†Œë³€ê²½ ì—†ì´ ì´ë™
+		// ÁÖ¼Òº¯°æ ¾øÀÌ ÀÌµ¿
 		// /WEB-INF/views/member/main.jsp
 		return "member/main";
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/logout
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/logout
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/logout
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/logout
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		// â†‘ ìë™ìœ¼ë¡œ httpì„¸ì…˜ ê°ì²´ ìƒì„±.
+		// ¡è ÀÚµ¿À¸·Î http¼¼¼Ç °´Ã¼ »ı¼º.
 		System.out.println("MemberController logout()");
-		// ì„¸ì…˜ ì´ˆê¸°í™”
+		// ¼¼¼Ç ÃÊ±âÈ­
 		session.invalidate();
-		// ì£¼ì†Œ ë³€ê²½ë˜ë©´ì„œ ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™
+		// ÁÖ¼Ò º¯°æµÇ¸é¼­ ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿
 		// response.sendRedirect("/member/main");
 		return "redirect:/member/main";
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/info?id=kim
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/info
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/info?id=kim
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/info
 	@RequestMapping(value = "/member/info", method = RequestMethod.GET)
 	public String info(HttpSession session, Model model) {
 		System.out.println("MemberController info()");
-		// ì„¸ì…˜ê°’ ê°€ì ¸ì˜¤ê¸°
+		// ¼¼¼Ç°ª °¡Á®¿À±â
 		String id = (String) session.getAttribute("id");
-		System.out.println("MemberController.info ì„¸ì…˜ id : " + id);
+		System.out.println("MemberController.info ¼¼¼Ç id : " + id);
 		MemberDTO memberDTO = memberService.getMember(id);
 
-		// memberDTO ê°’ì„ ë“¤ê³  member/info.jspë¡œ ì´ë™
+		// memberDTO °ªÀ» µé°í member/info.jsp·Î ÀÌµ¿
 		// request.setAttribute("memberDTO",memberDTO);
-		// -> request ëŒ€ì‹ ì— ìŠ¤í”„ë§ì œê³µ Model ë‹´ì•„ì„œ ì´ë™
-		// -> ìŠ¤í”„ë§ì—ì„œëŠ” ì´ë ‡ê²Œ ì‚¬ìš©í•œë‹¤ -> model.addAttribute(ì´ë¦„,ê°’)
+		// -> request ´ë½Å¿¡ ½ºÇÁ¸µÁ¦°ø Model ´ã¾Æ¼­ ÀÌµ¿
+		// -> ½ºÇÁ¸µ¿¡¼­´Â ÀÌ·¸°Ô »ç¿ëÇÑ´Ù -> model.addAttribute(ÀÌ¸§,°ª)
 		model.addAttribute("memberDTO", memberDTO);
 
-		// ì£¼ì†Œë³€ê²½ ì—†ì´ ì´ë™
+		// ÁÖ¼Òº¯°æ ¾øÀÌ ÀÌµ¿
 		// /WEB-INF/views/member/info.jsp
-		return "member/info"; // ìˆ˜ì •ì „ ë‚˜ì˜ ì •ë³´ ì¡°íšŒ
+		return "member/info"; // ¼öÁ¤Àü ³ªÀÇ Á¤º¸ Á¶È¸
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/update
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/update
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/update
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/update
 	@RequestMapping(value = "/member/update", method = RequestMethod.GET)
-	public String update(HttpSession session, Model model) { // ì •ë³´ë¥¼ ë‹´ì•„ì„œ ê°€ì ¸ì˜¨ê²Œ ì•„ë‹ˆê³  ì„¸ì…˜ê°’ì„ ë¶€ë¥¸ê±°ê¸°ë•Œë¬¸ì— ì„¸ì…˜ì„ ê°’ìœ¼ë¡œ ì¤€ë‹¤.
+	public String update(HttpSession session, Model model) { // Á¤º¸¸¦ ´ã¾Æ¼­ °¡Á®¿Â°Ô ¾Æ´Ï°í ¼¼¼Ç°ªÀ» ºÎ¸¥°Å±â¶§¹®¿¡ ¼¼¼ÇÀ» °ªÀ¸·Î ÁØ´Ù.
 		System.out.println("MemberController update()");
-		// ì„¸ì…˜ê°’ ê°€ì ¸ì˜¤ê¸°
+		// ¼¼¼Ç°ª °¡Á®¿À±â
 		String id = (String) session.getAttribute("id");
-		System.out.println("MemberController.updatePro ì„¸ì…˜ id : " + id);
+		System.out.println("MemberController.updatePro ¼¼¼Ç id : " + id);
 
 		MemberDTO memberDTO = memberService.getMember(id);
 
 		model.addAttribute("memberDTO", memberDTO);
 
-		// ì£¼ì†Œë³€ê²½ ì—†ì´ ì´ë™
+		// ÁÖ¼Òº¯°æ ¾øÀÌ ÀÌµ¿
 		// /WEB-INF/views/member/updateForm.jsp
 		return "member/updateForm";
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/updatePro
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/updatePro
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/updatePro
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/updatePro
 	@RequestMapping(value = "/member/updatePro", method = RequestMethod.POST)
 	public String updatePro(MemberDTO memberDTO) {
 		System.out.println("MemberController updatePro()");
 		
-		// ë””ë¹„ ìˆ˜ì • ì²˜ë¦¬ => ì²˜ë¦¬ => ë””ë¹„ ìë°” ë©”ì„œë“œ í˜¸ì¶œ
+		// µğºñ ¼öÁ¤ Ã³¸® => Ã³¸® => µğºñ ÀÚ¹Ù ¸Ş¼­µå È£Ãâ
 		System.out.println(memberDTO.getId());
 		System.out.println(memberDTO.getPass());
 		System.out.println(memberDTO.getName());
@@ -158,47 +158,47 @@ public class MemberController {
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 
 		if (memberDTO2 != null) {
-			// ì•„ì´ë””,ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜
-			System.out.println("memberController.updatePro.ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜");
+			// ¾ÆÀÌµğ,ºñ¹Ğ¹øÈ£ ÀÏÄ¡
+			System.out.println("memberController.updatePro.¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ÀÏÄ¡");
 
-			// ìˆ˜ì •ì‘ì—…
+			// ¼öÁ¤ÀÛ¾÷
 			memberService.updateMember(memberDTO);
-			// ì£¼ì†Œ ë³€ê²½ë˜ë©´ì„œ ë©”ì¸í˜ì´ì§€ë¡œ ì´ë™
+			// ÁÖ¼Ò º¯°æµÇ¸é¼­ ¸ŞÀÎÆäÀÌÁö·Î ÀÌµ¿
 			return "redirect:/member/main";
 		} else {
-			// ì•„ì´ë””,ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼
-			System.out.println("memberController.updatePro.ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼");
-			// member/msg.jsp ë§Œë“¤ì–´ì„œ "ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼" ë©”ì‹œì§€ ì¶œë ¥í•˜ê³  ë’¤ë¡œì´ë™
+			// ¾ÆÀÌµğ,ºñ¹Ğ¹øÈ£ Æ²¸²
+			System.out.println("memberController.updatePro.¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ Æ²¸²");
+			// member/msg.jsp ¸¸µé¾î¼­ "¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ Æ²¸²" ¸Ş½ÃÁö Ãâ·ÂÇÏ°í µÚ·ÎÀÌµ¿
 			return "member/msg";
 		}
-		// ì£¼ì†Œ ë³€ê²½ë˜ë©´ì„œ ë©”ì¸ í˜ì´ì§€ë¡œ ì´ë™
+		// ÁÖ¼Ò º¯°æµÇ¸é¼­ ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿
 		// response.sendRedirect("/member/main");
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/delete
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/delete
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/delete
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/delete
 	@RequestMapping(value = "/member/delete", method = RequestMethod.GET)
 	public String delete(HttpSession session, Model model) {
 		System.out.println("MemberController delete()");
-		// ì„¸ì…˜ê°’ ê°€ì ¸ì˜¤ê¸°
+		// ¼¼¼Ç°ª °¡Á®¿À±â
 		String id = (String) session.getAttribute("id");
-		System.out.println("MemberController.delete ì„¸ì…˜ id : " + id);
+		System.out.println("MemberController.delete ¼¼¼Ç id : " + id);
 
 		MemberDTO memberDTO = memberService.getMember(id);
 
 		model.addAttribute("memberDTO", memberDTO);
 
-		// ì£¼ì†Œë³€ê²½ ì—†ì´ ì´ë™
+		// ÁÖ¼Òº¯°æ ¾øÀÌ ÀÌµ¿
 		// /WEB-INF/views/member/deleteForm.jsp
 		return "member/deleteForm";
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/deletePro
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/deletePro
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/deletePro
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/deletePro
 	@RequestMapping(value = "/member/deletePro", method = RequestMethod.POST)
 	public String deletePro(MemberDTO memberDTO,HttpSession session) {
 		System.out.println("MemberController deletePro()");
-		// ë””ë¹„ ì‚­ì œ ì²˜ë¦¬ => ì²˜ë¦¬ => ë””ë¹„ ìë°” ë©”ì„œë“œ í˜¸ì¶œ
+		// µğºñ »èÁ¦ Ã³¸® => Ã³¸® => µğºñ ÀÚ¹Ù ¸Ş¼­µå È£Ãâ
 		System.out.println(memberDTO.getId());
 		System.out.println(memberDTO.getPass());
 		// System.out.println(memberDTO.getName());
@@ -206,28 +206,28 @@ public class MemberController {
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 
 		if (memberDTO2 != null) {
-			// ì•„ì´ë””,ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜
-			System.out.println("memberController.deletePro.ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜");
+			// ¾ÆÀÌµğ,ºñ¹Ğ¹øÈ£ ÀÏÄ¡
+			System.out.println("memberController.deletePro.¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ÀÏÄ¡");
 
-			// ì¼ì¹˜í•˜ë©´ ì‚­ì œì‘ì—…
+			// ÀÏÄ¡ÇÏ¸é »èÁ¦ÀÛ¾÷
 			memberService.deleteMember(memberDTO);
 			
-			// ì„¸ì…˜ ì´ˆê¸°í™”
+			// ¼¼¼Ç ÃÊ±âÈ­
 			session.invalidate();
 			
-			// ì£¼ì†Œ ë³€ê²½ë˜ë©´ì„œ ë©”ì¸í˜ì´ì§€ë¡œ ì´ë™
+			// ÁÖ¼Ò º¯°æµÇ¸é¼­ ¸ŞÀÎÆäÀÌÁö·Î ÀÌµ¿
 			return "redirect:/member/main";
 			
 		} else {
-			// ì•„ì´ë””,ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼
-			System.out.println("memberController.delete.ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼");
-			// member/msg.jsp ë§Œë“¤ì–´ì„œ "ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ í‹€ë¦¼" ë©”ì‹œì§€ ì¶œë ¥í•˜ê³  ë’¤ë¡œì´ë™
+			// ¾ÆÀÌµğ,ºñ¹Ğ¹øÈ£ Æ²¸²
+			System.out.println("memberController.delete.¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ Æ²¸²");
+			// member/msg.jsp ¸¸µé¾î¼­ "¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ Æ²¸²" ¸Ş½ÃÁö Ãâ·ÂÇÏ°í µÚ·ÎÀÌµ¿
 			return "member/msg";
 		}
 	}
 
-	// ê°€ìƒì£¼ì†Œ http://localhost:8080/myweb/member/list
-	// ìë™ìœ¼ë¡œ ê°€ìƒì£¼ì†Œ ë½‘ì•„ì˜´ /member/list
+	// °¡»óÁÖ¼Ò http://localhost:8080/myweb/member/list
+	// ÀÚµ¿À¸·Î °¡»óÁÖ¼Ò »Ì¾Æ¿È /member/list
 	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
 	public String list(Model model) {
 		
@@ -236,7 +236,7 @@ public class MemberController {
 		model.addAttribute("memberList", memberList);
 		
 		
-		// ì£¼ì†Œë³€ê²½ ì—†ì´ ì´ë™
+		// ÁÖ¼Òº¯°æ ¾øÀÌ ÀÌµ¿
 		// /WEB-INF/views/member/list.jsp
 		return "member/list";
 	}
