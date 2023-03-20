@@ -3,19 +3,84 @@ package com.itwillbs.work.domain;
 import java.sql.Timestamp;
 
 public class InstructDTO {
-	private int instrId;
-	private int lineId;
-	private int ordId;
-	private int ordInfoId;
-	private int itemId;
-	private String workNum;
-	private String workSts;
-	private Timestamp workDate;
-	private int workQty;
-	private String insertId;
-	private Timestamp insertDate;
-	private String updateId;
-	private Timestamp updateDate;
+	private int instrId;	// 작업지시 기본키
+	private int lineId;		// 라인정보 기본키
+	private int ordId;		// 수주관리 기본키
+	private int ordInfoId;	// 수주정보 기본키
+	private int itemId;		// 품목관리 기본키
+	private String workNum;	// 작업지시번호
+	private String workSts;	// 지시상태
+	private Timestamp workDate;	// 지시일자
+	private int workQty;	// 지시수량
+	private String insertId;	// 등록자
+	private Timestamp insertDate;	// 등록일
 
+	public int getInstrId() {
+		return instrId;
+	}
+	public void setInstrId(int instrId) {
+		this.instrId = instrId;
+	}
+	public int getLineId() {
+		return lineId;
+	}
+	public void setLineId(int lineId) {
+		this.lineId = lineId;
+	}
+	public int getOrdId() {
+		return ordId;
+	}
+	public void setOrdId(int ordId) {
+		this.ordId = ordId;
+	}
+	public int getOrdInfoId() {
+		return ordInfoId;
+	}
+	public void setOrdInfoId(int ordInfoId) {
+		this.ordInfoId = ordInfoId;
+	}
+	public int getItemId() {
+		return itemId;
+	}
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	public String getWorkNum() {
+		return workNum;
+	}
+	public void setWorkNum(String workNum) {
+		this.workNum = workNum;
+	}
+	public String getWorkSts() {
+		return workSts;
+	}
+	public void setWorkSts(String workSts) {
+		this.workSts = workSts;
+	}
+	public Timestamp getWorkDate() {
+		return workDate;
+	}
+	public void setWorkDate(Timestamp workDate) {
+		this.workDate = workDate;
+	}
+	public int getWorkQty() {
+		return workQty;
+	}
+	public void setWorkQty(int workQty) {
+		this.workQty = workQty;
+	}
+	public String getInsertId() {
+		return insertId;
+	}
+	public void setInsertId(String insertId) {
+		this.insertId = insertId;
+	}
+	public Timestamp getInsertDate() {
+		return insertDate;
+	}
+	public void setInsertDate(Timestamp insertDate) {
+		this.insertDate = insertDate;
+	}
+	
 
 }
