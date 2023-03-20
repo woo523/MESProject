@@ -8,46 +8,111 @@
 <script type="text/javascript">
 
 	//searchResultColNames : 그리드 제목 행
-	var searchResultColNames =  ['작업지시번호', '라인', '라인명', '품번', '품명', '지시상태', '지시일자', '지시수량', '수주번호', '업체','생산량'];
+	var searchResultColNames =  ['작업지시번호', '라인', '라인명', '품번', '품명', '지시상태', '지시일자', '지시수량', '수주번호', '업체'];
 	
 	// searchResultColModel : 그리드 안에 들어가는 데이터
 	var searchResultColModel =  [
-	                  {name:'userId',  		index:'userId',  align:'center', width:'10%'},
-	                  {name:'id',   		index:'id',    align:'left',   width:'10%'},
-	                  {name:'name',  		index:'name',  align:'center', width:'10%'},
-	                  {name:'departments',	index:'departments', align:'center', width:'10%'},
-	                  {name:'position',   	index:'position',   align:'center', width:'10%'},
-	                  {name:'email',   		index:'email',   align:'center', width:'10%'},
-	                  {name:'tell',   		index:'tell',   align:'center', width:'10%'},
-	                  {name:'phone',  	 	index:'phone',   align:'center', width:'10%'},
-	                  {name:'useYn',   		index:'useYn',   align:'center', width:'10%'},
-	                  {name:'insertId',  	index:'insertId',   align:'center', width:'10%'},
-	                  {name:'insertDt',   	index:'insertDt',   align:'center', width:'10%'}
+					  {name:'instrId',  	index:'insertId',   align:'center', width:'10%'},
+	                  {name:'lineCd',  		index:'lineCd',  align:'center', width:'10%'},
+	                  {name:'lineName',   		index:'lineName',    align:'center',   width:'10%'},
+	                  {name:'itemNum',  		index:'itemNum',  align:'center', width:'10%'},
+	                  {name:'itemName',	index:'itemName', align:'center', width:'10%'},
+	                  {name:'workSts',   	index:'workSts',   align:'center', width:'10%'},
+	                  {name:'workDate',   		index:'workDate',   align:'center', width:'10%'},
+	                  {name:'workQty',   		index:'workQty',   align:'center', width:'10%'},
+	                  {name:'ordNum',  	 	index:'ordNum',   align:'center', width:'10%'},
+	                  {name:'ClientName',   		index:'ClientName',   align:'center', width:'10%'}];
+	                  
+  	//searchResultColNames : 그리드 제목 행
+   	var searchResultColNames2 =  ['품번', '품번', '실적일', '양불여부', '실적수량', '불량사유'];
+	              	
+	// searchResultColModel : 그리드 안에 들어가는 데이터
+	var searchResultColModel2 =  [
+					  {name:'itemNum',  		index:'itemNum',  align:'center', width:'10%'},
+         			  {name:'itemName',	index:'itemName', align:'center', width:'10%'},
+         			  {name:'performDate',  	index:'performDate',   align:'center', width:'10%'},
+ 		              {name:'gbYn',  		index:'gbYn',  align:'center', width:'10%'},
+   	            
+   	                 
+   	                  {name:'performQty',   	index:'performQty',   align:'center', width:'10%'},
+   	                  {name:'dbReason',   		index:'dbReason',   align:'center', width:'10%'}
+
+	                  
 	                ]; // name = dto변수명 index = 그리드에서 사용할 이름? , 옵션은 검색해서 사용
 	$(function() { 
-		// document.ready 와 같은 기능
-		// DOM(Document Object Model)이 완전히 불러와지면 실행되는 Event
-		// 페이지가 생길때 function안에 내용을 실행
+//		document.ready 와 같은 기능
+//		DOM(Document Object Model)이 완전히 불러와지면 실행되는 Event
+//		페이지가 생길때 function안에 내용을 실행
 	  searchData();
+		
+	  $("#mainGrid").dblclick(function(){
+			var selectedRowId =  $("#mainGrid").getGridParam('selrow');	
+			var row = $("#mainGrid").getRowData(selectedRowId);
+			var name  =  row.instrId;
+			
+			function searchData2() { //그리드에 뿌려줄 데이터 조회용
+
+				  $("#subGrid").jqGrid({ // "#mainGrid" == <table id="mainGrid">
+				    url : "/PerformRg", // url주소
+				    datatype : "json", // 데이터타입
+				    postData : {"instrId" : name},	// 넘겨줄데이터->넘겨줄게 없어서 ""공백. 검색어를 넣어준다.
+				    mtype : "get", // get,post방식
+				    colNames: searchResultColNames2, //위에 설정한 그리드 제목 행 틀
+				    colModel: searchResultColModel2, //위에 설정한 그리드 안에 들어가는 데이터 틀
+				    rowNum : 10, // 줄 개수 (보여줄 데이터 개수) 
+				    pager: "#pager2", // 페이징할 div id
+				    height: 50,
+				    width: 1019,
+				    jsonReader : {repeatitems:false}
+
+				  }); // $("#subGrid").jqGrid
+			}
+			
+			searchData2();
+			
 	  
-	});	
+	});	//$("#mainGrid").dblclick(function()
+			
+	});//fuction()
 	
 	
 	function searchData() { //그리드에 뿌려줄 데이터 조회용
 
 		  $("#mainGrid").jqGrid({ // "#mainGrid" == <table id="mainGrid">
-		    url : "/sample/searchList", // url주소
-		    datatype : "JSON", // 데이터타입
-		    postData : "",	// 넘겨줄데이터->넘겨줄게 없어서 ""공백. 검색어를 넣어준다.
-		    mtype : "POST", // get,post방식
+		    url : "/InstruList", // url주소
+		    datatype : "json", // 데이터타입
+// 		    postData : "",	// 넘겨줄데이터->넘겨줄게 없어서 ""공백. 검색어를 넣어준다.
+		    mtype : "get", // get,post방식
 		    colNames: searchResultColNames, //위에 설정한 그리드 제목 행 틀
 		    colModel: searchResultColModel, //위에 설정한 그리드 안에 들어가는 데이터 틀
 		    rowNum : 10, // 줄 개수 (보여줄 데이터 개수) 
 		    pager: "#pager", // 페이징할 div id
-		    height: 261,
-		    width: 1019
+		    height: 50,
+		    width: 1019,
+		    jsonReader : {repeatitems:false}
+
 		  }); // 옵션은 검색해서 사용.
 	}
+	
+// 	function searchData2() { //그리드에 뿌려줄 데이터 조회용
+
+// 		  $("#subGrid").jqGrid({ // "#mainGrid" == <table id="mainGrid">
+// 		    url : "/PerformRg", // url주소
+// 		    datatype : "json", // 데이터타입
+// 		    postData : "",	// 넘겨줄데이터->넘겨줄게 없어서 ""공백. 검색어를 넣어준다.
+// 		    mtype : "get", // get,post방식
+// 		    colNames: searchResultColNames2, //위에 설정한 그리드 제목 행 틀
+// 		    colModel: searchResultColModel2, //위에 설정한 그리드 안에 들어가는 데이터 틀
+// 		    rowNum : 10, // 줄 개수 (보여줄 데이터 개수) 
+// 		    pager: "#pager2", // 페이징할 div id
+// 		    height: 50,
+// 		    width: 1019,
+// 		    jsonReader : {repeatitems:false}
+
+// 		  }); // $("#subGrid").jqGrid
+// 	} //function searchData2()
+	
+	
 	
 
 </script>
@@ -57,7 +122,7 @@
 <div class="content_body"> <!-- 지우면안됨 -->
 	<!-- 내용시작 -->
 
-	<h2>샘플메뉴</h2>
+	<h2>실적등록</h2>
 	
 	<br><br><br>
 	
@@ -66,9 +131,14 @@
 	
 	<!-- 그리드 페이징을 생성할 div -->
 	<div id="pager"></div> <!-- 지우면 안됨 -->
-
-
-
+	
+</div>
+<div class="content_body">
+	<h2>생산실적</h2>
+	
+	<br><br><br>
+	<table id="subGrid"></table> 
+	<div id="pager2"></div>
 
 
 

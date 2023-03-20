@@ -5,8 +5,34 @@
 
 <mapper namespace="com.itwillbs.mappers.performMapper">
   
-	<select id="performList">
-	select * from work_prfrm
+	<select id="InstruList" resultType="com.itwillbs.work.domain.InstruListDTO">
+	select 
+	instr_id as instrId, 
+	line_cd as lineCd, 
+	line_nm as lineName, 
+	item_num as itemNum, 
+	item_nm as itemName, 
+	work_sts as workSts, 
+	work_dt as workDate, 
+	work_qty as workQty, 
+	ord_num as ordNum,
+	clnt_nm as ClientName
+	from prfrm1_view
 	</select>
+   
+   
+   <select id="PerformRgList" resultType="com.itwillbs.work.domain.PerformRgDTO">
+   select 
+   i.item_num as itemNum, 
+   i.item_nm as itemName, 
+   p.prfrm_dt as performDate, 
+   p.gb_yn as gbYn, 
+   p.prfrm_qty as performQty, 
+   p.db_rsns as dbReason
+   from item i join work_prfrm p
+   on i.item_id = p.item_id
+   where p.instr_id = #{instrId}
+   
+   </select>
    
 </mapper>
