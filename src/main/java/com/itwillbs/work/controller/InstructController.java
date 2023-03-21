@@ -19,13 +19,13 @@ public class InstructController {
 	@Inject
 	private InstructService instructService;
 	
-//	@RequestMapping(value = "/work/instructList", method = RequestMethod.GET)
-//	public List<InstructDTO> instructList(Model model) {
+	@RequestMapping(value = "/work/instructList", method = RequestMethod.GET)
+	public List<InstructDTO> instructList(Model model) {
 		
-//		List<InstructDTO> instrList = instructService.getInstrList();
-//		model.addAttribute("instrList", instrList);
+		List<InstructDTO> instrList = instructService.instrList();
+		model.addAttribute("instrList", instrList);
 
-//		return instrList;
-//	}
+		return instrList;
+	}
 
 }
