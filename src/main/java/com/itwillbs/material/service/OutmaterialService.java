@@ -1,5 +1,9 @@
 package com.itwillbs.material.service;
 
-public interface OutmaterialService {
+import java.util.List;
 
+import com.itwillbs.material.domain.OutmaterialDTO;
+
+public interface OutmaterialService {
+	public List<OutmaterialDTO> outmaterList();
 }

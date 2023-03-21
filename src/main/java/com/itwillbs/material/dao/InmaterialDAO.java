@@ -1,5 +1,10 @@
 package com.itwillbs.material.dao;
 
-public interface InmaterialDAO {
+import java.util.List;
 
+import com.itwillbs.material.domain.InmaterialDTO;
+
+public interface InmaterialDAO {
+	
+	public List<InmaterialDTO> inmaterList();
 }
