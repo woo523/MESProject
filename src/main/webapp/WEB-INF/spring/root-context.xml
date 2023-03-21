@@ -8,7 +8,7 @@
 	<!-- 프로젝트 디비연결 객체생성 세팅용.-->
    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> <!-- 1단계,2단계 드라이버불러오고,객체생성 단계 -->
-      <property name="url" value="jdbc:mysql://itwillbs-rds-class1-team2.cwyqfeylunq5.ap-northeast-2.rds.amazonaws.com:3306/mes"></property>
+      <property name="url" value="jdbc:mysql://itwillbs-rds-class1-team2.cwyqfeylunq5.ap-northeast-2.rds.amazonaws.com:3306/mes?zeroDateTimeBehavior=convertToNull"></property>
       <property name="username" value="root"></property>
       <property name="password" value="class11020"></property>
    </bean>

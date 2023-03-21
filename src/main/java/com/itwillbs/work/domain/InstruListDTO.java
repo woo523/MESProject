@@ -1,7 +1,4 @@
-
 package com.itwillbs.work.domain;
-
-
 
 public class InstruListDTO {
 
@@ -58,7 +55,6 @@ public class InstruListDTO {
 	public void setWorkSts(String workSts) {
 		this.workSts = workSts;
 	}
-
 	public int getWorkQty() {
 		return workQty;
 	}
