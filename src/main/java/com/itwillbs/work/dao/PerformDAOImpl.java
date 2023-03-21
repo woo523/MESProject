@@ -22,11 +22,10 @@ public class PerformDAOImpl implements PerformDAO {
 	private static final String namespace="com.itwillbs.mappers.performMapper";
 
 	@Override
-	public List<InstruListDTO> InstruList() {
-		System.out.println("PerformDAOImpl InstruList()");
+	public List<Map<String, Object>> getInstrLiMap() {
+		System.out.println("MemberDAOImpl getInstrLiMap()");
 		
-		return sqlSession.selectList(namespace+".InstruList");
-						
+		return sqlSession.selectList(namespace+".getInstrLiMap");
 	}
 
 	@Override

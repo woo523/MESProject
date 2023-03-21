@@ -21,11 +21,7 @@ public class PerformServiceImpl implements PerformService {
 	@Inject
 	private PerformDAO performDAO;
 	
-	@Override
-	public List<InstruListDTO> InstruList() {
-		
-		return performDAO.InstruList();
-	}
+
 
 	@Override
 	public List<PerformRgDTO> PerformRgList(int instrId) {
@@ -46,6 +42,12 @@ public class PerformServiceImpl implements PerformService {
 		row.put("insert_dt", new Timestamp(System.currentTimeMillis()));
 		
 		
+	}
+
+	@Override
+	public List<Map<String, Object>> getInstrLiMap() {
+		System.out.println("PerformServiceImpl getInstrLiMap()");
+		return performDAO.getInstrLiMap();
 	}
 
 	

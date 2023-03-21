@@ -11,9 +11,11 @@ import com.itwillbs.work.domain.PerformRgDTO;
 @Service
 public interface PerformService {
 
-	public List<InstruListDTO> InstruList();
+	public List<Map<String, Object>> getInstrLiMap();
 	
 	public List<PerformRgDTO> PerformRgList(int instrId);
 	
 	public void insertPerform(Map<String, Object> row);
+	
+	
 }

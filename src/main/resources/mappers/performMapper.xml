@@ -21,6 +21,45 @@
 	</select>
    
    
+   <!--     https://mybatis.org/mybatis-3/sqlmap-xml.html -->
+    <resultMap type="map" id="InstrLiMap">
+    
+<!--     column= "디비열이름" property="멤버변수이름" -->
+    <id column="id" property=""/>
+    <result column="instr_id" property="instrId"/>
+    <result column="line_cd" property="lineCd"/>
+    <result column="line_nm" property="lineName"/>
+    <result column="item_num" property="itemNum"/>
+    <result column="item_nm" property="itemName"/>
+    <result column="work_sts" property="workSts"/>
+    <result column="work_dt" property="workDate"/>
+    <result column="work_qty" property="workQty"/>
+    <result column="ord_num" property="ordNum"/>
+    <result column="clnt_nm" property="ClientName"/>
+    
+    
+    </resultMap>
+    
+    <select id="getInstrLiMap" resultMap="InstrLiMap">
+    select 
+	instr_id, 
+	line_cd, 
+	line_nm, 
+	item_num, 
+	item_nm, 
+	work_sts, 
+	work_dt, 
+	work_qty, 
+	ord_num,
+	clnt_nm
+	from prfrm1_view
+    </select>
+   
+   
+   
+   
+   
+   
    <select id="PerformRgList" resultType="com.itwillbs.work.domain.PerformRgDTO">
    select 
    i.item_num as itemNum, 

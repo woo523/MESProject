@@ -10,11 +10,15 @@ import com.itwillbs.work.domain.PerformRgDTO;
 
 public interface PerformDAO {
 
-	public List<InstruListDTO> InstruList();
+	public List<Map<String, Object>> getInstrLiMap();
 	
 	public List<PerformRgDTO> PerformRgList(int instrId);
 	
 	public void insertPerform(Map<String, Object> row);
 	
 	public Integer getMaxNumP();
+	
+	
+	
+	
 }

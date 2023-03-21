@@ -13,8 +13,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 import org.springframework.stereotype.Controller;
-
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,50 +33,20 @@ public class PerformController {
 	@Inject
 	private PerformService performService;
 	
-	@RequestMapping(value = "/InstruList", method = RequestMethod.GET)
-	@ResponseBody
-	public String InstruList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("PerformController InstruList");
-		
-		JSONArray array = new JSONArray();
-		
-		List<InstruListDTO> instrulist = performService.InstruList();
-		System.out.println(instrulist.size());
-		for(int i =0;i<instrulist.size();i++) {	
-			
-			InstruListDTO instrulistDTO = instrulist.get(i);
-			
-			System.out.println(instrulistDTO.getInstrId());
-			System.out.println(instrulistDTO.getClientName());
-			System.out.println("???");
-			JSONObject jsobject = new JSONObject();
-			jsobject.put("instrId", instrulistDTO.getInstrId());
-			jsobject.put("lineCd", instrulistDTO.getLineCd());
-			jsobject.put("lineName", instrulistDTO.getLineName());
-			jsobject.put("itemNum", instrulistDTO.getItemNum());
-			jsobject.put("itemName", instrulistDTO.getItemName());
-			jsobject.put("workSts", instrulistDTO.getWorkSts());
-			jsobject.put("workDate", instrulistDTO.getWorkDate());
-			jsobject.put("workQty", instrulistDTO.getWorkQty());
-			jsobject.put("ordNum", instrulistDTO.getOrdNum());
-			jsobject.put("ClientName", instrulistDTO.getClientName());
-		
-			array.put(jsobject);
-		}
 
-			response.setContentType("application/x-json; charset=UTF-8");
-			response.getWriter().print(array);
-
-
-		return null;
-	}
-	
-	
 	@RequestMapping(value = "/work/performRegist", method = RequestMethod.GET)
-	public String performRegist() {
-
+	public String performRegist(Model model, HttpServletRequest request) {
+		request.getAttribute("line");
+		
+		
+		List<Map<String,Object>> instrList = performService.getInstrLiMap();
+		
+		model.addAttribute("instrList", instrList);
+		
 		return "work/performRegist";
 	}
+	
+
 	
 	@RequestMapping(value = "/PerformRg", method = RequestMethod.GET)
 	@ResponseBody
