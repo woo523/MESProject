@@ -35,4 +35,22 @@
    
    </select>
    
+   <insert id="insertPerform">
+   insert into work_prfrm
+   (`prfrm_id`, `instr_id`, `line_id`, `item_id`, `prfrm_dt`, `input_qty`, `gb_yn`, `prfrm_qty`, `db_rsns`, 
+   `note`, `insert_id`, `insert_dt`) VALUES
+   (#{prfrm_id}, 1,1,1, #{prfrm_dt}, 1, #{gb_yn}, #{prfrm_qty}, #{db_rsns}, 
+   1,1, #{insert_dt})
+   
+   </insert>
+
+<!--  #{instr_id}, #{line_id}, #{item_id},   #{input_qty},  #{note}, #{insert_id} -->
+   	<select id="getMaxNumP" resultType="java.lang.Integer">
+		select max(prfrm_id) from work_prfrm
+	</select>
+	
+	
+   
+   
+   
 </mapper>

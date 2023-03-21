@@ -2,6 +2,7 @@ package com.itwillbs.work.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -30,8 +31,23 @@ public class PerformDAOImpl implements PerformDAO {
 
 	@Override
 	public List<PerformRgDTO> PerformRgList(int instrId) {
-		System.out.println("PErformDAOImpl PerformRgList()");
+		System.out.println("PerformDAOImpl PerformRgList()");
 		return sqlSession.selectList(namespace+".PerformRgList", instrId);
+	}
+
+	@Override
+	public void insertPerform(Map<String, Object> row) {
+		System.out.println("PerformDAOImpl insertPerform()");
+		
+		sqlSession.insert(namespace+".insertPerform", row);
+	}
+	
+	
+	@Override
+	public Integer getMaxNumP() {
+		System.out.println("PerformDAOImpll getMaxNumP()");
+		
+		return sqlSession.selectOne(namespace+".getMaxNumP");
 	}
 
 	

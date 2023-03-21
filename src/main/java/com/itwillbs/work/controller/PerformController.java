@@ -2,21 +2,30 @@ package com.itwillbs.work.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.json.JSONObject;
 import org.json.JSONArray;
+
 import org.springframework.stereotype.Controller;
+
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.itwillbs.work.domain.InstruListDTO;
 import com.itwillbs.work.domain.PerformRgDTO;
 import com.itwillbs.work.service.PerformService;
+
+
+
 
 
 @Controller
@@ -107,5 +116,27 @@ public class PerformController {
 		return null;
 	}
 	
+	@RequestMapping(value = "/pefSave", method = RequestMethod.GET)
+	public String pefSave(HttpServletRequest request, Map<String, Object> row) {
 
+		System.out.println("PerformController pefSave");
+		
+		String a = request.getParameter("gbYn");
+		String b = request.getParameter("performQty");
+		String c = request.getParameter("dbReason");
+		
+		row.put("gb_yn", a);
+		row.put("prfrm_qty", b);
+		row.put("db_rsns", c);
+        
+        
+		performService.insertPerform(row);
+		
+		return "redirect:/work/performRegist";
+
+	}
+	
+	
 }
+
+
