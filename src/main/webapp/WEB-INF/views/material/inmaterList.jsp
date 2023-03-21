@@ -23,7 +23,7 @@
 	                  {name:'insertId',  	index:'insertId',   align:'center', width:'10%'},
 	                  {name:'insertDt',   	index:'insertDt',   align:'center', width:'10%'}
 	                ]; // name = dto변수명 index = 그리드에서 사용할 이름? , 옵션은 검색해서 사용
-
+ 
 	$(function() { 
 		// document.ready 와 같은 기능
 		// DOM(Document Object Model)이 완전히 불러와지면 실행되는 Event
