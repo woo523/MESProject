@@ -3,8 +3,14 @@
 
 <mapper namespace="com.itwillbs.mappers.instructMapper">
 	
-	<select id="instrList">
-		
+	<select id="instrList" resultType="com.itwillbs.work.domain.InstructDTO">
+		SELECT work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num as orderNum, work.work_dt as workNum, work.work_sts as workSts,
+	          item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, line.line_cd as lineCode, line.line_nm as lineName,
+	          line.pro_cd as linePro, work.work_qty as workQty, work.insert_dt as insertDate, work.insert_id as insertId
+		FROM work_instr work join order_mng oder on work.ord_id = oder.ord_id
+	         join item item on work.item_id = item.item_id
+	         join client clnt on item.clnt_id = clnt.clnt_id
+	         join line line on work.line_id = line.line_id
 	</select>
 
 </mapper>
