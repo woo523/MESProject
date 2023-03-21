@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.service.InmaterialService;
@@ -20,7 +21,13 @@ public class MaterialController {
 	private InmaterialService inmaterialService;
 	
 	@RequestMapping(value = "/material/inmaterList", method = RequestMethod.GET)
-	public List<InmaterialDTO> instructList(Model model) {
+	public String index() {
+		return "material/inmaterList";
+	}
+	
+	@RequestMapping(value = "/material/inmaterList")
+	@ResponseBody
+	public List<InmaterialDTO> inmeterList(Model model) {
 		
 		List<InmaterialDTO> inmaterList = inmaterialService.inmaterList();
 		model.addAttribute("inmaterList", inmaterList);

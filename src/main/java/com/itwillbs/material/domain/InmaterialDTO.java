@@ -16,6 +16,8 @@ public class InmaterialDTO {
 	private String note;	// 비고
 	private String insertId;	// 등록자
 	private Timestamp insertDt;	// 등록일
+	private String updateId; // 변경한 사람
+	private Timestamp updateDt; // 변경일
 	
 	public int getInmtrlId() {
 		return inmtrlId;
@@ -76,5 +78,17 @@ public class InmaterialDTO {
 	}
 	public void setInsertDt(Timestamp insertDt) {
 		this.insertDt = insertDt;
+	}
+	public String getUpdateId() {
+		return updateId;
+	}
+	public void setUpdateId(String updateId) {
+		this.updateId = updateId;
+	}
+	public Timestamp getUpdateDt() {
+		return updateDt;
+	}
+	public void setUpdateDt(Timestamp updateDt) {
+		this.updateDt = updateDt;
 	}
 }

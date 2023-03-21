@@ -5,5 +5,19 @@
 
 <mapper namespace="com.itwillbs.mappers.materialMapper">
 
+	<select id="inmaterList" resultType="com.itwillbs.material.domain.InmaterialDTO">
+		select
+		in_mtrl_id as inmtrlId, 
+		item_id as itemId, 
+		clnt_id as clntId, 
+		in_mtrl_num as inmtrlNum, 
+		in_mtrl_dt as inmtrlDt, 
+		in_mtrl_qty as inmtrlQty, 
+		in_mtrl_lot as inmtrlLot, 
+		note as note, 
+		insert_id as insertId, 
+		insert_dt as insertDt
+		from in_material
+	</select>
    
 </mapper>
