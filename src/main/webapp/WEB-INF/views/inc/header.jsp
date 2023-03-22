@@ -84,8 +84,8 @@
                         <ul class="small_menu">
                             <li><a href="#">작업지시 정보관리</a></li>
                             <li><a href="#">작업지시 현황</a></li>
-                            <li><a href="#">실적등록</a></li>
-                            <li><a href="#">생산실적 현황</a></li>
+                            <li><a href="${pageContext.request.contextPath }/work/performRegist">실적등록</a></li>
+                            <li><a href="${pageContext.request.contextPath }/work/performList">생산실적 현황</a></li>
                         </ul>
                     </ul>
                      <ul class="big_menu">

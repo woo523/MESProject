@@ -57,65 +57,50 @@ function openilist(){
         window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
     }
 
-
-
-
-// function PerformListPrint(result){
-// 	console.log("PerformListPrint 호출");
-
-// 	var output ="";
-
-	
-// 	for (var i=0; i<result.length; i++) {
-	
-// 		output=output+"<tr>";
-// 		output=output+"<td></td>";
-// 		output=output+"</tr>";
-// 		output=output+"<tr>";
-// 		output=output+"<td>"+result[i].rewriter+"</td>";
-// 		output=output+"<td>"+result[i].redate+"</td>";
-// 		output=output+"<td></td>";					
-// 		output=output+"</tr>";
-// 		output=output+"<tr>";
-// 		output=output+"<td>"+result[i].recontents+"</td>";
-// 		output=output+"</tr>";	
-// 		}	
-		
-// 	}
-	
-// 	output=output+"</table>";
-	
-// 	$("#replyList_ajax").html(output); //완성된 출력문을 div에 넣어주는 명령문 innerHtml과 같은 역할
-// }
-
-
-var a;
-
-
-
-function getPerformList(a){
+function getPerformList(a){ // 해당 작업지시번호에 맞는 생산실적 ajax로 불러오기
 	console.log("getPerformList 호출");
 	var instrId = a;
-	alert(instrId);
-// 	console.log("instrId ": +instrId);
+// 	alert(instrId);
 
-	
-// 	$.ajax({
-// 		type : "get",
-// 		url : "${pageContext.request.contextPath }/work/Pflist",
-// 		data : {"instrId" : instrId},
-// 		dataType : "json",
-// 		async : false, 
-// 		/* 동기는 응답을 받을 때까지 기다렸다가 다음 작업을 하는 것 */
-// 		/* 비동기는 요청에 대한 응답이 끝나기 전에 다음 작업을 먼저 함 */
-// 		/* asyns는 기본 값이 true, false이면 응답이 끝나면 다음 작업을 수행하라는 의미 */
-// 		success : function(result){
-// 			console.log("result.length: "+result.length)
-// 			PerformListPrint(result);
-// 		}
-// 	});
+	$.ajax({
+		type : "get",
+		url : "${pageContext.request.contextPath }/work/Pflist",
+		data : {"instrId" : instrId},
+		dataType : "json",
+		async : false, 
+		/* 동기는 응답을 받을 때까지 기다렸다가 다음 작업을 하는 것 */
+		/* 비동기는 요청에 대한 응답이 끝나기 전에 다음 작업을 먼저 함 */
+		/* asyns는 기본 값이 true, false이면 응답이 끝나면 다음 작업을 수행하라는 의미 */
+		success : function(array){
+// 			alert("성공");
+// 			alert("array.length"+ array.length);
+			PerformListPrint(array);
+		} //function(array) 
+		
+	}); // ajax
 } 
 
+function PerformListPrint(array){ // 해당 생산실적 출력
+
+	var output ="<tr id='th' ><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th></tr>";
+
+	if(array.length==0){
+		output=output+"<tr id='con'><td colspan='6'> 해당 자료가 없습니다 </td> </tr>";
+	}else{
+	for (var i=0; i<array.length; i++) {
+	
+		output=output+"<tr id='con'>";
+		output=output+"<td>"+array[i].itemNum+"</td>";
+		output=output+"<td>"+array[i].itemName+"</td>";
+		output=output+"<td>"+array[i].performDate+"</td>";
+		output=output+"<td>"+array[i].gbYn+"</td>";	
+		output=output+"<td>"+array[i].performQty+"</td>";	
+		output=output+"<td>"+array[i].dbReason+"</td>";
+		output=output+"</tr>";	
+		}	
+	}
+	$("#PerformList_ajax").html(output); // innerHtml과 같은 역할
+} //PerformListPrint(array)
 
 
 
@@ -130,12 +115,8 @@ function getPerformList(a){
 	<!-- 내용시작 -->
 	
 		<h1>실적등록</h1>
-		<br><br>
 	<div class="search_bar">
 	<form>
-	
-	<br><br>
-	
 	<table id="btn">
 	<tr><td><button>조회</button></td></tr></table>
 	<table id="search">
@@ -145,7 +126,7 @@ function getPerformList(a){
 		<option value="2"></option>
 		<option value="3"></option>
 		</select></td>
-	<td>지시일자</td> <!-- 유효성 검사 하기 : edate는 sdate 이전일수 없다 -->
+	<td>지시일자</td>
 	<td><input type="date" name="sdate"></td>
 	<td><input type="date" name="edate"></td>
 	<td>품번</td>
@@ -197,18 +178,9 @@ function getPerformList(a){
 
 	
 
-	<table border="1" >
+	<table border="1" id="PerformList_ajax">
 	<tr id="th" ><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th></tr>
-	<div id="PerformList_ajax">
-	<tr>
-	    <td></td>
-	  	<td></td>
-	  	<td></td>
-	  	<td></td>
-	 	<td></td>
-	  	<td></td>
-	</tr>
-	</div>
+	<tr id="con"><td colspan="6"> 해당 자료가 없습니다 </td></tr>
     </table>
 
 	

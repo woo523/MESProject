@@ -21,7 +21,7 @@ public class PerformDAOImpl implements PerformDAO {
 
 	@Override
 	public List<Map<String, Object>> getInstrLiMap() {
-		System.out.println("MemberDAOImpl getInstrLiMap()");
+		System.out.println("PerformDAOImpl getInstrLiMap()");
 		
 		return sqlSession.selectList(namespace+".getInstrLiMap");
 	}
@@ -29,7 +29,7 @@ public class PerformDAOImpl implements PerformDAO {
 
 	@Override
 	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3) {
-		System.out.println("MemberDAOImpl getInstrLiMap(서치용)");
+		System.out.println("PerformDAOImpl getInstrLiMap(서치용)");
 		Map<String,String> search = new HashMap<>();
 		search.put("line", line);
 		search.put("pcd", pcd);
@@ -42,6 +42,14 @@ public class PerformDAOImpl implements PerformDAO {
 		System.out.println("search : "+search);
 	    return sqlSession.selectList(namespace+".getSearchInstrLiMap",search);
 
+	}
+
+
+	@Override
+	public List<Map<String, Object>> getPfLiMap(String instrId) {
+		System.out.println("PerformDAOImpl getPfLiMap(서치용)");
+		
+		return sqlSession.selectList(namespace+".getPfLiMap",instrId);
 	}
 	
 	

@@ -59,6 +59,14 @@ public class PerformController {
 		return "work/itemList";
 	}
 	
+	@RequestMapping(value = "/work/performList", method = RequestMethod.GET)
+	public String performList(Model model) {
+		
+		
+//		model.addAttribute("performList", performList);
+		return "work/performList";
+	}
+	
 	
 
 	

@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.work.dao.PerformDAO;
 
 
-
-
-
 @Service
 public class PerformServiceImpl implements PerformService {
 
@@ -30,6 +27,12 @@ public class PerformServiceImpl implements PerformService {
 		System.out.println("PerformServiceImpl getInstrLiMap(서치용)");
 		return performDAO.getInstrLiMap(line, pcd, sdate, edate, ists1, ists2, ists3);
 
+	}
+
+	@Override
+	public List<Map<String, Object>> getPfLiMap(String instrId) {
+		System.out.println("PerformServiceImpl getPfLiMap()");
+		return performDAO.getPfLiMap(instrId);
 	}
 
 }

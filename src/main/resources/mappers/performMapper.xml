@@ -82,6 +82,36 @@
     </select>
   
 	
+	
+		<!-- 실적등록에 작업지시 부분 -->
+    <resultMap type="map" id="PfLiMap">
+    
+	<!--     column= "디비열이름" property="멤버변수이름" -->
+    <result column="item_num" property="itemNum"/>
+    <result column="item_nm" property="itemName"/>
+    <result column="prfrm_dt" property="performDate"/>
+    <result column="gb_yn" property="gbYn"/>
+    <result column="prfrm_qty" property="performQty"/>
+    <result column="db_rsns" property="dbReason"/>
+
+    
+    </resultMap>
+    
+    
+    <select id="getPfLiMap" resultMap="PfLiMap"> <!-- 처음에 조회되는 작업지시 리스트 -->
+    select 
+    i.item_num, 
+    i.item_nm, 
+    p.prfrm_dt, 
+    p.gb_yn, 
+    p.prfrm_qty, 
+    p.db_rsns
+    from item i join work_prfrm p
+    on i.item_id = p.item_id
+    where p.instr_id = #{instr_id};
+    </select>
+	
+	
    
    
    
