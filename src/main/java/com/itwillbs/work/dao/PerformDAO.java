@@ -18,7 +18,7 @@ public interface PerformDAO {
 	
 	public Integer getMaxNumP();
 	
-	
+	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3);
 	
 	
 }

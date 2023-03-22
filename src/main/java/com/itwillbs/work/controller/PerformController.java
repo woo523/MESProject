@@ -36,15 +36,44 @@ public class PerformController {
 
 	@RequestMapping(value = "/work/performRegist", method = RequestMethod.GET)
 	public String performRegist(Model model, HttpServletRequest request) {
-		request.getAttribute("line");
 		
+		String line = request.getParameter("line");
+		String pcd = request.getParameter("pcd");
+		String sdate = request.getParameter("sdate");
+		String edate = request.getParameter("edate");
+		String ists1 = request.getParameter("ists1");
+		String ists2 = request.getParameter("ists2");
+		String ists3 = request.getParameter("ists3");
 		
-		List<Map<String,Object>> instrList = performService.getInstrLiMap();
+		System.out.println("line :"+line);
 		
-		model.addAttribute("instrList", instrList);
+		if(line == null && pcd == null && sdate == null && edate == null && ists1 == null && ists2 == null && ists3 == null) {
+		
+			List<Map<String,Object>> instrList = performService.getInstrLiMap();
+		
+			model.addAttribute("instrList", instrList);} // 전체 리스트
+		else {
+			List<Map<String,Object>> instrList = performService.getInstrLiMap(line, pcd, sdate, edate, ists1, ists2, ists3);
+			model.addAttribute("instrList", instrList); // 서치 결과 리스트
+		}
+		
 		
 		return "work/performRegist";
 	}
+	
+	@RequestMapping(value = "/work/itemList", method = RequestMethod.GET)
+	public String itemList(Model model) {
+		
+		
+//		model.addAttribute("itemList", itemList);
+		return "work/itemList";
+	}
+	
+	
+
+	
+	
+	
 	
 
 	
@@ -98,7 +127,8 @@ public class PerformController {
 		row.put("prfrm_qty", b);
 		row.put("db_rsns", c);
         
-        
+
+		
 		performService.insertPerform(row);
 		
 		return "redirect:/work/performRegist";

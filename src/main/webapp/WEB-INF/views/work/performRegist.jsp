@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
-
 <style type="text/css">
 table {
     width: 1019px;
@@ -41,10 +40,7 @@ table#search {
  border:1px solid;
 }
 
-
-
 </style>
-
 </head>
 <body>
 
@@ -58,64 +54,66 @@ table#search {
 
 
 function openilist(){
-        window.open("work/itemList","popup", "width=500, height=500,left=100, top=100");
+        window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
     }
 
-var a;
 
 
-function PerformListPrint(result){
-	console.log("PerformListPrint 호출");
 
-	var output ="";
+// function PerformListPrint(result){
+// 	console.log("PerformListPrint 호출");
+
+// 	var output ="";
 
 	
-	for (var i=0; i<result.length; i++) {
+// 	for (var i=0; i<result.length; i++) {
 	
-		output=output+"<tr>";
-		output=output+"<td></td>";
-		output=output+"</tr>";
-		output=output+"<tr>";
-		output=output+"<td>"+result[i].rewriter+"</td>";
-		output=output+"<td>"+result[i].redate+"</td>";
-		output=output+"<td></td>";					
-		output=output+"</tr>";
-		output=output+"<tr>";
-		output=output+"<td>"+result[i].recontents+"</td>";
-		output=output+"</tr>";	
-		}	
+// 		output=output+"<tr>";
+// 		output=output+"<td></td>";
+// 		output=output+"</tr>";
+// 		output=output+"<tr>";
+// 		output=output+"<td>"+result[i].rewriter+"</td>";
+// 		output=output+"<td>"+result[i].redate+"</td>";
+// 		output=output+"<td></td>";					
+// 		output=output+"</tr>";
+// 		output=output+"<tr>";
+// 		output=output+"<td>"+result[i].recontents+"</td>";
+// 		output=output+"</tr>";	
+// 		}	
 		
-	}
+// 	}
 	
-	output=output+"</table>";
+// 	output=output+"</table>";
 	
-	$("#replyList_ajax").html(output); //완성된 출력문을 div에 넣어주는 명령문 innerHtml과 같은 역할
-}
+// 	$("#replyList_ajax").html(output); //완성된 출력문을 div에 넣어주는 명령문 innerHtml과 같은 역할
+// }
 
+
+var a;
 
 
 
 function getPerformList(a){
 	console.log("getPerformList 호출");
 	var instrId = a;
-	
+	alert(instrId);
 	console.log("instrId ": +instrId);
 
 	
-	$.ajax({
-		type : "get",
-		url : "${pageContext.request.contextPath }/work/Pflist",
-		data : {"instrId" : instrId},
-		dataType : "json",
-		async : false, 
-		/* 동기는 응답을 받을 때까지 기다렸다가 다음 작업을 하는 것 */
-		/* 비동기는 요청에 대한 응답이 끝나기 전에 다음 작업을 먼저 함 */
-		/* asyns는 기본 값이 true, false이면 응답이 끝나면 다음 작업을 수행하라는 의미 */
-		success : function(result){
-			console.log("result.length: "+result.length)
-			PerformListPrint(result);
-		}
-	});
+// 	$.ajax({
+// 		type : "get",
+// 		url : "${pageContext.request.contextPath }/work/Pflist",
+// 		data : {"instrId" : instrId},
+// 		dataType : "json",
+// 		async : false, 
+// 		/* 동기는 응답을 받을 때까지 기다렸다가 다음 작업을 하는 것 */
+// 		/* 비동기는 요청에 대한 응답이 끝나기 전에 다음 작업을 먼저 함 */
+// 		/* asyns는 기본 값이 true, false이면 응답이 끝나면 다음 작업을 수행하라는 의미 */
+// 		success : function(result){
+// 			console.log("result.length: "+result.length)
+// 			PerformListPrint(result);
+// 		}
+// 	});
 } 
 
 
@@ -134,7 +132,7 @@ function getPerformList(a){
 		<h1>실적등록</h1>
 		<br><br>
 	<div class="search_bar">
-	<form action="">
+	<form>
 	
 	<br><br>
 	
@@ -142,21 +140,22 @@ function getPerformList(a){
 	<tr><td><button>조회</button></td></tr></table>
 	<table id="search">
 	<tr><td>라인</td>
-	<td><select name="line">
+	<td><select name="line"> <!-- 라인 리스트 완성되면 불러오기 -->
 		<option value="1"></option>
-		<option value="2" selected></option>
+		<option value="2"></option>
 		<option value="3"></option>
 		</select></td>
-	<td>지시일자</td>
+	<td>지시일자</td> <!-- 유효성 검사 하기 : edate는 sdate 이전일수 없다 -->
 	<td><input type="date" name="sdate"></td>
 	<td><input type="date" name="edate"></td>
 	<td>품번</td>
 	<td><input type="text" name="pcd" onclick="openilist()"></td>
 	<td><input type="text" name="pnm" onclick="openilist()"></td></tr>
 	<tr><td>지시상태</td>
-	<td colspan="8"><input type="checkbox" name="ists" value="지시"> 지시 
-	<input type="checkbox" name="ists" value="시작"> 시작 
-	<input type="checkbox" name="ists" value="마감"> 마감</td>
+	<td colspan="8">
+	<input type="checkbox" name="ists1" value="지시"> 지시 
+	<input type="checkbox" name="ists2" value="시작"> 시작 
+	<input type="checkbox" name="ists3" value="마감"> 마감</td>
 	</tr>
 	</table>
 	</form>
@@ -171,7 +170,8 @@ function getPerformList(a){
 	
 	
 	<c:forEach var="idto" items="${instrList }">
-	<tr id="con" onclick="getPerformList(${idto.instrId })"><td>${idto.instrId }</td>
+	<tr id="con" onclick="getPerformList(${idto.instrId })">
+		<td>${idto.instrId }</td>
 		<td>${idto.lineCd }</td>
 	  	<td>${idto.lineName}</td>
 	  	<td>${idto.itemNum}</td>
