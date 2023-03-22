@@ -4,82 +4,121 @@
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 
+<style type="text/css">
+table {
+    width: 1019px;
+  }
+th,td{
+border-bottom: 1px solid black;
+padding: 10px;
+}
+#th {
+	font-weight: bold;
+}
+
+#con {
+	text-align: center;
+}
+
+#btn{
+	text-align:right;
+}
+
+h1{
+	font-weight: bold;
+}
+
+.search_bar tr, td{
+ border:0px;
+}
+
+table#search {
+ border:1px solid;
+}
+
+
+
+</style>
+
+</head>
+<body>
+
+
+
+
+
+
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 
-	//searchResultColNames : 그리드 제목 행
-	var searchResultColNames =  ['자재입고 번호', '품목 번호', '거래처 번호', '입고번호', '입고일자', '입고수량', '입고LOT', '비고', '등록자', '등록일'];
-	
-	// searchResultColModel : 그리드 안에 들어가는 데이터
-	var searchResultColModel =  [
-	                  {name:'inmtrlId',  	index:'inmtrlId',  	align:'center', width:'10%'},
-	                  {name:'itemId',   	index:'itemId',    	align:'left',   width:'10%'},
-	                  {name:'clntId',  		index:'clntId',  	align:'center', width:'10%'},
-	                  {name:'inmtrlNum',	index:'inmtrlNum', 	align:'center', width:'10%'},
-	                  {name:'inmtrlDt',   	index:'inmtrlDt',  	align:'center', width:'10%'},
-	                  {name:'inmtrlQty',   	index:'inmtrlQty',  align:'center', width:'10%'},
-	                  {name:'inmtrlLot',   	index:'inmtrlLot',  align:'center', width:'10%'},
-	                  {name:'note',  		index:'note',   	align:'center', width:'10%'},	         
-	                  {name:'insertId',  	index:'insertId',   align:'center', width:'10%'},
-	                  {name:'insertDt',   	index:'insertDt',   align:'center', width:'10%'}
-	                ]; // name = dto변수명 index = 그리드에서 사용할 이름? , 옵션은 검색해서 사용
- 
-	$(function() { 
-		// document.ready 와 같은 기능
-		// DOM(Document Object Model)이 완전히 불러와지면 실행되는 Event
-		// 페이지가 생길때 function안에 내용을 실행
-	  searchData();
-	  
-	});	
-	
-	
-	function searchData() { //그리드에 뿌려줄 데이터 조회용
-
-		  $("#mainGrid").jqGrid({ // "#mainGrid" == <table id="mainGrid">
-		    url : "/material/inmaterList", // url주소
-		    datatype : "JSON", // 데이터타입
-		    postData : "",	// 넘겨줄데이터->넘겨줄게 없어서 ""공백. 검색어를 넣어준다.
-		    mtype : "GET", // get,post방식
-		    colNames: searchResultColNames, //위에 설정한 그리드 제목 행 틀
-		    colModel: searchResultColModel, //위에 설정한 그리드 안에 들어가는 데이터 틀
-		    rowNum : 10, // 줄 개수 (보여줄 데이터 개수) 
-		    pager: "#pager", // 페이징할 div id
-		    height: 261,
-		    width: 1019
-		  }); // 옵션은 검색해서 사용.
-	}
-	
+function openilist(){
+    window.open("material/itemList","popup", "width=500, height=500,left=100, top=100");
+}
+var a;
 
 </script>
 <!-- 스크립트 끝. -->
 
 
+
+
 <div class="content_body"> <!-- 지우면안됨 -->
 	<!-- 내용시작 -->
-
-	<h2>자재입고</h2>
 	
+		<h1>자재 입고 관리</h1>
+	<div class="search_bar">
+	<form action="">
+	
+	<table id="btn">
+	<tr><td><button>조회</button></td></tr></table>
+	<table id="search">
+	<tr><td>입고일자</td>
+	<td><input type="date" name="sdate"></td>
+	<td><input type="date" name="edate"></td>
+	<td>입고창고</td>
+		<td><select name="line">
+		<option value="1"></option>
+		<option value="2" selected></option>
+		<option value="3"></option>
+		</select></td></tr>
+	<tr><td>품번</td>
+	<td><input type="text" name="pcd" onclick="openilist()"></td>
+	<td><input type="text" name="pnm" onclick="openilist()"></td>
+	<td>업체</td>
+	<td><input type="text" name="pcd" onclick="openilist()"></td>
+	<td><input type="text" name="pnm" onclick="openilist()"></td>
+	</tr>
+	</table>
+	</form>
+	</div>
+
 	<br><br><br>
+	<h2>자재 입고 목록</h2>
+	<br>
+	<table border="1" id="main">	
+	<tr id="th">
+		<th>입고번호</th><th>입고일자</th><th>품번</th><th>품명</th><th>단위</th>
+		<th>입고창고</th><th>현재고</th><th>입고수량</th><th>업체코드</th>
+		<th>업체명</th><th>입고LOT</th><th>비고</th>
+	</tr>
+    </table>
 	
-	<!-- 그리드를 생성할 테이블 -->
-	<table id="mainGrid"></table> <!-- 지우면 안됨 -->
-	
-	<!-- 그리드 페이징을 생성할 div -->
-	<div id="pager"></div> <!-- 지우면 안됨 -->
+
+	<br><br><br>
+
+	<table id="btn">
+		<tr><td><button id="add" onclick="addNewRow()">추가</button>
+				<button>수정</button>
+				<button>삭제</button>
+				<button>취소</button>
+				<button>저장</button></td></tr>
+	</table>
 
 
 
 
-
-
-
-
-
-
-
-
-
-	<!-- 내용끝 -->
-</div><!-- 지우면안됨 -->
+</div>
+</body>
 <!-- 푸터 -->
 <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
+

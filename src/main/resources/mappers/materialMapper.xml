@@ -20,4 +20,13 @@
 		from in_material
 	</select>
    
+     <select id="getInmaterList" resultType="com.itwillbs.material.domain.InmaterialDTO">
+        select * from in_material
+        limit #{startRow} , #{pageSize}  	
+    </select>
+    
+    <select id="getInmaterCount" resultType="java.lang.Integer">
+        select count(*) from in_material
+    </select>
+        
 </mapper>
