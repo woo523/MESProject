@@ -97,7 +97,7 @@ function getPerformList(a){
 	console.log("getPerformList 호출");
 	var instrId = a;
 	alert(instrId);
-	console.log("instrId ": +instrId);
+// 	console.log("instrId ": +instrId);
 
 	
 // 	$.ajax({

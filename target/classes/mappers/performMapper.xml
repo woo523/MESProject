@@ -3,23 +3,7 @@
 
 
 
-<mapper namespace="com.itwillbs.mappers.performMapper">
-  
-	<select id="InstruList" resultType="com.itwillbs.work.domain.InstruListDTO">
-	select 
-	instr_id as instrId, 
-	line_cd as lineCd, 
-	line_nm as lineName, 
-	item_num as itemNum, 
-	item_nm as itemName, 
-	work_sts as workSts, 
-	work_dt as workDate, 
-	work_qty as workQty, 
-	ord_num as ordNum,
-	clnt_nm as ClientName
-	from prfrm1_view
-	</select> <!-- 끝까지 안쓰면 지울것 -->
-   
+<mapper namespace="com.itwillbs.mappers.performMapper"> 
 
    
 	<!-- 실적등록에 작업지시 부분 -->
@@ -97,40 +81,6 @@
 	item_num like CONCAT('%', #{pcd}, '%') 
     </select>
   
-    
-   
-  
-   
-   
-   <!--  안쓰면 지울 것 -->
-   <select id="PerformRgList" resultType="com.itwillbs.work.domain.PerformRgDTO">
-   select 
-   i.item_num as itemNum, 
-   i.item_nm as itemName, 
-   p.prfrm_dt as performDate, 
-   p.gb_yn as gbYn, 
-   p.prfrm_qty as performQty, 
-   p.db_rsns as dbReason
-   from item i join work_prfrm p
-   on i.item_id = p.item_id
-   where p.instr_id = #{instrId}
-   
-   </select>
-   
-   <insert id="insertPerform">
-   insert into work_prfrm
-   (`prfrm_id`, `instr_id`, `line_id`, `item_id`, `prfrm_dt`, `input_qty`, `gb_yn`, `prfrm_qty`, `db_rsns`, 
-   `note`, `insert_id`, `insert_dt`) VALUES
-   (#{prfrm_id}, 1,1,1, #{prfrm_dt}, 1, #{gb_yn}, #{prfrm_qty}, #{db_rsns}, 
-   1,1, #{insert_dt})
-   
-   </insert>
-
-<!--  #{instr_id}, #{line_id}, #{item_id},   #{input_qty},  #{note}, #{insert_id} -->
-   	<select id="getMaxNumP" resultType="java.lang.Integer">
-		select max(prfrm_id) from work_prfrm
-	</select>
-	
 	
    
    
