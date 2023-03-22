@@ -56,9 +56,9 @@
 		</table>
 		<br><br><br>
 		
- 		<button type="button" onclick="location.href='${pageContext.request.contextPath }/member/edit'">수정</button>
+ 		<button type="button" onclick="location.href='/member/edit?id=${memberDTO.id }'">수정</button>
  		
- 		<form name="deleteForm" id="deleteForm" action="${pageContext.request.contextPath }/member/delete"  method="POST">
+ 		<form name="deleteForm" id="deleteForm" action="/member/delete"  method="POST">
  		
  			<input type="hidden" name="id" value="${memberDTO.id }">
  	

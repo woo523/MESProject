@@ -17,7 +17,7 @@
 	<!-- http://localhost:8080/myweb/member/insert -->
 	<!-- http://localhost:8080/myweb/member/insertPro -->
 
-	<form action="${pageContext.request.contextPath }/member/insert" method="post">
+	<form action="/member/insert" method="post">
 		<h1>‖ 사용자 등록 ‖</h1>
 		<br>
 		<br>

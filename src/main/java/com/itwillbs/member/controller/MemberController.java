@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -31,16 +32,12 @@ public class MemberController {
 
 	// 상세화면 이동
 	@RequestMapping(value = "/member/show", method = RequestMethod.GET)
-	public String show(HttpSession session, Model model) {
+	public String show(HttpServletRequest request, HttpServletResponse response, Model model, MemberDTO memberDTO) {
 		System.out.println("MemberController show()");
 
-		String id = (String) session.getAttribute("id");
+		MemberDTO dto = memberService.getMember(memberDTO.getId());
 
-		System.out.println("세션 id : " + id);
-
-		MemberDTO memberDTO = memberService.getMember(id);
-
-		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("memberDTO", dto);
 
 		return "member/show";
 	}
@@ -53,15 +50,12 @@ public class MemberController {
 
 	// 수정화면 이동
 	@RequestMapping(value = "/member/edit", method = RequestMethod.GET)
-	public String edit(HttpSession session, Model model) {
+	public String edit(HttpServletRequest request, HttpServletResponse response, Model model, MemberDTO memberDTO) {
 		System.out.println("MemberController update()");
-		// 세션값 가져오기
-		String id = (String) session.getAttribute("id");
-		System.out.println("세션 id : " + id);
 
-		MemberDTO memberDTO = memberService.getMember(id);
+		MemberDTO dto = memberService.getMember(memberDTO.getId());
 
-		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("memberDTO", dto);
 
 		return "member/edit";
 	}

@@ -17,7 +17,7 @@
 	<!-- http://localhost:8080/myweb/member/insert -->
 	<!-- http://localhost:8080/myweb/member/insertPro -->
 
-	<form action="${pageContext.request.contextPath }/member/update" method="post">
+	<form action="/member/update" method="post">
 		<h1>‖ 사용자 수정 ‖</h1>
 		<br>
 		<br>
@@ -67,7 +67,7 @@
 		<input type="submit" value="수정하기">
 		<input type="reset" value="수정취소">
 	</form>
-	<button type="button" onclick="location.href='${pageContext.request.contextPath }/member/list'">
+	<button type="button" onclick="location.href='/member/list'">
  		메인으로 이동
  		</button>
 	<!-- 내용끝 -->

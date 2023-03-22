@@ -2,17 +2,18 @@
 
 body {
 	padding: 1.5em;
-	/* 	background: #f5f5f5 */
+/* 	background: #f5f5f5 */
 }
 
 table {
-	border: 1px #9aa3af solid;
+	border: 1px #a39485 solid;
 	font-size: .9em;
-	box-shadow: 0px 1px 1px rgb(248 255 255 / 6%);
-	width: 40%;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+	width: 100%;
 	border-collapse: collapse;
-	/* border-radius: 5px; */
-	/* overflow: hidden; */
+	border-radius: 5px;
+	overflow: hidden;
+	
 }
 
 th {
@@ -20,8 +21,10 @@ th {
 	background: #b9b9b9
 }
 
+
 td, th {
 	padding: 1em .5em;
+	
 	vertical-align: middle;
 }
 

@@ -6,7 +6,10 @@
 <link href="/resources/css/tablelist.css"  rel="stylesheet" type="text/css">
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
-
+function delMember(memId) {
+	$("#deleteForm #id").val(memId); // deleteForm이라는 이름의 form의 id값/
+	$("#deleteForm").submit();
+}
 </script>
 <!-- 스크립트 끝. -->
 
@@ -28,23 +31,30 @@
 			<th>직책</th>
 			<th>연락처</th>
 			<th>사용여부</th>
+			<th>삭제</th>
 		</tr>
 		<c:forEach items="${memberList }" var="dto" varStatus="i">
 			<tr>
 				<td>${dto.id }</td>
-				<td>${dto.name }</td>
+				<td>
+					<a href="/member/show?id=${dto.id }">${dto.name }</a>
+				</td>
 				<td>${dto.departments }</td>
 				<td>${dto.position }</td>
 				<td>${dto.phone }</td>
 				<td>${dto.useYn }</td>
+				<td><button type="button" onclick="delMember('${dto.id }');">삭제</button></td>
 			</tr>
 		</c:forEach> 	
 		</table>
 		<br><br>
-		<input type="submit" value="수정하기">
-		<input type="reset" value="수정취소">
+		<button type="button" onclick="location.href='/member/create'">등록</button>
+		
+		<form name="deleteForm" id="deleteForm" action="/member/delete"  method="POST">
+ 			<input type="hidden" id="id" name="id" value="">
+ 		</form>
 
-
+ 			
 
 
 <!-- 내용끝 -->
