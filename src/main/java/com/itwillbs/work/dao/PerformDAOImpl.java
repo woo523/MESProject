@@ -27,26 +27,6 @@ public class PerformDAOImpl implements PerformDAO {
 		return sqlSession.selectList(namespace+".getInstrLiMap");
 	}
 
-	@Override
-	public List<PerformRgDTO> PerformRgList(int instrId) {
-		System.out.println("PerformDAOImpl PerformRgList()");
-		return sqlSession.selectList(namespace+".PerformRgList", instrId);
-	} // 안씀
-
-	@Override
-	public void insertPerform(Map<String, Object> row) {
-		System.out.println("PerformDAOImpl insertPerform()");
-		
-		sqlSession.insert(namespace+".insertPerform", row);
-	} //안씀
-	
-	
-	@Override
-	public Integer getMaxNumP() {
-		System.out.println("PerformDAOImpll getMaxNumP()");
-		
-		return sqlSession.selectOne(namespace+".getMaxNumP");
-	} // 안씀
 
 	@Override
 	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3) {
