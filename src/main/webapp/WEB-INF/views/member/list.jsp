@@ -7,8 +7,8 @@
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 function delMember(memId) {
-	$("#deleteForm #id").val(memId); // deleteForm이라는 이름의 form의 id값/
-	$("#deleteForm").submit();
+	$("#deleteForm #id").val(memId); // ("#deleteForm #id" : deleteForm이라는 이름의 form의 id값만 가져온다 / val(memId) == function delMember(memId) 
+	$("#deleteForm").submit(); // deleteForm을 전송한다.
 }
 </script>
 <!-- 스크립트 끝. -->
@@ -33,7 +33,8 @@ function delMember(memId) {
 			<th>사용여부</th>
 			<th>삭제</th>
 		</tr>
-		<c:forEach items="${memberList }" var="dto" varStatus="i">
+		<c:forEach items="${memberList }" var="dto" varStatus="i" > 
+		<!-- 반복문. items=컨트롤러.model에서 넣어준 값(리스트가 받아올 배열이름) / var=for문 내부에서 사용할 변수 / varStatus = 상태용 변수 -->
 			<tr>
 				<td>${dto.id }</td>
 				<td>

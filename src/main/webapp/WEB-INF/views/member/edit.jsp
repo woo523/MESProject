@@ -11,11 +11,12 @@
 <!-- 스크립트 끝. -->
 
 <div class="content_body">
-	<!-- 지우면안됨 -->
 	<!-- 내용시작 -->
+<!-- 세션값 없으면 로그인화면으로 돌아가게 하는 것. -->
+<c:if test="${empty sessionScope.id }">
+	<c:redirect url="/login/login"></c:redirect>
+</c:if>
 
-	<!-- http://localhost:8080/myweb/member/insert -->
-	<!-- http://localhost:8080/myweb/member/insertPro -->
 
 	<form action="/member/update" method="post">
 		<h1>‖ 사용자 수정 ‖</h1>
@@ -64,12 +65,8 @@
 			</tr>
 		</table>
 		<br><br>
-		<input type="submit" value="수정하기">
-		<input type="reset" value="수정취소">
+		<input type="submit" value="수정">
 	</form>
-	<button type="button" onclick="location.href='/member/list'">
- 		메인으로 이동
- 		</button>
 	<!-- 내용끝 -->
 </div>
 <!-- 지우면안됨 -->

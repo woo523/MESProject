@@ -13,6 +13,12 @@
 <!-- 스크립트 끝. -->
 
 <div class="content_body">
+<!-- 내용시작 -->
+<!-- 세션값 없으면 로그인화면으로 돌아가게 하는 것. -->
+<c:if test="${empty sessionScope.id }">
+	<c:redirect url="/login/login"></c:redirect>
+</c:if>
+
 	<h1>‖ 사용자 조회 ‖</h1> <br><br>
 		<table>
 			<tr>

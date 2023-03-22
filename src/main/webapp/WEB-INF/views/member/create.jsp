@@ -11,11 +11,11 @@
 <!-- 스크립트 끝. -->
 
 <div class="content_body">
-	<!-- 지우면안됨 -->
 	<!-- 내용시작 -->
-
-	<!-- http://localhost:8080/myweb/member/insert -->
-	<!-- http://localhost:8080/myweb/member/insertPro -->
+<!-- 세션값 없으면 로그인화면으로 돌아가게 하는 것. -->
+<c:if test="${empty sessionScope.id }">
+	<c:redirect url="/login/login"></c:redirect>
+</c:if>
 
 	<form action="/member/insert" method="post">
 		<h1>‖ 사용자 등록 ‖</h1>
