@@ -20,18 +20,12 @@ public class InstructController {
 	private InstructService instructService;
 	
 	@RequestMapping(value = "/work/instructList", method = RequestMethod.GET)
-	public String index() {
-		return "work/instructList";
-	}
-	
-	@RequestMapping(value = "/work/instrList")
-	@ResponseBody // 자바객체를 다시 HTTP 응답 바디로 변환
-	public List<InstructDTO> instructList(Model model) {
+	public String instructList(Model model) {
 		
 		List<InstructDTO> instrList = instructService.instrList();
 		model.addAttribute("instrList", instrList);
 
-		return instrList;
+		return "work/instructList";
 	}
 
 }

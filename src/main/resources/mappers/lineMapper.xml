@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.lineMapper">
+	
+	<select id="lineList" resultType="com.itwillbs.line.domain.LineDTO">
+		SELECT line_cd as lineCode,
+			   line_nm as lineName,
+			   pro_cd as proCode,
+			   place as linePlace,
+			   sort_ord as sortOrder,
+			   use_yn as useChoice
+		FROM line	
+	</select>
+	
+</mapper>
