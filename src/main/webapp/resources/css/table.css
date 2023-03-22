@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+ table {
+    width: 400px;
+/*     border: 1px solid #b9b9b9; */
+    border-collapse: collapse; 
+/*     talbe,td간격없앰  */
+
+  }
+  th, td {
+    border: 1px solid #b9b9b9;
+    padding: 15px;
+  }
+  h1{
+  	font-size: 20px;
+  	font-weight: bolder;
+  }

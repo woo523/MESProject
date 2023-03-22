@@ -11,13 +11,10 @@
 	<link href="/resources/css/reset.css"  rel="stylesheet" type="text/css">
 	<link href="/resources/css/style.css"  rel="stylesheet" type="text/css">
 	<link href="/resources/css/jquery/jquery-ui.min.css" rel="stylesheet" type="text/css"  />
-	<link href="/resources/css/jqGrid/ui.jqgrid.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap/bootstrap-datetimepicker.min.css"  media="screen">
 	
 	<!-- 공통JS-->
 	<script type="text/javascript" src="/resources/js/jquery/jquery-3.6.3.js"></script>
-	<script type="text/javascript" src="/resources/js/jqGrid/i18n/grid.locale-kr.js" ></script>
-	<script type="text/javascript" src="/resources/js/jqGrid/minified/jquery.jqGrid.min.js" ></script>
 	<script type="text/javascript" src="/resources/js/jquery/jquery-ui-1.9.2.custom.js"></script>  
 	<script type="text/javascript" src="/resources/js/jquery/jquery-migrate-1.4.1.min.js"></script>  
 	<script type="text/javascript" src="/resources/js/jquery/jquery.cookie.js"></script> 
@@ -58,7 +55,7 @@
                     <ul class="big_menu">
                         <li>시스템관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
-                            <li><a href="${pageContext.request.contextPath }/member/insert">사용자 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath }/member/list">사용자 관리</a></li>
                             <li><a href="#">권한 관리</a></li>
                             <li><a href="">공통 코드 관리</a></li>
                             <li><a href="#">시스템 메뉴 관리</a></li>

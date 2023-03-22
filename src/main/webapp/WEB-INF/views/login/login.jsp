@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
-
+<link href="/resources/css/table.css"  rel="stylesheet" type="text/css">
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 	
@@ -12,13 +12,23 @@
 
 
 <div class="content_body">
-	<!-- 지우면안됨 -->
 	<!-- 내용시작 -->
-	<!-- member/msg.jsp -->
-	<script type="text/javascript">
-		alert("아이디와 비밀번호가 일치하지 않습니다.");
-		history.back();
-	</script>
+	<form action="${pageContext.request.contextPath }/login/loginPro" method="post">
+		<table>
+			<tr>
+				<td>아이디 :</td>
+				<td><input type="text" name="id"></td>
+			</tr>
+			
+			<tr>
+				<td>비밀번호 :</td>
+				<td><input type="password" name="pass"></td>
+			</tr>
+		</table>
+		<br>
+			<input type="submit" value="로그인">
+	</form>
+	<!-- 내용끝 -->
 </div>
 <!-- 지우면안됨 -->
 <!-- 헤더 -->
