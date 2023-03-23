@@ -1,7 +1,6 @@
 package com.itwillbs.work.domain;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import com.itwillbs.line.domain.LineDTO;
 
