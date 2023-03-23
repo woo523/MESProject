@@ -65,17 +65,17 @@ function openilist(){
 <div class="content_body"> <!-- 지우면안됨 -->
 	<!-- 내용시작 -->
 	
-		<h1>자재 입고 관리</h1>
+		<h1>자재 출고 관리</h1>
 	<div class="search_bar">
 	<form action="">
 	
 	<table id="btn">
 	<tr><td><button>조회</button></td></tr></table>
 	<table id="search">
-	<tr><td>입고일자</td>
+	<tr><td>출고일자</td>
 	<td><input type="date" name="sdate"></td>
 	<td><input type="date" name="edate"></td>
-	<td>입고창고</td>
+	<td>출고창고</td>
 		<td><select name="in_stock">
 				<option value="1" selected>전체</option>
 				<option value="2">창고 1</option>
@@ -94,28 +94,27 @@ function openilist(){
 	</div>
 
 	<br><br><br>
-	<h1>자재 입고 목록</h1>
+	<h1>자재 출고 목록</h1>
 	<br>
 	<table border="1" id="main">	
 	<tr id="th">
-		<th>입고번호</th><th>입고일자</th><th>품번</th><th>품명</th><th>단위</th>
-		<th>입고창고</th><th>현재고</th><th>입고수량</th><th>업체코드</th>
-		<th>업체명</th><th>입고LOT</th><th>비고</th>
+		<th>출고번호</th><th>출고일자</th><th>품번</th><th>품명</th><th>단위</th>
+		<th>출고창고</th><th>현재고</th><th>출고수량</th><th>업체코드</th>
+		<th>업체명</th><th>비고</th>
 		
-		<c:forEach var="inte" items="${inmaterList }">
-	<tr id="con" onclick="inmaterList(${inte.inmaterId })">
-			<td>${inte.inmtrlNum}</td>
-			<td>${inte.inmtrlDt}</td>
-		  	<td>${inte.itemNum}</td>
-		  	<td>${inte.itemName}</td>
-		  	<td>${inte.itemUnit}</td></tr>
-		  	<td>${inte.stockwhouse}</td>
-		  	<td>${inte.stockcur}</td>
-		  	<td>${inte.inmtrlQty}</td>
-		  	<td>${inte.clientCode}</td>
-		  	<td>${inte.clientName}</td>
-		  	<td>${inte.inmtrlLot}</td>
-		  	<td>${inte.note}</td>
+		<c:forEach var="outte" items="${outmaterList }">
+	<tr id="con" onclick="outmaterList(${outte.outmaterId })">
+			<td>${outte.outmtrlNum}</td>
+			<td>${outte.outmtrlDt}</td>
+		  	<td>${outte.itemNum}</td>
+		  	<td>${outte.itemName}</td>
+		  	<td>${outte.itemUnit}</td></tr>
+		  	<td>${outte.stockwhouse}</td>
+		  	<td>${outte.stockcur}</td>
+		  	<td>${outte.outmtrlQty}</td>
+		  	<td>${outte.clientCode}</td>
+		  	<td>${outte.clientName}</td>
+		  	<td>${outte.note}</td>
 		</c:forEach>
 	</tr>
 </table>

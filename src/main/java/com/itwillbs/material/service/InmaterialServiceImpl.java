@@ -1,6 +1,7 @@
 package com.itwillbs.material.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -17,12 +18,12 @@ public class InmaterialServiceImpl implements InmaterialService{
 	private InmaterialDAO inmaterialDAO;
 	
 	@Override
-	public List<InmaterialDTO> inmaterList() {
-		System.out.println("InmaterialServiceImpl inmaterList()");
+	public List<Map<String, Object>> inmaterList() {
+		System.out.println("Inmaterial inmaterList()");
 		
 		return inmaterialDAO.inmaterList();
 	}
-
+	
 	@Override
 	public List<InmaterialDTO> getInmaterList(PageDTO pageDTO) {
 		System.out.println("InmaterialImpl getInmaterList()");

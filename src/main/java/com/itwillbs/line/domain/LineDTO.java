@@ -68,5 +68,13 @@ public class LineDTO {
 	public void setInsertDate(Timestamp insertDate) {
 		this.insertDate = insertDate;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "LineDTO [lineId=" + lineId + ", lineCode=" + lineCode + ", lineName=" + lineName + ", proCode="
+				+ proCode + ", linePlace=" + linePlace + ", sortOrder=" + sortOrder + ", useChoice=" + useChoice
+				+ ", insertId=" + insertId + ", insertDate=" + insertDate + "]";
+	}
 
 }
