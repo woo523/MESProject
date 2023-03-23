@@ -46,20 +46,24 @@ public class InmaterialDAOImpl implements InmaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap(String instock, String pcd, String sdate, String edate, String ccd,
-			String cnm) {
+	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String sdate, String edate, String ccd) {
 		System.out.println("InmaterialDAOImpl getInmaterLiMap(서치용)");
 		Map<String,String> search = new HashMap<>();
-		search.put("instock", instock);
+		search.put("whouse", whouse);
 		search.put("pcd", pcd);
 		search.put("sdate", sdate);
 		search.put("edate", edate);
 		search.put("ccd", ccd);
-		search.put("cnm", cnm);
 
 		
 		System.out.println("search : "+search);
-	    return sqlSession.selectList(namespace+".getInmaterLiMap",search);
+	    return sqlSession.selectList(namespace+".getSearchInmaterLiMap",search);
+	}
+
+	@Override
+	public List<Map<String, Object>> getInmaterLiMap() {
+		System.out.println("InmaterialDAOImpl getInmaterLiMap()");
+		return sqlSession.selectList(namespace+".getInmaterLiMap");
 	}
 
 }

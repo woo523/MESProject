@@ -19,14 +19,14 @@ public class InmaterialServiceImpl implements InmaterialService{
 	
 	@Override
 	public List<Map<String, Object>> inmaterList() {
-		System.out.println("Inmaterial inmaterList()");
+		System.out.println("InmaterialServiceImpl inmaterList()");
 		
 		return inmaterialDAO.inmaterList();
 	}
 	
 	@Override
 	public List<InmaterialDTO> getInmaterList(PageDTO pageDTO) {
-		System.out.println("InmaterialImpl getInmaterList()");
+		System.out.println("InmaterialServiceImpl getInmaterList()");
 
 		// 시작하는 행번호 구하기
 		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
@@ -41,15 +41,21 @@ public class InmaterialServiceImpl implements InmaterialService{
 
 	@Override
 	public int getInmaterCount() {
-		System.out.println("Inmaterial getInmaterCount()");
+		System.out.println("InmaterialServiceImpl getInmaterCount()");
 		
 		return inmaterialDAO.getInmaterCount();
 	}
 
-//	@Override
-//	public List<Map<String, Object>> getInmaterLiMap(String instock, String pcd, String sdate, String edate, String ccd, String cnm) {
-//		System.out.println("PerformServiceImpl getInmaterLiMap(서치용)");
-//		return InmaterialDAO.getInmaterLiMap(instock, pcd, sdate, edate, ccd, cnm);
-//	}
+	@Override
+	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String sdate, String edate, String ccd) {
+		System.out.println("InmaterialServiceImpl getInmaterLiMap(서치용)");
+		return inmaterialDAO.getInmaterLiMap(whouse, pcd, sdate, edate, ccd);
+	}
+
+	@Override
+	public List<Map<String, Object>> getInmaterLiMap() {
+		System.out.println("InmaterialServiceImpl getInmaterLiMap()");
+		return inmaterialDAO.getInmaterLiMap();
+	}
 
 }

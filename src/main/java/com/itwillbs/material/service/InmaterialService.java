@@ -14,6 +14,9 @@ public interface InmaterialService {
 
 	public int getInmaterCount();
 
-	public List<Map<String, Object>> getInmaterLiMap(String instock, String pcd, String sdate, String edate, String ccd, String cnm);
+	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String sdate, String edate, String ccd);
+
+	public List<Map<String, Object>> getInmaterLiMap();
+
 }
 
