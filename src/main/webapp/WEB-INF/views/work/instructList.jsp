@@ -35,7 +35,7 @@
 				</select></td>
 			<td>지시일자</td>
 			<!-- 시작시 기본 날짜 설정은 value를 이용 -->
-			<td><input type="text" id="startDatePicker" class="form-control" value="" />
+			<td><input type="text" id="startDatePicker" class="form-control" value="" placeholder="날짜를 선택해주세요" />
 	   			<input type="text" id="endDatePicker" class="form-control" value="" /></td>
 			<td>품번</td>
 			<td><input type="text" placeholder="품번코드">
@@ -83,37 +83,23 @@
 			<th>라인명</th>
 			<th>공정</th>
 		</tr>
-		<c:forEach var="instrDTO" items="${instrList }">
-			<tr>
-				<%-- <td>${instrDTO.workNum}</td>
-				<td>${instrDTO.instrId}</td>
-				<td>${instrDTO.instrId}</td>
-				<td>${instrDTO.workDate}</td>
-				<td>${instrDTO.workSts}</td>
-				<td>${instrDTO.itemNum}</td>
-				<td>${instrDTO.itemName}</td>
-				<td>${instrDTO.itemUnit}</td>
-				<td>${instrDTO.lineCode}</td>
-				<td>${instrDTO.lineName}</td>
-				<td>${instrDTO.linePro}</td>
-				<td>${instrDTO.workQty}</td>
-				<td>${instrDTO.insertDt}</td>
-				<td>${instrDTO.insertId}</td> --%>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-			</tr>
+		<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
+				<tr>
+					<td>${instrDTO.workNum}</td>
+					<td>${instrDTO.workNum}</td>
+					<td>${instrDTO.workNum}</td>
+					<td>${instrDTO.workDate}</td>
+					<td>${instrDTO.workSts}</td>
+					<td>${instrDTO.itemDTO.itemNum}</td>
+					<td>${instrDTO.itemDTO.itemName}</td>
+					<td>${instrDTO.itemDTO.invntUnit}</td>
+					<td>${instrDTO.lineDTO.lineCode}</td>
+					<td>${instrDTO.lineDTO.lineName}</td>
+					<td>${instrDTO.lineDTO.proCode}</td>
+					<td>${instrDTO.workQty}</td>
+					<td>${instrDTO.insertDate}</td>
+					<td>${instrDTO.insertId}</td>
+				</tr>
 		</c:forEach>
 	</table>
 </article>

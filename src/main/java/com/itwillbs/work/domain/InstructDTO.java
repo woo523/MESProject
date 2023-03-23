@@ -1,6 +1,9 @@
 package com.itwillbs.work.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import com.itwillbs.line.domain.LineDTO;
 
 public class InstructDTO {
 	private int instrId;	// 작업지시 기본키
@@ -14,6 +17,10 @@ public class InstructDTO {
 	private int workQty;	// 지시수량
 	private String insertId;	// 등록자
 	private Timestamp insertDate;	// 등록일
+	
+	// InstructDTO : DTO = 1 : n 관계
+	private LineDTO lineDTO;
+	private ItemDTO itemDTO;
 
 	public int getInstrId() {
 		return instrId;
@@ -82,5 +89,18 @@ public class InstructDTO {
 		this.insertDate = insertDate;
 	}
 	
+	// 1:n 관계
+	public LineDTO getLineDTO() {
+		return lineDTO;
+	}
+	public void setLineDTO(LineDTO lineDTO) {
+		this.lineDTO = lineDTO;
+	}
+	public ItemDTO getItemDTO() {
+		return itemDTO;
+	}
+	public void setItemDTO(ItemDTO itemDTO) {
+		this.itemDTO = itemDTO;
+	}
 
 }
