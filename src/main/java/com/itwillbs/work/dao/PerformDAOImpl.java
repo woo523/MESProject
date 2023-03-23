@@ -9,6 +9,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.work.domain.InstructDTO;
+import com.itwillbs.work.domain.PerformDTO;
+
 
 
 @Repository
@@ -47,9 +50,31 @@ public class PerformDAOImpl implements PerformDAO {
 
 	@Override
 	public List<Map<String, Object>> getPfLiMap(String instrId) {
-		System.out.println("PerformDAOImpl getPfLiMap(서치용)");
+		System.out.println("PerformDAOImpl getPfLiMap()");
 		
 		return sqlSession.selectList(namespace+".getPfLiMap",instrId);
+	}
+
+
+	@Override
+	public Map<String, Object> getInstrMap(String instrId) { // 실적 등록에 보여지는 지시 리스트 항목 하나 불러오기
+		System.out.println("PerformDAOImpl getPfLiMap()");
+		
+		return sqlSession.selectOne(namespace+".getInstrMap",instrId);
+	}
+
+
+	@Override
+	public InstructDTO getInstr(String instrId) {
+		System.out.println("PerformDAOImpl getInstr()");
+		return sqlSession.selectOne(namespace+".getInstr",instrId);
+	}
+
+
+	@Override
+	public void insertPf(PerformDTO performDTO) {
+		System.out.println("PerformDAOImpl insertPf()");
+		sqlSession.insert(namespace+".insertPf", performDTO);
 	}
 	
 	

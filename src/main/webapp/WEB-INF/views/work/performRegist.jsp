@@ -29,6 +29,7 @@ padding: 10px;
 	cursor:pointer;
 }
 
+
 #btn{
 	text-align:right;
 }
@@ -45,14 +46,13 @@ table#search {
  border:1px solid;
 }
 
+div#btn{
+	text-align: right;
+	width: 1019px;
+}
 </style>
 </head>
 <body>
-
-
-
-
-
 
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
@@ -61,6 +61,7 @@ table#search {
 function openilist(){
         window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
     }
+
 
 function getPerformList(a){ // 해당 작업지시번호에 맞는 생산실적 ajax로 불러오기
 	console.log("getPerformList 호출");
@@ -80,6 +81,7 @@ function getPerformList(a){ // 해당 작업지시번호에 맞는 생산실적 
 // 			alert("성공");
 // 			alert("array.length"+ array.length);
 			PerformListPrint(array);
+
 		} //function(array) 
 		
 	}); // ajax
@@ -87,27 +89,44 @@ function getPerformList(a){ // 해당 작업지시번호에 맞는 생산실적 
 
 function PerformListPrint(array){ // 해당 생산실적 출력
 
-	var output ="<tr id='th' ><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th></tr>";
-
-	if(array.length==0){
+	var output ="<br>★ 선택한 작업지시 번호는 "+array[0].instrId+"입니다. <br>";
+	output=output+"<div id='btn'><button id='add' onclick='pfRegi("+array[0].instrId+")'>실적 등록</button></div><br>";
+	if(array[0].itemNum==null){
+		output=output+"<총 0건><br>";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
 		output=output+"<tr id='con'><td colspan='6'> 해당 자료가 없습니다 </td> </tr>";
 	}else{
+		output=output+"<총 "+ array.length +"건><br>";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
 	for (var i=0; i<array.length; i++) {
 	
 		output=output+"<tr id='con'>";
-		output=output+"<td>"+array[i].itemNum+"</td>";
+		output=output+"<td><span id='a'>"+array[i].itemNum+"</span></td>";
 		output=output+"<td>"+array[i].itemName+"</td>";
 		output=output+"<td>"+array[i].performDate+"</td>";
 		output=output+"<td>"+array[i].gbYn+"</td>";	
 		output=output+"<td>"+array[i].performQty+"</td>";	
 		output=output+"<td>"+array[i].dbReason+"</td>";
-		output=output+"</tr>";	
-		}	
+		output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
+		output=output+"<a href='${pageContext.request.contextPath}/work/del?performId="+array[i].performId+"'><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>";
+		output=output+"</tr>";
+		
+		}
 	}
+	output=output+"</table>";
+	
 	$("#PerformList_ajax").html(output); // innerHtml과 같은 역할
+
+		
 } //PerformListPrint(array)
 
+function openmodi(a){ // 실적 수정창
+        window.open("${pageContext.request.contextPath}/work/pfmodi?performId="+a,"popup", "width=500, height=500,left=100, top=100");
+    }
 
+function pfRegi(a){ // 실적 등록창
+	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=500,left=100, top=100");
+}
 
 
 </script>
@@ -175,18 +194,13 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	<br><br><br>
 	<h2>생산실적</h2>
 
-	<table id="btn">
-	<tr><td><button id="add" onclick="addNewRow()">추가</button>
-	<button>수정</button>
-	<button>삭제</button>
-	</td></tr></table>
 
-	
-
-	<table border="1" id="PerformList_ajax">
-	<tr id="th" ><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th></tr>
+    <div id="PerformList_ajax">
+	<table border="1">
+	<tr id="th"><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th></tr>
 	<tr id="con"><td colspan="6"> 해당 자료가 없습니다 </td></tr>
     </table>
+    </div>
 
 	
 	

@@ -21,11 +21,19 @@ public class InstructController {
 	
 	@RequestMapping(value = "/work/instructList", method = RequestMethod.GET)
 	public String instructList(Model model) {
+		System.out.println("instructService instructList()");
+
+		return "work/instructList";
+	}
+	
+	@RequestMapping(value = "/work/instructListPro", method = RequestMethod.GET)
+	public String instructListPro(Model model) {
+		System.out.println("instructService instructListPro()");
 		
 		List<InstructDTO> instrList = instructService.instrList();
 		model.addAttribute("instrList", instrList);
-
-		return "work/instructList";
+		
+		return "redirect:/work/instructList";
 	}
 
 }

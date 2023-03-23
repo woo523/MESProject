@@ -18,38 +18,39 @@
 <div class="content_body">
 <article>
 	<h2>작업지시</h2>
-	
-	<div class="selectButtons">
-		<button type="button">조회</button>
-		<button type="button">추가</button>
-	</div>
-	
-	<table class="searchBox">
-		<tr>
-			<td>라인</td>
-			<td><select>
-					<option value="1" selected>전체</option>
-					<option value="2">라인 1</option>
-					<option value="3">라인 2</option>
-					<option value="4">라인 3</option>
-				</select></td>
-			<td>지시일자</td>
-			<!-- 시작시 기본 날짜 설정은 value를 이용 -->
-			<td><input type="text" id="startDatePicker" class="form-control" value="" />
-	   			<input type="text" id="endDatePicker" class="form-control" value="" /></td>
-			<td>품번</td>
-			<td><input type="text" placeholder="품번코드">
-				<input type="text" placeholder="품번명" readonly></td>
-		</tr>
-		<tr>
-			<td>지시상태</td>
-			<td colspan="8">
-				<input type="checkbox" value="order1">지시
-				<input type="checkbox" value="order2">시작
-				<input type="checkbox" value="order3">마감
-			</td>
-		</tr>
-	</table>
+	<form action="${pageContext.request.contextPath}/work/instructListPro" id="instrSearch" method="post">
+		<div class="selectButtons">
+			<button type="submit" form="instrSearch">조회</button>
+			<button type="button" onclick="insertBtn()">추가</button>
+		</div>
+		
+		<table class="searchBox">
+			<tr>
+				<td>라인</td>
+				<td><select name="line" required>
+						<option value="1" selected>전체</option>
+						<option value="2">라인 1</option>
+						<option value="3">라인 2</option>
+						<option value="4">라인 3</option>
+					</select></td>
+				<td>지시일자</td>
+				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
+				<td><input type="text" id="startDatePicker" class="form-control" value="" placeholder="날짜를 선택해주세요" />
+		   			<input type="text" id="endDatePicker" class="form-control" value="" /></td>
+				<td>품번</td>
+				<td><input type="text" placeholder="품번코드">
+					<input type="text" placeholder="품명" readonly></td>
+			</tr>
+			<tr>
+				<td>지시상태</td>
+				<td colspan="8">
+					<input type="checkbox" value="order1">지시
+					<input type="checkbox" value="order2">시작
+					<input type="checkbox" value="order3">마감
+				</td>
+			</tr>
+		</table>
+	</form>
 </article>
 	
 <article>
@@ -83,37 +84,23 @@
 			<th>라인명</th>
 			<th>공정</th>
 		</tr>
-		<c:forEach var="instrDTO" items="${instrList }">
-			<tr>
-				<%-- <td>${instrDTO.workNum}</td>
-				<td>${instrDTO.instrId}</td>
-				<td>${instrDTO.instrId}</td>
-				<td>${instrDTO.workDate}</td>
-				<td>${instrDTO.workSts}</td>
-				<td>${instrDTO.itemNum}</td>
-				<td>${instrDTO.itemName}</td>
-				<td>${instrDTO.itemUnit}</td>
-				<td>${instrDTO.lineCode}</td>
-				<td>${instrDTO.lineName}</td>
-				<td>${instrDTO.linePro}</td>
-				<td>${instrDTO.workQty}</td>
-				<td>${instrDTO.insertDt}</td>
-				<td>${instrDTO.insertId}</td> --%>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-				<td>${instrDTO.workNum}</td>
-			</tr>
+		<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
+				<tr>
+					<td>${instrDTO.workNum}</td>
+					<td>${instrDTO.workNum}</td>
+					<td>${instrDTO.workNum}</td>
+					<td>${instrDTO.workDate}</td>
+					<td>${instrDTO.workSts}</td>
+					<td>${instrDTO.itemDTO.itemNum}</td>
+					<td>${instrDTO.itemDTO.itemName}</td>
+					<td>${instrDTO.itemDTO.invntUnit}</td>
+					<td>${instrDTO.lineDTO.lineCode}</td>
+					<td>${instrDTO.lineDTO.lineName}</td>
+					<td>${instrDTO.lineDTO.proCode}</td>
+					<td>${instrDTO.workQty}</td>
+					<td>${instrDTO.insertDate}</td>
+					<td>${instrDTO.insertId}</td>
+				</tr>
 		</c:forEach>
 	</table>
 </article>
@@ -194,5 +181,10 @@
 
          console.log(e);
       });
+      
+	function insertBtn() {
+		alert("btn");
+	}
+      
 </script>
 </html>
