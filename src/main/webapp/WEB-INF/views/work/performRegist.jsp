@@ -198,7 +198,7 @@ function pfRegi(a){ // 실적 등록창
     <div id="PerformList_ajax">
 	<table border="1">
 	<tr id="th"><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th></tr>
-	<tr id="con"><td colspan="6"> 해당 자료가 없습니다 </td></tr>
+	<tr id="con"><td colspan="6"> 실적 등록할 작업 지시를 클릭해주세요 </td></tr>
     </table>
     </div>
 

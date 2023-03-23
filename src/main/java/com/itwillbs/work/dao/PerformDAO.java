@@ -18,7 +18,7 @@ public interface PerformDAO {
 	
 	public Map<String, Object> getInstrMap(String instrId);
 	
-	public InstructDTO getInstr(String instrId);
+	public InstructDTO getInstr(int instrId);
 	
 	public void insertPf(PerformDTO performDTO);
 }

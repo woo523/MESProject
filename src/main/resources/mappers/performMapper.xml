@@ -83,7 +83,7 @@
     
     
     
-   <select id="getInstrMap" resultMap="InstrLiMap"> <!-- 처음에 조회되는 작업지시 리스트 -->
+   <select id="getInstrMap" resultMap="InstrLiMap"> <!-- 지시번호에 맞는 리스트 들고오기(화면에 출력되는 컬럼) -->
     select 
 	instr_id, 
 	line_cd, 
@@ -119,7 +119,7 @@
     </resultMap>
     
     
-    <select id="getPfLiMap" resultMap="PfLiMap">
+    <select id="getPfLiMap" resultMap="PfLiMap"> 
     select
     p.instr_id,
     p.prfrm_id,
@@ -133,25 +133,25 @@
     on i.item_id = p.item_id
     where p.instr_id = #{instrId};
     </select>
-	
-<!-- 	<select id="getInstr" resultType="com.itwillbs.work.domain.instructDTO"> -->
-<!-- 	select -->
-<!-- 	instr_id as instrId, -->
-<!-- 	line_id as lineId, -->
-<!-- 	ord_id as ordId, -->
-<!-- 	ord_info_id as ordInfoId, -->
-<!-- 	item_id as itemId, -->
-<!-- 	work_num as workNum, -->
-<!-- 	work_sts as workSts, -->
-<!-- 	work_dt as workDate, -->
-<!-- 	work_qty as workQty, -->
-<!-- 	insert_id as insertId, -->
-<!-- 	insert_dt as insertDate -->
-<!-- 	from work_instr -->
-<!-- 	where instr_id = #{instrId} -->
-<!-- 	</select> -->
+    
+    <select id="getInstr" resultType="com.itwillbs.work.domain.InstructDTO">
+	select
+	instr_id as instrId,
+	line_id as lineId,
+	ord_id as ordId,
+	ord_info_id as ordInfoId,
+	item_id as itemId,
+	work_num as workNum,
+	work_sts as workSts,
+	work_dt as workDate,
+	work_qty as workQty,
+	insert_id as insertId,
+	insert_dt as insertDate
+	from work_instr
+	where instr_id = #{instrId}
+	</select>
    
-    <insert id="insertPf">
+    <insert id="insertPf"> <!-- 실적 등록 -->
     insert into work_prfrm
     (prfrm_id,
 	instr_id,

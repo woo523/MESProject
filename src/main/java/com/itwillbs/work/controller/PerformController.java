@@ -1,7 +1,9 @@
 package com.itwillbs.work.controller;
 
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -88,14 +90,31 @@ public class PerformController {
 	}
 	
 
-	@RequestMapping(value = "/work/PinsertPro", method = RequestMethod.POST)
-	public String PinserPro(PerformDTO performDTO, HttpSession session) {
+	@RequestMapping(value = "/work/PinsertPro", method = RequestMethod.GET)
+	public String PinserPro (HttpServletRequest request, HttpSession session){
 
+		PerformDTO performDTO = new PerformDTO();
 		String id = (String)session.getAttribute("id");
 		performDTO.setInsertId(id);
+		performDTO.setInstrId(Integer.parseInt(request.getParameter("instrId")));
+
+
+		String date = request.getParameter("performDate");
+		Date performDate = Date.valueOf(date); // String -> Date(sql)로 변환
+		performDTO.setPerformDate(performDate);
+
+		performDTO.setPerformQty(Integer.parseInt(request.getParameter("performQty")));
+		performDTO.setGbYn(request.getParameter("gbYn"));
+		performDTO.setDbReason(request.getParameter("dbReason"));
+		performDTO.setNote(request.getParameter("note"));
+		
+		System.out.println("수량:"+performDTO.getPerformQty());
+		
 		performService.insertPf(performDTO);
 		
-		return "work/PinsertPro";
+		
+		
+		return "/common/offwindow";
 	}
 	
 

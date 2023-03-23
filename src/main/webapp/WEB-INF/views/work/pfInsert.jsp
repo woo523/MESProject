@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 <style type="text/css">
 
-ul {
-	list-style-type: none;
-}
 
 </style>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
@@ -36,9 +33,37 @@ $(document).ready(function(){
 
         }
     });
+    
+   
 });
 
 
+// function clickEvent(){
+	
+	
+// 	$.ajax({
+// 		  url: '${pageContext.request.contextPath}/work/PinsertPro',   // 이부분에 컨트롤러 매핑값 /ImNotAlone/share/WaitInsert 
+
+// 		  type: 'get',
+// 		  data: {
+// 		    // 보낼 데이터
+// 		  },
+// 		  dataType: 'json, xml, script, text 또는 html',
+// 		  done: function(response) {
+// 		    // 성공 시 동작
+// 		  },
+// 		  fail: function(error) {
+// 		    // 실패 시 동작
+// 		  },
+// 		  always: function(response) {
+// 		    // 성공하든 실패하든 항상 할 동작
+// 		  }
+
+//    	 opener.parent.location.reload();
+
+// 	 window.close();
+
+// 	}
 
 </script> 
 
@@ -56,7 +81,7 @@ $(document).ready(function(){
 품번 : <input type="text"  value="${getInstr.itemNum}" readonly> <br>
 품명 : <input type="text"  value="${getInstr.itemName}" readonly> <br>
 실적일 : <input type="date" name="performDate"> <br>
-실적수량 : <input type="text" name="inputQty"> <br>
+실적수량 : <input type="text" name="performQty"> <br>
 양불여부 : <input type="radio" class="YN" name="gbYn" value="Y"> Y(양품)
 		<input type="radio" class="YN" name="gbYn" value="N"> N(불량)
 		<br>
@@ -73,7 +98,7 @@ $(document).ready(function(){
 비고 : <input type="text" name="note"><br>
 
 
-<input type="submit" value="전송">
+<input type="submit" value="전송" onclick="clickEvent()">
 <button type="reset">취소</button>
 
 </form>

@@ -65,7 +65,7 @@ public class PerformDAOImpl implements PerformDAO {
 
 
 	@Override
-	public InstructDTO getInstr(String instrId) {
+	public InstructDTO getInstr(int instrId) {
 		System.out.println("PerformDAOImpl getInstr()");
 		return sqlSession.selectOne(namespace+".getInstr",instrId);
 	}

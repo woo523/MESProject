@@ -1,5 +1,6 @@
 package com.itwillbs.work.domain;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class PerformDTO { // 생산실적
@@ -8,7 +9,7 @@ public class PerformDTO { // 생산실적
 	private int instrId; // 작업지시 번호
 	private int lineId; // 라인정보 번호
 	private int itemId; // 품목관리 번호
-	private Timestamp performDate; // 실적일자
+	private Date performDate; // 실적일자
 	private int inputQty; // 투입량
 	private String gbYn; // 양불여부
 	private int performQty; // 실적수량
@@ -19,6 +20,12 @@ public class PerformDTO { // 생산실적
 	private String updateId; // 변경한 사람
 	private Timestamp updateDate; // 변경일
 	
+	public Date getPerformDate() {
+		return performDate;
+	}
+	public void setPerformDate(Date performDate) {
+		this.performDate = performDate;
+	}
 	public int getPerformId() {
 		return performId;
 	}
@@ -43,12 +50,7 @@ public class PerformDTO { // 생산실적
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
-	public Timestamp getPerformDate() {
-		return performDate;
-	}
-	public void setPerformDate(Timestamp performDate) {
-		this.performDate = performDate;
-	}
+
 	public int getInputQty() {
 		return inputQty;
 	}

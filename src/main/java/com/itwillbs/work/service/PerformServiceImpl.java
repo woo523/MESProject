@@ -48,14 +48,14 @@ public class PerformServiceImpl implements PerformService {
 	public void insertPf(PerformDTO performDTO) {
 		System.out.println("PerformServiceImpl insertPf()");
 		
-		performDTO.setPerformId(0);
-		System.out.println(performDTO.getInsertId());
-		InstructDTO insDTO = performDAO.getInstr(performDTO.getInsertId());
+		System.out.println("insertID : "+performDTO.getInsertId());
+		InstructDTO insDTO = performDAO.getInstr(performDTO.getInstrId());
+		System.out.println("insDTO : " +insDTO);
 		performDTO.setInstrId(insDTO.getInstrId());
 		performDTO.setLineId(insDTO.getLineId());
 		performDTO.setItemId(insDTO.getItemId());
 		performDTO.setInsertDate(new Timestamp(System.currentTimeMillis()));
-		performDTO.setPerformDate(new Timestamp(System.currentTimeMillis()));
+		System.out.println("수량 :"+performDTO.getPerformQty());
 		performDAO.insertPf(performDTO);
 	}
 
