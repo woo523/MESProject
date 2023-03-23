@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itwillbs.mappers.inmaterialMapper">
+
+
+	<!-- 자재입고에 입고리스트 부분 -->
+    <resultMap type="map" id="InmaterMap">
+    
+	<!--     column= "디비열이름" property="멤버변수이름" -->
+    <result column="in_mtrl_num" property="inmtrlNum"/>
+    <result column="in_mtrl_dt" property="inmtrlDt"/>
+    <result column="in_mtrl_qty" property="inmtrlQty"/>
+    <result column="in_mtrl_lot" property="inmtrlLot"/>
+    <result column="note" property="note"/>
+    <result column="clnt_cd" property="clientCode"/>
+    <result column="clnt_nm" property="clientName"/>
+    <result column="cur_stock" property="stockcur"/>
+    <result column="whouse" property="stockwhouse"/>
+    <result column="item_num" property="itemNum"/>
+    <result column="item_nm" property="itemName"/>
+    <result column="invnt_unit" property="itemUnit"/>
+    
+    
+    </resultMap>
+
+
+
+	<select id="inmaterList" resultMap="InmaterMap"> <!-- 처음에 조회되는 자재입고 리스트 -->
+	select 
+			inmater.in_mtrl_num, 
+			inmater.in_mtrl_dt,  
+			inmater.in_mtrl_qty,			 
+			inmater.in_mtrl_lot, 
+			inmater.note, 
+			clnt.clnt_cd,
+			clnt.clnt_nm,
+			stock.cur_stock,
+			stock.whouse,
+			item.item_num, 
+	    	item.item_nm,
+	    	item.invnt_unit
+		from  
+			in_material inmater join client clnt
+			on inmater.clnt_id = clnt.clnt_id
+			join item item
+			on inmater.item_id = item.item_id
+			join stock stock
+			on item.item_id = stock.item_id	
+	</select>
+   
+   
+     <select id="getInmaterList" resultType="com.itwillbs.material.domain.InmaterialDTO">
+        select * from in_material
+        limit #{startRow} , #{pageSize}  	
+    </select>
+    
+    <select id="getInmaterCount" resultType="java.lang.Integer">
+        select count(*) from in_material
+    </select>
+        
+</mapper>

@@ -1,9 +1,11 @@
 package com.itwillbs.material.dao;
 
 import java.util.List;
+import java.util.Map;
 
-import com.itwillbs.material.domain.OutmaterialDTO;
 
 public interface OutmaterialDAO {
-	public List<OutmaterialDTO> outmaterList();
+	
+	public List<Map<String, Object>> outmaterList();
+	
 }

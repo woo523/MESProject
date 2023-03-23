@@ -1,6 +1,7 @@
 package com.itwillbs.material.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -16,18 +17,18 @@ public class InmaterialDAOImpl implements InmaterialDAO{
 	@Inject
 	private SqlSession sqlSession;
 	
-	private static final String namespace="com.itwillbs.mappers.materialMapper";
+	private static final String namespace="com.itwillbs.mappers.inmaterialMapper";
 	
 	@Override
-	public List<InmaterialDTO> inmaterList() {
-		System.out.println("InstructDAOImpl inmaterList()");
+	public List<Map<String, Object>> inmaterList() {
+		System.out.println("InmaterialDAOImpl inmaterList()");
 		
 		return sqlSession.selectList(namespace + ".inmaterList");
 	}
 
 	@Override
 	public List<InmaterialDTO> getInmaterList(PageDTO pageDTO) {
-		System.out.println("InstructDAOImpl getInmaterList()");
+		System.out.println("InmaterialDAOImpl getInmaterList()");
 		
 		// limit #{startRow-1} , #{pageSize}
 		// (1을 포함하지 않고 10개) 1-1,10 =>  1~10
@@ -38,7 +39,7 @@ public class InmaterialDAOImpl implements InmaterialDAO{
 
 	@Override
 	public int getInmaterCount() {
-		System.out.println("InstructDAOImpl getInmaterCount()");
+		System.out.println("InmaterialDAOImpl getInmaterCount()");
 		
 		return sqlSession.selectOne(namespace+".getInmaterCount");
 	}
