@@ -13,5 +13,7 @@ public interface InmaterialService {
 	public List<InmaterialDTO> getInmaterList(PageDTO pageDTO);
 
 	public int getInmaterCount();
+
+	public List<Map<String, Object>> getInmaterLiMap(String instock, String pcd, String sdate, String edate, String ccd, String cnm);
 }
 

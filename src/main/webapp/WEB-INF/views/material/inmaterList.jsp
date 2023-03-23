@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 
@@ -18,6 +24,11 @@ padding: 10px;
 
 #con {
 	text-align: center;
+}
+
+#con:hover{
+	background-color : #e1e1e1;
+	cursor:pointer;
 }
 
 #btn{
@@ -47,15 +58,16 @@ table#search {
 
 
 
-
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 
 function openilist(){
-    window.open("material/itemList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
-
+function openilist2(){
+    window.open("${pageContext.request.contextPath }/material/clntList","popup", "width=500, height=500,left=100, top=100");
+}
 </script>
 <!-- 스크립트 끝. -->
 
@@ -65,50 +77,53 @@ function openilist(){
 <div class="content_body"> <!-- 지우면안됨 -->
 	<!-- 내용시작 -->
 	
-		<h1>자재 입고 관리</h1>
+<h1>자재 입고 관리</h1>
 	<div class="search_bar">
-	<form action="">
-	
-	<table id="btn">
-	<tr><td><button>조회</button></td></tr></table>
+		<form>
+		
+			<table id="btn">
+				<tr><td><button>조회</button></td></tr>
+			</table>
+			
 	<table id="search">
-	<tr><td>입고일자</td>
-	<td><input type="date" name="sdate"></td>
-	<td><input type="date" name="edate"></td>
-	<td>입고창고</td>
-		<td><select name="in_stock">
+		<tr><td>입고일자</td>
+			<td><input type="date" name="sdate"></td>
+			<td><input type="date" name="edate"></td>
+			<td>입고창고</td>
+			<td><select name="instock">
 				<option value="1" selected>전체</option>
 				<option value="2">창고 1</option>
 				<option value="3">창고 2</option>
 				<option value="4">창고 3</option>
-		</select></td></tr>
-	<tr><td>품번</td>
-	<td><input type="text" placeholder="품번코드"></td>
-	<td><input type="text" placeholder="품번명" readonly></td>
-	<td>업체</td>
-	<td><input type="text" placeholder="업체코드"></td>
-	<td><input type="text" placeholder="업체명" readonly></td>
-	</tr>
-	</table>
+				</select></td></tr>
+	
+			<tr><td>품번</td>
+				<td><input type="text" name="pcd" placeholder="품번코드" onclick="openilist()"></td>
+				<td><input type="text" name="pnm" placeholder="품번명" readonly ></td>
+				<td>업체</td>
+				<td><input type="text" name="ccd" placeholder="업체코드" onclick="openilist2()"></td>
+				<td><input type="text" name="cnm" placeholder="업체명" readonly></td>
+			</tr>
+		</table>
 	</form>
-	</div>
+</div>
 
 	<br><br><br>
 	<h1>자재 입고 목록</h1>
 	<br>
-	<table border="1" id="main">	
+	<table border="1" class="inList">	
 	<tr id="th">
 		<th>입고번호</th><th>입고일자</th><th>품번</th><th>품명</th><th>단위</th>
 		<th>입고창고</th><th>현재고</th><th>입고수량</th><th>업체코드</th>
 		<th>업체명</th><th>입고LOT</th><th>비고</th>
 		
-		<c:forEach var="inte" items="${inmaterList }">
-	<tr id="con" onclick="inmaterList(${inte.inmaterId })">
+	<c:forEach var="inte" items="${inmaterList}">
+		<tr id="con" onclick="inmaterList(${inte.inmaterId})">
 			<td>${inte.inmtrlNum}</td>
 			<td>${inte.inmtrlDt}</td>
 		  	<td>${inte.itemNum}</td>
 		  	<td>${inte.itemName}</td>
-		  	<td>${inte.itemUnit}</td></tr>
+		  	<td>${inte.itemUnit}</td>
 		  	<td>${inte.stockwhouse}</td>
 		  	<td>${inte.stockcur}</td>
 		  	<td>${inte.inmtrlQty}</td>

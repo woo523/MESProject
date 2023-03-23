@@ -1,5 +1,6 @@
 package com.itwillbs.material.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,23 @@ public class InmaterialDAOImpl implements InmaterialDAO{
 		System.out.println("InmaterialDAOImpl getInmaterCount()");
 		
 		return sqlSession.selectOne(namespace+".getInmaterCount");
+	}
+
+	@Override
+	public List<Map<String, Object>> getInmaterLiMap(String instock, String pcd, String sdate, String edate, String ccd,
+			String cnm) {
+		System.out.println("InmaterialDAOImpl getInmaterLiMap(서치용)");
+		Map<String,String> search = new HashMap<>();
+		search.put("instock", instock);
+		search.put("pcd", pcd);
+		search.put("sdate", sdate);
+		search.put("edate", edate);
+		search.put("ccd", ccd);
+		search.put("cnm", cnm);
+
+		
+		System.out.println("search : "+search);
+	    return sqlSession.selectList(namespace+".getInmaterLiMap",search);
 	}
 
 }

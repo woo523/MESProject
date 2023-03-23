@@ -26,6 +26,25 @@ public class InmaterialController {
 	public String inmeterList(HttpServletRequest request, Model model) {
 		System.out.println("MaterialController inmaterList()");
 
+		String instock = request.getParameter("instock");
+		String pcd = request.getParameter("pcd");
+		String sdate = request.getParameter("sdate");
+		String edate = request.getParameter("edate");
+		String ccd = request.getParameter("ccd");
+		String cnm = request.getParameter("cnm");
+		
+		System.out.println("instock :"+instock);
+		
+		if(instock == null && pcd == null && sdate == null && edate == null && ccd == null && cnm == null) {
+			
+//			List<Map<String,Object>> inmaterList = inmaterialService.getInmaterLiMap();
+//		
+//			model.addAttribute("inmaterList", inmaterList);} // 전체 리스트
+//		else {
+//			List<Map<String,Object>> instrList = inmaterialService.getInmaterLiMap(instock, pcd, sdate, edate, ccd, cnm);
+//			model.addAttribute("inmaterList", inmaterList); // 서치 결과 리스트
+		}
+		
 		List<Map<String, Object>> inmaterList =  inmaterialService.inmaterList();
 		
 		
@@ -65,11 +84,25 @@ public class InmaterialController {
 //		pageDTO.setEndPage(endPage);
 //		pageDTO.setPageCount(pageCount);
 //		
-		model.addAttribute("inmaterList", inmaterList);
+		model.addAttribute("inmaterList", inmaterList); // 전체 리스트
 //		model.addAttribute("pageDTO", pageDTO);
 		System.out.println(inmaterList);
 		// 주소변경 없이 이동
 		// /WEB-INF/views/board/list.jsp
 		return "material/inmaterList";
+	}
+	
+	@RequestMapping(value = "/material/itemList", method = RequestMethod.GET)
+	public String itemList(Model model) {
+				
+//		model.addAttribute("itemList", itemList);
+		return "material/itemList";
+	}
+	
+	@RequestMapping(value = "/material/clntList", method = RequestMethod.GET)
+	public String clntList(Model model) {
+				
+//		model.addAttribute("itemList", itemList);
+		return "material/clntList";
 	}
 }

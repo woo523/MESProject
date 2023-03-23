@@ -46,4 +46,10 @@ public class InmaterialServiceImpl implements InmaterialService{
 		return inmaterialDAO.getInmaterCount();
 	}
 
+//	@Override
+//	public List<Map<String, Object>> getInmaterLiMap(String instock, String pcd, String sdate, String edate, String ccd, String cnm) {
+//		System.out.println("PerformServiceImpl getInmaterLiMap(서치용)");
+//		return InmaterialDAO.getInmaterLiMap(instock, pcd, sdate, edate, ccd, cnm);
+//	}
+
 }

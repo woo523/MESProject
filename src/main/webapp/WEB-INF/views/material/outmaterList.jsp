@@ -20,6 +20,11 @@ padding: 10px;
 	text-align: center;
 }
 
+#con:hover{
+	background-color : #e1e1e1;
+	cursor:pointer;
+}
+
 #btn{
 	text-align:right;
 }
@@ -52,7 +57,11 @@ table#search {
 <script type="text/javascript">
 
 function openilist(){
-    window.open("material/itemList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
+}
+
+function openilist2(){
+    window.open("${pageContext.request.contextPath }/material/clntList","popup", "width=500, height=500,left=100, top=100");
 }
 
 
@@ -83,10 +92,10 @@ function openilist(){
 				<option value="4">창고 3</option>
 		</select></td></tr>
 	<tr><td>품번</td>
-	<td><input type="text" placeholder="품번코드"></td>
+	<td><input type="text" placeholder="품번코드" onclick="openilist()"></td>
 	<td><input type="text" placeholder="품번명" readonly></td>
 	<td>업체</td>
-	<td><input type="text" placeholder="업체코드"></td>
+	<td><input type="text" placeholder="업체코드" onclick="openilist2()"></td>
 	<td><input type="text" placeholder="업체명" readonly></td>
 	</tr>
 	</table>
@@ -108,7 +117,7 @@ function openilist(){
 			<td>${outte.outmtrlDt}</td>
 		  	<td>${outte.itemNum}</td>
 		  	<td>${outte.itemName}</td>
-		  	<td>${outte.itemUnit}</td></tr>
+		  	<td>${outte.itemUnit}</td>
 		  	<td>${outte.stockwhouse}</td>
 		  	<td>${outte.stockcur}</td>
 		  	<td>${outte.outmtrlQty}</td>
