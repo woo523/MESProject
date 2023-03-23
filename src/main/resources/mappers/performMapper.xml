@@ -80,13 +80,34 @@
 	and
 	item_num like CONCAT('%', #{pcd}, '%') 
     </select>
+    
+    
+    
+   <select id="getInstrMap" resultMap="InstrLiMap"> <!-- 처음에 조회되는 작업지시 리스트 -->
+    select 
+	instr_id, 
+	line_cd, 
+	line_nm, 
+	item_num, 
+	item_nm, 
+	work_sts, 
+	work_dt, 
+	work_qty, 
+	ord_num,
+	clnt_nm
+	from prfrm1_view
+	where instr_id = #{instrId}
+    </select>
+    
   
 	
 	
-		<!-- 실적등록에 작업지시 부분 -->
+	<!-- 실적등록 부분 -->
     <resultMap type="map" id="PfLiMap">
     
 	<!--     column= "디비열이름" property="멤버변수이름" -->
+	<result column="instr_id" property="instrId"/>
+	<result column="prfrm_id" property="performId"/>
     <result column="item_num" property="itemNum"/>
     <result column="item_nm" property="itemName"/>
     <result column="prfrm_dt" property="performDate"/>
@@ -98,8 +119,10 @@
     </resultMap>
     
     
-    <select id="getPfLiMap" resultMap="PfLiMap"> <!-- 처음에 조회되는 작업지시 리스트 -->
-    select 
+    <select id="getPfLiMap" resultMap="PfLiMap">
+    select
+    p.instr_id,
+    p.prfrm_id,
     i.item_num, 
     i.item_nm, 
     p.prfrm_dt, 
@@ -108,11 +131,54 @@
     p.db_rsns
     from item i join work_prfrm p
     on i.item_id = p.item_id
-    where p.instr_id = #{instr_id};
+    where p.instr_id = #{instrId};
     </select>
 	
-	
+<!-- 	<select id="getInstr" resultType="com.itwillbs.work.domain.instructDTO"> -->
+<!-- 	select -->
+<!-- 	instr_id as instrId, -->
+<!-- 	line_id as lineId, -->
+<!-- 	ord_id as ordId, -->
+<!-- 	ord_info_id as ordInfoId, -->
+<!-- 	item_id as itemId, -->
+<!-- 	work_num as workNum, -->
+<!-- 	work_sts as workSts, -->
+<!-- 	work_dt as workDate, -->
+<!-- 	work_qty as workQty, -->
+<!-- 	insert_id as insertId, -->
+<!-- 	insert_dt as insertDate -->
+<!-- 	from work_instr -->
+<!-- 	where instr_id = #{instrId} -->
+<!-- 	</select> -->
    
+    <insert id="insertPf">
+    insert into work_prfrm
+    (prfrm_id,
+	instr_id,
+	line_id,
+	item_id, 
+	prfrm_dt, 
+	input_qty,
+	gb_yn,
+	prfrm_qty,
+	db_rsns,
+	note,
+	insert_id,  
+	insert_dt)
+	values
+	(performId,
+	instrId,
+	lineId,
+	itemId,
+	performDate,
+	inputQty,
+	gbYn,
+	performQty,
+	dbReason,
+	note,
+	insertId,
+	insertDate)
+    </insert>
    
    
 </mapper>

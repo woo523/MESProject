@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.itwillbs.work.domain.PerformDTO;
+
 
 @Service
 public interface PerformService {
@@ -15,4 +17,7 @@ public interface PerformService {
 	
 	public List<Map<String, Object>> getPfLiMap(String instrId);
 
+	public Map<String, Object> getInstrMap(String instrId);
+	
+	public void insertPf(PerformDTO performDTO);
 }
