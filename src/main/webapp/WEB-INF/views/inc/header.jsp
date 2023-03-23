@@ -34,18 +34,18 @@
 		
 		<c:choose>
 			<c:when test="${id==null }">
-				<div id="login" onclick="location.href='${pageContext.request.contextPath }/member/login'">로그인</div>
+				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/login'">로그인</div>
 			</c:when>
 			<c:otherwise>
 				<div id="login">로그인 아이디:${id }</div>
-				<div id="login" onclick="location.href='${pageContext.request.contextPath }/member/logout'">로그아웃</div>
+				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/logout'">로그아웃</div>
 			</c:otherwise>
 		</c:choose>
 		
 		</div>
 		
 		<header>
-			<img src="/resources/image/logo.png" title="로고" onclick="location.href='${pageContext.request.contextPath }/member/login'">
+			<img src="/resources/image/logo.png" title="로고" onclick="location.href='${pageContext.request.contextPath }/login/login'">
 		</header>
 		
 		<div class="containerBody">
@@ -55,7 +55,7 @@
                     <ul class="big_menu">
                         <li>시스템관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
-                            <li><a href="${pageContext.request.contextPath }/member/list">사용자 관리</a></li>
+                            <li><a href="/member/list">사용자 관리</a></li>
                             <li><a href="#">권한 관리</a></li>
                             <li><a href="">공통 코드 관리</a></li>
                             <li><a href="#">시스템 메뉴 관리</a></li>
