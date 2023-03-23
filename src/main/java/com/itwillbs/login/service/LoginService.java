@@ -8,4 +8,6 @@ public interface LoginService {
 	// 추상메서드 틀 정의
 	
 	public MemberDTO login(MemberDTO memberDTO);
+	
+	public MemberDTO idCheck(MemberDTO memberDTO);
 }

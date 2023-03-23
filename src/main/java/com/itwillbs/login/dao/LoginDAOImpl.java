@@ -18,8 +18,8 @@ public class LoginDAOImpl implements LoginDAO {
 
 
 	@Override
-	public MemberDTO login(MemberDTO memberDTO) {
-		System.out.println("MemberDAOImpl userCheck()");
+	public MemberDTO login(MemberDTO memberDTO) {// 로그인체크
+		System.out.println("LoginDAOImpl login() 로그인체크");
 
 		// selectOne = 리턴값이 MemberDTO 하나일 때 사용
 		return sqlSession.selectOne(namespace + ".login", memberDTO);
@@ -27,4 +27,14 @@ public class LoginDAOImpl implements LoginDAO {
 
 	}
 
+
+	@Override
+	public MemberDTO idCheck(MemberDTO memberDTO) {
+		System.out.println("LoginDAOImpl idCheck() 중복확인");
+		
+		return sqlSession.selectOne(namespace + ".idCheck", memberDTO);
+		// (이름+".전체이름",변수);
+	}
+
+		
 }

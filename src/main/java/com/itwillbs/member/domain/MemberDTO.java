@@ -9,8 +9,8 @@ public class MemberDTO {
 	private String departments;
 	private String position;
 	private String email;
-	private int tell;
-	private int phone;
+	private String tell;
+	private String phone;
 	private String useYn;
 	private String insertId;
 	private Date insertDt;
@@ -50,16 +50,17 @@ public class MemberDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getTell() {
+
+	public String getTell() {
 		return tell;
 	}
-	public void setTell(int tell) {
+	public void setTell(String tell) {
 		this.tell = tell;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public String getUseYn() {

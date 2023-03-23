@@ -14,6 +14,12 @@
         where id = #{id} and pass = #{pass} 
     </select>
     
+    <!-- 중복확인 -->
+    <select id="idCheck" resultType="com.itwillbs.member.domain.MemberDTO">
+    	select * 
+    	from user
+    	where id = #{id}
+    </select>
    
 </mapper>
 

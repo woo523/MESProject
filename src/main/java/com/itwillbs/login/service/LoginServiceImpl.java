@@ -16,9 +16,16 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public MemberDTO login(MemberDTO memberDTO) {
-		System.out.println("MemberServiceImpl login()");
+		System.out.println("LoginServiceImpl login()");
 		
 		return loginDAO.login(memberDTO);
+	}
+
+	@Override
+	public MemberDTO idCheck(MemberDTO memberDTO) {
+		System.out.println("LoginServiceImpl idCheck()");
+		
+		return loginDAO.idCheck(memberDTO);
 	}
 
 
