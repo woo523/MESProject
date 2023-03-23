@@ -1,5 +1,6 @@
 package com.itwillbs.work.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.work.dao.PerformDAO;
+import com.itwillbs.work.domain.InstructDTO;
+import com.itwillbs.work.domain.PerformDTO;
 
 
 @Service
@@ -33,6 +36,27 @@ public class PerformServiceImpl implements PerformService {
 	public List<Map<String, Object>> getPfLiMap(String instrId) {
 		System.out.println("PerformServiceImpl getPfLiMap()");
 		return performDAO.getPfLiMap(instrId);
+	}
+
+	@Override
+	public Map<String, Object> getInstrMap(String instrId) {
+		System.out.println("PerformServiceImpl getInstrMap()");
+		return performDAO.getInstrMap(instrId);
+	}
+
+	@Override
+	public void insertPf(PerformDTO performDTO) {
+		System.out.println("PerformServiceImpl insertPf()");
+		
+		performDTO.setPerformId(0);
+
+		InstructDTO insDTO = performDAO.getInstr(performDTO.getInsertId());
+		performDTO.setInstrId(insDTO.getInstrId());
+		performDTO.setLineId(insDTO.getLineId());
+		performDTO.setItemId(insDTO.getItemId());
+		performDTO.setInsertDate(new Timestamp(System.currentTimeMillis()));
+		performDTO.setPerformDate(new Timestamp(System.currentTimeMillis()));
+		performDAO.insertPf(performDTO);
 	}
 
 }
