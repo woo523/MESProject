@@ -88,14 +88,14 @@ public class PerformController {
 	}
 	
 
-	@RequestMapping(value = "/work/PinserPro", method = RequestMethod.POST)
+	@RequestMapping(value = "/work/PinsertPro", method = RequestMethod.POST)
 	public String PinserPro(PerformDTO performDTO, HttpSession session) {
 
 		String id = (String)session.getAttribute("id");
 		performDTO.setInsertId(id);
 		performService.insertPf(performDTO);
 		
-		return "work/PinserPro";
+		return "work/PinsertPro";
 	}
 	
 

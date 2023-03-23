@@ -49,7 +49,7 @@ public class PerformServiceImpl implements PerformService {
 		System.out.println("PerformServiceImpl insertPf()");
 		
 		performDTO.setPerformId(0);
-
+		System.out.println(performDTO.getInsertId());
 		InstructDTO insDTO = performDAO.getInstr(performDTO.getInsertId());
 		performDTO.setInstrId(insDTO.getInstrId());
 		performDTO.setLineId(insDTO.getLineId());

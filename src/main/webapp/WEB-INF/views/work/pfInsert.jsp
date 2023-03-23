@@ -47,7 +47,7 @@ $(document).ready(function(){
 <h2>생산 실적 등록 </h2>
 
 
-<form action="${pageContext.request.contextPath }/work/PinserPro">
+<form action="${pageContext.request.contextPath }/work/PinsertPro">
 
 ★ 등록할 작업지시 번호 : ${getInstr.instrId} <br>
 
@@ -73,7 +73,7 @@ $(document).ready(function(){
 비고 : <input type="text" name="note"><br>
 
 
-<button type="submit">전송</button>
+<input type="submit" value="전송">
 <button type="reset">취소</button>
 
 </form>

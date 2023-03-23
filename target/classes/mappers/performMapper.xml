@@ -166,18 +166,18 @@
 	insert_id,  
 	insert_dt)
 	values
-	(performId,
-	instrId,
-	lineId,
-	itemId,
-	performDate,
-	inputQty,
-	gbYn,
-	performQty,
-	dbReason,
-	note,
-	insertId,
-	insertDate)
+	(#{performId},
+	#{instrId},
+	#{lineId},
+	#{itemId},
+	#{performDate},
+	#{inputQty},
+	#{gbYn},
+	#{performQty},
+	#{dbReason},
+	#{note},
+	#{insertId},
+	#{insertDate})
     </insert>
    
    
