@@ -1,6 +1,8 @@
+<%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +20,7 @@
 <div class="content_body">
 <article>
 	<h2>작업지시</h2>
-	<form action="${pageContext.request.contextPath}/work/instructListPro" id="instrSearch" onsubmit="return formCheck()" method="post">
+	<form id="instrSearch">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
 			<button type="button" onclick="insertBtn()">추가</button>
@@ -28,15 +30,15 @@
 			<tr>
 				<td>라인</td>
 				<td><select name="lineName" required>
-						<option value="1" selected>전체</option>
-						<option value="2">라인 1</option>
-						<option value="3">라인 2</option>
-						<option value="4">라인 3</option>
+						<option value="0" selected>전체</option>
+						<option value="1">라인 1</option>
+						<option value="2">라인 2</option>
+						<option value="3">라인 3</option>
 					</select></td>
 				<td>지시일자</td>
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
-				<td><input type="text" id="startDatePicker" class="form-control" name="workDate" value="" placeholder="날짜를 선택해주세요" />
-		   			<input type="text" id="endDatePicker" class="form-control" value="" /></td>
+				<td><input type="text" id="startDatePicker" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" />
+		   			<input type="text" id="endDatePicker" class="form-control" name="endDate" /></td>
 				<td>품번</td>
 				<td><input type="text" name="itemNum" placeholder="품번코드">
 					<input type="text" placeholder="품명" readonly></td>
@@ -44,9 +46,9 @@
 			<tr>
 				<td>지시상태</td>
 				<td colspan="8">
-					<input type="checkbox" name="workSts" value="1" class="sCheck">지시
-					<input type="checkbox" name="workSts" value="2" class="sCheck">시작
-					<input type="checkbox" name="workSts" value="3" class="sCheck">마감
+					<input type="checkbox" name="workSts1" value="지시" class="sCheck">지시
+					<input type="checkbox" name="workSts2" value="시작" class="sCheck">시작
+					<input type="checkbox" name="workSts3" value="마감" class="sCheck">마감
 				</td>
 			</tr>
 		</table>

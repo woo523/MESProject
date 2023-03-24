@@ -23,30 +23,32 @@ public class InstructController {
 	private InstructService instructService;
 	
 	@RequestMapping(value = "/work/instructList", method = RequestMethod.GET)
-	public String instructList(Model model) {
+	public String instructList(HttpServletRequest request, Model model) {
 		System.out.println("InstructController instructList()");
-
-		return "work/instructList";
-	}
-	
-	@RequestMapping(value = "/work/instructListPro", method = RequestMethod.POST)
-	public String instructListPro(Model model, HttpServletRequest request) {
-		System.out.println("InstructController instructListPro()");
 		
 		String lineName = request.getParameter("lineName");
-		String workDate = request.getParameter("workDate");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
 		String itemNum = request.getParameter("itemNum");
-		// String edate = request.getParameter("edate");
-		String workSts = request.getParameter("workSts");
-		System.out.println(lineName);
-		System.out.println(workDate);
-		System.out.println(itemNum);
-		System.out.println(workSts);
+		String workSts1 = request.getParameter("workSts1");
+		String workSts2 = request.getParameter("workSts2");
+		String workSts3 = request.getParameter("workSts3");
+		System.out.println("라인 : " + lineName);
+		System.out.println("지시일자 : " + startDate);
+		System.out.println("지시일자 : " + endDate);
+		System.out.println("품번 : " + itemNum);
+		System.out.println("지시상태 : " + workSts1);
+		System.out.println("지시상태 : " + workSts2);
+		System.out.println("지시상태 : " + workSts3);
 		
-		List<Map<String, Object>> instrList = instructService.instrList(lineName, workDate, itemNum, workSts);
-		model.addAttribute("instrList", instrList);
-		
-		return "redirect:/work/instructList";
+		if(lineName == null && itemNum == null && startDate == null && endDate == null && workSts1 == null && workSts2 == null && workSts3 == null) {
+			List<Map<String, Object>> instrList = instructService.instrList();
+			model.addAttribute("instrList", instrList);
+		} else {
+			List<Map<String, Object>> instrList = instructService.instrList(lineName, itemNum, startDate, endDate, workSts1, workSts2, workSts3);
+			model.addAttribute("instrList", instrList);
+		}
+		return "work/instructList";
 	}
 
 }

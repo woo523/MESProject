@@ -18,10 +18,17 @@ public class InstructServiceImpl implements InstructService{
 	private InstructDAO instructDAO;
 
 	@Override
-	public List<Map<String, Object>> instrList(String lineName, String workDate, String itemNum, String workSts) {
-		System.out.println("InstructServiceImpl instrList()");
+	public List<Map<String, Object>> instrList() {
+		// TODO Auto-generated method stub
+		return instructDAO.instrList();
+	}
+
+	@Override
+	public List<Map<String, Object>> instrList(String lineName, String startDate, String endDate, String itemNum,
+			String workSts1, String workSts2, String workSts3) {
+		System.out.println("InstructServiceImpl instrList");
 		
-		return instructDAO.instrList(lineName, workDate, itemNum, workSts);
+		return instructDAO.instrList(lineName, startDate, endDate, itemNum, workSts1, workSts2, workSts3);
 	}
 	
 }

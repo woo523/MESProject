@@ -26,8 +26,18 @@
 		<collection property="itemDTO" resultMap="itemMap" />
 	</resultMap>
 	
-	<!-- instructList 메인 select 구문 -->
+	<!-- instructList 메인 전체 select 구문 -->
 	<select id="instrList" resultMap="instrMap">
+		<include refid="List" />
+	</select>
+	
+	<!-- instructList 조회 select 구문 -->
+	<select id="instrSearch" resultMap="instrMap">
+		<include refid="List" />
+		<include refid="Search" />
+	</select>
+	
+	<sql id="List">
 		SELECT work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num as orderNum, 
 			   work.work_dt as workDate, work.work_sts as workSts,
           	   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
@@ -37,12 +47,29 @@
         JOIN item item ON work.item_id = item.item_id
         JOIN client clnt ON item.clnt_id = clnt.clnt_id
         JOIN line line ON work.line_id = line.line_id
-        <where>
-			<if test="lineName != null">AND line.line_nm=${lineName}</if>
-			<if test="workDate != null">AND work.work_dt=${workDate}</if>
-			<if test="itemNum != null">AND item.item_num=${itemNum}</if>
-			<if test="workSts != null">AND work.work_sts=${workSts}</if>
-		</where>
-	</select>
+	</sql>
+	
+	<sql id="Search">
+		WHERE line.line_cd like CONCAT('%', #{lineName}, '%')
+		<if test="startDate != '' and endDate != ''">
+			AND work_dt BETWEEN	#{startDate} and #{endDate}
+		</if>
+		<if test="startDate == '' and endDate == ''">
+		</if>
+		<if test="startDate != ''">
+			AND work_dt &gt;=#{startDate}
+		</if>
+		<if test="endDate != ''">
+			AND work_dt &lt;=#{endDate}
+		</if>
+		<choose>
+			<when test="(workSts1=='' and woskSts2=='' and workSts3=='') or (workSts1==null and workSts2==null and workSts3==null)">
+			</when>
+			<otherwise>
+				AND (work_sts = #{workSts1} or work_sts = #{workSts2} or work_sts = #{workSts3})
+			</otherwise>
+		</choose>
+		AND item.item_num LIKE CONCAT('%' , #{itemNum}, '%')
+	</sql>
 
 </mapper>
