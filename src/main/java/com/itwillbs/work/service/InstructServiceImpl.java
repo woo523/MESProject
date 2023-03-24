@@ -19,16 +19,8 @@ public class InstructServiceImpl implements InstructService{
 
 	@Override
 	public List<Map<String, Object>> instrList() {
-		// TODO Auto-generated method stub
-		return instructDAO.instrList();
-	}
-
-	@Override
-	public List<Map<String, Object>> instrList(String lineName, String startDate, String endDate, String itemNum,
-			String workSts1, String workSts2, String workSts3) {
-		// System.out.println("InstructServiceImpl instrList");
 		
-		return instructDAO.instrList(lineName, startDate, endDate, itemNum, workSts1, workSts2, workSts3);
+		return instructDAO.instrList();
 	}
 
 	@Override
