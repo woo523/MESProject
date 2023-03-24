@@ -79,28 +79,30 @@ function openilist2(){
 	<form action="">
 	
 	<table id="btn">
-	<tr><td><button>조회</button></td></tr></table>
+		<tr><td><button>조회</button></td></tr>
+	</table>
+	
 	<table id="search">
-	<tr><td>출고일자</td>
-	<td><input type="date" name="sdate"></td>
-	<td><input type="date" name="edate"></td>
-	<td>출고창고</td>
-		<td><select name="in_stock">
+		<tr><td>출고일자</td>
+			<td><input type="date" name="sdate"></td>
+			<td><input type="date" name="edate"></td>
+			<td>출고창고</td>
+			<td><select name="outstock">
 				<option value="1" selected>전체</option>
 				<option value="2">창고 1</option>
 				<option value="3">창고 2</option>
 				<option value="4">창고 3</option>
 		</select></td></tr>
-	<tr><td>품번</td>
-	<td><input type="text" placeholder="품번코드" onclick="openilist()"></td>
-	<td><input type="text" placeholder="품번명" readonly></td>
-	<td>업체</td>
-	<td><input type="text" placeholder="업체코드" onclick="openilist2()"></td>
-	<td><input type="text" placeholder="업체명" readonly></td>
-	</tr>
-	</table>
+		<tr><td>품번</td>
+			<td><input type="text" name="pcd" placeholder="품번코드" onclick="openilist()"></td>
+			<td><input type="text" name="pnm" placeholder="품번명" readonly></td>
+			<td>업체</td>
+			<td><input type="text" name="ccd" placeholder="업체코드" onclick="openilist2()"></td>
+			<td><input type="text" name="cnm" placeholder="업체명" readonly></td>
+		</tr>
+		</table>
 	</form>
-	</div>
+</div>
 
 	<br><br><br>
 	<h1>자재 출고 목록</h1>

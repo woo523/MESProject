@@ -23,12 +23,23 @@ public class OutmaterialController {
 	public String outmeterList(HttpServletRequest request, Model model) {
 		System.out.println("MaterialController outmaterList()");
 
-		List<Map<String, Object>> outmaterList =  outmaterialService.outmaterList();
-
-		model.addAttribute("outmaterList", outmaterList);
+		String whouse = request.getParameter("whouse");
+		String pcd = request.getParameter("pcd");
+		String sdate = request.getParameter("sdate");
+		String edate = request.getParameter("edate");
+		String ccd = request.getParameter("ccd");
 		
-		System.out.println(outmaterList);
+System.out.println("whouse :"+whouse);
 		
-		return "material/outmaterList";
+	if(whouse == null && pcd == null && sdate == null && edate == null && ccd == null){
+			
+		List<Map<String, Object>> outmaterList =  outmaterialService.getOutmaterLiMap();
+		
+		model.addAttribute("outmeterList", outmaterList);} // 전체 리스트	
+	else{
+		List<Map<String,Object>> outmaterList = outmaterialService.getOutmaterLiMap(whouse, pcd, sdate, edate, ccd);
+		model.addAttribute("outmaterList", outmaterList); // 서치 결과 리스트	
+	}
+	return "material/outmaterList";
 	}
 }
