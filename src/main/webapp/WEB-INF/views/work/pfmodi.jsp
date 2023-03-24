@@ -20,6 +20,18 @@
 
 $(document).ready(function(){
 	
+	
+	// 기존 값 radio 및 select에 불러오기
+	var Reason = "${pfDTO.dbReason}";
+	var YB = "${pfDTO.gbYn}";
+
+	$("#dbReason").val(Reason).prop("selected",true); 
+	$("#"+YB).prop("checked", true);
+
+	if(YB=="Y"){ // 이미 불러와있는 값은 위의 click(function)이 안먹음, 다시 비활성화 설정
+		   $("select[name=dbReason]").attr("disabled",true);
+	}
+	
 	$("input:radio[name=gbYn]").click(function(){
   
         if($("input[name=gbYn]:checked").val() == "N"){
@@ -31,16 +43,9 @@ $(document).ready(function(){
         }
     });
     
-	var Reason = "${pfDTO.dbReason}";
-	var YB = "${pfDTO.gbYn}";
-	$("#dbReason").val(Reason).prop("selected",true); 
-	$("#"+YB).prop("checked", true);
 
-	if(YB=="Y"){
-		   $("select[name=dbReason]").attr("disabled",true);
-	}
 	
-	$('#update').submit(function(){
+	$('#update').submit(function(){ // 유효성 검사
     if($('.pfDate').val()==null||$('.pfDate').val()==""){
     	alert("실적일을 입력하세요");
 		$('.pfDate').focus();
@@ -63,10 +68,13 @@ $(document).ready(function(){
     	}
     	
 	});
+
 });
 
 
-
+function fun1() {
+	alert("실적 수정되었습니다");
+}
 
 </script>
 
@@ -79,16 +87,15 @@ $(document).ready(function(){
 <form action="${pageContext.request.contextPath }/work/PmodiPro" id="update" method="post">
 
 
-<input type="hidden" name="performId"value="${pfDTO.performId}">
-
+<input type="hidden" name="performId" value="${pfDTO.performId}">
 품번 : <input type="text"  value="${getInstr.itemNum}" readonly> <br>
 품명 : <input type="text"  value="${getInstr.itemName}" readonly> <br>
 실적일 : <input type="date" class="pfDate" name="performDate" value="${pfDTO.performDate}"> <br>
 실적수량 : <input type="text" class="Qty" name="performQty" value="${pfDTO.performQty}"> <br>
-양불여부 : <input type="radio"  name="gbYn" value="Y"> Y(양품)
-		<input type="radio" name="gbYn" value="N"> N(불량)
+양불여부 : <input type="radio" name="gbYn" id="Y" value="Y"> Y(양품)
+		<input type="radio" name="gbYn" id="N" value="N"> N(불량)
 		<br>
-불량사유 : <select name="dbReason" class="reason">
+불량사유 : <select name="dbReason" class="reason" id="dbReason">
 		<option value="">불량사유</option>
 		<option value="파손">파손</option>
 		<option value="스크래치">스크래치</option>
@@ -101,7 +108,7 @@ $(document).ready(function(){
 비고 : <input type="text" name="note" value="${pfDTO.note}"><br>
 
 
-<input type="submit" value="실적 수정">
+<input type="submit"  onclick="fun1()" value="실적 수정">
 <button type="reset">초기화</button>
 
 </form>

@@ -71,4 +71,10 @@ public class PerformServiceImpl implements PerformService {
 		return performDAO.getPf(performId);
 	}
 
+	@Override
+	public void updatePf(PerformDTO performDTO) {
+		System.out.println("PerformServiceImpl updatePf()");
+		performDAO.updatePf(performDTO);
+	}
+
 }

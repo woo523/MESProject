@@ -207,6 +207,16 @@
 	where prfrm_id = #{performId}
 	</select>
    
-   
+   <update id="updatePf">
+   update work_prfrm
+   set prfrm_dt = #{performDate},
+   prfrm_qty = #{performQty},
+   gb_yn = #{gbYn},
+   db_rsns = #{dbReason},
+   note = #{note},
+   update_id = #{updateId},
+   update_dt = #{updateDate}
+   where prfrm_id = #{performId}
+   </update>
    
 </mapper>

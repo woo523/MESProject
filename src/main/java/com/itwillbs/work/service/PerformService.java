@@ -24,4 +24,6 @@ public interface PerformService {
 	public void delPf(int performId); 
 	
 	public PerformDTO getPf(int performId);
+	
+	public void updatePf(PerformDTO performDTO);
 }

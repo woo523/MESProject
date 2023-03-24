@@ -2,6 +2,7 @@ package com.itwillbs.work.controller;
 
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -79,22 +80,7 @@ public class PerformController {
 		return "work/performList";
 	}
 	
-	
-	@RequestMapping(value = "/work/pfmodi", method = RequestMethod.GET)
-	public String pfmodi(HttpServletRequest request, Model model) { // 실적 수정창
 		
-		int performId = Integer.parseInt(request.getParameter("performId"));
-		
-		PerformDTO pfDTO = performService.getPf(performId);
-		
-		Map<String, Object> getInstr = performService.getInstrMap(pfDTO.getInstrId()); // 품명 가져오기 위해
-		
-		model.addAttribute("pfDTO", pfDTO);
-		model.addAttribute("getInstr", getInstr);
-		
-		return "work/pfmodi";
-	}
-	
 	@RequestMapping(value = "/work/pfInsert", method = RequestMethod.GET)
 	public String pfInsert(HttpServletRequest request, Model model) { // 실적 등록 창
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
@@ -136,6 +122,35 @@ public class PerformController {
 		return "redirect:/common/offwindow";
 	}
 	
+
+	@RequestMapping(value = "/work/pfmodi", method = RequestMethod.GET)
+	public String pfmodi(HttpServletRequest request, Model model) { // 실적 수정창
+		
+		int performId = Integer.parseInt(request.getParameter("performId"));
+		
+		PerformDTO pfDTO = performService.getPf(performId);
+		
+		Map<String, Object> getInstr = performService.getInstrMap(pfDTO.getInstrId()); // 품명 가져오기 위해
+		
+		model.addAttribute("pfDTO", pfDTO);
+		model.addAttribute("getInstr", getInstr);
+		
+		return "work/pfmodi";
+	}
+	
+	@RequestMapping(value = "/work/PmodiPro", method = RequestMethod.POST)
+	public String PmodiPro (PerformDTO performDTO, HttpSession session){ // 실적 수정 실행
+
+		String id = (String)session.getAttribute("id");
+		performDTO.setUpdateId(id); // 수정한 사람 id
+		performDTO.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+		
+		
+		performService.updatePf(performDTO);
+		
+		return "redirect:/common/offwindow";
+	}
+	
 	@RequestMapping(value = "/work/del", method = RequestMethod.GET)
 	public String del(HttpServletRequest request, Model model) { // 실적 삭제창
 		int performId = Integer.parseInt(request.getParameter("performId"));
@@ -145,6 +160,8 @@ public class PerformController {
 		return "redirect:/work/performRegist";
 	}
 
+	
+	
 	
 	
 	

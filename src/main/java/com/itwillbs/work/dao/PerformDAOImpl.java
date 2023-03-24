@@ -83,6 +83,12 @@ public class PerformDAOImpl implements PerformDAO {
 		System.out.println("PerformDAOImpl getPf()");
 		return sqlSession.selectOne(namespace+".getPf",performId);
 	}
+
+	@Override
+	public void updatePf(PerformDTO performDTO) {
+		System.out.println("PerformDAOImpl updatePf()");
+		sqlSession.update(namespace+".updatePf", performDTO);
+	}
 	
 	
 	
