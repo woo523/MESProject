@@ -48,7 +48,13 @@ public class InmaterialDAOImpl implements InmaterialDAO{
 	@Override
 	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String sdate, String edate, String ccd) {
 		System.out.println("InmaterialDAOImpl getInmaterLiMap(서치용)");
+		
+		if(whouse==null) {
+			whouse="";
+		}
+
 		Map<String,String> search = new HashMap<>();
+		
 		search.put("whouse", whouse);
 		search.put("pcd", pcd);
 		search.put("sdate", sdate);

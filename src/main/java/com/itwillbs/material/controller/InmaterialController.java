@@ -105,4 +105,11 @@ public class InmaterialController {
 //		model.addAttribute("itemList", itemList);
 		return "material/clntList";
 	}
+	
+	@RequestMapping(value = "/material/immodi", method = RequestMethod.GET)
+	public String immodi(HttpServletRequest request) {
+		String inmaterId = request.getParameter("inmaterId");
+		
+		return "material/inmater";
+	}
 }

@@ -68,6 +68,32 @@ function openilist(){
 function openilist2(){
     window.open("${pageContext.request.contextPath }/material/clntList","popup", "width=500, height=500,left=100, top=100");
 }
+
+function InmaterListPrint(array){
+	for (var i=0; i<array.length; i++) {
+		output=output+"<tr id='con'>";
+		output=output+"<td>"+array[i].inmtrlDt+"</td>";
+		output=output+"<td><span id='a'>"+array[i].itemNum+"</span></td>";
+		output=output+"<td>"+array[i].itemName+"</td>";		
+		output=output+"<td>"+array[i].itemUnit+"</td>";	
+		output=output+"<td>"+array[i].stockwhouse+"</td>";	
+		output=output+"<td>"+array[i].stockcur+"</td>";	
+		output=output+"<td>"+array[i].inmtrlQty+"</td>";	
+		output=output+"<td>"+array[i].clientCode+"</td>";	
+		output=output+"<td>"+array[i].clientName+"</td>";	
+		output=output+"<td>"+array[i].inmtrlLot+"</td>";
+		output=output+"<td>"+array[i].note+"</td>";
+		output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].inmtrlId+")'>";
+		output=output+"<a href='${pageContext.request.contextPath}/material/del?inmtrlId="+array[i].inmtrlId+"'><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>";
+		output=output+"</tr>";
+	}
+}
+	output=output+"</table>";
+	
+	function openmodi(inmtrlId){ // 입고 수정창
+        window.open("${pageContext.request.contextPath}/material/immodi?inmtrlId="+inmtrlId,"popup", "width=500, height=500,left=100, top=100");
+    }
+}
 </script>
 <!-- 스크립트 끝. -->
 
