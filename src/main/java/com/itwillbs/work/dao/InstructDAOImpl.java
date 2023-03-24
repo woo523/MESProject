@@ -1,13 +1,13 @@
 package com.itwillbs.work.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-
-import com.itwillbs.work.domain.InstructDTO;
 
 @Repository
 public class InstructDAOImpl implements InstructDAO {
@@ -18,10 +18,16 @@ public class InstructDAOImpl implements InstructDAO {
 	private static final String namespace="com.itwillbs.mappers.instructMapper";
 
 	@Override
-	public List<InstructDTO> instrList() {
+	public List<Map<String, Object>> instrList(String lineName, String workDate, String itemNum, String workSts) {
 		System.out.println("InstructDAOImpl instrList()");
 		
-		return sqlSession.selectList(namespace + ".instrList");
+		Map<String, Object> instrSearch = new HashMap<String, Object>();
+		instrSearch.put(lineName, lineName);
+		instrSearch.put(workDate, workDate);
+		instrSearch.put(itemNum, itemNum);
+		instrSearch.put(workSts, workSts);
+		
+		return sqlSession.selectList(namespace+".instrList", instrSearch);
 	}
 
 }

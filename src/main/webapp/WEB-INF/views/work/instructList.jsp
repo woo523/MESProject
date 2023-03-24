@@ -18,16 +18,16 @@
 <div class="content_body">
 <article>
 	<h2>작업지시</h2>
-	<form action="${pageContext.request.contextPath}/work/instructListPro" id="instrSearch" method="post">
+	<form action="${pageContext.request.contextPath}/work/instructListPro" id="instrSearch" onsubmit="return formCheck()" method="post">
 		<div class="selectButtons">
-			<button type="submit" form="instrSearch">조회</button>
+			<button type="submit" id="submit">조회</button>
 			<button type="button" onclick="insertBtn()">추가</button>
 		</div>
 		
 		<table class="searchBox">
 			<tr>
 				<td>라인</td>
-				<td><select name="line" required>
+				<td><select name="lineName" required>
 						<option value="1" selected>전체</option>
 						<option value="2">라인 1</option>
 						<option value="3">라인 2</option>
@@ -35,74 +35,73 @@
 					</select></td>
 				<td>지시일자</td>
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
-				<td><input type="text" id="startDatePicker" class="form-control" value="" placeholder="날짜를 선택해주세요" />
+				<td><input type="text" id="startDatePicker" class="form-control" name="workDate" value="" placeholder="날짜를 선택해주세요" />
 		   			<input type="text" id="endDatePicker" class="form-control" value="" /></td>
 				<td>품번</td>
-				<td><input type="text" placeholder="품번코드">
+				<td><input type="text" name="itemNum" placeholder="품번코드">
 					<input type="text" placeholder="품명" readonly></td>
 			</tr>
 			<tr>
 				<td>지시상태</td>
 				<td colspan="8">
-					<input type="checkbox" value="order1">지시
-					<input type="checkbox" value="order2">시작
-					<input type="checkbox" value="order3">마감
+					<input type="checkbox" name="workSts" value="1" class="sCheck">지시
+					<input type="checkbox" name="workSts" value="2" class="sCheck">시작
+					<input type="checkbox" name="workSts" value="3" class="sCheck">마감
 				</td>
 			</tr>
 		</table>
+	
+
+		<h2>목록</h2>
+		
+		<div class="listButtons">
+			<button type="button">수정</button>
+			<button type="button">삭제</button>
+			<button type="button">취소</button>
+			<button type="button">저장</button>
+		</div>
+		
+		<table border="1" class="instrList">
+			<tr>
+				<th rowspan="2">작업지시번호</th>
+				<th rowspan="2">업체</th>
+				<th rowspan="2">수주번호</th>
+				<th rowspan="2">지시일자</th>
+				<th rowspan="2">지시상태</th>
+				<th colspan="3">품목정보</th>
+				<th colspan="3">공정정보</th>
+				<th rowspan="2">지시수량</th>
+				<th rowspan="2">등록일</th>
+				<th rowspan="2">등록자</th>
+			</tr>
+			<tr>
+				<th>품번</th>
+				<th>품명</th>
+				<th>단위</th>
+				<th>라인</th>
+				<th>라인명</th>
+				<th>공정</th>
+			</tr>
+			<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
+					<tr>
+						<td>${instrDTO.workNum}</td>
+						<td>${instrDTO.workNum}</td>
+						<td>${instrDTO.workNum}</td>
+						<td>${instrDTO.workDate}</td>
+						<td>${instrDTO.workSts}</td>
+						<td>${instrDTO.itemDTO.itemNum}</td>
+						<td>${instrDTO.itemDTO.itemName}</td>
+						<td>${instrDTO.itemDTO.invntUnit}</td>
+						<td>${instrDTO.lineDTO.lineCode}</td>
+						<td>${instrDTO.lineDTO.lineName}</td>
+						<td>${instrDTO.lineDTO.proCode}</td>
+						<td>${instrDTO.workQty}</td>
+						<td>${instrDTO.insertDate}</td>
+						<td>${instrDTO.insertId}</td>
+					</tr>
+			</c:forEach>
+		</table>
 	</form>
-</article>
-	
-<article>
-	<h2>목록</h2>
-	
-	<div class="listButtons">
-		<button type="button">수정</button>
-		<button type="button">삭제</button>
-		<button type="button">취소</button>
-		<button type="button">저장</button>
-	</div>
-	
-	<table border="1" class="instrList">
-		<tr>
-			<th rowspan="2">작업지시번호</th>
-			<th rowspan="2">업체</th>
-			<th rowspan="2">수주번호</th>
-			<th rowspan="2">지시일자</th>
-			<th rowspan="2">지시상태</th>
-			<th colspan="3">품목정보</th>
-			<th colspan="3">공정정보</th>
-			<th rowspan="2">지시수량</th>
-			<th rowspan="2">등록일</th>
-			<th rowspan="2">등록자</th>
-		</tr>
-		<tr>
-			<th>품번</th>
-			<th>품명</th>
-			<th>단위</th>
-			<th>라인</th>
-			<th>라인명</th>
-			<th>공정</th>
-		</tr>
-		<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
-				<tr>
-					<td>${instrDTO.workNum}</td>
-					<td>${instrDTO.workNum}</td>
-					<td>${instrDTO.workNum}</td>
-					<td>${instrDTO.workDate}</td>
-					<td>${instrDTO.workSts}</td>
-					<td>${instrDTO.itemDTO.itemNum}</td>
-					<td>${instrDTO.itemDTO.itemName}</td>
-					<td>${instrDTO.itemDTO.invntUnit}</td>
-					<td>${instrDTO.lineDTO.lineCode}</td>
-					<td>${instrDTO.lineDTO.lineName}</td>
-					<td>${instrDTO.lineDTO.proCode}</td>
-					<td>${instrDTO.workQty}</td>
-					<td>${instrDTO.insertDate}</td>
-					<td>${instrDTO.insertId}</td>
-				</tr>
-		</c:forEach>
-	</table>
 </article>
 	
 </div>
@@ -181,6 +180,11 @@
 
          console.log(e);
       });
+      
+    function formCheck() {
+    	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
+    	
+    }
       
 	function insertBtn() {
 		alert("btn");

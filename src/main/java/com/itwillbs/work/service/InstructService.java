@@ -1,11 +1,10 @@
 package com.itwillbs.work.service;
 
 import java.util.List;
-
-import com.itwillbs.work.domain.InstructDTO;
+import java.util.Map;
 
 public interface InstructService {
 
-	public List<InstructDTO> instrList();
+	public List<Map<String, Object>> instrList(String lineName, String workDate, String itemNum, String workSts);
 	
 }

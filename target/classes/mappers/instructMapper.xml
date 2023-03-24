@@ -34,9 +34,15 @@
           	   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
           	   work.work_qty as workQty, work.insert_dt as insertDate, work.insert_id as insertId
 		FROM work_instr work JOIN order_mng oder ON work.ord_id = oder.ord_id
-		         JOIN item item ON work.item_id = item.item_id
-		         JOIN client clnt ON item.clnt_id = clnt.clnt_id
-		         JOIN line line ON work.line_id = line.line_id;
+        JOIN item item ON work.item_id = item.item_id
+        JOIN client clnt ON item.clnt_id = clnt.clnt_id
+        JOIN line line ON work.line_id = line.line_id
+        <where>
+			<if test="lineName != null">AND line.line_nm=${lineName}</if>
+			<if test="workDate != null">AND work.work_dt=${workDate}</if>
+			<if test="itemNum != null">AND item.item_num=${itemNum}</if>
+			<if test="workSts != null">AND work.work_sts=${workSts}</if>
+		</where>
 	</select>
 
 </mapper>
