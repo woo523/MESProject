@@ -20,7 +20,7 @@
 <div class="content_body">
 <article>
 	<h2>작업지시</h2>
-	<form id="instrSearch">
+	<form action="${pageContext.request.contextPath}/work/instructListPro" id="instrSearch" method="get">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
 			<button type="button" onclick="insertBtn()">추가</button>

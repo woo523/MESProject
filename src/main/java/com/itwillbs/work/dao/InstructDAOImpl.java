@@ -19,16 +19,16 @@ public class InstructDAOImpl implements InstructDAO {
 
 	@Override
 	public List<Map<String, Object>> instrList() {
-		// TODO Auto-generated method stub
+		System.out.println("InstructDAOImpl instrList()");
+		
 		return sqlSession.selectList(namespace+".instrList");
 	}
 
 	@Override
 	public List<Map<String, Object>> instrList(String lineName, String startDate, String endDate, String itemNum,
 			String workSts1, String workSts2, String workSts3) {
-		System.out.println("InstructDAOImpl instrList");
+		// System.out.println("InstructDAOImpl instrList");
 		
-		System.out.println("itemNum :" +itemNum);
 		Map<String, Object> instrSearch = new HashMap<String, Object>();
 		instrSearch.put("lineName", lineName);
 		instrSearch.put("startDate", startDate);
@@ -38,6 +38,13 @@ public class InstructDAOImpl implements InstructDAO {
 		instrSearch.put("workSts2", workSts2);
 		instrSearch.put("workSts3", workSts3);
 		System.out.println(instrSearch);
+		
+		return sqlSession.selectList(namespace+".instrSearch", instrSearch);
+	}
+
+	@Override
+	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch) {
+		System.out.println("InstructDAOImpl instrList");
 		
 		return sqlSession.selectList(namespace+".instrSearch", instrSearch);
 	}

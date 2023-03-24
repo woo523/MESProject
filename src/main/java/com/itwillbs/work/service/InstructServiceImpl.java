@@ -26,9 +26,16 @@ public class InstructServiceImpl implements InstructService{
 	@Override
 	public List<Map<String, Object>> instrList(String lineName, String startDate, String endDate, String itemNum,
 			String workSts1, String workSts2, String workSts3) {
-		System.out.println("InstructServiceImpl instrList");
+		// System.out.println("InstructServiceImpl instrList");
 		
 		return instructDAO.instrList(lineName, startDate, endDate, itemNum, workSts1, workSts2, workSts3);
+	}
+
+	@Override
+	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch) {
+		System.out.println("InstructServiceImpl instrList");
+		
+		return instructDAO.instrList(instrSearch);
 	}
 	
 }

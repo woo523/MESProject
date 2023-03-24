@@ -1,5 +1,6 @@
 package com.itwillbs.work.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.itwillbs.line.domain.LineDTO;
-import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.service.InstructService;
 
 @Controller
@@ -22,9 +20,21 @@ public class InstructController {
 	@Inject
 	private InstructService instructService;
 	
+	// 작업지시 전체 조회
 	@RequestMapping(value = "/work/instructList", method = RequestMethod.GET)
 	public String instructList(HttpServletRequest request, Model model) {
 		System.out.println("InstructController instructList()");
+		
+		List<Map<String, Object>> instrList = instructService.instrList();
+		model.addAttribute("instrList", instrList);
+		
+		return "work/instructList";
+	}
+	
+	// 작업지시 검색 조회
+	@RequestMapping(value = "/work/instructListPro", method = RequestMethod.GET)
+	public String instructListPro(HttpServletRequest request, Model model) {
+		System.out.println("InstructController instructListPro()");
 		
 		String lineName = request.getParameter("lineName");
 		String startDate = request.getParameter("startDate");
@@ -41,13 +51,19 @@ public class InstructController {
 		System.out.println("지시상태 : " + workSts2);
 		System.out.println("지시상태 : " + workSts3);
 		
-		if(lineName == null && itemNum == null && startDate == null && endDate == null && workSts1 == null && workSts2 == null && workSts3 == null) {
-			List<Map<String, Object>> instrList = instructService.instrList();
-			model.addAttribute("instrList", instrList);
-		} else {
-			List<Map<String, Object>> instrList = instructService.instrList(lineName, itemNum, startDate, endDate, workSts1, workSts2, workSts3);
-			model.addAttribute("instrList", instrList);
-		}
+		Map<String, Object> instrSearch = new HashMap<String, Object>();
+		instrSearch.put("lineName", lineName);
+		instrSearch.put("startDate", startDate);
+		instrSearch.put("endDate", endDate);
+		instrSearch.put("itemNum", itemNum);
+		instrSearch.put("workSts1", workSts1);
+		instrSearch.put("workSts2", workSts2);
+		instrSearch.put("workSts3", workSts3);
+		System.out.println(instrSearch);
+		
+		List<Map<String, Object>> instrList = instructService.instrList(instrSearch);
+		model.addAttribute("instrList", instrList);
+		
 		return "work/instructList";
 	}
 
