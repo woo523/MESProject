@@ -116,11 +116,11 @@ function InmaterListPrint(array){
 			<td><input type="date" name="sdate"></td>
 			<td><input type="date" name="edate"></td>
 			<td>입고창고</td>
-			<td><select name="instock">
-				<option value="1" selected>전체</option>
-				<option value="2">창고 1</option>
-				<option value="3">창고 2</option>
-				<option value="4">창고 3</option>
+			<td><select name="whouse">
+				<option value="" selected>전체</option>
+				<option value="1">창고 1</option>
+				<option value="2">창고 2</option>
+				<option value="3">창고 3</option>
 				</select></td></tr>
 	
 			<tr><td>품번</td>
