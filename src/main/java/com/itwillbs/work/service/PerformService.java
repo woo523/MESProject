@@ -17,7 +17,11 @@ public interface PerformService {
 	
 	public List<Map<String, Object>> getPfLiMap(String instrId);
 
-	public Map<String, Object> getInstrMap(String instrId);
+	public Map<String, Object> getInstrMap(int instrId);
 	
 	public void insertPf(PerformDTO performDTO);
+
+	public void delPf(int performId); 
+	
+	public PerformDTO getPf(int performId);
 }

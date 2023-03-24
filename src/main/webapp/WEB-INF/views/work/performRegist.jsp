@@ -108,7 +108,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 		output=output+"<td>"+array[i].performQty+"</td>";	
 		output=output+"<td>"+array[i].dbReason+"</td>";
 		output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
-		output=output+"<a href='${pageContext.request.contextPath}/work/del?performId="+array[i].performId+"'><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>";
+		output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+array[i].performId+")'></td>";
 		output=output+"</tr>";
 		
 		}
@@ -129,6 +129,18 @@ function pfRegi(a){ // 실적 등록창
 }
 
 
+function delPf(a) {
+	
+	if(confirm("삭제하시겠습니까?")){
+		alert("해당 실적이 삭제되었습니다.");
+		location.href="${pageContext.request.contextPath}/work/del?performId="+a;
+	}else{
+		alert("취소되었습니다.");
+	}
+	
+
+}
+
 </script>
 <!-- 스크립트 끝. -->
 
@@ -146,9 +158,10 @@ function pfRegi(a){ // 실적 등록창
 	<table id="search">
 	<tr><td>라인</td>
 	<td><select name="line"> <!-- 라인 리스트 완성되면 불러오기 -->
-		<option value="1"></option>
-		<option value="2"></option>
-		<option value="3"></option>
+		<option value=""> 라인 전체</option>
+		<c:forEach var="line" items="${linelist }">
+		<option value="${line.lineName }">${line.lineName }</option>
+		</c:forEach>
 		</select></td>
 	<td>지시일자</td>
 	<td><input type="date" name="sdate"></td>

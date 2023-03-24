@@ -23,17 +23,16 @@ public class PerformDAOImpl implements PerformDAO {
 	private static final String namespace="com.itwillbs.mappers.performMapper";
 
 	@Override
-	public List<Map<String, Object>> getInstrLiMap() {
+	public List<Map<String, Object>> getInstrLiMap() { // 실적등록 지시목록
 		System.out.println("PerformDAOImpl getInstrLiMap()");
 		
 		return sqlSession.selectList(namespace+".getInstrLiMap");
 	}
 
-
 	@Override
 	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3) {
-		System.out.println("PerformDAOImpl getInstrLiMap(서치용)");
-		Map<String,String> search = new HashMap<>();
+		System.out.println("PerformDAOImpl getInstrLiMap(서치용)"); // 실적등록 지시목록
+		Map<String,String> search = new HashMap<>(); 
 		search.put("line", line);
 		search.put("pcd", pcd);
 		search.put("sdate", sdate);
@@ -47,34 +46,42 @@ public class PerformDAOImpl implements PerformDAO {
 
 	}
 
-
 	@Override
-	public List<Map<String, Object>> getPfLiMap(String instrId) {
+	public List<Map<String, Object>> getPfLiMap(String instrId) { // 지시번호에 해당되는 실적 목록(화면에 출력되는)
 		System.out.println("PerformDAOImpl getPfLiMap()");
 		
 		return sqlSession.selectList(namespace+".getPfLiMap",instrId);
 	}
 
-
 	@Override
-	public Map<String, Object> getInstrMap(String instrId) { // 실적 등록에 보여지는 지시 리스트 항목 하나 불러오기
+	public Map<String, Object> getInstrMap(int instrId) { // 실적등록에 보여지는 지시 목록 하나 불러오기
 		System.out.println("PerformDAOImpl getPfLiMap()");
 		
 		return sqlSession.selectOne(namespace+".getInstrMap",instrId);
 	}
 
-
 	@Override
-	public InstructDTO getInstr(int instrId) {
+	public InstructDTO getInstr(int instrId) { // 지시번호에 해당되는 지시목록
 		System.out.println("PerformDAOImpl getInstr()");
 		return sqlSession.selectOne(namespace+".getInstr",instrId);
 	}
 
-
 	@Override
-	public void insertPf(PerformDTO performDTO) {
+	public void insertPf(PerformDTO performDTO) { // 실적 등록
 		System.out.println("PerformDAOImpl insertPf()");
 		sqlSession.insert(namespace+".insertPf", performDTO);
+	}
+
+	@Override
+	public void delPf(int performId) { // 실적 삭제
+		System.out.println("PerformDAOImpl delPf()");
+		sqlSession.delete(namespace+".delPf", performId);
+	}
+
+	@Override
+	public PerformDTO getPf(int performId) { // 실적 정보 1개 가져오기
+		System.out.println("PerformDAOImpl getPf()");
+		return sqlSession.selectOne(namespace+".getPf",performId);
 	}
 	
 	

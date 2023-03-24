@@ -19,8 +19,10 @@
 if ( $.browser.msie ) {
 	window.opener='Self';
 	window.open('','_parent','');
+	opener.location.reload(); // 부모창 새로고침
 	window.close();
 } else {
+	opener.location.reload(); // 부모창 새로고침
 	window.close(); // 일반적인 현재 창 닫기
 	window.open('about:blank','_self').self.close();  // IE에서 묻지 않고 창 닫기
 }
@@ -28,7 +30,7 @@ if ( $.browser.msie ) {
 
 </script>
 
-<!-- 팝업창에서 폼 전송하고 닫고 싶을 떄 컨트롤러에서 이거 연결하면 닫아져요.... -->
+<!-- 팝업창에서 폼 전송하고 닫고 싶을 때 사용 -->
 
 </head>
 <body>

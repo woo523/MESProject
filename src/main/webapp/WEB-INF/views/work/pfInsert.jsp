@@ -28,13 +28,43 @@ $(document).ready(function(){
         if($("input[name=gbYn]:checked").val() == "N"){
             $("select[name=dbReason]").attr("disabled",false);
  
-        }else if($("input[name=gbYn]:checked").val() == "Y"){
+        }else if($("input[name=gbYn]:checked").val() == "Y"){ //양품일때 불량사유 목록 비활성화
               $("select[name=dbReason]").attr("disabled",true);
 
         }
     });
     
-   
+	$('#insert').submit(function(){ // 유효성 검사
+	    if($('.pfDate').val()==null||$('.pfDate').val()==""){
+	    	alert("실적일을 입력하세요");
+			$('.pfDate').focus();
+			return false;
+	    }
+	    
+	    if($('.Qty').val()==null||$('.Qty').val()==""){
+	    	alert("실적 수량을 입력하세요");
+			$('.Qty').focus();
+
+			return false;
+	    }
+	   
+	    if($("input[name=gbYn]:checked").val() == null){
+	    	alert("양불여부를 선택하세요");
+			return false;
+	    }
+	   
+	    if($("input[name=gbYn]:checked").val() == "N"){ // 불량일때
+	    	if($('.reason').val()==null || $('.reason').val()==""){ // 불량사유 값 없으면
+	    		alert("불량사유를 선택하세요");
+	    		$('.reason').focus();
+	    		return false;
+	        }
+	    	}
+
+		});
+	
+    
+    
 });
 
 
@@ -42,7 +72,7 @@ $(document).ready(function(){
 	
 	
 // 	$.ajax({
-// 		  url: '${pageContext.request.contextPath}/work/PinsertPro',   // 이부분에 컨트롤러 매핑값 /ImNotAlone/share/WaitInsert 
+// 		  url: '${pageContext.request.contextPath}/work/PinsertPro',  
 
 // 		  type: 'get',
 // 		  data: {
@@ -72,7 +102,7 @@ $(document).ready(function(){
 <h2>생산 실적 등록 </h2>
 
 
-<form action="${pageContext.request.contextPath }/work/PinsertPro">
+<form action="${pageContext.request.contextPath }/work/PinsertPro" id="insert">
 
 ★ 등록할 작업지시 번호 : ${getInstr.instrId} <br>
 
@@ -80,13 +110,13 @@ $(document).ready(function(){
 
 품번 : <input type="text"  value="${getInstr.itemNum}" readonly> <br>
 품명 : <input type="text"  value="${getInstr.itemName}" readonly> <br>
-실적일 : <input type="date" name="performDate"> <br>
-실적수량 : <input type="text" name="performQty"> <br>
-양불여부 : <input type="radio" class="YN" name="gbYn" value="Y"> Y(양품)
-		<input type="radio" class="YN" name="gbYn" value="N"> N(불량)
+실적일 : <input type="date" class="pfDate" name="performDate"> <br>
+실적수량 : <input type="text" class="Qty" name="performQty"> <br>
+양불여부 : <input type="radio" name="gbYn" value="Y"> Y(양품)
+		<input type="radio"  name="gbYn" value="N"> N(불량)
 		<br>
-불량사유 : <select name="dbReason">
-		<option>불량사유</option>
+불량사유 : <select name="dbReason" class="reason">
+		<option value="">불량사유</option>
 		<option value="파손">파손</option>
 		<option value="스크래치">스크래치</option>
 		<option value="포장불량">포장불량</option>
@@ -98,8 +128,8 @@ $(document).ready(function(){
 비고 : <input type="text" name="note"><br>
 
 
-<input type="submit" value="전송" onclick="clickEvent()">
-<button type="reset">취소</button>
+<input type="submit" value="실적 등록" onclick="clickEvent()">
+<button type="reset">초기화</button>
 
 </form>
 </body>
