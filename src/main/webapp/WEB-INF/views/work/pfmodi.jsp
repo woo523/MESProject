@@ -68,6 +68,14 @@ $(document).ready(function(){
     	}
     	
 	});
+	
+    // 날짜 미래 날짜 선택 못하게
+    var today = new Date(); // 오늘 날짜
+    var year = today.getFullYear(); // 년도 YYYY
+    var month = ("0"+(today.getMonth()+1)).slice(-2); // 달 MM
+    var date = ("0"+today.getDate()).slice(-2); // 일 DD
+    var today = year+"-"+month+"-"+date; // YYYY-MM-DD
+	document.getElementById("Date").setAttribute("max", today);
 
 });
 
@@ -90,8 +98,8 @@ function fun1() {
 <input type="hidden" name="performId" value="${pfDTO.performId}">
 품번 : <input type="text"  value="${getInstr.itemNum}" readonly> <br>
 품명 : <input type="text"  value="${getInstr.itemName}" readonly> <br>
-실적일 : <input type="date" class="pfDate" name="performDate" value="${pfDTO.performDate}"> <br>
-실적수량 : <input type="text" class="Qty" name="performQty" value="${pfDTO.performQty}"> <br>
+실적일 : <input type="date" id="Date" class="pfDate" name="performDate" value="${pfDTO.performDate}"> <br>
+실적수량 : <input type="number" class="Qty" name="performQty" value="${pfDTO.performQty}"> <br>
 양불여부 : <input type="radio" name="gbYn" id="Y" value="Y"> Y(양품)
 		<input type="radio" name="gbYn" id="N" value="N"> N(불량)
 		<br>

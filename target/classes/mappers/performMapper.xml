@@ -11,6 +11,7 @@
     
 	<!--     column= "디비열이름" property="멤버변수이름" -->
     <id column="id" property=""/>
+    <result column="work_num" property="workNum"/>
     <result column="instr_id" property="instrId"/>
     <result column="line_cd" property="lineCd"/>
     <result column="line_nm" property="lineName"/>
@@ -26,7 +27,8 @@
     </resultMap>
     
     <select id="getInstrLiMap" resultMap="InstrLiMap"> <!-- 처음에 조회되는 작업지시 리스트 -->
-    select 
+    select
+    work_num, 
 	instr_id, 
 	line_cd, 
 	line_nm, 
@@ -38,11 +40,13 @@
 	ord_num,
 	clnt_nm
 	from prfrm1_view
-	order by instr_id
+	order by instr_id desc
+	limit #{startRow}, #{pageSize}
     </select>
     
     <select id="getSearchInstrLiMap" resultMap="InstrLiMap"> <!--  검색 작업지시 리스트 -->
-    select 
+    select
+    work_num, 
 	instr_id, 
 	line_cd, 
 	line_nm, 
@@ -80,13 +84,15 @@
 	</choose>
 	and
 	item_num like CONCAT('%', #{pcd}, '%') 
-	order by instr_id
+	order by instr_id desc
+	limit #{startRow}, #{pageSize}
     </select>
     
     
     
    <select id="getInstrMap" resultMap="InstrLiMap"> <!-- 지시번호에 맞는 리스트 들고오기(화면에 출력되는 컬럼) -->
-    select 
+    select
+    work_num,
 	instr_id, 
 	line_cd, 
 	line_nm, 
@@ -108,6 +114,7 @@
     <resultMap type="map" id="PfLiMap">
     
 	<!--     column= "디비열이름" property="멤버변수이름" -->
+	<result column="work_num" property="workNum"/>
 	<result column="instr_id" property="instrId"/>
 	<result column="prfrm_id" property="performId"/>
     <result column="item_num" property="itemNum"/>
@@ -123,6 +130,7 @@
     
     <select id="getPfLiMap" resultMap="PfLiMap"> <!-- 지시번호에 해당되는 실적 목록(화면단) 불러오기 -->
     select
+    it.work_num,
     p.instr_id,
     p.prfrm_id,
     i.item_num, 
@@ -133,6 +141,8 @@
     p.db_rsns
     from item i join work_prfrm p
     on i.item_id = p.item_id
+    join work_instr it
+    on it.instr_id = p.instr_id
     where p.instr_id = #{instrId};
     </select>
     
@@ -218,5 +228,18 @@
    update_dt = #{updateDate}
    where prfrm_id = #{performId}
    </update>
+   
+   <select id="itemlist" resultType="com.itwillbs.work.domain.ItemDTO">
+   select
+   item_num as itemNum,
+   item_nm as itemName
+   from item
+   <if test="itemNum!=null and itemName!=null">
+   where 
+   item_num like CONCAT('%', #{itemNum}, '%') and
+   item_nm like CONCAT('%', #{itemName}, '%')
+   </if>
+   </select>
+
    
 </mapper>

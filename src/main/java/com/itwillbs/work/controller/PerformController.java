@@ -15,9 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwillbs.work.domain.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.line.service.LineService;
-import com.itwillbs.line.service.LineServiceImpl;
+import com.itwillbs.work.domain.ItemDTO;
 import com.itwillbs.work.domain.PerformDTO;
 import com.itwillbs.work.service.PerformService;
 
@@ -44,31 +45,72 @@ public class PerformController {
 		String ists2 = request.getParameter("ists2");
 		String ists3 = request.getParameter("ists3");
 		
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 5; // sql문에 들어가는 항목
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		PageDTO pageDTO = new PageDTO();
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
 		
+		pageDTO.setStartRow(startRow-1);
+		pageDTO.setEndRow(endRow);
+
+		
+		List<Map<String,Object>> instrList;
 		if(line == null && pcd == null && sdate == null && edate == null && ists1 == null && ists2 == null && ists3 == null) {
 		// 조회 안한 경우
-			List<Map<String,Object>> instrList = performService.getInstrLiMap();
+			instrList = performService.getInstrLiMap(pageDTO);
 		
 			model.addAttribute("instrList", instrList);} // 전체 리스트
 		else { // 조회값 넣은 경우
-			List<Map<String,Object>> instrList = performService.getInstrLiMap(line, pcd, sdate, edate, ists1, ists2, ists3);
-			model.addAttribute("instrList", instrList); // 서치 결과 리스트
+			instrList = performService.getInstrLiMap(line, pcd, sdate, edate, ists1, ists2, ists3, pageDTO);
+			
 		}
-		
-		
-		// 라인 목록 불러오기
-			List<LineDTO> linelist = lineService.lineList();	
-			System.out.println("linelist : "+linelist);
-			model.addAttribute("linelist", linelist);
 				
+		//페이징 처리
+		int count = instrList.size();
+
+		int pageBlock = 10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if(endPage > pageCount){
+		 	endPage = pageCount;
+		 }
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		System.out.println("count :"+pageDTO.getCount());
+		model.addAttribute("instrList", instrList); 
+		model.addAttribute("pageDTO", pageDTO);
+		
+
+		// 라인 목록 불러오기
+		List<LineDTO> linelist = lineService.lineList();	
+		model.addAttribute("linelist", linelist);
+
 		return "work/performRegist";
 	}
 	
 	@RequestMapping(value = "/work/itemList", method = RequestMethod.GET)
-	public String itemList(Model model) { // 품목 리스트
+	public String itemList(Model model, HttpServletRequest request) { // 품목 리스트
+		String itemNum = request.getParameter("itemNum");
+		String itemName = request.getParameter("itemName");
 		
-		
-//		model.addAttribute("itemList", itemList);
+		List<ItemDTO> itemList = performService.getItemlist(itemNum,itemName);
+		model.addAttribute("itemList", itemList);
 		return "work/itemList";
 	}
 	

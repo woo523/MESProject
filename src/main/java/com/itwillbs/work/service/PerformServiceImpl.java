@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.work.dao.PerformDAO;
 import com.itwillbs.work.domain.InstructDTO;
+import com.itwillbs.work.domain.ItemDTO;
+import com.itwillbs.work.domain.PageDTO;
 import com.itwillbs.work.domain.PerformDTO;
 
 
@@ -20,15 +22,15 @@ public class PerformServiceImpl implements PerformService {
 	private PerformDAO performDAO;
 
 	@Override
-	public List<Map<String, Object>> getInstrLiMap() { // 실적등록 지시목록
+	public List<Map<String, Object>> getInstrLiMap(PageDTO pageDTO) { // 실적등록 지시목록
 		System.out.println("PerformServiceImpl getInstrLiMap()");
-		return performDAO.getInstrLiMap();
+		return performDAO.getInstrLiMap(pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate,String ists1, String ists2, String ists3) {
+	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate,String ists1, String ists2, String ists3, PageDTO pageDTO) {
 		System.out.println("PerformServiceImpl getInstrLiMap(서치용)"); // 실적등록 지시목록
-		return performDAO.getInstrLiMap(line, pcd, sdate, edate, ists1, ists2, ists3);
+		return performDAO.getInstrLiMap(line, pcd, sdate, edate, ists1, ists2, ists3, pageDTO);
 
 	}
 
@@ -72,9 +74,15 @@ public class PerformServiceImpl implements PerformService {
 	}
 
 	@Override
-	public void updatePf(PerformDTO performDTO) {
+	public void updatePf(PerformDTO performDTO) { // 실적 수정
 		System.out.println("PerformServiceImpl updatePf()");
 		performDAO.updatePf(performDTO);
+	}
+
+	@Override
+	public List<ItemDTO> getItemlist(String itemNum, String itemName) { // 폼목 리스트 
+		System.out.println("PerformServiceImpl getItemlist()");
+		return performDAO.getItemlist(itemNum, itemName);
 	}
 
 }

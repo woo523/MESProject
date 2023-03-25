@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.work.domain.InstructDTO;
+import com.itwillbs.work.domain.ItemDTO;
+import com.itwillbs.work.domain.PageDTO;
 import com.itwillbs.work.domain.PerformDTO;
 
 
@@ -23,16 +25,16 @@ public class PerformDAOImpl implements PerformDAO {
 	private static final String namespace="com.itwillbs.mappers.performMapper";
 
 	@Override
-	public List<Map<String, Object>> getInstrLiMap() { // 실적등록 지시목록
+	public List<Map<String, Object>> getInstrLiMap(PageDTO pageDTO) { // 실적등록 지시목록
 		System.out.println("PerformDAOImpl getInstrLiMap()");
 		
-		return sqlSession.selectList(namespace+".getInstrLiMap");
+		return sqlSession.selectList(namespace+".getInstrLiMap", pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3) {
+	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3, PageDTO pageDTO) {
 		System.out.println("PerformDAOImpl getInstrLiMap(서치용)"); // 실적등록 지시목록
-		Map<String,String> search = new HashMap<>(); 
+		Map<String,Object> search = new HashMap<>(); 
 		search.put("line", line);
 		search.put("pcd", pcd);
 		search.put("sdate", sdate);
@@ -40,7 +42,8 @@ public class PerformDAOImpl implements PerformDAO {
 		search.put("ists1", ists1);
 		search.put("ists2", ists2);
 		search.put("ists3", ists3);
-		
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
 		System.out.println("search : "+search);
 	    return sqlSession.selectList(namespace+".getSearchInstrLiMap",search);
 
@@ -85,9 +88,19 @@ public class PerformDAOImpl implements PerformDAO {
 	}
 
 	@Override
-	public void updatePf(PerformDTO performDTO) {
+	public void updatePf(PerformDTO performDTO) { // 실적 정보 수정
 		System.out.println("PerformDAOImpl updatePf()");
 		sqlSession.update(namespace+".updatePf", performDTO);
+	}
+
+	@Override
+	public List<ItemDTO> getItemlist(String itemNum, String itemName) { // 품목리스트 들고오기 (품번, 품명만..)
+		System.out.println("PerformDAOImpl getItemlist()");
+		Map<String, String> search = new HashMap<>();
+		search.put("itemNum", itemNum);
+		search.put("itemName", itemName);
+		
+		return sqlSession.selectList(namespace+".itemlist", search);
 	}
 	
 	
