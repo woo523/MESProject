@@ -66,7 +66,7 @@
                         <ul class="small_menu">
                             <li><a href="#">품목정보 관리</a></li>
                             <li><a href="#">소요량 관리</a></li>
-                            <li><a href="#">라인정보 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/line/line">라인정보 관리</a></li>
                             <li><a href="#">거래처정보 관리</a></li>
                         </ul>
                     </ul>
@@ -82,8 +82,8 @@
                     <ul class="big_menu">
                         <li>생산 관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
-                            <li><a href="#">작업지시 정보관리</a></li>
-                            <li><a href="#">작업지시 현황</a></li>
+                            <li><a href="${pageContext.request.contextPath}/work/instructList">작업지시 정보관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/work/instructState">작업지시 현황</a></li>
                             <li><a href="${pageContext.request.contextPath }/work/performRegist">실적등록</a></li>
                             <li><a href="${pageContext.request.contextPath }/work/performList">생산실적 현황</a></li>
                         </ul>

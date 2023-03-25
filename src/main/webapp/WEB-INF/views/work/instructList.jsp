@@ -20,7 +20,7 @@
 <div class="content_body">
 <article>
 	<h2>작업지시</h2>
-	<form action="${pageContext.request.contextPath}/work/instructListPro" id="instrSearch" method="get">
+	<form id="instrSearch" onsubmit="return formCheck()">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
 			<button type="button" onclick="insertBtn()">추가</button>
@@ -29,8 +29,8 @@
 		<table class="searchBox">
 			<tr>
 				<td>라인</td>
-				<td><select name="lineName" required>
-						<option value="0" selected>전체</option>
+				<td><select name="lineName">
+						<option value="" selected>전체</option>
 						<option value="1">라인 1</option>
 						<option value="2">라인 2</option>
 						<option value="3">라인 3</option>
@@ -84,24 +84,34 @@
 				<th>라인명</th>
 				<th>공정</th>
 			</tr>
-			<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
+			<c:choose>
+				<c:when test="${empty instrList}">
+					<tr><td colspan="14"></td></tr>
 					<tr>
-						<td>${instrDTO.workNum}</td>
-						<td>${instrDTO.workNum}</td>
-						<td>${instrDTO.workNum}</td>
-						<td>${instrDTO.workDate}</td>
-						<td>${instrDTO.workSts}</td>
-						<td>${instrDTO.itemDTO.itemNum}</td>
-						<td>${instrDTO.itemDTO.itemName}</td>
-						<td>${instrDTO.itemDTO.invntUnit}</td>
-						<td>${instrDTO.lineDTO.lineCode}</td>
-						<td>${instrDTO.lineDTO.lineName}</td>
-						<td>${instrDTO.lineDTO.proCode}</td>
-						<td>${instrDTO.workQty}</td>
-						<td>${instrDTO.insertDate}</td>
-						<td>${instrDTO.insertId}</td>
+						<td colspan="14">해당 데이터가 존재하지 않습니다.</td>
 					</tr>
-			</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
+						<tr>
+							<td>${instrDTO.workNum}</td>
+							<td>${instrDTO.workNum}</td>
+							<td>${instrDTO.workNum}</td>
+							<td>${instrDTO.workDate}</td>
+							<td>${instrDTO.workSts}</td>
+							<td>${instrDTO.itemDTO.itemNum}</td>
+							<td>${instrDTO.itemDTO.itemName}</td>
+							<td>${instrDTO.itemDTO.invntUnit}</td>
+							<td>${instrDTO.lineDTO.lineCode}</td>
+							<td>${instrDTO.lineDTO.lineName}</td>
+							<td>${instrDTO.lineDTO.proCode}</td>
+							<td>${instrDTO.workQty}</td>
+							<td>${instrDTO.insertDate}</td>
+							<td>${instrDTO.insertId}</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</table>
 	</form>
 </article>
@@ -171,15 +181,6 @@
          language: 'ko',
       })
       .on('changeDate', function (e) {
-         /* 이벤트의 종류 */
-         //show : datePicker가 보이는 순간 호출
-         //hide : datePicker가 숨겨지는 순간 호출
-         //clearDate: clear 버튼 누르면 호출
-         //changeDate : 사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
-         //changeMonth : 월이 변경되면 호출
-         //changeYear : 년이 변경되는 호출
-         //changeCentury : 한 세기가 변경되면 호출 ex) 20세기에서 21세기가 되는 순간
-
          console.log(e);
       });
       
