@@ -15,7 +15,7 @@
 	<!-- 내용시작 -->
 	<!-- member/msg.jsp -->
 	<script type="text/javascript">
-		alert("아이디와 비밀번호가 일치하지 않습니다.");
+		alert("아이디 또는 비밀번호가 틀립니다. 관리자에게 문의하세요");
 		history.back();
 	</script>
 </div>

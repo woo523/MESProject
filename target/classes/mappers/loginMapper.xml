@@ -11,7 +11,7 @@
     <select id="login" resultType="com.itwillbs.member.domain.MemberDTO">
         select * 
         from user 
-        where id = #{id} and pass = #{pass} 
+        where id = #{id} and pass = #{pass} and use_yn = 'Y'
     </select>
     
     <!-- 중복확인 -->

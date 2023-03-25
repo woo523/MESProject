@@ -20,7 +20,10 @@
 
 	<!-- 사용자 수정 -->
 	<update id="updateMember">
-		update user set name = #{name} 
+		update user 
+		set name = #{name} ,pass = #{pass} , departments = #{departments} ,
+			position = #{position} , email = #{email}, tell = #{tell}, 
+			phone =#{phone} , use_yn = #{useYn} , update_id = #{updateId}, update_dt=now()
 		where id = #{id} 
 	</update>
 	
@@ -32,8 +35,15 @@
 	
 	<!-- 사용자목록 전체조회 -->
 	<select id="getMemberList" resultType="com.itwillbs.member.domain.MemberDTO">
-		select * from user
+		select * 
+		from user
+		order by user_id desc 
+        limit #{startRow} , #{pageSize}
 	</select>
+	
+	<select id="getMemberCount" resultType="java.lang.Integer">
+        select count(*) from user
+    </select>
    
 </mapper>
 

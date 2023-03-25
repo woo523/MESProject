@@ -23,10 +23,13 @@ public class MemberController {
 
 	// 목록화면 이동
 	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
-	public String list(Model model) {
-
-		List<MemberDTO> memberList = memberService.getMemberList();
+	public String list(HttpServletRequest request, HttpServletResponse response, Model model, MemberDTO memberDTO) {
+		System.out.println("MemberController list()");
+		
+		List<MemberDTO> memberList = memberService.getMemberList(memberDTO, model);
+		
 		model.addAttribute("memberList", memberList);
+		
 		return "member/list";
 	}
 

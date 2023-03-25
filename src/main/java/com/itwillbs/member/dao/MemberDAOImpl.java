@@ -66,10 +66,19 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<MemberDTO> getMemberList() {
+	public List<MemberDTO> getMemberList(MemberDTO memberDTO) {
 		System.out.println("MemberDAOImpl getMemberList()");
-
-		return sqlSession.selectList(namespace + ".getMemberList");
+		
+		return sqlSession.selectList(namespace + ".getMemberList", memberDTO);
 	}
+
+	@Override
+	public int getMemberCount() { // 총 회원수 조회
+		System.out.println("MemberDAOImpl getMemberCount()");
+		
+		return sqlSession.selectOne(namespace + ".getMemberCount");
+	}
+	
+	
 
 }

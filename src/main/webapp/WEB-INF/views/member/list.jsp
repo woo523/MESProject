@@ -19,10 +19,7 @@ function delMember(memId) {
 	<c:redirect url="/login/login"></c:redirect>
 </c:if>
 
-
-<h1>‖ 사용자 조회 ‖</h1>
-		<br>
-		<br>
+<h1>‖ 사용자 조회 ‖</h1> <br><br>
 		<table>
 			<tr>
 			<th>아이디</th>
@@ -32,7 +29,8 @@ function delMember(memId) {
 			<th>연락처</th>
 			<th>사용여부</th>
 			<th>삭제</th>
-		</tr>
+			</tr>
+			
 		<c:forEach items="${memberList }" var="dto" varStatus="i" > 
 		<!-- 반복문. items=컨트롤러.model에서 넣어준 값(리스트가 받아올 배열이름) / var=for문 내부에서 사용할 변수 / varStatus = 상태용 변수 -->
 			<tr>
@@ -46,6 +44,7 @@ function delMember(memId) {
 				<td>${dto.useYn }</td>
 				<td><button type="button" onclick="delMember('${dto.id }');">삭제</button></td>
 			</tr>
+			
 		</c:forEach> 	
 		</table>
 		<br><br>
@@ -56,6 +55,19 @@ function delMember(memId) {
  		</form>
 
  			
+ 			
+ 	<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+		<a href="/member/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}"><<</a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+		<a href="/member/list?pageNum=${i}">${i}</a>
+	</c:forEach>
+	
+	<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+		<a href="/member/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	</c:if>
+
 
 
 <!-- 내용끝 -->

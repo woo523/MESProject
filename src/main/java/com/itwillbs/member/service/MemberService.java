@@ -2,6 +2,11 @@ package com.itwillbs.member.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.ui.Model;
+
 import com.itwillbs.member.domain.MemberDTO;
 
 public interface MemberService {
@@ -15,5 +20,5 @@ public interface MemberService {
 	
 	public void deleteMember(MemberDTO memberDTO);
 	
-	public List<MemberDTO> getMemberList();
+	public List<MemberDTO> getMemberList(MemberDTO memberDTO, Model model);
 }

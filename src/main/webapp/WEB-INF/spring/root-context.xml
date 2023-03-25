@@ -3,15 +3,26 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- 여기는 DB연결 객체만 남겨두면 된다.(최종) -->
-	
+
 	
 	<!-- 프로젝트 디비연결 객체생성 세팅용.-->
-   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> <!-- 1단계,2단계 드라이버불러오고,객체생성 단계 -->
+   <bean id="dataSourceSpied" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+      <property name="driverClass" value="com.mysql.cj.jdbc.Driver"></property> <!-- 1단계,2단계 드라이버불러오고,객체생성 단계 -->
       <property name="url" value="jdbc:mysql://itwillbs-rds-class1-team2.cwyqfeylunq5.ap-northeast-2.rds.amazonaws.com:3306/mes?zeroDateTimeBehavior=convertToNull"></property>
       <property name="username" value="root"></property>
       <property name="password" value="class11020"></property>
    </bean>
+   
+   <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> 
+    <constructor-arg ref="dataSourceSpied" /> 
+    <property name="logFormatter"> 
+        <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter"> 
+            <property name="loggingType" value="MULTI_LINE" /> 
+            <property name="sqlPrefix" value="SQL : "/> 
+        </bean> 
+    </property> 
+</bean>
+
 	
 	<!-- Mybatis 설정하는 객체생성 세팅용.
 		1) dataSource 가져오기 2)configLocation :Mybatis 환경설정 파일 위치 지정

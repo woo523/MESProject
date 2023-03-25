@@ -16,5 +16,7 @@ public interface MemberDAO {
 	
 	public void deleteMember(MemberDTO memberDTO);
 	
-	public List<MemberDTO> getMemberList();
+	public List<MemberDTO> getMemberList(MemberDTO memberDTO);
+	
+	public int getMemberCount(); // 총 회원수 조회
 }
