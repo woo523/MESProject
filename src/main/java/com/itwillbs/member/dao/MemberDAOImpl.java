@@ -51,7 +51,7 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("MemberDAOImpl updateMember()");
 
 		// sqlSession.insert(sql구문이름, ?에 입력될 값);
-		sqlSession.insert(namespace + ".updateMember", memberDTO);
+		sqlSession.update(namespace + ".updateMember", memberDTO);
 
 	}
 
@@ -61,7 +61,7 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.println("MemberDAOImpl deleteMember()");
 
 		// sqlSession.insert(sql구문이름, ?에 입력될 값);
-		sqlSession.insert(namespace + ".deleteMember", memberDTO);
+		sqlSession.delete(namespace + ".deleteMember", memberDTO);
 
 	}
 

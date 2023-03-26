@@ -11,17 +11,67 @@
   		insert into com_code (cd_grp,cd,cd_nm,sort_num,use_yn,insert_id,insert_dt) <!-- 디비컬럼 -->
   					values   (#{cdGrp},#{cd},#{cdNm},#{sortNum},#{useYn},#{insertId},now()) <!-- 디티오 -->
   	</insert>
+  	
+  	<!-- 공통코드 1개 조회 -->
+	<select id="getComCode" resultType="com.itwillbs.comcode.domain.ComCodeDTO">
+		select * from com_code
+		where cd_grp = #{cdGrp}
+		and cd = #{cd}
+	</select>
+	
 
 <!-- 공통코드 전체조회 -->
 	<select id="getComCodeList" resultType="com.itwillbs.comcode.domain.ComCodeDTO">
 		select * 
 		from com_code
+		where cd_grp = '0000'
 		order by cd_grp desc 
         limit #{startRow} , #{pageSize}
 	</select>
 <!-- 페이징용 -->	
 	<select id="getComCodeCount" resultType="java.lang.Integer">
-        select count(*) from com_code
+        select count(*) 
+        from com_code
+        where cd_grp = '0000'
     </select>
+    
+    <!-- 공통코드 수정 -->
+	<update id="updateComCode">
+		update com_code 
+		set cd_nm = #{cdNm} 
+			,sort_num = #{sortNum} 
+			,use_yn = #{useYn}
+			,update_id = #{updateId}
+			,update_dt=now()
+		where cd_grp = #{cdGrp}
+		and cd = #{cd} 
+	</update>
+	
+	<!-- 공통코드 삭제 -->
+	<delete id="deleteComCode">
+		delete from com_code
+		where cd_grp = #{cdGrp}
+		and cd = #{cd}
+	</delete>
+	
+	
+	
+	<!-- 하위코드리스트 팝업에서 뿌려줄 하위코드들 조회 (코드그룹을 where 조건으로 줘서 조회)  -->
+	<select id="getSubComCodeList" resultType="com.itwillbs.comcode.domain.ComCodeDTO">
+		select * 
+		from com_code
+		where cd_grp = #{cd}
+		order by sort_num 
+	</select>
+	
+	
+	<!-- 사용여부가 사용이면서 코드그룹으로 하위코드 리스트들 조회 -->
+	<select id="selcetCode" resultType="com.itwillbs.comcode.domain.ComCodeDTO">
+		select * 
+		from com_code
+		where cd_grp = #{cd}
+		and use_yn = 'Y'
+		order by sort_num 
+	</select>
     
 </mapper>

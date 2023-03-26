@@ -154,7 +154,7 @@ input[type="search"] {
 	color: #333;
 	font-size: 15px;
 	font-weight: 800;
-	padding: 20px 0px 8px 14px;
+	padding: 20px 0px 20px 14px;
 	border-bottom: 1px solid #e1e1e1;
 }
 
@@ -172,7 +172,7 @@ input[type="search"] {
 	font-weight: 600;
 	border-bottom: 0px solid #e1e1e1;
 	margin-left: 14px;
-	padding-top: 8px;
+	/* padding-top: 8px; */
 }
 
 .big_menu {
@@ -181,4 +181,35 @@ input[type="search"] {
 
 .content_body {
 	padding:40px;
+}
+
+
+/* 페이징 */
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+.pagination .none {
+  color: #d1d1d1;
+}
+
+.pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+.pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
 }

@@ -4,6 +4,7 @@
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 <link href="/resources/css/table.css"  rel="stylesheet" type="text/css">
+<link href="/resources/css/common.css"  rel="stylesheet" type="text/css">
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 function check(){
@@ -40,8 +41,6 @@ function join() {
 	
 	if (!valChk($("#name"), "이름")) return false;
 	
-	if (!valChk($("#departments"), "부서")) return false;
-
 	if (!valChk($("#position"), "직책")) return false;
 	
 	if($("#email").val() != ""){
@@ -130,55 +129,76 @@ function valChk(obj, alias) {
 </c:if>
 
 
-	<form action="/member/update" id="join"  method="post">
-	<input type="hidden" name="checkYn" id="checkYn" value="N">
-	<input type="hidden" name="checkId" id="checkId" value="">
-	<input type="hidden" name="updateId" id="updateId" value="${sessionScope.id }">
-		<h1>‖ 사용자 수정 ‖</h1><br><br>
-		<table>
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" name="id" id="id" value="${memberDTO.id }" readonly></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" name="pass" id="pass" value="${memberDTO.pass }" placeholder="비밀번호"></td>
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name" id="name"  value="${memberDTO.name }" placeholder="이름을 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td>부서</td>
-				<td><input type="text" name="departments" id="departments"  value="${memberDTO.departments }" placeholder="부서를 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td>직책</td>
-				<td><input type="text" name="position" id="position" value="${memberDTO.position }" placeholder="직책을 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td>이메일주소</td>
-				<td><input type="text" name="email" id="email" value="${memberDTO.email }" placeholder="예)email@naver.com"></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td><input type="text" name="tell" id="tell" value="${memberDTO.tell }" placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13"></td>
-			</tr>
-			<tr>
-				<td>연락처</td>
-				<td><input type="text" name="phone" id="phone" value="${memberDTO.phone }" placeholder="010-0000-0000" oninput="autoHyphen(this)" maxlength="13"></td>
-			</tr>
-			<tr>
-				<td>사용여부</td>
-				<td>
-				<input type="radio" name="useYn" id="useYn" value="Y" <c:if test="${memberDTO.useYn eq 'Y'}">checked</c:if>>사용 
-				<input type="radio" name="useYn" id="useYn" value="N" <c:if test="${memberDTO.useYn eq 'N'}">checked</c:if>>미사용
-				</td>
-			</tr>
-		</table>
-		<br><br>
-		<button type="button" onclick="join();">수정</button>
-	</form>
+	
+	<h1>‖ 사용자 수정 ‖</h1><br><br>
+	
+	<div style="width: 60%">
+		<form action="/member/update" id="join"  method="post">
+			<input type="hidden" name="checkYn" id="checkYn" value="N">
+			<input type="hidden" name="checkId" id="checkId" value="">
+			<input type="hidden" name="updateId" id="updateId" value="${sessionScope.id }">
+			<table>
+				<colgroup>
+					<col width="20%">
+					<col width="*">
+				</colgroup>
+				<tbody>
+				<tr>
+					<th>아이디</th>
+					<td><input type="text" name="id" id="id" value="${memberDTO.id }" readonly></td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td><input type="password" name="pass" id="pass" value="${memberDTO.pass }" placeholder="비밀번호"></td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td><input type="text" name="name" id="name"  value="${memberDTO.name }" placeholder="이름을 입력해주세요"></td>
+				</tr>
+				<tr>
+					<th>부서</th>
+					<td>
+						<select name="departments"  id="departments">
+							<c:forEach items="${departmentComCdList }" var="codeDto">
+								<option value="${codeDto.cd }" <c:if test="${memberDTO.departments eq codeDto.cd}">selected</c:if>>${codeDto.cdNm }</option>
+							</c:forEach>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>직책</th>
+					<td><input type="text" name="position" id="position" value="${memberDTO.position }" placeholder="직책을 입력해주세요"></td>
+				</tr>
+				<tr>
+					<th>이메일주소</th>
+					<td><input type="text" name="email" id="email" value="${memberDTO.email }" placeholder="예)email@naver.com"></td>
+				</tr>
+				<tr>
+					<th>전화번호</th>
+					<td><input type="text" name="tell" id="tell" value="${memberDTO.tell }" placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13"></td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td><input type="text" name="phone" id="phone" value="${memberDTO.phone }" placeholder="010-0000-0000" oninput="autoHyphen(this)" maxlength="13"></td>
+				</tr>
+				<tr>
+					<th>사용여부</th>
+					<td>
+					<input type="radio" name="useYn" id="useYn" value="Y" <c:if test="${memberDTO.useYn eq 'Y'}">checked</c:if>>사용 
+					<input type="radio" name="useYn" id="useYn" value="N" <c:if test="${memberDTO.useYn eq 'N'}">checked</c:if>>미사용
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<br><br>
+			
+			<div class="fr">
+				<button type="button" class="btn" onclick="join();">수정</button>
+			</div>
+			<div class="clear"></div>
+			
+		</form>
+	</div>
 	<!-- 내용끝 -->
 </div>
 <!-- 지우면안됨 -->

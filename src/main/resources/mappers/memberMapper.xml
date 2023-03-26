@@ -14,8 +14,21 @@
  
   	<!-- 1명사용자 조회 -->
 	<select id="getMember" resultType="com.itwillbs.member.domain.MemberDTO">
-		select * from user
-		where id = #{id}
+		select T.id,
+				T.pass,
+				T.name,
+				T.departments,
+				(select cd_nm from com_code where cd_grp = 'department_type' and cd = T.departments) as departments_nm,
+				T.position,
+				T.email,
+				T.tell,
+				T.phone,
+				T.use_yn,
+				T.insert_dt,
+				T.update_id,
+				T.update_dt 
+		from user T
+		where T.id = #{id}
 	</select>
 
 	<!-- 사용자 수정 -->
@@ -35,9 +48,21 @@
 	
 	<!-- 사용자목록 전체조회 -->
 	<select id="getMemberList" resultType="com.itwillbs.member.domain.MemberDTO">
-		select * 
-		from user
-		order by user_id desc 
+		select T.id,
+				T.pass,
+				T.name,
+				T.departments,
+				(select cd_nm from com_code where cd_grp = 'department_type' and cd = T.departments) as departments_nm,
+				T.position,
+				T.email,
+				T.tell,
+				T.phone,
+				T.use_yn,
+				T.insert_dt,
+				T.update_id,
+				T.update_dt
+		from user T
+		order by T.user_id desc 
         limit #{startRow} , #{pageSize}
 	</select>
 	

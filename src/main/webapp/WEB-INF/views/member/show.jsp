@@ -4,6 +4,7 @@
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%>
 <link href="/resources/css/table.css"  rel="stylesheet" type="text/css">
+<link href="/resources/css/common.css"  rel="stylesheet" type="text/css">
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 	function delMember() {
@@ -20,58 +21,68 @@
 </c:if>
 
 	<h1>‖ 사용자 조회 ‖</h1> <br><br>
-		<table>
+	
+	<div style="width: 60%">
+		<table class="view_table">
+			<colgroup>
+				<col width="20%">
+				<col width="*">
+			</colgroup>
+			<tbody>
 			<tr>
-				<td>아이디</td>
+				<th>아이디</th>
 				<td>${memberDTO.id }</td>
 			</tr>
 			<tr>
-				<td>비밀번호</td>
+				<th>비밀번호</th>
 				<td>${memberDTO.pass }</td>
 			</tr>
 			<tr>
-				<td>이름</td>
+				<th>이름</th>
 				<td>${memberDTO.name }</td>
 			</tr>
 			<tr>
-				<td>부서</td>
-				<td>${memberDTO.departments }</td>
+				<th>부서</th>
+				<td>${memberDTO.departmentsNm }</td>
 			</tr>
 			<tr>
-				<td>직책</td>
+				<th>직책</th>
 				<td>${memberDTO.position }</td>
 			</tr>
 			<tr>
-				<td>이메일주소</td>
+				<th>이메일주소</th>
 				<td>${memberDTO.email }</td>
 			</tr>
 			<tr>
-				<td>전화번호</td>
+				<th>전화번호</th>
 				<td>${memberDTO.tell }</td>
 			</tr>
 			<tr>
-				<td>연락처</td>
+				<th>연락처</th>
 				<td>${memberDTO.phone }</td>
 			</tr>
 			<tr>
-				<td>사용여부</td>
+				<th>사용여부</th>
 				<td>
 				${memberDTO.useYn }
 				</td>
 			</tr>
+			</tbody>
 		</table>
 		<br><br><br>
 		
- 		<button type="button" onclick="location.href='/member/edit?id=${memberDTO.id }'">수정</button>
- 		
- 		<form name="deleteForm" id="deleteForm" action="/member/delete"  method="POST">
- 		
- 			<input type="hidden" name="id" value="${memberDTO.id }">
- 	
- 		</form>
-
- 			<button type="button" onclick="delMember();">삭제</button>
+		<div class="fr">
+ 			<button type="button" class="btn" onclick="location.href='/member/edit?id=${memberDTO.id }'">수정</button>
+ 			<button type="button" class="btn" onclick="delMember();">삭제</button>
+ 		</div>
+		<div class="clear"></div>
+ 			
+ 	</div>
 </div>
+
+<form name="deleteForm" id="deleteForm" action="/member/delete"  method="POST">
+	<input type="hidden" name="id" value="${memberDTO.id }">
+</form>
 <!-- 푸터 -->
 <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
 

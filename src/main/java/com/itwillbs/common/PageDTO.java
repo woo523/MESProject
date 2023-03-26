@@ -2,7 +2,7 @@ package com.itwillbs.common;
 
 public class PageDTO {
 	// 한 화면에 보여지는 글 개수
-	private int pageSize = 2; 
+	private int pageSize = 10; 
 	
 	 // 페이지 번호
 	private String pageNum = "1";
@@ -17,7 +17,7 @@ public class PageDTO {
 	private int endRow; 
 	
 	// 하나의 블록에 몇 페이지가 속해있는지 // 즉 5이면 <<1,2,3,4,5>> 페이지가 한블록 <<6,7,8,9,10>> 페이지가 한 블록
-	private int pageBlock = 2; 
+	private int pageBlock = 10; 
 	
 	// 현재 페이지가 속한 페이지블록의 시작 페이지 
 	// 3페이지는 1번째 페이지 블록임 <<1,2,3,4,5>>. 이 페이지블록의 시작 페이지는 1이다. 

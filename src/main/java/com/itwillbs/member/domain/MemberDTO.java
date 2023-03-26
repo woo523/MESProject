@@ -19,6 +19,8 @@ public class MemberDTO extends PageDTO {
 	private String updateId;
 	private Date updateDt;
 	
+	private String departmentsNm;
+	
 	
 	public String getId() {
 		return id;
@@ -99,7 +101,13 @@ public class MemberDTO extends PageDTO {
 	public void setUpdateDt(Date updateDt) {
 		this.updateDt = updateDt;
 	}
+	public String getDepartmentsNm() {
+		return departmentsNm;
+	}
+	public void setDepartmentsNm(String departmentsNm) {
+		this.departmentsNm = departmentsNm;
+	}
 	
 	
-
+	
 }

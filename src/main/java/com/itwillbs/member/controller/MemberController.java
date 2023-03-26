@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwillbs.comcode.service.ComCodeService;
 import com.itwillbs.member.domain.MemberDTO;
 import com.itwillbs.member.service.MemberService;
 
@@ -20,6 +21,9 @@ public class MemberController {
 
 	@Inject
 	private MemberService memberService; // 4버전.자동으로 객체생성 한 것.
+	
+	@Inject
+	private ComCodeService comCodeService; //공통코드
 
 	// 목록화면 이동
 	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
@@ -47,7 +51,9 @@ public class MemberController {
 
 	// 등록화면 이동
 	@RequestMapping(value = "/member/create", method = RequestMethod.GET)
-	public String create() {
+	public String create(HttpServletRequest request, HttpServletResponse response, Model model) {
+		
+		model.addAttribute("departmentComCdList", comCodeService.selcetCode("department_type")); //부서유형 공통코드
 		return "member/create";
 	}
 
@@ -59,7 +65,7 @@ public class MemberController {
 		MemberDTO dto = memberService.getMember(memberDTO.getId());
 
 		model.addAttribute("memberDTO", dto);
-
+		model.addAttribute("departmentComCdList", comCodeService.selcetCode("department_type")); //부서유형 공통코드
 		return "member/edit";
 	}
 

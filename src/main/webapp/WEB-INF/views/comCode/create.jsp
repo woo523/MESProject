@@ -4,6 +4,7 @@
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 <link href="/resources/css/table.css"  rel="stylesheet" type="text/css">
+<link href="/resources/css/common.css"  rel="stylesheet" type="text/css">
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 
@@ -26,41 +27,46 @@
 	<c:redirect url="/login/login"></c:redirect>
 </c:if>
 
-	<form action="/comCode/insert" id="createForm" method="post">
-	<input type="hidden" name="insertId" id="insertId" value="${sessionScope.id }">
-	<input type="hidden" name="cdGrp" id="cdGrp" value="0000">
+	<h1>‖ 공통코드 등록 ‖</h1><br><br>
 	
-		<h1>‖ 공통코드 등록 ‖</h1><br><br>
-		<table>
-			<tr>
-				<td>상위코드</td>
-				<td><input type="cdGrp" name="cdGrp" id="cdGrp" placeholder="상위품번을 입력하세요" maxlength="5"></td>
-			</tr>
-			<tr>
-				<td>하위코드</td>
-				<td><input type="cd" name="cd" id="cd" placeholder="하위품번을 입력하세요" maxlength="5"></td>
-			</tr>
-			<tr>
-				<td>하위코드명</td>
-				<td><input type="cdNm" name="cdNm" id="cdNm" placeholder="하위품목을 입력하세요" ></td>
-			</tr>
-			<tr>
-				<td>정렬순서</td>
-				<td><input type="sortNum" name="sortNum" id="sortNum" placeholder="정렬순서를 입력하세요" ></td>
-			</tr>
-			<tr>
-				<td>사용여부</td>
-				<td>
-				<input type="radio" name="useYn" value="Y" checked>사용 
-				<input type="radio" name="useYn" value="N">미사용
-				</td>
-			</tr>
+	<div style="width: 60%">
+		<form action="/comCode/insert" id="createForm" method="post">
+		<input type="hidden" name="insertId" id="insertId" value="${sessionScope.id }">
+		<input type="hidden" name="cdGrp" id="cdGrp" value="0000">
+		<input type="hidden" name="sortNum" id="sortNum" value="1">
 			
-		</table><br><br>
- 		<button type="button" onclick="create();">등록</button>
-		<button type="reset">취소</button>
-	</form>
-	
+			<table>
+				<colgroup>
+					<col width="20%">
+					<col width="*">
+				</colgroup>
+				<tbody>
+				<tr>
+					<th>코드그룹</th>
+					<td><input type="text" name="cd" id="cd" placeholder="코드그룹을 입력하세요"></td>
+				</tr>
+				<tr>
+					<th>코드그룹명</th>
+					<td><input type="text" name="cdNm" id="cdNm" placeholder="코드그룹명을 입력하세요" ></td>
+				</tr>
+				<tr>
+					<th>사용여부</th>
+					<td>
+						<input type="radio" name="useYn" value="Y" checked>사용 
+						<input type="radio" name="useYn" value="N">미사용
+					</td>
+				</tr>
+				</tbody>
+			</table><br><br>
+			
+			<div class="fr">
+				<button type="button" class="btn" onclick="create();">등록</button>
+				<button type="reset" class="btn">취소</button>
+			</div>
+			<div class="clear"></div>
+	 		
+		</form>
+	</div>
 	
 	<!-- 내용끝 -->
 </div>

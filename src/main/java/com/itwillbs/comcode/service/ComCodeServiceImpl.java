@@ -44,4 +44,49 @@ public class ComCodeServiceImpl implements ComCodeService {
 		return comCodeDAO.getComCodeList(comCodeDTO); // 회원리스트를 리턴
 	}
 
+
+	@Override
+	public void updateComCode(ComCodeDTO comCodeDTO) {
+		System.out.println("ComCodeServiceImpl updateComCode()");
+		comCodeDAO.updateComCode(comCodeDTO);
+	}
+
+
+	@Override
+	public void deleteComCode(ComCodeDTO comCodeDTO) {
+		System.out.println("ComCodeServiceImpl deleteComCode()");
+		comCodeDAO.deleteComCode(comCodeDTO);
+	}
+
+
+	@Override
+	public ComCodeDTO getComCode(ComCodeDTO comCodeDTO) {
+		System.out.println("ComCodeServiceImpl getComCode()");
+		return comCodeDAO.getComCode(comCodeDTO);
+	}
+
+
+	
+	
+	//하위코드리스트 팝업에서 뿌려줄 하위코드들 조회 (코드그룹을 where 조건으로 줘서 조회)
+	@Override
+	public List<ComCodeDTO> getSubComCodeList(String cd) {
+		System.out.println("ComCodeServiceImpl getSubComCodeList()");
+		
+		return comCodeDAO.getSubComCodeList(cd);
+	}
+
+
+	//사용여부가 사용이면서 코드그룹으로 하위코드 리스트들 조회
+	@Override
+	public List<ComCodeDTO> selcetCode(String cd) {
+		System.out.println("ComCodeServiceImpl selcetCode()");
+		
+		return comCodeDAO.selcetCode(cd);
+	}
+	
+	
+	
+	
+	
 }

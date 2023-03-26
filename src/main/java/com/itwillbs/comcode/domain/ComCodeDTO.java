@@ -6,7 +6,6 @@ import com.itwillbs.common.PageDTO;
 
 public class ComCodeDTO extends PageDTO {
 	private String cdGrp;
-	private String cdGrpNm;
 	private String cd;
 	private String cdNm;
 	private int sortNum;
@@ -15,17 +14,16 @@ public class ComCodeDTO extends PageDTO {
 	private Date insertDt;
 	private String updateId;
 	private Date updateDt;
+	
+	
+	//insert, update시 팝업여부에 따라 컨트롤러에서 다른 리턴을 하기위해 추가
+	private String mode;
+	
 	public String getCdGrp() {
 		return cdGrp;
 	}
 	public void setCdGrp(String cdGrp) {
 		this.cdGrp = cdGrp;
-	}
-	public String getCdGrpNm() {
-		return cdGrpNm;
-	}
-	public void setCdGrpNm(String cdGrpNm) {
-		this.cdGrpNm = cdGrpNm;
 	}
 	public String getCd() {
 		return cd;
@@ -75,6 +73,13 @@ public class ComCodeDTO extends PageDTO {
 	public void setUpdateDt(Date updateDt) {
 		this.updateDt = updateDt;
 	}
+	public String getMode() {
+		return mode;
+	}
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+	
 	
 	
 }

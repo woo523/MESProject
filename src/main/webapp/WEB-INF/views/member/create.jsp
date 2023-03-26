@@ -4,6 +4,7 @@
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 <link href="/resources/css/table.css"  rel="stylesheet" type="text/css">
+<link href="/resources/css/common.css"  rel="stylesheet" type="text/css">
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 
@@ -60,8 +61,6 @@
 		
 		if (!valChk($("#name"), "이름")) return false;
 		
-		if (!valChk($("#departments"), "부서")) return false;
-
 		if (!valChk($("#position"), "직책")) return false;
 		
 		if($("#email").val() != ""){
@@ -167,59 +166,79 @@
 </c:if>
 
 	
-		<h1>‖ 사용자 등록 ‖</h1><br><br>
-		
+	<h1>‖ 사용자 등록 ‖</h1><br><br>
+	
+	
+	<div style="width: 60%">
 		<form action="/member/insert" id="join" method="post"  >
 			<input type="hidden" name="checkYn" id="checkYn" value="N">
 			<input type="hidden" name="checkId" id="checkId" value="">
 			<input type="hidden" name="insertId" id="insertId" value="${sessionScope.id }">
 			<table>
+				<colgroup>
+					<col width="20%">
+					<col width="*">
+				</colgroup>
+				<tbody>
 				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="id" id="id" placeholder="아이디입력" maxlength="4"></td>
-					<td><input type="button"  id="checkId" value="중복확인" onclick="check();"></td>
+					<th>아이디</th>
+					<td>
+						<input type="text" name="id" id="id" placeholder="아이디입력" maxlength="4">
+						<input type="button" class="ml10" id="checkId" value="중복확인" onclick="check();">
+					</td>
 				</tr>
 				<tr>
-					<td>비밀번호</td>
+					<th>비밀번호</th>
 					<td><input type="password" name="pass" id="pass" placeholder="비밀번호" maxlength="6"></td>
 				</tr>
 				<tr>
-					<td>이름</td>
+					<th>이름</th>
 					<td><input type="text" name="name" id="name" placeholder="이름을 입력해주세요"></td>
 				</tr>
 				<tr>
-					<td>부서</td>
-					<td><input type="text" name="departments"  id="departments" placeholder="부서를 입력해주세요"></td>
+					<th>부서</th>
+					<td>
+						<select name="departments"  id="departments">
+							<c:forEach items="${departmentComCdList }" var="codeDto">
+								<option value="${codeDto.cd }">${codeDto.cdNm }</option>
+							</c:forEach>
+						</select>	
+					</td>
 				</tr>
 				<tr>
-					<td>직책</td>
+					<th>직책</th>
 					<td><input type="text" name="position" id="position" placeholder="직책을 입력해주세요"></td>
 				</tr>
 				<tr>
-					<td>이메일주소</td>
+					<th>이메일주소</th>
 					<td><input type="text" name="email" id="email" placeholder="예)email@naver.com" ></td>
 				</tr>
 				<tr>
-					<td>전화번호</td>
+					<th>전화번호</th>
 					<td><input type="text" name="tell" id="tell" placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13"></td>
 				</tr>
 				<tr>
-					<td>연락처</td>
+					<th>연락처</th>
 					<td><input type="text" name="phone"  id="phone" placeholder="010-0000-0000" oninput="autoHyphen(this)" maxlength="13"></td>
 				</tr>
 				<tr>
-					<td>사용여부</td>
+					<th>사용여부</th>
 					<td>
-					<input type="radio" name="useYn" value="Y" checked>사용 
-					<input type="radio" name="useYn" value="N">미사용
+						<input type="radio" name="useYn" value="Y" checked>사용 
+						<input type="radio" name="useYn" value="N">미사용
 					</td>
 				</tr>
+				</tbody>
 			</table>
 			<br><br>
- 		<button type="button" onclick="join();">등록</button>
-		<button type="reset">취소</button>
-	</form>
-	
+			
+			<div class="fr">
+				<button type="button" class="btn" onclick="join();">등록</button>
+				<button type="reset" class="btn">취소</button>
+			</div>
+			<div class="clear"></div>
+		</form>
+	</div>
 	
 	<!-- 내용끝 -->
 </div>

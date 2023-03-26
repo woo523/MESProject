@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+
+.fr {
+	float: right;
+}
+
+.fl {
+	float: left;	
+}
+
+.clear{
+	clear: both;
+}
+
+.btn {
+	display: inline-block;
+	width: 70px;
+	height: 28px;
+	font-size: 15px;
+}
+
+.sm_btn {
+	display: inline-block;
+	height: 28px;
+	font-size: 13px;
+}
+
+.wp10 {
+	width: 10%;
+}
+
+.wp20 {
+	width: 20%;
+}
+
+.wp30 {
+	width: 30%;
+}
+
+.wp40 {
+	width: 40%;
+}
+
+.wp50 {
+	width: 50%;
+}
+
+.wp60 {
+	width: 60%;
+}
+
+.wp70 {
+	width: 70%;
+}
+
+.wp80 {
+	width: 80%;
+}
+
+.wp90 {
+	width: 90%;
+}
+
+.wp100 {
+	width: 100%;
+}
+
+
+
+.p20 {
+	padding: 20px;
+}
+
+.m10 {
+	margin: 10px;
+}
+
+.ml10 {
+	margin-left: 10px;
+}

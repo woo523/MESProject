@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp" %>
 <link href="/resources/css/tablelist.css"  rel="stylesheet" type="text/css">
+<link href="/resources/css/common.css"  rel="stylesheet" type="text/css">
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 function delMember(memId) {
@@ -42,6 +44,11 @@ function delMember(memId) {
 				</tr>
 			</thead>
 			<tbody>		
+				<c:if test="${fn:length(memberList) eq 0}">
+					<tr>
+						<td colspan="7">결과가 없습니다.</td>
+					</tr>
+				</c:if>
 				<c:forEach items="${memberList }" var="dto" varStatus="i" > 
 				<!-- 반복문. items=컨트롤러.model에서 넣어준 값(리스트가 받아올 배열이름) / var=for문 내부에서 사용할 변수 / varStatus = 상태용 변수 -->
 					<tr>
@@ -49,38 +56,54 @@ function delMember(memId) {
 						<td>
 							<a href="/member/show?id=${dto.id }">${dto.name }</a>
 						</td>
-						<td>${dto.departments }</td>
+						<td>${dto.departmentsNm }</td>
 						<td>${dto.position }</td>
 						<td>${dto.phone }</td>
 						<td>${dto.useYn }</td>
-						<td><button type="button" onclick="delMember('${dto.id }');">삭제</button></td>
+						<td><button type="button" class="sm_btn" onclick="delMember('${dto.id }');">삭제</button></td>
 					</tr>
 				</c:forEach> 	
 			</tbody>	
 		</table>
 		<br><br>
-		<button type="button" onclick="location.href='/member/create'">등록</button>
 		
-		<form name="deleteForm" id="deleteForm" action="/member/delete"  method="POST">
- 			<input type="hidden" id="id" name="id" value="">
- 		</form>
+		<div class="fr">
+			<button type="button" class="btn" onclick="location.href='/member/create'">등록</button>
+		</div>
+		<div class="clear"></div>
+		
 
- 			
- 			
- 	<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-		<a href="/member/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}"><<</a>
-	</c:if>
-	
-	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-		<a href="/member/list?pageNum=${i}">${i}</a>
-	</c:forEach>
-	
-	<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-		<a href="/member/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
-	</c:if>
+ 	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock }">
+					<a href="/member/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+				<a href="/member/list?pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount  }">
+					<a href="/member/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
 
 
-
+<form name="deleteForm" id="deleteForm" action="/member/delete"  method="POST">
+	<input type="hidden" id="id" name="id" value="">
+</form>
+ 		
 <!-- 내용끝 -->
 </div>
 <!-- 푸터 -->
