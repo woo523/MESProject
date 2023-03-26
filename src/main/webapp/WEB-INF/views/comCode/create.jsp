@@ -33,19 +33,15 @@
 		<h1>‖ 공통코드 등록 ‖</h1><br><br>
 		<table>
 			<tr>
-				<td>상위품번</td>
+				<td>상위코드</td>
 				<td><input type="cdGrp" name="cdGrp" id="cdGrp" placeholder="상위품번을 입력하세요" maxlength="5"></td>
 			</tr>
 			<tr>
-				<td>상위품목</td>
-				<td><input type="cdGrpNm" name="cdGrpNm" id="cdGrpNm" placeholder="상위품목을 입력하세요" ></td>
-			</tr>
-			<tr>
-				<td>하위품번</td>
+				<td>하위코드</td>
 				<td><input type="cd" name="cd" id="cd" placeholder="하위품번을 입력하세요" maxlength="5"></td>
 			</tr>
 			<tr>
-				<td>하위품목</td>
+				<td>하위코드명</td>
 				<td><input type="cdNm" name="cdNm" id="cdNm" placeholder="하위품목을 입력하세요" ></td>
 			</tr>
 			<tr>

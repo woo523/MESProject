@@ -11,4 +11,5 @@ public interface ComCodeService {
 	public void insertComCode(ComCodeDTO comCodeDTO);
 
 	public List<ComCodeDTO> getComCodeList(ComCodeDTO comCodeDTO, Model model);
+	
 }

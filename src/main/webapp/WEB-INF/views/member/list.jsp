@@ -21,31 +21,42 @@ function delMember(memId) {
 
 <h1>‖ 사용자 조회 ‖</h1> <br><br>
 		<table>
-			<tr>
-			<th>아이디</th>
-			<th>이름</th>
-			<th>부서</th>
-			<th>직책</th>
-			<th>연락처</th>
-			<th>사용여부</th>
-			<th>삭제</th>
-			</tr>
-			
-		<c:forEach items="${memberList }" var="dto" varStatus="i" > 
-		<!-- 반복문. items=컨트롤러.model에서 넣어준 값(리스트가 받아올 배열이름) / var=for문 내부에서 사용할 변수 / varStatus = 상태용 변수 -->
-			<tr>
-				<td>${dto.id }</td>
-				<td>
-					<a href="/member/show?id=${dto.id }">${dto.name }</a>
-				</td>
-				<td>${dto.departments }</td>
-				<td>${dto.position }</td>
-				<td>${dto.phone }</td>
-				<td>${dto.useYn }</td>
-				<td><button type="button" onclick="delMember('${dto.id }');">삭제</button></td>
-			</tr>
-			
-		</c:forEach> 	
+			<colgroup>
+				<col width="10%">
+				<col width="*">
+				<col width="10%">
+				<col width="15%">
+				<col width="15%">
+				<col width="15%">
+				<col width="15%">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>부서</th>
+					<th>직책</th>
+					<th>연락처</th>
+					<th>사용여부</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>		
+				<c:forEach items="${memberList }" var="dto" varStatus="i" > 
+				<!-- 반복문. items=컨트롤러.model에서 넣어준 값(리스트가 받아올 배열이름) / var=for문 내부에서 사용할 변수 / varStatus = 상태용 변수 -->
+					<tr>
+						<td>${dto.id }</td>
+						<td>
+							<a href="/member/show?id=${dto.id }">${dto.name }</a>
+						</td>
+						<td>${dto.departments }</td>
+						<td>${dto.position }</td>
+						<td>${dto.phone }</td>
+						<td>${dto.useYn }</td>
+						<td><button type="button" onclick="delMember('${dto.id }');">삭제</button></td>
+					</tr>
+				</c:forEach> 	
+			</tbody>	
 		</table>
 		<br><br>
 		<button type="button" onclick="location.href='/member/create'">등록</button>

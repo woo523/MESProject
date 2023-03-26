@@ -13,14 +13,14 @@
   	</insert>
 
 <!-- 공통코드 전체조회 -->
-	<select id="getComCodeList" resultType="com.itwillbs.member.domain.MemberDTO">
+	<select id="getComCodeList" resultType="com.itwillbs.comcode.domain.ComCodeDTO">
 		select * 
 		from com_code
 		order by cd_grp desc 
         limit #{startRow} , #{pageSize}
 	</select>
 <!-- 페이징용 -->	
-	<select id="getMemberCount" resultType="java.lang.Integer">
+	<select id="getComCodeCount" resultType="java.lang.Integer">
         select count(*) from com_code
     </select>
     

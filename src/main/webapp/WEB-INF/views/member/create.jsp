@@ -166,53 +166,56 @@
 	<c:redirect url="/login/login"></c:redirect>
 </c:if>
 
-	<form action="/member/insert" id="join" method="post"  >
-		<input type="hidden" name="checkYn" id="checkYn" value="N">
-		<input type="hidden" name="checkId" id="checkId" value="">
-		<input type="hidden" name="insertId" id="insertId" value="${sessionScope.id }">
+	
 		<h1>‖ 사용자 등록 ‖</h1><br><br>
-		<table>
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" name="id" id="id" placeholder="아이디입력" maxlength="4"></td>
-				<td><input type="button"  id="checkId" value="중복확인" onclick="check();"></td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td><input type="password" name="pass" id="pass" placeholder="비밀번호" maxlength="6"></td>
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name" id="name" placeholder="이름을 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td>부서</td>
-				<td><input type="text" name="departments"  id="departments" placeholder="부서를 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td>직책</td>
-				<td><input type="text" name="position" id="position" placeholder="직책을 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td>이메일주소</td>
-				<td><input type="text" name="email" id="email" placeholder="예)email@naver.com" ></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td><input type="text" name="tell" id="tell" placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13"></td>
-			</tr>
-			<tr>
-				<td>연락처</td>
-				<td><input type="text" name="phone"  id="phone" placeholder="010-0000-0000" oninput="autoHyphen(this)" maxlength="13"></td>
-			</tr>
-			<tr>
-				<td>사용여부</td>
-				<td>
-				<input type="radio" name="useYn" value="Y" checked>사용 
-				<input type="radio" name="useYn" value="N">미사용
-				</td>
-			</tr>
-		</table><br><br>
+		
+		<form action="/member/insert" id="join" method="post"  >
+			<input type="hidden" name="checkYn" id="checkYn" value="N">
+			<input type="hidden" name="checkId" id="checkId" value="">
+			<input type="hidden" name="insertId" id="insertId" value="${sessionScope.id }">
+			<table>
+				<tr>
+					<td>아이디</td>
+					<td><input type="text" name="id" id="id" placeholder="아이디입력" maxlength="4"></td>
+					<td><input type="button"  id="checkId" value="중복확인" onclick="check();"></td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="password" name="pass" id="pass" placeholder="비밀번호" maxlength="6"></td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" name="name" id="name" placeholder="이름을 입력해주세요"></td>
+				</tr>
+				<tr>
+					<td>부서</td>
+					<td><input type="text" name="departments"  id="departments" placeholder="부서를 입력해주세요"></td>
+				</tr>
+				<tr>
+					<td>직책</td>
+					<td><input type="text" name="position" id="position" placeholder="직책을 입력해주세요"></td>
+				</tr>
+				<tr>
+					<td>이메일주소</td>
+					<td><input type="text" name="email" id="email" placeholder="예)email@naver.com" ></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><input type="text" name="tell" id="tell" placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13"></td>
+				</tr>
+				<tr>
+					<td>연락처</td>
+					<td><input type="text" name="phone"  id="phone" placeholder="010-0000-0000" oninput="autoHyphen(this)" maxlength="13"></td>
+				</tr>
+				<tr>
+					<td>사용여부</td>
+					<td>
+					<input type="radio" name="useYn" value="Y" checked>사용 
+					<input type="radio" name="useYn" value="N">미사용
+					</td>
+				</tr>
+			</table>
+			<br><br>
  		<button type="button" onclick="join();">등록</button>
 		<button type="reset">취소</button>
 	</form>
