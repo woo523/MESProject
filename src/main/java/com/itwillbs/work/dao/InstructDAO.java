@@ -9,4 +9,8 @@ public interface InstructDAO {
 	public List<Map<String, Object>> instrList();
 	
 	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch);
+	
+	public Integer instrCount();
+	
+	public Integer instrCount(Map<String, Object> instrSearch);
 }

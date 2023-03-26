@@ -29,5 +29,19 @@ public class InstructServiceImpl implements InstructService{
 		
 		return instructDAO.instrList(instrSearch);
 	}
+
+	@Override
+	public Integer instrCount() {
+		System.out.println("InstructServiceImpl instrCount");
+		
+		return instructDAO.instrCount();
+	}
+
+	@Override
+	public Integer instrCount(Map<String, Object> instrSearch) {
+		System.out.println("InstructServiceImpl instrCount");
+		
+		return instructDAO.instrCount(instrSearch);
+	}
 	
 }

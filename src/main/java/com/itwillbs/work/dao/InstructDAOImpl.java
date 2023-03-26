@@ -31,4 +31,18 @@ public class InstructDAOImpl implements InstructDAO {
 		return sqlSession.selectList(namespace+".instrSearch", instrSearch);
 	}
 
+	@Override
+	public Integer instrCount() {
+		System.out.println("InstructDAOImpl instrCount");
+		
+		return sqlSession.selectOne(namespace+".instrCount");
+	}
+
+	@Override
+	public Integer instrCount(Map<String, Object> instrSearch) {
+		System.out.println("InstructDAOImpl instrCount");
+		
+		return sqlSession.selectOne(namespace+".instrSearchCount", instrSearch);
+	}
+
 }

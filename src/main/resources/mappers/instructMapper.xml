@@ -16,6 +16,7 @@
 	</resultMap>
 	
  	<resultMap type="map" id="instrMap">
+ 		<result property="instr_id" column="instr_id"/>
 		<result property="workNum" column="workNum"/>
 		<result property="workDate" column="workDate"/>
 		<result property="workSts" column="workSts"/>
@@ -34,6 +35,18 @@
 	<!-- instructList 조회 select 구문 -->
 	<select id="instrSearch" resultMap="instrMap">
 		<include refid="List" />
+		<include refid="Search" />
+		<![CDATA[
+			ORDER BY work.instr_id
+		]]>
+	</select>
+	
+	<select id="instrCount" resultType="java.lang.Integer">
+		<include refid="Count" />
+	</select>
+	
+	<select id="instrSearchCount" resultType="java.lang.Integer">
+		<include refid="SearchCount" />
 		<include refid="Search" />
 	</select>
 	
@@ -70,6 +83,22 @@
 			</otherwise>
 		</choose>
 		AND item.item_num LIKE CONCAT('%' , #{itemNum}, '%')
+	</sql>
+	
+	<sql id="Count">
+		SELECT COUNT(*) FROM work_instr
+	</sql>
+	
+	<sql id="SearchCount">
+		SELECT COUNT(*)as count, work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num as orderNum, 
+			   work.work_dt as workDate, work.work_sts as workSts,
+          	   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
+          	   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
+          	   work.work_qty as workQty, work.insert_dt as insertDate, work.insert_id as insertId
+		FROM work_instr work JOIN order_mng oder ON work.ord_id = oder.ord_id
+        JOIN item item ON work.item_id = item.item_id
+        JOIN client clnt ON item.clnt_id = clnt.clnt_id
+        JOIN line line ON work.line_id = line.line_id
 	</sql>
 
 </mapper>
