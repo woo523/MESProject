@@ -2,7 +2,9 @@ package com.itwillbs.comcode.domain;
 
 import java.sql.Date;
 
-public class ComCodeDTO {
+import com.itwillbs.common.PageDTO;
+
+public class ComCodeDTO extends PageDTO {
 	private String cdGrp;
 	private String cdGrpNm;
 	private String cd;

@@ -6,4 +6,22 @@
 <!-- 파일이름 대신에 namespace 이름을 불러서 사용 -->
 <mapper namespace="com.itwillbs.mappers.comCodeMapper">
 
+<!-- 공통코드 입력 -->
+  	<insert id="insertComCode">
+  		insert into com_code (cd_grp,cd,cd_nm,sort_num,use_yn,insert_id,insert_dt) <!-- 디비컬럼 -->
+  					values   (#{cdGrp},#{cd},#{cdNm},#{sortNum},#{useYn},#{insertId},now()) <!-- 디티오 -->
+  	</insert>
+
+<!-- 공통코드 전체조회 -->
+	<select id="getComCodeList" resultType="com.itwillbs.member.domain.MemberDTO">
+		select * 
+		from com_code
+		order by cd_grp desc 
+        limit #{startRow} , #{pageSize}
+	</select>
+<!-- 페이징용 -->	
+	<select id="getMemberCount" resultType="java.lang.Integer">
+        select count(*) from com_code
+    </select>
+    
 </mapper>
