@@ -3,6 +3,7 @@ package com.itwillbs.work.controller;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class PerformController {
 	private LineService lineService;
 	
 	@RequestMapping(value = "/work/performRegist", method = RequestMethod.GET)
-	public String performRegist(Model model, HttpServletRequest request) {
+	public String performRegist(Model model, HttpServletRequest request, PageDTO pageDTO) {
 
 		// 조회 값들
 		String line = request.getParameter("line");
@@ -46,7 +47,8 @@ public class PerformController {
 		String ists3 = request.getParameter("ists3");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		int pageSize = 3; // sql문에 들어가는 항목
+		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum==null) {
@@ -54,30 +56,39 @@ public class PerformController {
 		}
 		// 페이지번호를 정수형 변경
 		int currentPage=Integer.parseInt(pageNum);
-		PageDTO pageDTO = new PageDTO();
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
 		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
 		int endRow = startRow+pageDTO.getPageSize()-1;
 		
-		pageDTO.setStartRow(startRow-1);
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
 		pageDTO.setEndRow(endRow);
 
+		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+		search.put("line", line);
+		search.put("pcd", pcd);
+		search.put("sdate", sdate);
+		search.put("edate", edate);
+		search.put("ists1", ists1);
+		search.put("ists2", ists2);
+		search.put("ists3", ists3);
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
+ 
 		
 		List<Map<String,Object>> instrList;
 		if(line == null && pcd == null && sdate == null && edate == null && ists1 == null && ists2 == null && ists3 == null) {
 		// 조회 안한 경우
-			instrList = performService.getInstrLiMap(pageDTO);
+			instrList = performService.getInstrLiMap(pageDTO); // page만 필요해서
 		
-			model.addAttribute("instrList", instrList);} // 전체 리스트
-		else { // 조회값 넣은 경우
-			instrList = performService.getInstrLiMap(line, pcd, sdate, edate, ists1, ists2, ists3, pageDTO);
+		}else { // 조회값 넣은 경우
+			instrList = performService.getInstrLiMap(search);
 			
 		}
 				
 		//페이징 처리
-		int count = instrList.size();
+		int count = performService.countInstrLi();
 
 		int pageBlock = 10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
@@ -92,10 +103,12 @@ public class PerformController {
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
+		
+		System.out.println("endPage :"+pageDTO.getEndPage());
 		System.out.println("count :"+pageDTO.getCount());
 		model.addAttribute("instrList", instrList); 
 		model.addAttribute("pageDTO", pageDTO);
-		
+		model.addAttribute("search", search);
 
 		// 라인 목록 불러오기
 		List<LineDTO> linelist = lineService.lineList();	

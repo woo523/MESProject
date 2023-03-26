@@ -28,10 +28,16 @@ public class PerformServiceImpl implements PerformService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate,String ists1, String ists2, String ists3, PageDTO pageDTO) {
+	public List<Map<String, Object>> getInstrLiMap(Map<String,Object> search) {
 		System.out.println("PerformServiceImpl getInstrLiMap(서치용)"); // 실적등록 지시목록
-		return performDAO.getInstrLiMap(line, pcd, sdate, edate, ists1, ists2, ists3, pageDTO);
+		return performDAO.getInstrLiMap(search);
 
+	}
+	
+	@Override
+	public Integer countInstrLi() { // 실적등록 지시목록 개수
+		System.out.println("PerformServiceImpl countInstrLi()");
+		return performDAO.countInstrLi();
 	}
 
 	@Override
@@ -84,5 +90,7 @@ public class PerformServiceImpl implements PerformService {
 		System.out.println("PerformServiceImpl getItemlist()");
 		return performDAO.getItemlist(itemNum, itemName);
 	}
+
+
 
 }

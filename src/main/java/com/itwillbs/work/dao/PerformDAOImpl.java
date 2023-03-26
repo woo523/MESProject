@@ -32,22 +32,20 @@ public class PerformDAOImpl implements PerformDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3, PageDTO pageDTO) {
+	public List<Map<String, Object>> getInstrLiMap(Map<String,Object> search) {
 		System.out.println("PerformDAOImpl getInstrLiMap(서치용)"); // 실적등록 지시목록
-		Map<String,Object> search = new HashMap<>(); 
-		search.put("line", line);
-		search.put("pcd", pcd);
-		search.put("sdate", sdate);
-		search.put("edate", edate);
-		search.put("ists1", ists1);
-		search.put("ists2", ists2);
-		search.put("ists3", ists3);
-		search.put("startRow", pageDTO.getStartRow());
-		search.put("pageSize", pageDTO.getPageSize());
-		System.out.println("search : "+search);
+
 	    return sqlSession.selectList(namespace+".getSearchInstrLiMap",search);
 
 	}
+	
+	@Override
+	public Integer countInstrLi() { // 실적등록 지시목록 개수
+		System.out.println("PerformDAOImpl countInstrLi()");
+		return sqlSession.selectOne(namespace+".countInstrLi");
+	}
+	
+	
 
 	@Override
 	public List<Map<String, Object>> getPfLiMap(String instrId) { // 지시번호에 해당되는 실적 목록(화면에 출력되는)
@@ -102,6 +100,8 @@ public class PerformDAOImpl implements PerformDAO {
 		
 		return sqlSession.selectList(namespace+".itemlist", search);
 	}
+
+
 	
 	
 	

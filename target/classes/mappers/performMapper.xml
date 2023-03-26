@@ -89,7 +89,6 @@
     </select>
     
     
-    
    <select id="getInstrMap" resultMap="InstrLiMap"> <!-- 지시번호에 맞는 리스트 들고오기(화면에 출력되는 컬럼) -->
     select
     work_num,
@@ -107,8 +106,6 @@
 	where instr_id = #{instrId}
     </select>
     
-  
-	
 	
 	<!-- 실적등록 부분 -->
     <resultMap type="map" id="PfLiMap">
@@ -240,6 +237,13 @@
    item_nm like CONCAT('%', #{itemName}, '%')
    </if>
    </select>
+   
+   	<select id="countInstrLi" resultType="java.lang.Integer"> <!-- 작업지시리스트 개수 -->
+    select
+    count(*)
+	from prfrm1_view
+    </select>
+
 
    
 </mapper>

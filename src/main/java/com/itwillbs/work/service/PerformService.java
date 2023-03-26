@@ -15,7 +15,9 @@ public interface PerformService {
 
 	public List<Map<String, Object>> getInstrLiMap(PageDTO pageDTO);
 	
-	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3, PageDTO pageDTO);
+	public List<Map<String, Object>> getInstrLiMap(Map<String,Object> search);
+	
+	public Integer countInstrLi();
 	
 	public List<Map<String, Object>> getPfLiMap(String instrId);
 
