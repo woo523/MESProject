@@ -63,7 +63,13 @@ $(document).ready(function(){
 
 		});
 	
-    
+    // 날짜 미래 날짜 선택 못하게
+    var today = new Date(); // 오늘 날짜
+    var year = today.getFullYear(); // 년도 YYYY
+    var month = ("0"+(today.getMonth()+1)).slice(-2); // 달 MM
+    var date = ("0"+today.getDate()).slice(-2); // 일 DD
+    var today = year+"-"+month+"-"+date; // YYYY-MM-DD
+	document.getElementById("Date").setAttribute("max", today);
     
 });
 
@@ -95,6 +101,10 @@ $(document).ready(function(){
 
 // 	}
 
+
+
+
+
 </script> 
 
 
@@ -104,14 +114,14 @@ $(document).ready(function(){
 
 <form action="${pageContext.request.contextPath }/work/PinsertPro" id="insert">
 
-★ 등록할 작업지시 번호 : ${getInstr.instrId} <br>
+★ 등록할 작업지시 번호 : ${getInstr.workNum} <br>
 
 <input type="hidden" name="instrId" value="${getInstr.instrId}">
 
 품번 : <input type="text"  value="${getInstr.itemNum}" readonly> <br>
 품명 : <input type="text"  value="${getInstr.itemName}" readonly> <br>
-실적일 : <input type="date" class="pfDate" name="performDate"> <br>
-실적수량 : <input type="text" class="Qty" name="performQty"> <br>
+실적일 : <input type="date" id="Date" class="pfDate" name="performDate"> <br>
+실적수량 : <input type="number" class="Qty" name="performQty"> <br>
 양불여부 : <input type="radio" name="gbYn" value="Y"> Y(양품)
 		<input type="radio"  name="gbYn" value="N"> N(불량)
 		<br>

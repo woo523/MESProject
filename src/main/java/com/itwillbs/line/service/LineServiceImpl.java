@@ -1,6 +1,7 @@
 package com.itwillbs.line.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -20,6 +21,13 @@ public class LineServiceImpl implements LineService{
 		System.out.println("LineServiceImpl lineList()");
 		
 		return lineDAO.lineList();
+	}
+
+	@Override
+	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch) {
+		System.out.println("LineServiceImpl lineSearch()");
+		
+		return lineDAO.lineSearch(lineSearch);
 	}
 
 }

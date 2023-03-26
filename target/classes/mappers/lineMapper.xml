@@ -3,14 +3,45 @@
 
 <mapper namespace="com.itwillbs.mappers.lineMapper">
 	
-	<select id="lineList" resultType="com.itwillbs.line.domain.LineDTO">
+	<resultMap type="map" id="lineMap">
+		<result property="lineCode" column="lineCode" />
+		<result property="lineName" column="lineName" />
+		<result property="proCode" column="proCode" />
+		<result property="linePlace" column="linePlace" />
+		<result property="sortOrder" column="sortOrder" />
+		<result property="useChoice" column="useChoice" />
+	</resultMap>
+	
+	<!-- line 전체 select 구문 -->
+	<select id="lineList" resultMap="lineMap">
+		<include refid="List" />
+	</select>
+	
+	<!-- line 조회 select 구문 -->
+	<select id="lineSearch" resultMap="lineMap">
+		<include refid="List" />
+		<![CDATA[
+ 			WHERE line_cd LIKE CONCAT('%', #{lineCode}, '%')
+			AND line_nm LIKE CONCAT('%', #{lineName}, '%')
+ 		]]>
+		<choose>
+			<when test="useChoice == 'Y'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
+			</when>
+			<when test="useChoice == 'N'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
+			</when>
+		</choose>
+	</select>
+	
+	<sql id="List">
 		SELECT line_cd as lineCode,
 			   line_nm as lineName,
 			   pro_cd as proCode,
 			   place as linePlace,
 			   sort_ord as sortOrder,
 			   use_yn as useChoice
-		FROM line	
-	</select>
+		FROM line
+	</sql>
 	
 </mapper>

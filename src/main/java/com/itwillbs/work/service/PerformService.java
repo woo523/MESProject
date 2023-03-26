@@ -5,15 +5,19 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.itwillbs.work.domain.ItemDTO;
+import com.itwillbs.work.domain.PageDTO;
 import com.itwillbs.work.domain.PerformDTO;
 
 
 @Service
 public interface PerformService {
 
-	public List<Map<String, Object>> getInstrLiMap();
+	public List<Map<String, Object>> getInstrLiMap(PageDTO pageDTO);
 	
-	public List<Map<String, Object>> getInstrLiMap(String line, String pcd, String sdate, String edate, String ists1, String ists2, String ists3);
+	public List<Map<String, Object>> getInstrLiMap(Map<String,Object> search);
+	
+	public Integer countInstrLi(Map<String,Object> search);
 	
 	public List<Map<String, Object>> getPfLiMap(String instrId);
 
@@ -26,4 +30,6 @@ public interface PerformService {
 	public PerformDTO getPf(int performId);
 	
 	public void updatePf(PerformDTO performDTO);
+
+	public List<ItemDTO> getItemlist(Map<String,Object> search);
 }

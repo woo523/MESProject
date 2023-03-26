@@ -1,6 +1,7 @@
 package com.itwillbs.line.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,6 +23,13 @@ public class LineDAOImpl implements LineDAO{
 		System.out.println("LineDAOImpl lineList()");
 		
 		return sqlSession.selectList(namespace + ".lineList");
+	}
+
+	@Override
+	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch) {
+		System.out.println("LineDAOImpl lineSearch()");
+		
+		return sqlSession.selectList(namespace+".lineSearch", lineSearch);
 	}
 
 }

@@ -29,13 +29,14 @@ public class PerformAjaxController {
 	public String pflist(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		System.out.println("PerformAjaxController pflist()");
 		String instrId = request.getParameter("instrId"); // 지시번호 들고 오기
-		
+		String workNum = request.getParameter("workNum");
 		JSONArray array = new JSONArray(); // Json 배열
 		List<Map<String, Object>> pflist = performService.getPfLiMap(instrId); // 지시번호 해당되는 실적리스트
 		
 		if(pflist.size()==0) {
 			JSONObject jsobject = new JSONObject();
 			
+			jsobject.put("workNum", workNum);
 			jsobject.put("instrId", instrId);
 			array.put(jsobject);
 		}
@@ -49,6 +50,7 @@ public class PerformAjaxController {
 			}else {
 				jsobject.put("dbReason", pfliDTO.get("dbReason"));
 			}
+			jsobject.put("workNum", pfliDTO.get("workNum"));
 			jsobject.put("itemNum", pfliDTO.get("itemNum"));
 			jsobject.put("itemName", pfliDTO.get("itemName"));
 			jsobject.put("performDate", pfliDTO.get("performDate"));
