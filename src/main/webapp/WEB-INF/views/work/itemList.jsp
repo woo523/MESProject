@@ -34,7 +34,34 @@
 
    </script>
 
+
+
 </c:forEach>
+
 </table>
+
+    <!-- 1페이지 이전 -->
+	<c:if test="${pageDTO.currentPage > 1}">
+	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.currentPage-1}">◀</a>
+	</c:if>
+
+<!-- 10페이지 이전 -->
+	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
+	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}">[10페이지 이전]</a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${i}">${i}</a> 
+	</c:forEach>
+
+<!-- 1페이지 다음 -->	
+	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.currentPage+1}">▶</a>
+	</c:if>
+
+<!-- 10페이지 다음 -->
+ 	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">[10페이지 다음]</a>
+	</c:if>
 </body>
 </html>

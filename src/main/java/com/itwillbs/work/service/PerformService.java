@@ -31,5 +31,5 @@ public interface PerformService {
 	
 	public void updatePf(PerformDTO performDTO);
 
-	public List<ItemDTO> getItemlist(String itemNum, String itemName);
+	public List<ItemDTO> getItemlist(Map<String,Object> search);
 }

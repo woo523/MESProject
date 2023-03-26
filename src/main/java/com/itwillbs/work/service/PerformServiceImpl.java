@@ -86,9 +86,9 @@ public class PerformServiceImpl implements PerformService {
 	}
 
 	@Override
-	public List<ItemDTO> getItemlist(String itemNum, String itemName) { // 폼목 리스트 
+	public List<ItemDTO> getItemlist(Map<String,Object> search) { // 폼목 리스트 
 		System.out.println("PerformServiceImpl getItemlist()");
-		return performDAO.getItemlist(itemNum, itemName);
+		return performDAO.getItemlist(search);
 	}
 
 

@@ -92,11 +92,8 @@ public class PerformDAOImpl implements PerformDAO {
 	}
 
 	@Override
-	public List<ItemDTO> getItemlist(String itemNum, String itemName) { // 품목리스트 들고오기 (품번, 품명만..)
+	public List<ItemDTO> getItemlist(Map<String,Object> search) { // 품목리스트 들고오기 (품번, 품명만..)
 		System.out.println("PerformDAOImpl getItemlist()");
-		Map<String, String> search = new HashMap<>();
-		search.put("itemNum", itemNum);
-		search.put("itemName", itemName);
 		
 		return sqlSession.selectList(namespace+".itemlist", search);
 	}
