@@ -3,7 +3,7 @@
 
 
 
-<mapper namespace="com.itwillbs.mappers.inmaterialMapper">
+<mapper namespace="com.itwillbs.mappers.materialMapper">
 
 
 	<!-- 자재입고에 입고리스트 부분 -->
@@ -98,11 +98,96 @@
    
      <select id="getInmaterList" resultType="com.itwillbs.material.domain.InmaterialDTO">
         select * from in_material
-<!--         limit #{startRow} , #{pageSize}  	 -->
+        limit #{startRow} , #{pageSize}  	
     </select>
     
     <select id="getInmaterCount" resultType="java.lang.Integer">
         select count(*) from in_material
     </select>
         
+        
+        
+	<!-- 자재출고에 출고리스트 부분 -->
+    <resultMap type="map" id="OutmaterMap">
+    
+		<!--     column= "디비열이름" property="멤버변수이름" -->
+	    <result column="out_mtrl_num" property="outmtrlNum"/>
+	    <result column="out_mtrl_dt" property="outmtrlDt"/>
+	    <result column="out_mtrl_qty" property="outmtrlQty"/>
+	    <result column="note" property="note"/>
+	    <result column="clnt_cd" property="clientCode"/>
+	    <result column="clnt_nm" property="clientName"/>
+	    <result column="cur_stock" property="stockcur"/>
+	    <result column="whouse" property="stockwhouse"/>
+	    <result column="item_num" property="itemNum"/>
+	    <result column="item_nm" property="itemName"/>
+	    <result column="invnt_unit" property="itemUnit"/>
+    
+      </resultMap>
+
+
+
+	<select id="getOutmaterLiMap" resultMap="OutmaterMap"> <!-- 처음에 조회되는 자재출고 리스트 -->
+		select 
+				outmater.out_mtrl_num, 
+				outmater.out_mtrl_dt,  
+				outmater.out_mtrl_qty,			  
+				outmater.note, 
+				clnt.clnt_cd,
+				clnt.clnt_nm,
+				stock.cur_stock,
+				stock.whouse,
+				item.item_num, 
+		    	item.item_nm,
+		    	item.invnt_unit
+			from  
+				out_material outmater join client clnt
+				on outmater.clnt_id = clnt.clnt_id
+				join item item
+				on outmater.item_id = item.item_id
+				join stock stock
+				on item.item_id = stock.item_id	
+	</select>
+   
+      <select id="getSearchOutmaterLiMap" resultMap="OutmaterMap"> <!--  검색 자재출고 리스트 -->
+  		  select 
+				outmater.out_mtrl_num, 
+				outmater.out_mtrl_dt,  
+				outmater.out_mtrl_qty,			  
+				outmater.note, 
+				clnt.clnt_cd,
+				clnt.clnt_nm,
+				stock.cur_stock,
+				stock.whouse,
+				item.item_num, 
+		    	item.item_nm,
+		    	item.invnt_unit
+			from  
+				out_material outmater join client clnt
+				on outmater.clnt_id = clnt.clnt_id
+				join item item
+				on outmater.item_id = item.item_id
+				join stock stock
+				on item.item_id = stock.item_id
+			where
+			whouse like CONCAT('%', #{whouse}, '%') 
+			<if test="sdate!='' and edate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
+			and
+			out_mtrl_dt between #{sdate} and #{edate} 	
+			</if>
+			<if test="sdate=='' and edate==''"> <!-- 날짜 입력하지 않은 경우 -->
+			</if>	
+			<if test="sdate!=''"> <!-- 시작날짜만 입력한 경우 -->
+			and
+			out_mtrl_dt &gt;= #{sdate}
+			</if>
+			<if test="edate!=''"> <!-- 끝날짜만 입력한 경우 -->
+			and
+			out_mtrl_dt &lt;= #{edate}
+			</if>
+			and
+			item_num like CONCAT('%', #{pcd}, '%') 
+			and
+			clnt_cd like CONCAT('%', #{ccd}, '%')
+		    </select>        
 </mapper>
