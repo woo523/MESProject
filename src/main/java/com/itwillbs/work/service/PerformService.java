@@ -17,7 +17,7 @@ public interface PerformService {
 	
 	public List<Map<String, Object>> getInstrLiMap(Map<String,Object> search);
 	
-	public Integer countInstrLi();
+	public Integer countInstrLi(Map<String,Object> search);
 	
 	public List<Map<String, Object>> getPfLiMap(String instrId);
 

@@ -88,7 +88,7 @@ public class PerformController {
 		}
 				
 		//페이징 처리
-		int count = performService.countInstrLi();
+		int count = performService.countInstrLi(search);
 
 		int pageBlock = 10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;

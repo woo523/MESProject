@@ -40,9 +40,9 @@ public class PerformDAOImpl implements PerformDAO {
 	}
 	
 	@Override
-	public Integer countInstrLi() { // 실적등록 지시목록 개수
+	public Integer countInstrLi(Map<String,Object> search) { // 실적등록 지시목록 개수
 		System.out.println("PerformDAOImpl countInstrLi()");
-		return sqlSession.selectOne(namespace+".countInstrLi");
+		return sqlSession.selectOne(namespace+".countInstrLi", search);
 	}
 	
 	

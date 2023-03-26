@@ -35,9 +35,9 @@ public class PerformServiceImpl implements PerformService {
 	}
 	
 	@Override
-	public Integer countInstrLi() { // 실적등록 지시목록 개수
+	public Integer countInstrLi(Map<String,Object> search) { // 실적등록 지시목록 개수
 		System.out.println("PerformServiceImpl countInstrLi()");
-		return performDAO.countInstrLi();
+		return performDAO.countInstrLi(search);
 	}
 
 	@Override
