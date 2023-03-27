@@ -20,18 +20,24 @@ public class OrderDAOImpl implements OrderDAO{
 	private static final String namespace ="com.itwillbs.mappers.orderMapper";
 
 	@Override
-	public List<OrderDTO> orderList() {
-		System.out.println("OrderDAOImpl orderList()");
-		return sqlSession.selectList(namespace+".orderList");
+	public List<Map<String, Object>> orderSearchMap(PageDTO pageDTO) { // 전체 조회
+		System.out.println("OrderDAOImpl orderMap()");
+		
+		return sqlSession.selectList(namespace+".orderMap", pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> orderSearch(Map<String, Object> orderSearch) {
-		System.out.println("OrderDAOImpl orderSearch()");
-		return sqlSession.selectList(namespace+".orderSearch", orderSearch);
+	public List<Map<String, Object>> orderSearchMap(Map<String, Object> search) { // 검색 조회
+		System.out.println("OrderDAOImpl orderSearchMap(검색)"); 
+
+	    return sqlSession.selectList(namespace+".orderSearchMap",search);
 	}
 
-
+	@Override
+	public Integer countOrder(Map<String, Object> search) {
+		System.out.println("OrderDAOImpl countOrder()"); 
+		return sqlSession.selectOne(namespace+".countOrder",search);
+	}
 	
 
 

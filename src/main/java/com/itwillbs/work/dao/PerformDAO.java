@@ -36,4 +36,7 @@ public interface PerformDAO {
 	
 	public Integer countItemlist(Map<String,Object> search);
 	
+	public List<Map<String, Object>> PerformLiMap(Map<String, Object> search);
+	
+	
 }

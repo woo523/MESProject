@@ -24,9 +24,9 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String sdate, String edate, String ccd) {
+	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd) {
 		System.out.println("InmaterialServiceImpl getInmaterLiMap(서치용)");
-		return materialDAO.getInmaterLiMap(whouse, pcd, sdate, edate, ccd);
+		return materialDAO.getInmaterLiMap(whouse, pcd, startDate, endDate, ccd);
 	}
 
 	@Override
@@ -43,11 +43,11 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String sdate, String edate,
+	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String startDate, String endDate,
 			String ccd) {
 		System.out.println("OutmaterialServiceImpl getOutmaterLiMap(서치용)");
 		
-		return materialDAO.getOutmaterLiMap(whouse, pcd, sdate, edate, ccd);
+		return materialDAO.getOutmaterLiMap(whouse, pcd, startDate, endDate, ccd);
 	}
 
 	@Override
@@ -64,9 +64,9 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public Integer countInmaterLi(Map<String, Object> search) { // 개수
-		System.out.println("InmaterialServiceImpl countInmaterLi()");
-		return materialDAO.countInmaterLi(search);
+	public Integer countItemlist(Map<String, Object> search) { // 개수
+		System.out.println("InmaterialServiceImpl countItemlist()");
+		return materialDAO.countItemlist(search);
 	}
 
 }

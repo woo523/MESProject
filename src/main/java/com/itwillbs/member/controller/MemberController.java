@@ -60,7 +60,7 @@ public class MemberController {
 	// 수정화면 이동
 	@RequestMapping(value = "/member/edit", method = RequestMethod.GET)
 	public String edit(HttpServletRequest request, HttpServletResponse response, Model model, MemberDTO memberDTO) {
-		System.out.println("MemberController update()");
+		System.out.println("MemberController edit()");
 
 		MemberDTO dto = memberService.getMember(memberDTO.getId());
 

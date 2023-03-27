@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 
-
 .content_body .selectButtons, .listButtons {
 	text-align: right;
 }
@@ -24,13 +23,13 @@
 	padding: 10px;
 }
 
-.content_body .instrList {
+.content_body .instrList, .instrStateList {
 	width: 100%;
 	margin: 10px 0px 40px 0px;
 	border-collapse: collapse;
 }
 
-.content_body .instrList th {
+.content_body .instrList th, .instrStateList th {
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 	padding: 5px;
@@ -42,4 +41,32 @@
 .content_body .instrList td {
 	padding: 10px;
 	text-align: center;
+}
+	
+article {
+	width: 90%;
+	margin: 0px auto;
+}
+
+article input {
+	height: 20px;
+}
+
+.searchBox .form-control {
+	width: 150px;
+}
+
+.content_body #instrList:hover {
+	background-color: #e1e1e1;
+	cursor: pointer;
+}
+
+.content_body .searchBox #itemSearch {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.content_body .searchBox #itemSearchRead {
+	background-color: #EAEAEA;
 }

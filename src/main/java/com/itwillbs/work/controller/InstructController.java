@@ -79,7 +79,9 @@ public class InstructController {
 			// 작업지시 전체 조회
 			
 			List<Map<String, Object>> instrList = instructService.instrList();
+			int instrTotal = instructService.instrCount();
 			model.addAttribute("instrList", instrList);
+			model.addAttribute("instrTotal", instrTotal);
 		
 		} else {
 			// 작업지시 검색 조회
@@ -95,7 +97,9 @@ public class InstructController {
 			System.out.println(instrSearch);
 			
 			List<Map<String, Object>> instrList = instructService.instrList(instrSearch);
+			int instrSearchCount = instructService.instrCount(instrSearch);
 			model.addAttribute("instrList", instrList);
+			model.addAttribute("instrSearchCount", instrSearchCount);
 			
 		}
 		return "work/instructState";

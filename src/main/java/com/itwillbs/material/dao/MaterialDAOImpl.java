@@ -29,19 +29,20 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String sdate, String edate, String ccd) {
+	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd) {
 		System.out.println("InmaterialDAOImpl getInmaterLiMap(서치용)");
 		
 		if(whouse==null) {
 			whouse="";
 		}
 
+
 		Map<String,String> search = new HashMap<>();
 		
 		search.put("whouse", whouse);
 		search.put("pcd", pcd);
-		search.put("sdate", sdate);
-		search.put("edate", edate);
+		search.put("startDate", startDate);
+		search.put("endDate", endDate);
 		search.put("ccd", ccd);
 
 		
@@ -64,7 +65,7 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String sdate, String edate, String ccd) {
+	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd) {
 		System.out.println("OutmaterialDAOImpl getOutmaterLiMap(서치용)");
 		
 		if(whouse==null) {
@@ -75,8 +76,8 @@ public class MaterialDAOImpl implements MaterialDAO{
 		
 		search.put("whouse", whouse);
 		search.put("pcd", pcd);
-		search.put("sdate", sdate);
-		search.put("edate", edate);
+		search.put("startDate", startDate);
+		search.put("endDate", endDate);
 		search.put("ccd", ccd);
 
 		
@@ -93,14 +94,14 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<ItemDTO> getItemlist(Map<String, Object> search) {
+	public List<ItemDTO> getItemlist(Map<String, Object> search) { // 품목리스트 들고오기 (품번, 품명)
 		System.out.println("inmaterialDAOImpl getItemlist()");
 		return sqlSession.selectList(namespace+".itemlist", search);
 	}
 
 	@Override
-	public Integer countInmaterLi(Map<String, Object> search) { // 품목리스트 들고오기 (품번, 품명)
-		System.out.println("intmaterialDAOImpl countInmaterLi()");
-		return sqlSession.selectOne(namespace+".countInstrLi", search);
+	public Integer countItemlist(Map<String, Object> search) { 
+		System.out.println("intmaterialDAOImpl countItemlist()");
+		return sqlSession.selectOne(namespace+".countItemlist", search);
 	}
 }

@@ -28,6 +28,7 @@
 		order by cd_grp desc 
         limit #{startRow} , #{pageSize}
 	</select>
+	
 <!-- 페이징용 -->	
 	<select id="getComCodeCount" resultType="java.lang.Integer">
         select count(*) 
@@ -38,7 +39,7 @@
     <!-- 공통코드 수정 -->
 	<update id="updateComCode">
 		update com_code 
-		set cd_nm = #{cdNm} 
+		set  cd_nm = #{cdNm} 
 			,sort_num = #{sortNum} 
 			,use_yn = #{useYn}
 			,update_id = #{updateId}

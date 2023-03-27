@@ -46,11 +46,13 @@ function openilist3(){
 				<td>업체</td>
 				<td><input type="text" id="clntCd" onclick="openilist3()"></td>
 				<td>수주일자</td>
-				<td><input type= "text" class="datepicker" name = "date" id="orderDt"/></td>
+				<td><input type= "text" class="datepicker" name = "date" id="orderDt1"/></td>
+				<td><input type= "text" class="datepicker" name = "date" id="orderDt2"/></td>
 				<td>담당자</td>
 				<td><input type="text" id="name" onclick="openilist2()"></td>
 				<td>납품예정일</td>
-				<td><input type= "text" class="datepicker" name = "date" id="dlvryDt"/></td>
+				<td><input type= "text" class="datepicker" name = "date" id="dlvryDt1"/></td>
+				<td><input type= "text" class="datepicker" name = "date" id="dlvryDt2"/></td>
 			</tr>
 		</table>
 
