@@ -34,6 +34,6 @@ public interface PerformDAO {
 	
 	public List<ItemDTO> getItemlist(Map<String,Object> search);
 	
-
+	public Integer countItemlist(Map<String,Object> search);
 	
 }

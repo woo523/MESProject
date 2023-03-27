@@ -150,7 +150,7 @@ public class PerformController {
 		List<ItemDTO> itemList = performService.getItemlist(search);
 			
 		//페이징 처리
-		int count = performService.countInstrLi(search);
+		int count = performService.countItemlist(search);
 
 		int pageBlock = 10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;

@@ -153,6 +153,9 @@
 	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
 	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
 	           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+	           ,closeText: '닫기' // 닫기 버튼 패널
 	           ,onClose: function ( selectedDate ) {
 	        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
 	        	   $("input[name='endDate']").datepicker("option", "minDate", selectedDate );
@@ -176,6 +179,9 @@
 	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
 	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
 	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+	           ,closeText: '닫기' // 닫기 버튼 패널
 	           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 		});
 	});

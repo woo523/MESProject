@@ -241,6 +241,23 @@
    
    </select>
    
+   
+   <select id="countItemlist" resultType="java.lang.Integer">
+   select
+   count(*)
+   from item
+   <if test="itemNum!=null and itemName!=null">
+   where 
+   item_num like CONCAT('%', #{itemNum}, '%') and
+   item_nm like CONCAT('%', #{itemName}, '%')
+   </if>   
+   </select>
+   
+   
+   
+   
+   
+   
    	<select id="countInstrLi" resultType="java.lang.Integer"> <!-- 작업지시리스트 개수 -->
     select
     count(*)
