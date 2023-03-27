@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="tf" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,7 @@
 
 <div class="content_body">
 <article>
-	<h2>작업지시</h2>
+	<h2>작업지시현황</h2>
 	<form id="instrSearch">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
@@ -37,8 +38,8 @@
 					</select></td>
 				<td>지시일자</td>
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
-				<td><input type="text" id="startDatePicker" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" />
-		   			<input type="text" id="endDatePicker" class="form-control" name="endDate" /></td>
+				<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
+		   			<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
 				<td>품번</td>
 				<td><input type="text" name="itemNum" placeholder="품번코드">
 					<input type="text" placeholder="품명" readonly></td>
@@ -84,24 +85,34 @@
 				<th>라인명</th>
 				<th>공정</th>
 			</tr>
-			<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
-				<tr>
-					<td>${instrDTO.workNum}</td>
-					<td>${instrDTO.workNum}</td>
-					<td>${instrDTO.workNum}</td>
-					<td>${instrDTO.workDate}</td>
-					<td>${instrDTO.workSts}</td>
-					<td>${instrDTO.itemDTO.itemNum}</td>
-					<td>${instrDTO.itemDTO.itemName}</td>
-					<td>${instrDTO.itemDTO.invntUnit}</td>
-					<td>${instrDTO.lineDTO.lineCode}</td>
-					<td>${instrDTO.lineDTO.lineName}</td>
-					<td>${instrDTO.lineDTO.proCode}</td>
-					<td>${instrDTO.workQty}</td>
-					<td>${instrDTO.insertDate}</td>
-					<td>${instrDTO.insertId}</td>
-				</tr>
-			</c:forEach>
+			<c:choose>
+				<c:when test="${empty instrList}">
+					<tr><td colspan="14"></td></tr>
+					<tr>
+						<td colspan="14">해당 데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
+						<tr>
+							<td>${instrDTO.workNum}</td>
+							<td>업체명</td>
+							<td>수주번호</td>
+							<td>${instrDTO.workDate}</td>
+							<td>${instrDTO.workSts}</td>
+							<td>${instrDTO.itemDTO.itemNum}</td>
+							<td>${instrDTO.itemDTO.itemName}</td>
+							<td>${instrDTO.itemDTO.invntUnit}</td>
+							<td>${instrDTO.lineDTO.lineCode}</td>
+							<td>${instrDTO.lineDTO.lineName}</td>
+							<td>${instrDTO.lineDTO.proCode}</td>
+							<td>${instrDTO.workQty}</td>
+							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
+							<td>${instrDTO.insertId}</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</table>
 	</form>
 </article>
@@ -115,64 +126,55 @@
 </body>
 
 <script>
-   $('#startDatePicker')
-      .datepicker({
-         format: 'yyyy-mm-dd', //데이터 포맷 형식(yyyy : 년 mm : 월 dd : 일 )
-         startDate: '-10d', //달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능 ( d : 일 m : 달 y : 년 w : 주)
-         endDate: '+10d', //달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( d : 일 m : 달 y : 년 w : 주)
-         autoclose: true, //사용자가 날짜를 클릭하면 자동 캘린더가 닫히는 옵션
-         calendarWeeks: false, //캘린더 옆에 몇 주차인지 보여주는 옵션 기본값 false 보여주려면 true
-         clearBtn: false, //날짜 선택한 값 초기화 해주는 버튼 보여주는 옵션 기본값 false 보여주려면 true
-         immediateUpdates: false, //사용자가 보는 화면으로 바로바로 날짜를 변경할지 여부 기본값 :false
-         multidate: false, //여러 날짜 선택할 수 있게 하는 옵션 기본값 :false
-         multidateSeparator: ',', //여러 날짜를 선택했을 때 사이에 나타나는 글짜 2019-05-01,2019-06-01
-         templates: {
-            leftArrow: '&laquo;',
-            rightArrow: '&raquo;',
-         }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
-         showWeekDays: true, // 위에 요일 보여주는 옵션 기본값 : true
-         todayHighlight: true, //오늘 날짜에 하이라이팅 기능 기본값 :false
-         toggleActive: true, //이미 선택된 날짜 선택하면 기본값 : false인 경우 그대로 유지 true인 경우 날짜 삭제
-         weekStart: 0, //달력 시작 요일 선택하는 것 기본값은 0인 일요일
-         language: 'ko', //달력의 언어 선택, 그에 맞는 js로 교체해줘야한다.
-      })
-      .on('changeDate', function (e) {
-         /* 이벤트의 종류 */
-         //show : datePicker가 보이는 순간 호출
-         //hide : datePicker가 숨겨지는 순간 호출
-         //clearDate: clear 버튼 누르면 호출
-         //changeDate : 사용자가 클릭해서 날짜가 변경되면 호출 (개인적으로 가장 많이 사용함)
-         //changeMonth : 월이 변경되면 호출
-         //changeYear : 년이 변경되는 호출
-         //changeCentury : 한 세기가 변경되면 호출 ex) 20세기에서 21세기가 되는 순간
-
-         console.log(e);
-         // e.date를 찍어보면 Thu Jun 27 2019 00:00:00 GMT+0900 (한국 표준시) 위와 같은 형태로 보인다.
-      });
+$(function() {
+	$("#sDate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+           ,onClose: function ( selectedDate ) {
+        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
+        	   $("input[name='endDate']").datepicker("option", "minDate", selectedDate );
+           }
+	});
+});
       
-   $('#endDatePicker')
-      .datepicker({
-         format: 'yyyy-mm-dd',
-         startDate: '-10d',
-         endDate: '+10d',
-         autoclose: true,
-         calendarWeeks: false,
-         clearBtn: false,
-         immediateUpdates: false,
-         multidate: false,
-         templates: {
-            leftArrow: '&laquo;',
-            rightArrow: '&raquo;',
-         },
-         showWeekDays: true,
-         todayHighlight: true,
-         toggleActive: true, 
-         weekStart: 0,
-         language: 'ko',
-      })
-      .on('changeDate', function (e) {
-         console.log(e);
-      });
+$(function() {
+	$("#eDate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+	});
+});
       
     function formCheck() {
     	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
