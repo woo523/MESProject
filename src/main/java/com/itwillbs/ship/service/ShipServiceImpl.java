@@ -1,9 +1,11 @@
 package com.itwillbs.ship.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.ship.dao.ShipDAO;
 import com.itwillbs.ship.domain.ShipDTO;
 
 @Repository
@@ -14,6 +16,14 @@ public class ShipServiceImpl implements ShipService{
 		System.out.println("ShipServiceImpl shipList()");
 		return null;
 	}
+
+	@Override
+	public List<Map<String, Object>> shipAdmin(Map<String, Object> shipAdmin) {
+		System.out.println("ShipServiceImpl shipAdmin");
+		return shipDAO.shipAdmin(shipAdmin);
+	}
+
+	
 
 
 
