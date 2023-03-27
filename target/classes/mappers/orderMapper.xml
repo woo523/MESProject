@@ -3,14 +3,7 @@
 
 <mapper namespace="com.itwillbs.mappers.orderMapper">
 
-
-<!-- 	<select id="check" -->
-<!-- 		resultType="com.itwillbs.order.domain.OrderDTO"> -->
-<!-- 		select * -->
-<!-- 		from order_mng -->
-<!-- 	</select> -->
-
-	<resultMap type="map" id="CheckMap">
+	<resultMap type="map" id="orderMap">
 
 		<result column="clnt_cd" property="clntCd" />
 		<result column="clnt_nm" property="clntNm" />
@@ -21,14 +14,28 @@
 		<result column="csmtr_ord_num" property="csmtrOrdNum" />
 
 	</resultMap>
-
-	<select id="getCheckMap" resultMap="CheckMap">
+	
+	<select id="orderList" resultMap="orderMap">
+		<include refid="List" />
+	</select>
+	
+	<select id="orderSearch" resultMap="orderMap">
+		<include refid="List" />
+		<![CDATA[
+ 			WHERE clnt_cd LIKE CONCAT('%', #{clntCd}, '%')
+			AND order_dt LIKE CONCAT('%', #{orderDt}, '%')
+			AND name LIKE CONCAT('%', #{name}, '%')
+			AND dlvry_dt LIKE CONCAT('%', #{dlvryDt}, '%')
+ 		]]>
+ 	</select>	
+ 	
+	<sql id="List">
 		select c.clnt_cd, c.clnt_nm, o.order_dt, o.dlvry_dt, u.id,u.name,o.csmtr_ord_num
 		from client c join order_mng o
 		on c.clnt_id = o.clnt_id
 		join user u
 		on o.user_id = u.user_id
-	</select>
+	</sql>
 
 </mapper>
 

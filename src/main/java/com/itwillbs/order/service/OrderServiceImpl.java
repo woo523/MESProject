@@ -19,12 +19,18 @@ public class OrderServiceImpl implements OrderService{
 	private OrderDAO orderDAO;
 
 	@Override
-	public List<Map<String, Object>> getCheckMap() {
-		System.out.println("OrderServiceImpl getCheckMap()");
-		return orderDAO.getCheckMap();
+	public List<OrderDTO> orderList() {
+		System.out.println("OrderServiceImpl orderList()");
+		return orderDAO.orderList();
 	}
 
-	
+	@Override
+	public List<Map<String, Object>> orderSearch(Map<String, Object> orderSearch) {
+		System.out.println("OrderServiceImpl rderSearch()");
+		return orderDAO.orderSearch(orderSearch);
+	}
+
+
 
 
 
