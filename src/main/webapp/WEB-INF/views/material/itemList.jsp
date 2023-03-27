@@ -6,6 +6,19 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+
+<style type="text/css">
+
+#con:hover{
+	background-color : #e1e1e1;
+	cursor:pointer;
+}
+
+#pagination{
+text-align: center;
+}
+</style>
+
 </head>
 <body>
 
@@ -15,7 +28,7 @@
 <form>
 	<table>
 		<tr><td>품번</td><td><input type="text" name="itemNum"></td>
-			<td>품명</td><td><input type="text" name="itemNum"></td>
+			<td>품명</td><td><input type="text" name="itemName"></td>
 			<td><input type="submit" value="조회"></td></tr>
 	</table>
 </form>
@@ -23,7 +36,7 @@
 <table>
 <tr><td>품번</td><td>품명</td></tr>
 	<c:forEach var="itemList" items="${itemList }">
-		<tr onclick="selectItem('${itemList.itemNum }','${itemList.itemName }')">
+		<tr id="con" onclick="selectItem('${itemList.itemNum }','${itemList.itemName }')">
 			<td>${itemList.itemNum }</td>
 			<td>${itemList.itemName }</td></tr>
 	
@@ -36,7 +49,8 @@
 		</script>
 	</c:forEach>
 </table>
-	
+
+<div id="pagination">	
 	   <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
 	<a href="${pageContext.request.contextPath }/material/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.currentPage-1}">◀</a>
@@ -60,5 +74,6 @@
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
 	<a href="${pageContext.request.contextPath }/material/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">[10페이지 다음]</a>
 	</c:if>
+</div>
 </body>
 </html>

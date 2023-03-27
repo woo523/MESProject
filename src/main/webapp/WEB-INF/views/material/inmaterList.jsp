@@ -12,7 +12,7 @@
 
 <style type="text/css">
 table {
-    width: 1019px;
+    width: 1125px;
   }
 th,td{
 border-bottom: 1px solid black;
@@ -46,7 +46,10 @@ h1{
 table#search {
  border:1px solid;
 }
-
+#pagination{
+      width: 1125px;  
+text-align: center;
+}
 
 
 </style>
@@ -61,7 +64,6 @@ table#search {
 <h1>자재 입고 관리</h1>
 	<div class="search_bar">
 		<form>
-		
 			<table id="btn">
 				<tr><td><button>조회</button></td></tr>
 			</table>
@@ -79,11 +81,11 @@ table#search {
 				</select></td></tr>
 	
 			<tr><td>품번</td>
-				<td><input type="text" name="pcd" placeholder="품번코드" onclick="openilist()"></td>
-				<td><input type="text" name="pnm" placeholder="품번명" readonly ></td>
+				<td><input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openilist()"></td>
+				<td><input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
 				<td>업체</td>
-				<td><input type="text" name="ccd" placeholder="업체코드" onclick="openclist()"></td>
-				<td><input type="text" name="cnm" placeholder="업체명" readonly></td>
+				<td><input type="text" name="ccd" id="ccd" class="form-control" placeholder="업체코드" onclick="openclist()"></td>
+				<td><input type="text" name="cnm" id="cnm" class="form-control" placeholder="업체명" readonly></td>
 			</tr>
 		</table>
 	</form>
@@ -184,7 +186,7 @@ function openilist(){
 }
 
 function openclist(){
-    window.open("${pageContext.request.contextPath }/material/clntList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
 }
 </script>
 

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.work.domain.ItemDTO;
@@ -103,5 +104,17 @@ public class MaterialDAOImpl implements MaterialDAO{
 	public Integer countItemlist(Map<String, Object> search) { 
 		System.out.println("intmaterialDAOImpl countItemlist()");
 		return sqlSession.selectOne(namespace+".countItemlist", search);
+	}
+
+	@Override
+	public List<ClientDTO> getClientlist(Map<String, Object> search) {
+		System.out.println("intmaterialDAOImpl getClientlist()");
+		return sqlSession.selectList(namespace+".clientlist", search);
+	}
+
+	@Override
+	public Integer countClientlist(Map<String, Object> search) {
+		System.out.println("intmaterialDAOImpl countClientlist()");
+		return sqlSession.selectOne(namespace+".countClientlist", search);
 	}
 }

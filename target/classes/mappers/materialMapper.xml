@@ -217,4 +217,30 @@
    item_nm like CONCAT('%', #{itemName}, '%')
    </if>   
    </select>
+   
+   <select id="clientlist" resultType="com.itwillbs.material.domain.ClientDTO">
+   select
+   clnt_cd as clientCode,
+   clnt_nm as clientName
+   from client
+   <if test="clientCode!=null and clientName!=null">
+   where 
+   clnt_cd like CONCAT('%', #{clientCode}, '%') and
+   clnt_nm like CONCAT('%', #{clientName}, '%')
+   </if>
+   order by clnt_cd desc
+   limit #{startRow}, #{pageSize} 
+   </select>      
+
+
+  <select id="countClientlist" resultType="java.lang.Integer">
+   select
+   count(*)
+   from client
+   <if test="clientCode!=null and clientName!=null">
+   where 
+   clnt_cd like CONCAT('%', #{clientCode}, '%') and
+   clnt_nm like CONCAT('%', #{clientName}, '%')
+   </if>   
+   </select>
 </mapper>

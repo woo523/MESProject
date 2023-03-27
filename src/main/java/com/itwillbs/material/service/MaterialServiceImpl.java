@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.material.dao.MaterialDAO;
+import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
 @Service
@@ -58,15 +59,27 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public List<ItemDTO> getItemlist(Map<String, Object> search) { // 폼목 리스트 
+	public List<ItemDTO> getItemlist(Map<String, Object> search) {	// 폼목 리스트 
 		System.out.println("InmaterialServiceImpl getItemlist()");
 		return materialDAO.getItemlist(search);
 	}
 
 	@Override
-	public Integer countItemlist(Map<String, Object> search) { // 개수
+	public Integer countItemlist(Map<String, Object> search) {	// 개수
 		System.out.println("InmaterialServiceImpl countItemlist()");
 		return materialDAO.countItemlist(search);
+	}
+
+	@Override
+	public List<ClientDTO> getClientlist(Map<String, Object> search) { // 업체 리스트 
+		System.out.println("InmaterialServiceImpl getClientlist()");
+		return materialDAO.getClientlist(search);
+	}
+
+	@Override
+	public Integer countClientlist(Map<String, Object> search) {	// 개수
+		System.out.println("InmaterialServiceImpl countClientlist()");
+		return materialDAO.countClientlist(search);
 	}
 
 }

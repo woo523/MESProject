@@ -6,7 +6,7 @@
 
 <style type="text/css">
 table {
-    width: 1019px;
+    width: 1125px;
   }
 th,td{
 border-bottom: 1px solid black;
@@ -40,26 +40,16 @@ h1{
 table#search {
  border:1px solid;
 }
-
+#pagination{
+      width: 1125px;  
+text-align: center;
+}
 
 
 </style>
 
 </head>
 <body>
-
-
-
-
-
-
-<!-- 자바스크립트 들어가는 곳 -->
-<script type="text/javascript">
-
-</script>
-<!-- 스크립트 끝. -->
-
-
 
 
 <div class="content_body"> <!-- 지우면안됨 -->
@@ -85,11 +75,11 @@ table#search {
 				<option value="3">창고 3</option>
 		</select></td></tr>
 		<tr><td>품번</td>
-			<td><input type="text" name="pcd" placeholder="품번코드" onclick="openilist()"></td>
-			<td><input type="text" name="pnm" placeholder="품번명" readonly></td>
+			<td><input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openilist()"></td>
+			<td><input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
 			<td>업체</td>
-			<td><input type="text" name="ccd" placeholder="업체코드" onclick="openclist()"></td>
-			<td><input type="text" name="cnm" placeholder="업체명" readonly></td>
+			<td><input type="text" name="ccd" id="ccd" class="form-control" placeholder="업체코드" onclick="openclist()"></td>
+			<td><input type="text" name="cnm" id="cnm" class="form-control" placeholder="업체명" readonly></td>
 		</tr>
 		</table>
 	</form>
@@ -104,8 +94,8 @@ table#search {
 		<th>출고창고</th><th>현재고</th><th>출고수량</th><th>업체코드</th>
 		<th>업체명</th><th>비고</th>
 		
-		<c:forEach var="outte" items="${outmaterList }">
-	<tr id="con" onclick="outmaterList(${outte.outmaterId })">
+		<c:forEach var="outte" items="${outmaterList}">
+	<tr id="con" onclick="outmaterList(${outte.outmaterId})">
 			<td>${outte.outmtrlNum}</td>
 			<td>${outte.outmtrlDt}</td>
 		  	<td>${outte.itemNum}</td>
@@ -189,7 +179,7 @@ function openilist(){
 }
 
 function openclist(){
-    window.open("${pageContext.request.contextPath }/material/clntList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
 }
 </script>
 
