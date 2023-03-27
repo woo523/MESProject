@@ -63,6 +63,7 @@
 						<tr>
 							<td>${dto.cd }</td>
 							<td><a href="/comCode/editPop?cdGrp=${dto.cdGrp }&cd=${dto.cd}">${dto.cdNm }</a></td>
+<%-- 							<td><a href="/comCode/editPop?cd=${dto.cd }">${dto.cdNm }</a></td> --%>
 							<td>${dto.useYn }</td>
 							<td><button type="button" class="sm_btn" onclick="delComCd('${dto.cdGrp }','${dto.cd }');">삭제</button></td>
 						</tr>

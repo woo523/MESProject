@@ -55,7 +55,7 @@
 		<div class="content_body">	
 			<h1>‖ 공통코드 - ${cdGrpNm } 조회 ‖</h1> <br><br>
 			
-			<form action="/comCode/updatePop" id="editForm" method="post">
+			<form action="/comCode/editPop" id="editForm" method="post">
 			<input type="hidden" name="updateId" id="updateId" value="${sessionScope.id }">
 			<input type="hidden" name="cdGrp" id="cdGrp" value="${dto.cdGrp }">
 			<input type="hidden" name="mode" id="mode" value="POP">
