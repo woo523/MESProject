@@ -91,6 +91,12 @@ public class PerformServiceImpl implements PerformService {
 		return performDAO.getItemlist(search);
 	}
 
+	@Override
+	public Integer countItemlist(Map<String, Object> search) {
+		System.out.println("PerformServiceImpl countItemlist()");
+		return performDAO.countItemlist(search);
+	}
+
 
 
 }

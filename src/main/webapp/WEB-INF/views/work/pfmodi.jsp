@@ -75,7 +75,9 @@ $(document).ready(function(){
     var month = ("0"+(today.getMonth()+1)).slice(-2); // 달 MM
     var date = ("0"+today.getDate()).slice(-2); // 일 DD
     var today = year+"-"+month+"-"+date; // YYYY-MM-DD
+
 	document.getElementById("Date").setAttribute("max", today);
+
 
 });
 
