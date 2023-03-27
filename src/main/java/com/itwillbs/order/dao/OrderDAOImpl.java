@@ -1,6 +1,7 @@
 package com.itwillbs.order.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,12 @@ public class OrderDAOImpl implements OrderDAO{
 	private SqlSession sqlSession;
 	
 	private static final String namespace ="com.itwillbs.mappers.orderMapper";
+
+	@Override
+	public List<Map<String, Object>> getCheckMap() {
+		System.out.println("OrderDAOImpl getCheckMap()");
+		return sqlSession.selectList(namespace+".getCheckMap");
+	}
 	
 
 
