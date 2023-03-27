@@ -174,7 +174,9 @@ public class PerformController {
 	
 	@RequestMapping(value = "/work/performList", method = RequestMethod.GET)
 	public String performList(Model model) {  // 생산실적 현황 페이지
-		
+		// 라인 목록 불러오기
+		List<LineDTO> linelist = lineService.lineList();	
+		model.addAttribute("linelist", linelist);
 		
 //		model.addAttribute("performList", performList);
 		return "work/performList";
