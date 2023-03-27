@@ -10,7 +10,22 @@
 	<meta charset="UTF-8">
 	<title>instructList</title>
 	
-	<link href="/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+	article {
+		width: 90%;
+		margin: 0px auto;
+	}
+	
+	.searchBox .form-control {
+		width: 140px;
+	}
+	
+	.content_body #instrList:hover {
+		background-color: #e1e1e1;
+		cursor: pointer;
+	}
+	</style>
 </head>
 
 <body>
@@ -21,7 +36,7 @@
 <div class="content_body">
 <article>
 	<h2>작업지시</h2>
-	<form id="instrSearch" onsubmit="return formCheck()">
+	<form id="instr" onsubmit="return formCheck()">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
 			<button type="button" onclick="insertBtn()">추가</button>
@@ -59,16 +74,10 @@
 		
 		<div class="listButtons">
 			<c:choose>
-				<c:when test="${empty instrList}">
-					<span>총 ${instrTotal}건</span>
-				</c:when>
-				<c:otherwise>
+				<c:when test="${! empty instrList}">
 					<span>총 ${instrSearchCount}건</span>
-				</c:otherwise>
+				</c:when>
 			</c:choose>
-			<span>총 ${instrTotal}건</span>
-			<button type="button">수정</button>
-			<button type="button">삭제</button>
 			<button type="button">취소</button>
 			<button type="button">저장</button>
 		</div>
@@ -102,8 +111,8 @@
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
-						<tr>
+					<c:forEach var="instrDTO" items="${instrList}">
+						<tr id="instrList">
 							<td>${instrDTO.workNum}</td>
 							<td>업체명</td>
 							<td>수주번호</td>
@@ -136,64 +145,69 @@
 
 <script>
 
-	$(function() {
-		$("#sDate").datepicker({
-			 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-	           ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
-	           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
-	           ,changeYear: true //option값 년 선택 가능
-	           ,changeMonth: true //option값  월 선택 가능                
-	           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-	           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-	           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
-	           ,buttonText: "선택" //버튼 호버 텍스트              
-	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-	           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-	           ,closeText: '닫기' // 닫기 버튼 패널
-	           ,onClose: function ( selectedDate ) {
-	        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-	        	   $("input[name='endDate']").datepicker("option", "minDate", selectedDate );
-	           }
-		});
+$(function() {
+	$("#sDate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시여부
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+           ,onClose: function ( selectedDate ) {
+        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
+        	   $("input[name='endDate']").datepicker("option", "minDate", selectedDate );
+           }
 	});
-	
-	$(function() {
-		$("#eDate").datepicker({
-			 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-	           ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
-	           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
-	           ,changeYear: true //option값 년 선택 가능
-	           ,changeMonth: true //option값  월 선택 가능                
-	           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-	           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-	           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
-	           ,buttonText: "선택" //버튼 호버 텍스트              
-	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-	           ,closeText: '닫기' // 닫기 버튼 패널
-	           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-		});
+});
+
+$(function() {
+	$("#eDate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
-      
-    function formCheck() {
-    	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
-    	
-    }
-      
-	function insertBtn() {
-		alert("btn");
-	}
+});
+
+// 오늘 버튼 패널 클릭 시 오늘 날짜 입력과 동시에 캘린더 닫힘
+$('button.ui-datepicker-current').live('click', function() {
+	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
+})
+     
+   function formCheck() {
+   	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
+   	
+   }
+     
+function insertBtn() {
+	alert("btn");
+}
       
 </script>
 </html>
