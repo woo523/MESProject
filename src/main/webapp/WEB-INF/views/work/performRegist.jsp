@@ -63,6 +63,18 @@ text-align: center;
 	width:150px;
 }
 
+#pcd {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+#pnm {
+	background-color: #EAEAEA;
+}
+
+
+
 </style>
 </head>
 <body>

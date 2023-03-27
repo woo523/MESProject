@@ -120,7 +120,7 @@
     <result column="gb_yn" property="gbYn"/>
     <result column="prfrm_qty" property="performQty"/>
     <result column="db_rsns" property="dbReason"/>
-    <result column="invent_unit" property="invntUnit"/>
+    <result column="invnt_unit" property="invntUnit"/>
 
     
     </resultMap>
@@ -133,7 +133,7 @@
     p.prfrm_id,
     i.item_num, 
     i.item_nm,
-    i.invent_unit,
+    i.invnt_unit,
     p.prfrm_dt, 
     p.gb_yn, 
     p.prfrm_qty, 
