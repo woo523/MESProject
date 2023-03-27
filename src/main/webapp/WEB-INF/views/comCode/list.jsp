@@ -57,7 +57,7 @@ function openPop(cd, cdNm) {
 				<!-- 반복문. items=컨트롤러.model에서 넣어준 값(리스트가 받아올 배열이름) / var=for문 내부에서 사용할 변수 / varStatus = 상태용 변수 -->
 					<tr>
 						<td>${dto.cd }</td>
-						<td>${dto.cdNm }</td>
+						<td><a href="/comCode/edit?cd=${dto.cd }">${dto.cdNm }</a></td>
 						<td>${dto.useYn }</td>
 						<td><button type="button" class="sm_btn" onclick="openPop('${dto.cd }', '${dto.cdNm }')">하위코드 보기</button></td>
 						<td><button type="button" class="sm_btn" onclick="delComCd('${dto.cdGrp }','${dto.cd }');">삭제</button></td>

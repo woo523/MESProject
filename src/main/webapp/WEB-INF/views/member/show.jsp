@@ -85,7 +85,3 @@
 </form>
 <!-- 푸터 -->
 <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
-
-
-
-

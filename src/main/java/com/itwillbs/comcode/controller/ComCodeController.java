@@ -45,16 +45,17 @@ public class ComCodeController {
 	
 	// 수정화면 이동
 	@RequestMapping(value = "/comCode/edit", method = RequestMethod.GET)
-	public String edit(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
-		System.out.println("ComCodeController update()");
+	   public String edit(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
+	      System.out.println("ComCodeController edit()");
 
-		ComCodeDTO dto = comCodeService.getComCode(comCodeDTO);
+	      comCodeDTO.setCdGrp("0000");
 
-		model.addAttribute("dto", dto);
+	      ComCodeDTO dto = comCodeService.getComCode(comCodeDTO);
+	      
+	      model.addAttribute("dto", dto);
 
-		return "member/edit";
+	      return "comCode/edit";
 	}
-	
 	// 등록처리
 	@RequestMapping(value = "/comCode/insert", method = RequestMethod.POST)
 	public String insert(ComCodeDTO comCodeDTO) {
@@ -104,7 +105,6 @@ public class ComCodeController {
 	//하위코드목록 팝업이동
 	@RequestMapping(value = "/comCode/listPop", method = RequestMethod.GET)
 	public String listPop(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
-		
 		System.out.println("ComCodeController listPop()");
 		
 		List<ComCodeDTO> comCodeList = comCodeService.getSubComCodeList(comCodeDTO.getCd());
@@ -115,13 +115,22 @@ public class ComCodeController {
 		return "comCode/listPop";
 	}
 	
-	// 등록화면 팝업이동
-	@RequestMapping(value = "/comCode/createPop", method = RequestMethod.GET)
-	public String createPop(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
-		model.addAttribute("comCodeDTO", comCodeDTO);
-		return "comCode/createPop";
-	}
+	// 수정화면 팝업이동
+   @RequestMapping(value = "/comCode/editPop", method = RequestMethod.GET)
+   public String editPop(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
+       System.out.println("ComCodeController edit()");
+
+         //comCodeDTO.setCdGrp("0000");
+
+         ComCodeDTO dto = comCodeService.getComCode(comCodeDTO);
+         
+         model.addAttribute("dto", dto);
+
+         return "comCode/editPop";
+   }
 	
+	
+	// 수정화면 팝업이동
 	
 	
 	
