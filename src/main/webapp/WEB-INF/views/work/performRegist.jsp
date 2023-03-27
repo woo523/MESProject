@@ -50,6 +50,14 @@ div#btn{
 	text-align: right;
 	width: 1019px;
 }
+#pagination{
+width: 1019px;
+text-align: center;
+}
+
+#num:hover{
+	background-color : #e1e1e1;
+}
 </style>
 </head>
 <body>
@@ -188,8 +196,8 @@ $(document).ready(function(){
 	<td><input type="date" id="Date1" name="sdate" ></td>
 	<td><input type="date" id="Date2" name="edate" ></td>
 	<td>품번</td>
-	<td><input type="text" name="pcd" id="pcd" onclick="openilist()"></td>
-	<td><input type="text" id="pnm" onclick="openilist()"></td></tr>
+	<td><input type="text" name="pcd" id="pcd" onclick="openilist()" placeholder="품번"></td>
+	<td><input type="text" id="pnm" onclick="openilist()" placeholder="품명"></td></tr>
 	<tr><td>지시상태</td>
 	<td colspan="8">
 	<input type="checkbox" name="ists1" value="지시"> 지시 
@@ -223,31 +231,32 @@ $(document).ready(function(){
 	</c:forEach>
 
     </table>
-    
+    <br>
+    <div id="pagination">
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
-	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.currentPage-1}">◀</a>
+	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
 
 <!-- 10페이지 이전 -->
 	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}">[10페이지 이전]</a>
+	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 	</c:if>
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${i}">${i}</a> 
+	<a id="num" href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${i}">${i}</a> 
 	</c:forEach>
 
 <!-- 1페이지 다음 -->	
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.currentPage+1}">▶</a>
+	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>
 
 <!-- 10페이지 다음 -->
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">[10페이지 다음]</a>
+	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
-	
+	</div>
 
 	<br><br><br>
 	<h2>생산실적</h2>

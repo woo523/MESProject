@@ -32,4 +32,6 @@ public interface PerformService {
 	public void updatePf(PerformDTO performDTO);
 
 	public List<ItemDTO> getItemlist(Map<String,Object> search);
+	
+	public Integer countItemlist(Map<String,Object> search);
 }

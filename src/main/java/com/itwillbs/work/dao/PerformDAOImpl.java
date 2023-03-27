@@ -98,6 +98,13 @@ public class PerformDAOImpl implements PerformDAO {
 		return sqlSession.selectList(namespace+".itemlist", search);
 	}
 
+	@Override
+	public Integer countItemlist(Map<String, Object> search) {
+		System.out.println("PerformDAOImpl countItemlist()");
+		return sqlSession.selectOne(namespace+".countItemlist", search);
+		
+	}
+
 
 	
 	
