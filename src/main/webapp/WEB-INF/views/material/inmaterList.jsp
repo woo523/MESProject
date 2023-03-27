@@ -55,51 +55,6 @@ table#search {
 <body>
 
 
-
-
-
-<!-- 자바스크립트 들어가는 곳 -->
-<script type="text/javascript">
-
-function openilist(){
-    window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
-}
-
-function openilist2(){
-    window.open("${pageContext.request.contextPath }/material/clntList","popup", "width=500, height=500,left=100, top=100");
-}
-
-function InmaterListPrint(array){
-	for (var i=0; i<array.length; i++) {
-		output=output+"<tr id='con'>";
-		output=output+"<td>"+array[i].inmtrlDt+"</td>";
-		output=output+"<td><span id='a'>"+array[i].itemNum+"</span></td>";
-		output=output+"<td>"+array[i].itemName+"</td>";		
-		output=output+"<td>"+array[i].itemUnit+"</td>";	
-		output=output+"<td>"+array[i].stockwhouse+"</td>";	
-		output=output+"<td>"+array[i].stockcur+"</td>";	
-		output=output+"<td>"+array[i].inmtrlQty+"</td>";	
-		output=output+"<td>"+array[i].clientCode+"</td>";	
-		output=output+"<td>"+array[i].clientName+"</td>";	
-		output=output+"<td>"+array[i].inmtrlLot+"</td>";
-		output=output+"<td>"+array[i].note+"</td>";
-		output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].inmtrlId+")'>";
-		output=output+"<a href='${pageContext.request.contextPath}/material/del?inmtrlId="+array[i].inmtrlId+"'><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>";
-		output=output+"</tr>";
-	}
-}
-	output=output+"</table>";
-	
-	function openmodi(inmtrlId){ // 입고 수정창
-        window.open("${pageContext.request.contextPath}/material/immodi?inmtrlId="+inmtrlId,"popup", "width=500, height=500,left=100, top=100");
-    }
-}
-</script>
-<!-- 스크립트 끝. -->
-
-
-
-
 <div class="content_body"> <!-- 지우면안됨 -->
 	<!-- 내용시작 -->
 	
@@ -113,8 +68,8 @@ function InmaterListPrint(array){
 			
 	<table id="search">
 		<tr><td>입고일자</td>
-			<td><input type="date" name="sdate"></td>
-			<td><input type="date" name="edate"></td>
+			<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
+		   		<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
 			<td>입고창고</td>
 			<td><select name="whouse">
 				<option value="" selected>전체</option>
@@ -127,7 +82,7 @@ function InmaterListPrint(array){
 				<td><input type="text" name="pcd" placeholder="품번코드" onclick="openilist()"></td>
 				<td><input type="text" name="pnm" placeholder="품번명" readonly ></td>
 				<td>업체</td>
-				<td><input type="text" name="ccd" placeholder="업체코드" onclick="openilist2()"></td>
+				<td><input type="text" name="ccd" placeholder="업체코드" onclick="openclist()"></td>
 				<td><input type="text" name="cnm" placeholder="업체명" readonly></td>
 			</tr>
 		</table>
@@ -171,6 +126,67 @@ function InmaterListPrint(array){
 				<button>취소</button></tr>
 	</table>
 
+<script type="text/javascript">
+
+$(function() {
+	$("#sDate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+           ,onClose: function ( selectedDate ) {
+        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
+        	   $("input[name='endDate']").datepicker("option", "minDate", selectedDate );
+           }
+	});
+});
+
+$(function() {
+	$("#eDate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+	});
+});
+
+
+function openilist(){
+    window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
+}
+
+function openclist(){
+    window.open("${pageContext.request.contextPath }/material/clntList","popup", "width=500, height=500,left=100, top=100");
+}
+</script>
 
 
 

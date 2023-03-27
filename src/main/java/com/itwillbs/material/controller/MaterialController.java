@@ -30,19 +30,17 @@ public class MaterialController {
 
 		String whouse = request.getParameter("whouse");
 		String pcd = request.getParameter("pcd");
-		String sdate = request.getParameter("sdate");
-		String edate = request.getParameter("edate");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
 		String ccd = request.getParameter("ccd");
 		
-		System.out.println("whouse :"+whouse);
-		
-		if(whouse == null && pcd == null && sdate == null && edate == null && ccd == null){
+		if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
 			
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap();
-		
+			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap();		
 			model.addAttribute("inmaterList", inmaterList);} // 전체 리스트
+		
 		else {
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap(whouse, pcd, sdate, edate, ccd);
+			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap(whouse, pcd, startDate, endDate, ccd);
 			model.addAttribute("inmaterList", inmaterList); // 서치 결과 리스트
 		}
 		return "material/inmaterList";
@@ -82,7 +80,7 @@ public class MaterialController {
 		List<ItemDTO> itemList = materialService.getItemlist(search);
 			
 		//페이징 처리
-		int count = materialService.countInmaterLi(search);
+		int count = materialService.countItemlist(search);
 
 		int pageBlock = 10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
@@ -126,19 +124,19 @@ public class MaterialController {
 
 		String whouse = request.getParameter("whouse");
 		String pcd = request.getParameter("pcd");
-		String sdate = request.getParameter("sdate");
-		String edate = request.getParameter("edate");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
 		String ccd = request.getParameter("ccd");
 		
 System.out.println("whouse :"+whouse);
 		
-	if(whouse == null && pcd == null && sdate == null && edate == null && ccd == null){
+	if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
 			
 		List<Map<String, Object>> outmaterList =  materialService.getOutmaterLiMap();
 		
 		model.addAttribute("outmeterList", outmaterList);} // 전체 리스트	
 	else{
-		List<Map<String,Object>> outmaterList = materialService.getOutmaterLiMap(whouse, pcd, sdate, edate, ccd);
+		List<Map<String,Object>> outmaterList = materialService.getOutmaterLiMap(whouse, pcd, startDate, endDate, ccd);
 		model.addAttribute("outmaterList", outmaterList); // 서치 결과 리스트	
 	}
 	return "material/outmaterList";
