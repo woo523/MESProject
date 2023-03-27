@@ -8,9 +8,82 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>instructList</title>
+	<title>instructState</title>
 	
-	<link href="/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
+<!-- 	<link href="/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css"> -->
+
+<style type="text/css">
+.content_body .selectButtons, .listButtons {
+	text-align: right;
+}
+
+.content_body button {
+	display: inline-block;
+	width: 70px;
+	height: 28px;
+	font-size: 15px;
+}
+
+.content_body .searchBox {
+	width: 100%;
+	height: 20px;
+	border: 1px solid black;
+	margin: 10px 0px 40px 0px;
+}
+
+.searchBox td {
+	padding: 10px;
+}
+
+.content_body .instrList, .instrStateList {
+	width: 100%;
+	margin: 10px 0px 40px 0px;
+	border-collapse: collapse;
+}
+
+.content_body .instrList th, .instrStateList th {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 5px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.content_body .instrList td {
+	padding: 10px;
+	text-align: center;
+}
+	
+article {
+	width: 90%;
+	margin: 0px auto;
+}
+
+article input {
+	height: 20px;
+}
+
+.searchBox .form-control {
+	width: 150px;
+}
+
+.content_body #instrList:hover {
+	background-color: #e1e1e1;
+	cursor: pointer;
+}
+
+.content_body .searchBox #itemSearch {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.content_body .searchBox #itemSearchRead {
+	background-color: #EAEAEA;
+}
+
+</style>
 </head>
 
 <body>
@@ -24,7 +97,6 @@
 	<form id="instrSearch">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="insertBtn()">추가</button>
 		</div>
 		
 		<table class="searchBox">
@@ -41,8 +113,9 @@
 				<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
 		   			<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
 				<td>품번</td>
-				<td><input type="text" name="itemNum" placeholder="품번코드">
-					<input type="text" placeholder="품명" readonly></td>
+				<td><input type="text" id="itemSearch" name="itemNum" placeholder="품번코드" onclick="openilist()">
+					
+					<input type="text" id="itemSearchRead" placeholder="품명" readonly></td>
 			</tr>
 			<tr>
 				<td>지시상태</td>
@@ -58,10 +131,11 @@
 		<h2>목록</h2>
 		
 		<div class="listButtons">
-			<button type="button">수정</button>
-			<button type="button">삭제</button>
-			<button type="button">취소</button>
-			<button type="button">저장</button>
+			<c:choose>
+				<c:when test="${! empty instrList}">
+					<span>총 ${instrSearchCount}건</span>
+				</c:when>
+			</c:choose>
 		</div>
 		
 		<table border="1" class="instrList">
@@ -93,8 +167,8 @@
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="instrDTO" items="${instrList}" varStatus="status">
-						<tr>
+					<c:forEach var="instrDTO" items="${instrList}">
+						<tr id="instrList" onclick="getInstrStateList(${instrDTO.instr_id}, '${instrDTO.workNum}')">
 							<td>${instrDTO.workNum}</td>
 							<td>업체명</td>
 							<td>수주번호</td>
@@ -115,8 +189,21 @@
 			</c:choose>
 		</table>
 	</form>
-</article>
 	
+	<div>
+		<table border="1" class="instrStateList">
+			<tr>
+				<th>실적일자</th>
+				<th>품번</th>
+				<th>품명</th>
+				<th>단위</th>
+				<th>양품</th>
+				<th>불량</th>
+				<th>불량사유</th>
+			</tr>
+		</table>
+	</div>
+</article>
 </div>
 
 <!-- <footer> -->
@@ -169,21 +256,33 @@ $(function() {
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시여부 
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
+
+//오늘 버튼 패널 클릭 시 오늘 날짜 입력과 동시에 캘린더 닫힘
+$('button.ui-datepicker-current').live('click', function() {
+	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
+})
+
+// 품명 검색 팝업창
+function openilist(){
+    window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
+}
       
-    function formCheck() {
-    	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
-    	
-    }
-      
-	function insertBtn() {
-		alert("btn");
-	}
+function formCheck() {
+	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
+	
+}
+
+function InstrStateListPri(arr) { // 해당 작업지시현황 출력
+	
+	var output = "HI";
+	
+}
       
 </script>
 </html>

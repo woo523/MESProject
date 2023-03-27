@@ -200,10 +200,10 @@ $('button.ui-datepicker-current').live('click', function() {
 	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
 })
      
-   function formCheck() {
-   	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
-   	
-   }
+function formCheck() {
+	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
+	
+}
      
 function insertBtn() {
 	alert("btn");
