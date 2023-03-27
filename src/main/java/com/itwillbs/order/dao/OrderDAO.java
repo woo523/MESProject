@@ -8,10 +8,10 @@ import com.itwillbs.order.domain.PageDTO;
 
 
 public interface OrderDAO {
-
-	public List<OrderDTO> orderList();
+	public List<Map<String, Object>> orderSearchMap(PageDTO pageDTO);
 	
-	public List<Map<String, Object>> orderSearch(Map<String, Object> orderSearch);
- 
+	public List<Map<String, Object>> orderSearchMap(Map<String,Object> search);
+	
+	public Integer countOrder(Map<String,Object> search);
 	
 }

@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.order.dao.OrderDAO;
-import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
 
 
@@ -19,16 +18,25 @@ public class OrderServiceImpl implements OrderService{
 	private OrderDAO orderDAO;
 
 	@Override
-	public List<OrderDTO> orderList() {
-		System.out.println("OrderServiceImpl orderList()");
-		return orderDAO.orderList();
+	public List<Map<String, Object>> orderSearchMap(PageDTO pageDTO) {
+		System.out.println("OrderServiceImpl orderSearchMap()");
+		return orderDAO.orderSearchMap(pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> orderSearch(Map<String, Object> orderSearch) {
-		System.out.println("OrderServiceImpl rderSearch()");
-		return orderDAO.orderSearch(orderSearch);
+	public List<Map<String, Object>> orderSearchMap(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl orderSearchMap(검색)");
+		return orderDAO.orderSearchMap(search);
 	}
+
+	@Override
+	public Integer countOrder(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl countOrder()");
+		return orderDAO.countOrder(search);
+	}
+
+
+
 
 
 
