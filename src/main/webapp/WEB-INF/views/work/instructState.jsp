@@ -64,10 +64,6 @@ article input {
 	height: 20px;
 }
 
-.searchBox .form-control {
-	width: 150px;
-}
-
 .content_body #instrList:hover {
 	background-color: #e1e1e1;
 	cursor: pointer;
@@ -76,11 +72,20 @@ article input {
 .content_body .searchBox #itemSearch {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
-	background-position: right;
+	background-position: 98%;
+	border: 1px solid;
 }
 
 .content_body .searchBox #itemSearchRead {
 	background-color: #EAEAEA;
+}
+
+.content_body .searchBox .form-control {
+	width: 150px;
+	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
 }
 
 </style>
@@ -115,7 +120,7 @@ article input {
 				<td>품번</td>
 				<td><input type="text" id="itemSearch" name="itemNum" placeholder="품번코드" onclick="openilist()">
 					
-					<input type="text" id="itemSearchRead" placeholder="품명" readonly></td>
+					<input type="text" id="itemSearchRead" placeholder="품명" style="border:1px solid" readonly></td>
 			</tr>
 			<tr>
 				<td>지시상태</td>
@@ -219,11 +224,7 @@ $(function() {
            ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
-           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,changeMonth: true //option값  월 선택 가능           
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
@@ -246,11 +247,7 @@ $(function() {
            ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
-           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,changeMonth: true //option값  월 선택 가능            
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
@@ -278,11 +275,53 @@ function formCheck() {
 	
 }
 
+// 작업지시번호에 해당하는 지시 현황 ajax
+function getInstrStateList(a,b) {
+	var instr = a;
+	var workNum = b;
+	
+	$.ajax({
+		type : "get",
+		url : "${${pageContext.request.contextPath }/work/InstrStateList}",
+		data : {"instr" : instr, "workNum" : workNum},
+		dataType : "json",
+		async : false,
+		success : function(arr) {
+		   InstrStateListPri(arr);
+		}
+	}); // ajax
+}
+
 function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 	
-	var output = "HI";
+	var output = "HI <br>";
 	
-}
+	if(arr[0].itemNum == null) {
+		output = output + "총 0건 <br>";
+		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th></tr>";
+		output = output + "<tr><td colspan='7'> 해당 자료가 존재하지 않습니다. </td></tr>";	
+	
+	} else {
+		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th></tr>";
+		
+		for(var i = 0; i < arr.length; i++) {
+			output = output+"<tr id = 'instrList'>";
+			output = output+"<td>"+arr[i].performDate+"</td>";
+			output = output+"<td>"+arr[i].itemNum+"</td>";
+			output = output+"<td>"+arr[i].itemName+"</td>";
+			output = output+"<td>"+arr[i].invntUnit+"</td>";
+			output = output+"<td>"+arr[i].gbYn+"</td>";
+			output = output+"<td>"+arr[i].gbYn+"</td>";
+			output = output+"<td>"+arr[i].dbReason+"</td>";
+			output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
+			output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+array[i].performId+")'></td>";
+			output=output+"</tr>";
+		} // for
+	} // if else
+	output=output+"</table>";
+	
+	$(".instrStateList").html(output);
+} // arr
       
 </script>
 </html>
