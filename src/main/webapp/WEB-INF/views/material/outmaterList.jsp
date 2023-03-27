@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 
@@ -8,10 +13,12 @@
 table {
     width: 1125px;
   }
+  
 th,td{
 border-bottom: 1px solid black;
 padding: 10px;
 }
+
 #th {
 	font-weight: bold;
 }
@@ -45,7 +52,25 @@ table#search {
 text-align: center;
 }
 
+#pcd {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
 
+#pnm {
+	background-color: #EAEAEA;
+}
+
+#ccd {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+#cnm {
+	background-color: #EAEAEA;
+}
 </style>
 
 </head>

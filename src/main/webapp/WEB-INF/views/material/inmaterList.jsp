@@ -58,7 +58,7 @@ text-align: center;
 <body>
 
 
-<div class="content_body"> <!-- 지우면안됨 -->
+<div class="content_body">
 	<!-- 내용시작 -->
 	
 <h1>자재 입고 관리</h1>
