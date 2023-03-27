@@ -9,8 +9,9 @@ import com.itwillbs.order.domain.PageDTO;
 
 public interface OrderDAO {
 
-	public List<Map<String, Object>> getCheckMap();
+	public List<OrderDTO> orderList();
 	
+	public List<Map<String, Object>> orderSearch(Map<String, Object> orderSearch);
  
 	
 }
