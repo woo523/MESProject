@@ -91,9 +91,9 @@
                      <ul class="big_menu">
                         <li>자재 관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
-                            <li><a href="#">자재입고 관리</a></li>
-                            <li><a href="#">자재출고 관리</a></li>
-                            <li><a href="#">자재재고 현황</a></li>
+                            <li><a href="${pageContext.request.contextPath }/material/inmaterList">자재입고 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath }/material/outmaterList">자재출고 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath }/material/materialState">자재재고 현황</a></li>
                         </ul>   
                     	</ul>    
                 </div>
