@@ -69,14 +69,14 @@ article input {
 	cursor: pointer;
 }
 
-.content_body .searchBox #itemSearch {
+.content_body .searchBox #pcd {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
 	background-position: 98%;
 	border: 1px solid;
 }
 
-.content_body .searchBox #itemSearchRead {
+.content_body .searchBox #pnm {
 	background-color: #EAEAEA;
 }
 
@@ -117,12 +117,11 @@ article input {
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
 				<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
 		   			<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
+		   	</tr>
+		   	<tr>
 				<td>품번</td>
-				<td><input type="text" id="itemSearch" name="itemNum" placeholder="품번코드" onclick="openilist()">
-					
-					<input type="text" id="itemSearchRead" placeholder="품명" style="border:1px solid" readonly></td>
-			</tr>
-			<tr>
+				<td><input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
+					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly></td>
 				<td>지시상태</td>
 				<td colspan="8">
 					<input type="checkbox" name="workSts1" value="지시" class="sCheck">지시
@@ -277,13 +276,13 @@ function formCheck() {
 
 // 작업지시번호에 해당하는 지시 현황 ajax
 function getInstrStateList(a,b) {
-	var instr = a;
-	var workNum = b;
+	var instrId = a;
+	console.log("getInstrStateList");
 	
 	$.ajax({
 		type : "get",
-		url : "${${pageContext.request.contextPath }/work/InstrStateList}",
-		data : {"instr" : instr, "workNum" : workNum},
+		url : "${pageContext.request.contextPath}/work/InstrStateList",
+		data : {"instrId" : instrId, "workNum" : b},
 		dataType : "json",
 		async : false,
 		success : function(arr) {
@@ -298,11 +297,11 @@ function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 	
 	if(arr[0].itemNum == null) {
 		output = output + "총 0건 <br>";
-		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th></tr>";
+		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th></th></tr>";
 		output = output + "<tr><td colspan='7'> 해당 자료가 존재하지 않습니다. </td></tr>";	
 	
 	} else {
-		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th></tr>";
+		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th></th></tr>";
 		
 		for(var i = 0; i < arr.length; i++) {
 			output = output+"<tr id = 'instrList'>";
