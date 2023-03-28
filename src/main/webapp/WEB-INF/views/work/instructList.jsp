@@ -17,13 +17,28 @@
 		margin: 0px auto;
 	}
 	
-	.searchBox .form-control {
-		width: 140px;
-	}
-	
 	.content_body #instrList:hover {
 		background-color: #e1e1e1;
 		cursor: pointer;
+	}
+	
+	.content_body .searchBox #pcd {
+		background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+		background-repeat: no-repeat;
+		background-position: 98%;
+		border: 1px solid;
+	}
+	
+	.content_body .searchBox #pnm {
+		background-color: #EAEAEA;
+	}
+	
+	.content_body .searchBox .form-control {
+		width: 150px;
+		background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+		background-repeat: no-repeat;
+		background-position: 98%;
+		border: 1px solid;
 	}
 	</style>
 </head>
@@ -55,11 +70,11 @@
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
 				<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
 		   			<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
-				<td>품번</td>
-				<td><input type="text" name="itemNum" placeholder="품번코드">
-					<input type="text" placeholder="품명" readonly></td>
 			</tr>
-			<tr>
+			<tr>	
+				<td>품번</td>
+				<td><input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
+					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly></td>
 				<td>지시상태</td>
 				<td colspan="8">
 					<input type="checkbox" name="workSts1" value="지시" class="sCheck">지시
@@ -151,10 +166,7 @@ $(function() {
            ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,changeMonth: true //option값  월 선택 가능
            ,buttonText: "선택" //버튼 호버 텍스트              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
@@ -178,10 +190,7 @@ $(function() {
            ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+           ,changeMonth: true //option값  월 선택 가능
            ,buttonText: "선택" //버튼 호버 텍스트              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
@@ -199,6 +208,11 @@ $(function() {
 $('button.ui-datepicker-current').live('click', function() {
 	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
 })
+
+// 품명 검색 팝업창
+function openilist(){
+    window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
+}
      
 function formCheck() {
 	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출

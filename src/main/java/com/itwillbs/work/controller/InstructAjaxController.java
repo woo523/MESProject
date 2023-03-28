@@ -21,7 +21,7 @@ public class InstructAjaxController {
 	@Inject
 	private PerformService performService;
 	
-	@RequestMapping(value = "work/InstrStateList", method = RequestMethod.GET)
+	@RequestMapping(value = "/work/InstrStateList", method = RequestMethod.GET)
 	public String instrStateList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("InstructAjaxController instrStateList");
 		
