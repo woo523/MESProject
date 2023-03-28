@@ -296,6 +296,7 @@
     <resultMap type="map" id="PerformLiMap">
     
 	<!--     column= "디비열이름" property="멤버변수이름" -->
+	<result column="prfrm_id" property="performId"/>
 	<result column="prfrm_dt" property="performDate"/>
 	<result column="line_nm" property="instrId"/>
 	<result column="item_num" property="itemNum"/>
@@ -310,8 +311,10 @@
 
     </resultMap>
     
-    <select id="PerformList">
-    select p.prfrm_dt, 
+    <select id="PerformList" resultMap="PerformLiMap"> <!-- 생산실적 현황 생산실적 부분 -->
+    select 
+    p.prfrm_id,
+    p.prfrm_dt, 
     l.line_nm, 
     i.item_num, 
     i.item_nm, 
@@ -332,6 +335,7 @@
 	on om.ord_id = it.ord_id
 	join client c
 	on om.clnt_id = c.clnt_id
+	<if test="sdate!=null and edate!=null and line!=null and pcd!=null and worknum!=null">
 	where line_nm like CONCAT('%', #{line}, '%') 
 	<if test="sdate!='' and edate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
 	and
@@ -351,10 +355,70 @@
 	item_num like CONCAT('%', #{pcd}, '%')
 	and
 	work_num  like CONCAT('%', #{worknum}, '%')
-	order by item_num desc
+	</if>
+	order by prfrm_dt desc
     limit #{startRow}, #{pageSize}
 	</select>
     
+    <select id="countPerformLi" resultType="java.lang.Integer"> <!-- 생산실적 현황 생산실적 개수 -->
+    select 
+    count(*)
+	from work_prfrm p join line l
+	on p.line_id = l.line_id
+	join item i
+	on i.item_id = p.item_id
+	join work_instr it
+	on it.instr_id = p.instr_id
+	join order_mng om
+	on om.ord_id = it.ord_id
+	join client c
+	on om.clnt_id = c.clnt_id
+	<if test="sdate!=null and edate!=null and line!=null and pcd!=null and worknum!=null">
+	where line_nm like CONCAT('%', #{line}, '%') 
+	<if test="sdate!='' and edate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
+	and
+	prfrm_dt between #{sdate} and #{edate} 	
+	</if>
+	<if test="sdate=='' and edate==''"> <!-- 날짜 입력하지 않은 경우 -->
+	</if>	
+	<if test="sdate!=''"> <!-- 시작날짜만 입력한 경우 -->
+	and
+	prfrm_dt &gt;= #{sdate}
+	</if>
+	<if test="edate!=''"> <!-- 끝날짜만 입력한 경우 -->
+	and
+	prfrm_dt &lt;= #{edate}
+	</if>
+	and
+	item_num like CONCAT('%', #{pcd}, '%')
+	and
+	work_num  like CONCAT('%', #{worknum}, '%')
+	</if>
+    </select>
+    
+
+    <!-- 소요량 부분 -->
+    <resultMap type="map" id="ReqLiMap">
+    
+	<!-- column= "디비열이름" property="멤버변수이름" -->
+	<result column="item_num" property="itemNum"/>
+	<result column="item_nm" property="itemName"/>
+	<result column="invnt_unit" property="inventUnit"/>
+	<result column="req_amnt" property="reqAmnt"/>
+    </resultMap>
+    
+    <select id="ReqList" resultMap="ReqLiMap">
+    select 
+    i.item_num, 
+    i.item_nm, 
+    i.invnt_unit, 
+    r.req_amnt*p.prfrm_qty as req_amnt
+	from item i join requirement r
+	on r.c_item_id = i.item_id
+	join work_prfrm p
+	on p.item_id = r.p_item_id
+	where p.prfrm_id = #{performId};
+    </select>
     
 
 

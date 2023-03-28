@@ -40,7 +40,7 @@ public class PerformDAOImpl implements PerformDAO {
 	}
 	
 	@Override
-	public Integer countInstrLi(Map<String,Object> search) { // 실적등록 지시목록 개수
+	public Integer countInstrLi(Map<String,Object> search) { // 실적등록 지시목록 개수(for 페이징)
 		System.out.println("PerformDAOImpl countInstrLi()");
 		return sqlSession.selectOne(namespace+".countInstrLi", search);
 	}
@@ -99,16 +99,29 @@ public class PerformDAOImpl implements PerformDAO {
 	}
 
 	@Override
-	public Integer countItemlist(Map<String, Object> search) {
+	public Integer countItemlist(Map<String, Object> search) { // 품목 개수(for 페이징)
 		System.out.println("PerformDAOImpl countItemlist()");
 		return sqlSession.selectOne(namespace+".countItemlist", search);
 		
 	}
 
 	@Override
-	public List<Map<String, Object>> PerformLiMap(Map<String, Object> search) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, Object>> PerformLiMap(Map<String, Object> search) { // 실적등록 현황 생산실적 목록
+		System.out.println("PerformDAOImpl countItemlist()");
+		return sqlSession.selectList(namespace+".PerformList", search);
+	}
+
+	@Override
+	public Integer countPerformLi(Map<String, Object> search) { // 실적등록 현황 생산실적 목록 개수(for 페이징)
+		System.out.println("PerformDAOImpl countPerformLi()");
+		return sqlSession.selectOne(namespace+".countPerformLi", search);
+	}
+
+	@Override
+	public List<Map<String, Object>> ReqList(String performId) {
+		System.out.println("pI : " +performId);
+		System.out.println("PerformDAOImpl ReqList()");
+		return sqlSession.selectList(namespace+".ReqList", performId);
 	}
 
 
