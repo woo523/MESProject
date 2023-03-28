@@ -17,11 +17,7 @@ public class ShipServiceImpl implements ShipService{
 		return null;
 	}
 
-	@Override
-	public List<Map<String, Object>> shipAdmin(Map<String, Object> shipAdmin) {
-		System.out.println("ShipServiceImpl shipAdmin");
-		return shipDAO.shipAdmin(shipAdmin);
-	}
+
 
 	
 

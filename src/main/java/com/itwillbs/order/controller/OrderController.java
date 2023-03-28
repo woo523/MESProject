@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
+import com.itwillbs.order.domain.userDTO;
 import com.itwillbs.order.service.OrderService;
+import com.itwillbs.work.domain.ItemDTO;
 
 
 @Controller
@@ -28,11 +30,11 @@ public class OrderController {
 	public String management(Model model, HttpServletRequest request, PageDTO pageDTO) {
 
 			String clntCd = request.getParameter("clntCd");
-			String orderDt1 = request.getParameter("orderDt1");
-			String orderDt2 = request.getParameter("orderDt2");
+			String sOdate = request.getParameter("sOdate");
+			String eOdate = request.getParameter("eOdate");
 			String name = request.getParameter("name");
-			String dlvryDt1 = request.getParameter("dlvryDt1");
-			String dlvryDt2 = request.getParameter("dlvryDt2");
+			String sDdate = request.getParameter("sDdate");
+			String eDdate = request.getParameter("eDdate");
 			
 			// 한 화면에 보여줄 글 개수 설정
 			int pageSize = 3; // sql문에 들어가는 항목
@@ -55,23 +57,23 @@ public class OrderController {
 
 			Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
 			search.put("clntCd", clntCd);
-			search.put("orderDt1", orderDt1);
-			search.put("orderDt2", orderDt2);
+			search.put("sOdate", sOdate);
+			search.put("eOdate", eOdate);
 			search.put("name", name);
-			search.put("dlvryDt1", dlvryDt1);
-			search.put("dlvryDt2", dlvryDt2);
+			search.put("sDdate", sDdate);
+			search.put("eDdate", eDdate);
 			
 			search.put("startRow", pageDTO.getStartRow());
 			search.put("pageSize", pageDTO.getPageSize());
 	 
 			
 			List<Map<String,Object>> orderList;
-			if(clntCd == null && orderDt1 == null && orderDt2 == null && name == null && dlvryDt1 == null && dlvryDt2 == null) {
+			if(clntCd == null && sOdate == null && eOdate == null && name == null && sDdate == null && eDdate == null) {
 			// 조회 안한 경우
-				orderList = orderService.orderSearchMap(pageDTO); // page만 필요해서
+				orderList = orderService.getOrderMap(pageDTO); // page만 필요해서
 			
 			}else { // 조회값 넣은 경우
-				orderList = orderService.orderSearchMap(search);
+				orderList = orderService.getOrderMap(search);
 				
 			}
 					
@@ -102,11 +104,111 @@ public class OrderController {
 		return "order/management";
 	}
 	@RequestMapping(value = "/order/itemList", method = RequestMethod.GET)
-	public String itemList(Model model) {
+	public String itemList(Model model, HttpServletRequest request, PageDTO pageDTO) { // 품목 리스트
+		String itemNum = request.getParameter("itemNum");
+		String itemName = request.getParameter("itemName");
+		
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 5; // sql문에 들어가는 항목
+		
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
+		
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);
+
+		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+		search.put("itemNum", itemNum);
+		search.put("itemName", itemName);
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
+ 
+		List<ItemDTO> itemList = orderService.getItemList(search);
+			
+		//페이징 처리
+		int count = orderService.countItemList(search);
+
+		int pageBlock = 10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if(endPage > pageCount){
+		 	endPage = pageCount;
+		 }
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+				
+		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("search", search);
+		model.addAttribute("itemList", itemList);
 		return "order/itemList";
 	}
 	@RequestMapping(value = "/order/userList", method = RequestMethod.GET)
-	public String userList(Model model) {
+	public String userList(Model model, HttpServletRequest request, PageDTO pageDTO) { 
+		String userNum = request.getParameter("userNum");
+		String userName = request.getParameter("userName");
+		
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 5; // sql문에 들어가는 항목
+		
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
+		
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);
+
+		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+		search.put("userNum", userNum);
+		search.put("userName", userName);
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
+ 
+		List<userDTO> userList = orderService.getUserList(search);
+			
+		//페이징 처리
+		int count = orderService.countUserList(search);
+
+		int pageBlock = 10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if(endPage > pageCount){
+		 	endPage = pageCount;
+		 }
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+				
+		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("search", search);
+		model.addAttribute("userList", userList);
 		return "order/userList";
 	}
 	@RequestMapping(value = "/order/clientList", method = RequestMethod.GET)

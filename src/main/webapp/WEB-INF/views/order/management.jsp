@@ -46,13 +46,13 @@ function openilist3(){
 				<td>업체</td>
 				<td><input type="text" id="clntCd" onclick="openilist3()"></td>
 				<td>수주일자</td>
-				<td><input type= "text" class="datepicker" name = "date" id="orderDt1"/></td>
-				<td><input type= "text" class="datepicker" name = "date" id="orderDt2"/></td>
+				<td><input type= "text" class="datepicker" name = "date" id="sOdate"/></td>
+				<td><input type= "text" class="datepicker" name = "date" id="eOdate"/></td>
 				<td>담당자</td>
-				<td><input type="text" id="name" onclick="openilist2()"></td>
+				<td><input type="text" id="user" onclick="openilist2()"></td>
 				<td>납품예정일</td>
-				<td><input type= "text" class="datepicker" name = "date" id="dlvryDt1"/></td>
-				<td><input type= "text" class="datepicker" name = "date" id="dlvryDt2"/></td>
+				<td><input type= "text" class="datepicker" name = "date" id="sDdate"/></td>
+				<td><input type= "text" class="datepicker" name = "date" id="eDdate"/></td>
 			</tr>
 		</table>
 
@@ -69,11 +69,13 @@ function openilist3(){
 				<td>수주업체코드</td>
 				<td><input type="text" id="clntCd" onclick="openilist3()"></td>
 				<td>수주일자</td>
-				<td><input type= "text" class="datepicker1" name = "date" id="orderDt"/></td>
+				<td><input type= "text" class="datepicker1" name = "date" id="sOdate"/></td>
+				<td><input type= "text" class="datepicker1" name = "date" id="eOdate"/></td>
 				<td>담당자</td>
-				<td><input type="text" id="name" onclick="openilist2()"></td>
+				<td><input type="text" id="user" onclick="openilist2()"></td>
 				<td>납품예정일</td>
-				<td><input type= "text" class="datepicker1" name = "date" id="dlvryDt"/></td>
+				<td><input type= "text" class="datepicker1" name = "date" id="sDdate"/></td>
+				<td><input type= "text" class="datepicker1" name = "date" id="eDdate"/></td>
 				<td>고객수주번호</td>
 				<td><input type="text" id="csmtrOrdNum"></td>
 			</tr>
@@ -92,7 +94,7 @@ function openilist3(){
 				<td>품번</td>
 				<td><input type="text" id="itemNum" onclick="openilist1()"></td>
 				<td>품명</td>
-				<td><input type="text" id="itemNum" onclick="openilist1()"></td>
+				<td><input type="text" id="itemName" onclick="openilist1()"></td>
 				<td>단위</td>
 				<td><input type="text" id="ea"></td>
 				<td>수량</td>
@@ -144,7 +146,31 @@ function openilist3(){
 </article>
 	
 </div>
+    <div id="pagination">
+    <!-- 1페이지 이전 -->
+	<c:if test="${pageDTO.currentPage > 1}">
+	<a href="${pageContext.request.contextPath }/order/management?line=${search.line}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&pageNum=${pageDTO.currentPage-1}"><</a>
+	</c:if>
 
+<!-- 10페이지 이전 -->
+	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
+	<a href="${pageContext.request.contextPath }/order/management?line=${search.line}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+	<a id="num" href="${pageContext.request.contextPath }/order/management?line=${search.line}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&pageNum=${i}">${i}</a> 
+	</c:forEach>
+
+<!-- 1페이지 다음 -->	
+	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/order/management?line=${search.line}&sOdate=${search.sOdate}&oeOdate=${search.eOdate }&pageNum=${pageDTO.currentPage+1}">></a>
+	</c:if>
+
+<!-- 10페이지 다음 -->
+ 	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/order/management?line=${search.line}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	</c:if>
+	</div>
 <!-- <footer> -->
 	<jsp:include page="../inc/footer.jsp" />
 <!-- </footer> -->

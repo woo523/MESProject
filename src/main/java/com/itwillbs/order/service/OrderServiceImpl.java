@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.order.dao.OrderDAO;
 import com.itwillbs.order.domain.PageDTO;
+import com.itwillbs.order.domain.userDTO;
+import com.itwillbs.work.domain.ItemDTO;
 
 
 @Service
@@ -18,21 +20,45 @@ public class OrderServiceImpl implements OrderService{
 	private OrderDAO orderDAO;
 
 	@Override
-	public List<Map<String, Object>> orderSearchMap(PageDTO pageDTO) {
-		System.out.println("OrderServiceImpl orderSearchMap()");
-		return orderDAO.orderSearchMap(pageDTO);
+	public List<Map<String, Object>> getOrderMap(PageDTO pageDTO) {
+		System.out.println("OrderServiceImpl getOrderMap()");
+		return orderDAO.getOrderMap(pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> orderSearchMap(Map<String, Object> search) {
-		System.out.println("OrderServiceImpl orderSearchMap(검색)");
-		return orderDAO.orderSearchMap(search);
+	public List<Map<String, Object>> getOrderMap(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl getOrderMap(검색)");
+		return orderDAO.getOrderMap(search);
 	}
 
 	@Override
 	public Integer countOrder(Map<String, Object> search) {
 		System.out.println("OrderServiceImpl countOrder()");
 		return orderDAO.countOrder(search);
+	}
+
+	@Override
+	public List<ItemDTO> getItemList(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl getItemList()");
+		return orderDAO.getItemList(search);
+	}
+
+	@Override
+	public Integer countItemList(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl countItemList()");
+		return orderDAO.countItemList(search);
+	}
+
+	@Override
+	public List<userDTO> getUserList(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl getUserList()");
+		return orderDAO.getUserList(search);
+	}
+
+	@Override
+	public Integer countUserList(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl countUserList()");
+		return orderDAO.countUserList(search);
 	}
 
 

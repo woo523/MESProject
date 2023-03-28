@@ -22,11 +22,7 @@ public class ShipDAOImpl implements ShipDAO{
 		return null;
 	}
 
-	@Override
-	public List<Map<String, Object>> shipAdmin(Map<String, Object> shipAdmin) {
-		System.out.println("ShipDAOImpl shipAdmin()");
-		return sqlSession.selectList(namespace+".shipAdmin",shipAdmin);
-	}
+
 
 
 
