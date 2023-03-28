@@ -89,22 +89,24 @@ text-align: center;
 	</table>
 	
 	<table id="search">
-		<tr><td>출고일자</td>
-			<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
-		   		<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
-			<td>출고창고</td>
-			<td><select name="whouse">
-				<option value="" selected>전체</option>
-				<option value="1">창고 1</option>
-				<option value="2">창고 2</option>
-				<option value="3">창고 3</option>
-		</select></td></tr>
-		<tr><td>품번</td>
-			<td><input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openilist()"></td>
-			<td><input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
-			<td>업체</td>
-			<td><input type="text" name="ccd" id="ccd" class="form-control" placeholder="업체코드" onclick="openclist()"></td>
-			<td><input type="text" name="cnm" id="cnm" class="form-control" placeholder="업체명" readonly></td>
+		<tr><td>출고창고</td>
+				<td><select name="whouse">
+					<option value="" selected>전체</option>
+					<option value="1">창고 1</option>
+					<option value="2">창고 2</option>
+					<option value="3">창고 3</option>
+			</select></td>
+			<td>출고일자</td>
+				<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
+		   			<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
+		</tr>
+		<tr>
+			<td>품번</td>
+				<td><input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openilist()">
+					<input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
+				<td>업체</td>
+				<td><input type="text" name="ccd" id="ccd" class="form-control" placeholder="업체코드" onclick="openclist()">
+					<input type="text" name="cnm" id="cnm" class="form-control" placeholder="업체명" readonly></td>
 		</tr>
 		</table>
 	</form>
