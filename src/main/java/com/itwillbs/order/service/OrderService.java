@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
+import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -22,5 +23,9 @@ public interface OrderService {
 	public List<userDTO> getUserList(Map<String, Object> search);
 
 	public Integer countUserList(Map<String, Object> search);
+
+	public List<clntDTO> getClntList(Map<String, Object> search);
+
+	public Integer countClntList(Map<String, Object> search);
 	
 }

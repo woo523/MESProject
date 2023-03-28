@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.order.dao.OrderDAO;
 import com.itwillbs.order.domain.PageDTO;
+import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -59,6 +60,18 @@ public class OrderServiceImpl implements OrderService{
 	public Integer countUserList(Map<String, Object> search) {
 		System.out.println("OrderServiceImpl countUserList()");
 		return orderDAO.countUserList(search);
+	}
+
+	@Override
+	public List<clntDTO> getClntList(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl getClntList()");
+		return orderDAO.getClntList(search);
+	}
+
+	@Override
+	public Integer countClntList(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl countClntList()");
+		return orderDAO.countClntList(search);
 	}
 
 

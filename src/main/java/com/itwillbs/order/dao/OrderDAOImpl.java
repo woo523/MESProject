@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
+import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -57,7 +58,6 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public List<userDTO> getUserList(Map<String, Object> search) {
 		System.out.println("OrderDAOImpl getUserList()");
-		
 		return sqlSession.selectList(namespace+".getUserList", search);
 	}
 
@@ -65,6 +65,18 @@ public class OrderDAOImpl implements OrderDAO{
 	public Integer countUserList(Map<String, Object> search) {
 		System.out.println("OrderDAOImpl countUserList()");
 		return sqlSession.selectOne(namespace+".countUserList", search);
+	}
+
+	@Override
+	public List<clntDTO> getClntList(Map<String, Object> search) {
+		System.out.println("OrderDAOImpl getClntList()");
+		return sqlSession.selectList(namespace+".getClntList", search);
+	}
+
+	@Override
+	public Integer countClntList(Map<String, Object> search) {
+		System.out.println("OrderDAOImpl countClntList()");
+		return sqlSession.selectOne(namespace+".countClntList", search);
 	}
 	
 

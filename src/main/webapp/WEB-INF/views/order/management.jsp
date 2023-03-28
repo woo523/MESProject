@@ -29,7 +29,7 @@ function openilist2(){
     window.open("${pageContext.request.contextPath }/order/userList","popup", "width=600, height=600,left=100, top=100");
 }
 function openilist3(){
-    window.open("${pageContext.request.contextPath }/order/clientList","popup", "width=600, height=600,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=600, height=600,left=100, top=100");
 }
 </script>
 
@@ -66,7 +66,7 @@ function openilist3(){
 		
 		<table class="searchBox">
 			<tr>
-				<td>수주업체코드</td>
+				<td>업체코드</td>
 				<td><input type="text" id="clntCd" onclick="openilist3()"></td>
 				<td>수주일자</td>
 				<td><input type= "text" class="datepicker1" name = "date" id="sOdate"/></td>

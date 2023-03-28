@@ -92,7 +92,7 @@
 		</if>
 	</select>
 	
-		<select id="getUserList"
+	<select id="getUserList"
 		resultType="com.itwillbs.order.domain.userDTO">
 		select
 		id as userNum,
@@ -108,7 +108,7 @@
 	</select>
 	
 	
-		<select id="countUserList" resultType="java.lang.Integer">
+	<select id="countUserList" resultType="java.lang.Integer">
 		select
 		count(*)
 		from user
@@ -118,6 +118,33 @@
 			name like CONCAT('%', #{userName}, '%')
 		</if>
 	</select>
+	
+	
+	<select id="getClntList"
+		resultType="com.itwillbs.order.domain.clntDTO">
+		select
+		clnt_cd as clntCd,
+		clnt_nm as clntName
+		from client
+		<if test="clntCd!=null and clntName!=null">
+			where
+			clnt_cd like CONCAT('%', #{clntCd}, '%') and
+			clnt_nm like CONCAT('%', #{clntName}, '%')
+		</if>
+		order by clnt_cd desc
+		limit #{startRow}, #{pageSize}
+	</select>
 
+	<select id="countClntList" resultType="java.lang.Integer">
+		select
+		count(*)
+		from client
+		<if test="clntCd!=null and clntName!=null">
+			where
+			clnt_cd like CONCAT('%', #{clntCd}, '%') and
+			clnt_nm like CONCAT('%', #{clntName}, '%')
+		</if>
+	</select>
+	
 </mapper>
 
