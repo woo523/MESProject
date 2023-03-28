@@ -9,8 +9,8 @@ import com.itwillbs.work.domain.ItemDTO;
 public interface MaterialService {
 
 	public List<Map<String, Object>> inmaterList();
-
-	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String sdate, String edate, String ccd);
+	
+	public List<Map<String, Object>> getInmaterLiMap(Map<String, Object> search);
 
 	public List<Map<String, Object>> getInmaterLiMap();
 	

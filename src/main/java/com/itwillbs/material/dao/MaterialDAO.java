@@ -10,7 +10,7 @@ public interface MaterialDAO {
 	
 	public List<Map<String, Object>> inmaterList();
 	
-	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd);
+	public List<Map<String, Object>> getInmaterLiMap(Map<String, Object> search);
 
 	public List<Map<String, Object>> getInmaterLiMap();
 		
@@ -27,4 +27,6 @@ public interface MaterialDAO {
 	public List<ClientDTO> getClientlist(Map<String, Object> search);
 
 	public Integer countClientlist(Map<String, Object> search);
+
+
 }
