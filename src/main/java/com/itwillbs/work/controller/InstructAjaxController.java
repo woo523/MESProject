@@ -50,9 +50,21 @@ public class InstructAjaxController {
 				object.put("itemNum", 	  stateDTO.get("itemNum"));
 				object.put("itemName", 	  stateDTO.get("itemName"));
 				object.put("invntUnit",   stateDTO.get("invntUnit"));
-				object.put("gbYn", 	 	  stateDTO.get("gbYn"));
-				object.put("gbYn", 	 	  stateDTO.get("gbYn"));
-				object.put("dbReason", 	  stateDTO.get("dbReason"));
+				// 양품여부가 Y 또는 N일 경우
+				if(stateDTO.get("gbYn").equals("Y")) {
+					object.put("gbY", stateDTO.get("gbYn"));
+					object.put("gbN", "-");
+				} else {
+					// gbYn == "N"
+					object.put("gbY", "-");
+					object.put("gbN", stateDTO.get("gbYn"));
+				}
+				// 불량사유가 null인 경우 공백 출력
+				if(stateDTO.get("dbReason") == null) {
+					object.put("dbReason", "-");
+				} else {
+					object.put("dbReason", stateDTO.get("dbReason"));
+				}
 				
 				// 제이슨 배열에 객체 담기
 				arr.put(object);

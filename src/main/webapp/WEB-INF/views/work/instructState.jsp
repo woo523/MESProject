@@ -54,9 +54,14 @@
 	padding: 10px;
 	text-align: center;
 }
+
+.content_body .instrStateList td {
+	padding: 10px;
+	text-align: center;
+}
 	
 article {
-	width: 90%;
+	width: 1125px;
 	margin: 0px auto;
 }
 
@@ -98,7 +103,7 @@ article input {
 
 <div class="content_body">
 <article>
-	<h2>작업지시현황</h2>
+	<h2>작업지시</h2>
 	<form id="instrSearch">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
@@ -195,6 +200,8 @@ article input {
 	</form>
 	
 	<div>
+		<h2>작업지시현황</h2>
+		
 		<table border="1" class="instrStateList">
 			<tr>
 				<th>실적일자</th>
@@ -213,7 +220,6 @@ article input {
 <!-- <footer> -->
 	<jsp:include page="../inc/footer.jsp" />
 <!-- </footer> -->
-
 </body>
 
 <script>
@@ -268,11 +274,26 @@ $('button.ui-datepicker-current').live('click', function() {
 function openilist(){
     window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
 }
-      
-function formCheck() {
-	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
-	
-}
+
+// 작업지시현황 유효성 검사
+$(document).ready(function() {
+	$('#instrSearch').submit(function() {
+		if($('#sDate').val() == "") {
+			alert("지시일자를 선택해주세요.");
+			$('#sDate').focus();
+			
+			return false;
+		}
+		
+		if($('#pcd').val() == "") {
+			alert("품번코드를 입력해주세요.");
+			$('#pcd').focus();
+			
+			return false;
+		}
+	});
+});
+
 
 // 작업지시번호에 해당하는 지시 현황 ajax
 function getInstrStateList(a,b) {
@@ -293,14 +314,16 @@ function getInstrStateList(a,b) {
 
 function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 	
-	var output = "HI <br>";
+	var output = "";
 	
 	if(arr[0].itemNum == null) {
-		output = output + "총 0건 <br>";
+		output = output + "<span>총 0건</span>";
 		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th></th></tr>";
+		output = output + "<tr><td colspan='7'></td></tr>";
 		output = output + "<tr><td colspan='7'> 해당 자료가 존재하지 않습니다. </td></tr>";	
 	
 	} else {
+		output = output + "<span>총 " + arr.length + "건</span>";
 		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th></th></tr>";
 		
 		for(var i = 0; i < arr.length; i++) {
@@ -309,11 +332,11 @@ function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 			output = output+"<td>"+arr[i].itemNum+"</td>";
 			output = output+"<td>"+arr[i].itemName+"</td>";
 			output = output+"<td>"+arr[i].invntUnit+"</td>";
-			output = output+"<td>"+arr[i].gbYn+"</td>";
-			output = output+"<td>"+arr[i].gbYn+"</td>";
+			output = output+"<td>"+arr[i].gbY+"</td>";
+			output = output+"<td>"+arr[i].gbN+"</td>";
 			output = output+"<td>"+arr[i].dbReason+"</td>";
-			output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
-			output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+array[i].performId+")'></td>";
+			output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+arr[i].performId+")'>";
+			output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+arr[i].performId+")'></td>";
 			output=output+"</tr>";
 		} // for
 	} // if else

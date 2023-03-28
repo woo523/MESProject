@@ -51,7 +51,7 @@
 	</select>
 	
 	<sql id="List">
-		SELECT work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num as orderNum, 
+		SELECT work.instr_id, work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num as orderNum, 
 			   work.work_dt as workDate, work.work_sts as workSts,
           	   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
           	   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 

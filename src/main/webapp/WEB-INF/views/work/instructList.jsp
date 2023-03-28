@@ -13,7 +13,7 @@
 	<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 	<style type="text/css">
 	article {
-		width: 90%;
+		width: 1125px;
 		margin: 0px auto;
 	}
 	
@@ -51,7 +51,7 @@
 <div class="content_body">
 <article>
 	<h2>작업지시</h2>
-	<form id="instr" onsubmit="return formCheck()">
+	<form id="instr">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
 			<button type="button" onclick="insertBtn()">추가</button>
@@ -213,11 +213,26 @@ $('button.ui-datepicker-current').live('click', function() {
 function openilist(){
     window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
 }
-     
-function formCheck() {
-	// submit 버튼을 누르면 onsubmit에 의해 formCheck() 함수 호출
-	
-}
+
+// 작업지시 유효성 검사
+$(document).ready(function() {
+	$('#instr').submit(function() {
+		if($('#sDate').val() == "") {
+			alert("지시일자를 선택해주세요.");
+			$('#sDate').focus();
+			
+			return false;
+		}
+		
+		if($('#pcd').val() == "") {
+			alert("품번코드를 입력해주세요.");
+			$('#pcd').focus();
+			
+			return false;
+		}
+	});
+});
+
      
 function insertBtn() {
 	alert("btn");
