@@ -32,4 +32,18 @@ public class LineDAOImpl implements LineDAO{
 		return sqlSession.selectList(namespace+".lineSearch", lineSearch);
 	}
 
+	@Override
+	public Integer lineTotalCount() {
+		System.out.println("LineDAOImpl lineTotalCount");
+		
+		return sqlSession.selectOne(namespace+".lineTotalCount");
+	}
+
+	@Override
+	public Integer lineSearchCount(Map<String, Object> lineSearch) {
+		System.out.println("LineDAOImpl lineSearchCount");
+		
+		return sqlSession.selectOne(namespace+".lineSearchCount", lineSearch);
+	}
+
 }

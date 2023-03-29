@@ -270,8 +270,9 @@ function openilist(){
     window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
-// 작업지시현황 유효성 검사
 $(document).ready(function() {
+	
+	// 작업지시현황 유효성 검사
 	$('#instrSearch').submit(function() {
 		if($('#sDate').val() == "") {
 			alert("지시일자를 선택해주세요.");
@@ -287,24 +288,36 @@ $(document).ready(function() {
 			return false;
 		}
 	});
-});
-
-$(document).ready(function() {
+	
+	// 전체 목록 개수
 	$('#printCnt').html("<span>총 " + ${instrTotal} + "건</span>");
 	console.log(${instrTotal});
+	
+	// 검색 목록 개수
+	var count = '${instrSearchCount}';
+	if(count != "") {
+		$('#printCnt').html("<span>총 " + ${instrSearchCount} + "건</span>");
+	}
+	console.log("getSearchCnt");
+	
 });
 
-// function getSearchCnt() {
+// 작업지시번호에 해당하는 지시 현황 ajax
+function getInstrStateList(a,b) {
+	var instrId = a;
+	console.log("getInstrStateList");
 	
-// 	if(${instrSearchCount} == "") {
-// 		$('#printCnt').html("<span>총 " + ${instrTotal} + "건</span>");
-// 	} else {
-// 		$('#printCnt').html("<span>총 " + ${instrSearchCount} + "건</span>");
-// 	}
-// 	// document.getElementById("printCnt").innerHTML = "<span>총 " + ${instrSearchCount} + "건</span>";
-// 	console.log("getSearchCnt");
-// }
-
+	$.ajax({
+		type : "get",
+		url : "${pageContext.request.contextPath}/work/InstrStateList",
+		data : {"instrId" : instrId, "workNum" : b},
+		dataType : "json",
+		async : false,
+		success : function(arr) {
+		   InstrStateListPri(arr);
+		}
+	}); // ajax
+}
 
 function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 	

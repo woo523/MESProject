@@ -40,6 +40,10 @@
 		</table>
 	
 		<h2>목록</h2>
+		
+		<div class="listButtons">
+			<span id="printCnt"></span>
+		</div>
 	
 		<table border="1" class="lineList">
 			<tr>
@@ -102,7 +106,19 @@ $(document).ready(function() {
 			
 			return false;
 		}
-	})
-})
+	});
+	
+	// 라인 전체 목록 개수
+	$('#printCnt').html("<span>총 " + ${totalCnt} + "건</span>");
+	console.log(${totalCnt});
+	
+	// 라인 검색 목록 개수
+	var count = '${searchCnt}';
+	if(count != "") {
+		$('#printCnt').html("<span>총 " + ${searchCnt} + "건</span>");
+	}
+	console.log(${searchCnt});
+	
+});
 </script>
 </html>
