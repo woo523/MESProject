@@ -12,11 +12,21 @@
 		
 		
 	});
-	
+
 	function edit() {
+	if (!valChk($("#cdNm"), "코드그룹명")) return false;
 	$('#editForm').submit();
 	}
 
+	function valChk(obj, alias) {
+		if ($(obj).val() == "") {
+			alert(alias + '을(를) 입력하세요.');
+			$(obj).focus();
+			return false;
+		} else {
+			return true;
+		}
+	}
 </script>
 <!-- 스크립트 끝. -->
 

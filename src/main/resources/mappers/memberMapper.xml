@@ -18,8 +18,9 @@
 				T.pass,
 				T.name,
 				T.departments,
-				(select cd_nm from com_code where cd_grp = 'department_type' and cd = T.departments) as departments_nm,
+				(select cd_nm from com_code where cd_grp = 'department_type' and cd = T.departments) as departments_nm, <!-- 부서유형 서브쿼리조회 -->
 				T.position,
+				(select cd_nm from com_code where cd_grp = 'position_type' and cd = T.position) as position_nm, <!-- 직책유형 서브쿼리조회 -->
 				T.email,
 				T.tell,
 				T.phone,
@@ -54,6 +55,7 @@
 				T.departments,
 				(select cd_nm from com_code where cd_grp = 'department_type' and cd = T.departments) as departments_nm,
 				T.position,
+				(select cd_nm from com_code where cd_grp = 'position_type' and cd = T.position) as position_nm,
 				T.email,
 				T.tell,
 				T.phone,

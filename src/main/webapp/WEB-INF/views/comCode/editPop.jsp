@@ -39,9 +39,20 @@
 	});
 
 	function edit() {
-	$('#editForm').submit();
+	if (!valChk($("#cdNm"), "코드명")) return false;
+	if (!valChk($("#sortNum"), "정렬순서")) return false;	
+		$('#editForm').submit();
 	}
 	
+	function valChk(obj, alias) {
+		if ($(obj).val() == "") {
+			alert(alias + '을(를) 입력하세요.');
+			$(obj).focus();
+			return false;
+		} else {
+			return true;
+		}
+	}
 </script>
 
 

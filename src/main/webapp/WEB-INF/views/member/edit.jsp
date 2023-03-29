@@ -158,16 +158,27 @@ function valChk(obj, alias) {
 				<tr>
 					<th>부서</th>
 					<td>
-						<select name="departments"  id="departments">
-							<c:forEach items="${departmentComCdList }" var="codeDto">
-								<option value="${codeDto.cd }" <c:if test="${memberDTO.departments eq codeDto.cd}">selected</c:if>>${codeDto.cdNm }</option>
+						<select name="departments"  id="departments">	<!-- name,id 동일하게 -->
+							<c:forEach items="${departmentComCdList }" var="codeDto">	<!--items="${컨트롤러에서 모델에 담은 이름. var =codeDTO로 쓰기.(큰의미는없음) }  -->
+								<option value="${codeDto.cd }" 
+								<c:if test="${memberDTO.departments eq codeDto.cd}">selected</c:if>> <!-- 셀렉트박스 옵션을 selected상태로 하기위해 if문 사용. -->
+											<!-- 회원.부서 = 공통코드.코드 같으면 selected를 준다. -->
+								${codeDto.cdNm }
+								</option>
+																	
 							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>직책</th>
-					<td><input type="text" name="position" id="position" value="${memberDTO.position }" placeholder="직책을 입력해주세요"></td>
+					<td>
+						<select name="position"  id="position">
+							<c:forEach items="${positionComCdList }" var="codeDto">
+								<option value="${codeDto.cd }" <c:if test="${memberDTO.position eq codeDto.cd}">selected</c:if>>${codeDto.cdNm }</option>
+							</c:forEach>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<th>이메일주소</th>

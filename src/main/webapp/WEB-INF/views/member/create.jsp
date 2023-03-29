@@ -198,16 +198,22 @@
 				<tr>
 					<th>부서</th>
 					<td>
-						<select name="departments"  id="departments">
-							<c:forEach items="${departmentComCdList }" var="codeDto">
-								<option value="${codeDto.cd }">${codeDto.cdNm }</option>
+						<select name="departments"  id="departments">	<!-- name,id 동일하게 -->
+							<c:forEach items="${departmentComCdList }" var="codeDto">	<!--items="${컨트롤러에서 모델에 담은 이름. var =codeDTO로 쓰기.(큰의미는없음) }  -->
+								<option value="${codeDto.cd }">${codeDto.cdNm }</option>	<!-- 그대로 가져다 쓰기 -->
 							</c:forEach>
 						</select>	
 					</td>
 				</tr>
 				<tr>
 					<th>직책</th>
-					<td><input type="text" name="position" id="position" placeholder="직책을 입력해주세요"></td>
+					<td>
+						<select name="position"  id="position">
+							<c:forEach items="${positionComCdList }" var="codeDto">
+								<option value="${codeDto.cd }">${codeDto.cdNm }</option>
+							</c:forEach>
+						</select>	
+					</td>
 				</tr>
 				<tr>
 					<th>이메일주소</th>

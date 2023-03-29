@@ -99,18 +99,18 @@ public class ComCodeController {
 		System.out.println("ComCodeController delete()");
 		// 디비 삭제 처리 => 처리 => 디비 자바 메서드 호출
 		
+		String cdGrp = comCodeDTO.getCdGrp();
 		// 삭제작업
 		comCodeService.deleteComCode(comCodeDTO); 	// 상위코드 삭제
 		
-		if("POP".equals(comCodeDTO.getMode())) {
+		if("POP".equals(comCodeDTO.getMode())) {//팝업에서 삭제하였을 경우		
+			
 			comCodeDTO.setCdGrp(comCodeDTO.getCd());	// 하위코드를 삭제하기 위해서 상위코드를 하위코드그룹으로 세팅
 			comCodeDTO.setCd(null);						// cdGrp로만 삭제하기 위해서 cd는 null로 세팅(cd가 null일경우, 쿼리 where절에 cd는 포함안됨) 
-		}
-		
-		
-		if("POP".equals(comCodeDTO.getMode())) {//팝업에서 삭제하였을 경우		
+			comCodeService.deleteComCode(comCodeDTO); 
+			
 			//return "common/offwindow";//팝업에서 등록하였을 경우 팝업창 닫는 페이지로 이동
-			return "redirect:/comCode/listPop?cdGrp="+comCodeDTO.getCdGrp();//팝업에서 삭제하였을 경우 팝업리스트로 이동
+			return "redirect:/comCode/listPop?cdGrp="+cdGrp;//팝업에서 삭제하였을 경우 팝업리스트로 이동
 		}else {// 그 외 리스트로 이동
 			return "redirect:/comCode/list";
 		}

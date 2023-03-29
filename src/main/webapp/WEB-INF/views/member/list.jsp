@@ -58,8 +58,8 @@ function delMember(memId) {
 						<td>
 							<a href="/member/show?id=${dto.id }">${dto.name }</a>
 						</td>
-						<td>${dto.departmentsNm }</td>
-						<td>${dto.position }</td>
+						<td>${dto.departmentsNm }</td><!-- DTO에 추가한 이름으로 뿌려주기 -->
+						<td>${dto.positionNm }</td>
 						<td>${dto.phone }</td>
 						<td>${dto.useYn }</td>
 						<td><button type="button" class="sm_btn" onclick="delMember('${dto.id }');">삭제</button></td>

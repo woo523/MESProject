@@ -52,8 +52,9 @@ public class MemberController {
 	// 등록화면 이동
 	@RequestMapping(value = "/member/create", method = RequestMethod.GET)
 	public String create(HttpServletRequest request, HttpServletResponse response, Model model) {
-		
-		model.addAttribute("departmentComCdList", comCodeService.selcetCode("department_type")); //부서유형 공통코드
+		// "departmentComCdList"-> 부서유형공통코드리스트(본인이정하면된다) selcetCode("department_type") : 공통코드 코드그룹에 입력한이름
+		model.addAttribute("departmentComCdList", comCodeService.selcetCode("department_type")); //부서유형 공통코드 
+		model.addAttribute("positionComCdList", comCodeService.selcetCode("position_type")); //직책유형 공통코드 
 		return "member/create";
 	}
 
@@ -65,7 +66,9 @@ public class MemberController {
 		MemberDTO dto = memberService.getMember(memberDTO.getId());
 
 		model.addAttribute("memberDTO", dto);
+		// "departmentComCdList"-> 부서유형공통코드리스트(본인이정하면된다) selcetCode("department_type") : 공통코드 코드그룹에 입력한이름
 		model.addAttribute("departmentComCdList", comCodeService.selcetCode("department_type")); //부서유형 공통코드
+		model.addAttribute("positionComCdList", comCodeService.selcetCode("position_type")); //직책유형 공통코드
 		return "member/edit";
 	}
 

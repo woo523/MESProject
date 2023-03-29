@@ -46,10 +46,10 @@
 			type:"post",
 			success:function(result){
 				if(result.trim()=="Y"){
-					alert("이미 사용중인 코드그룹명입니다.");
+					alert("이미 사용중인 코드입니다.");
 					$('#checkYn').val("N");
 				}else{
-					alert("사용가능한 코드그룹명입니다.");
+					alert("사용가능한 코드입니다.");
 					$('#checkYn').val("Y");
 					$('#checkId').val($('#cd').val());
 				}
@@ -62,13 +62,13 @@
 	if (!valChk($("#sortNum"), "정렬순서")) return false;
 	
 	if ($('#checkYn').val() != "Y") {
-		alert("코드그룹 중복검사를 해주세요.");
+		alert("코드 중복검사를 해주세요.");
 		$('#cd').focus();
 		return false;
 	}
 
 	if ($('#cd').val() != $('#checkId').val()) {
-		alert("코드그룹 중복검사를 해주세요.");
+		alert("코드 중복검사를 해주세요.");
 		$('#id').focus();
 		return false;
 	}

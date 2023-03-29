@@ -15,7 +15,7 @@
 	
 	function check(){
 		if($('#cd').val()==""){
-			alert("코드그룹명을 입력하세요");
+			alert("코드그룹을 입력하세요");
 			$('#cd').focus();
 			return false;
 		}
@@ -25,10 +25,10 @@
 			type:"post",
 			success:function(result){
 				if(result.trim()=="Y"){
-					alert("이미 사용중인 코드그룹명입니다.");
+					alert("이미 사용중인 코드그룹입니다.");
 					$('#checkYn').val("N");
 				}else{
-					alert("사용가능한 코드그룹명입니다.");
+					alert("사용가능한 코드그룹입니다.");
 					$('#checkYn').val("Y");
 					$('#checkId').val($('#cd').val());
 				}

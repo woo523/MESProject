@@ -19,7 +19,9 @@ public class MemberDTO extends PageDTO {
 	private String updateId;
 	private Date updateDt;
 	
-	private String departmentsNm;
+	private String departmentsNm; // 부서유형 공통코드 쿼리문추가
+	private String positionNm; // 직책코드 공통코드 쿼리문추가
+	
 	
 	
 	public String getId() {
@@ -106,6 +108,12 @@ public class MemberDTO extends PageDTO {
 	}
 	public void setDepartmentsNm(String departmentsNm) {
 		this.departmentsNm = departmentsNm;
+	}
+	public String getPositionNm() {
+		return positionNm;
+	}
+	public void setPositionNm(String positionNm) {
+		this.positionNm = positionNm;
 	}
 	
 	
