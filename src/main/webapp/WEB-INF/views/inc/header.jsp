@@ -73,7 +73,7 @@
                     <ul class="big_menu">
                         <li>영업 관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
-                            <li><a href="${pageContext.request.contextPath }/order/management">수주관리</a></li>
+                            <li><a href="${pageContext.request.contextPath }/order/orderMng">수주관리</a></li>
                             <li><a href="#">수주현황</a></li>
                             <li><a href="#">출하관리</a></li>
                             <li><a href="#">출하현황</a></li>

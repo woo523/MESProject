@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public List<Map<String, Object>> getOrderMap(Map<String, Object> search) {
-		System.out.println("OrderServiceImpl getOrderMap(검색)");
+		System.out.println("OrderServiceImpl getOrderMap(寃���)");
 		return orderDAO.getOrderMap(search);
 	}
 
@@ -73,6 +73,7 @@ public class OrderServiceImpl implements OrderService{
 		System.out.println("OrderServiceImpl countClntList()");
 		return orderDAO.countClntList(search);
 	}
+
 
 
 

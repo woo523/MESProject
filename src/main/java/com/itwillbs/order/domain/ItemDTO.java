@@ -1,9 +1,8 @@
 package com.itwillbs.order.domain;
 
 public class ItemDTO {
-	private String itemNum;		// 품번
-	private String itemName;	// 품명
-	private String invntUnit;	// 재고단위
+	private String itemNum;		// ��踰�
+	private String itemName;	// ��紐�
 	
 	public String getItemNum() {
 		return itemNum;
@@ -17,17 +16,10 @@ public class ItemDTO {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public String getInvntUnit() {
-		return invntUnit;
-	}
-	public void setInvntUnit(String invntUnit) {
-		this.invntUnit = invntUnit;
-	}
-	
 	
 	@Override
 	public String toString() {
-		return "itemDTO [itemNum=" + itemNum + ", itemName=" + itemName + ", invntUnit=" + invntUnit + "]";
+		return "itemDTO [itemNum=" + itemNum + ", itemName=" + itemName + "]";
 	}
 	
 }

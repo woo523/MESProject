@@ -23,15 +23,15 @@ public class OrderDAOImpl implements OrderDAO{
 	private static final String namespace ="com.itwillbs.mappers.orderMapper";
 
 	@Override
-	public List<Map<String, Object>> getOrderMap(PageDTO pageDTO) { // 전체 조회
+	public List<Map<String, Object>> getOrderMap(PageDTO pageDTO) { // ��泥� 議고��
 		System.out.println("OrderDAOImpl getOrderMap()");
 		
 		return sqlSession.selectList(namespace+".getOrderMap", pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> getOrderMap(Map<String, Object> search) { // 검색 조회
-		System.out.println("OrderDAOImpl getOrderMap(검색)"); 
+	public List<Map<String, Object>> getOrderMap(Map<String, Object> search) { // 寃��� 議고��
+		System.out.println("OrderDAOImpl getOrderMap(寃���)"); 
 
 	    return sqlSession.selectList(namespace+".getSearchOrderMap",search);
 	}
@@ -78,7 +78,8 @@ public class OrderDAOImpl implements OrderDAO{
 		System.out.println("OrderDAOImpl countClntList()");
 		return sqlSession.selectOne(namespace+".countClntList", search);
 	}
-	
+
+
 
 
 

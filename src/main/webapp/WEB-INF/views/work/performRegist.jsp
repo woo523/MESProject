@@ -90,7 +90,7 @@ text-align: center;
 
 
 function openilist(){
-        window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
+        window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
     }
 
 

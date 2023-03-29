@@ -2,7 +2,7 @@ package com.itwillbs.order.domain;
 
 public class clntDTO {
 	private String clntCd;		
-	private String clntName;	
+	private String clntNm;	
 
 	
 	
@@ -18,21 +18,25 @@ public class clntDTO {
 
 
 
-	public String getClntName() {
-		return clntName;
+	
+
+
+
+	public String getClntNm() {
+		return clntNm;
 	}
 
 
 
-	public void setClntName(String clntName) {
-		this.clntName = clntName;
+	public void setClntNm(String clntNm) {
+		this.clntNm = clntNm;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "clntDTO [clntCd=" + clntCd + ", clntName=" + clntName + "]";
+		return "clntDTO [clntCd=" + clntCd + ", clntName=" + clntNm + "]";
 	}
 	
 }
