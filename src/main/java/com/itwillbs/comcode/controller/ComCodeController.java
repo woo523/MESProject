@@ -102,8 +102,11 @@ public class ComCodeController {
 		// 삭제작업
 		comCodeService.deleteComCode(comCodeDTO); 	// 상위코드 삭제
 		
-		comCodeDTO.setCdGrp(comCodeDTO.getCd());	// 하위코드를 삭제하기 위해서 상위코드를 하위코드그룹으로 세팅
-		comCodeDTO.setCd(null);						// cdGrp로만 삭제하기 위해서 cd는 null로 세팅(cd가 null일경우, 쿼리 where절에 cd는 포함안됨) 
+		if("POP".equals(comCodeDTO.getMode())) {
+			comCodeDTO.setCdGrp(comCodeDTO.getCd());	// 하위코드를 삭제하기 위해서 상위코드를 하위코드그룹으로 세팅
+			comCodeDTO.setCd(null);						// cdGrp로만 삭제하기 위해서 cd는 null로 세팅(cd가 null일경우, 쿼리 where절에 cd는 포함안됨) 
+		}
+		
 		
 		if("POP".equals(comCodeDTO.getMode())) {//팝업에서 삭제하였을 경우		
 			//return "common/offwindow";//팝업에서 등록하였을 경우 팝업창 닫는 페이지로 이동
