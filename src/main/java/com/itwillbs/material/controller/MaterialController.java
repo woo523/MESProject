@@ -192,11 +192,19 @@ public class MaterialController {
 		
 	if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
 			
-		List<Map<String, Object>> outmaterList =  materialService.getOutmaterLiMap();
-		
+		List<Map<String, Object>> outmaterList =  materialService.getOutmaterLiMap();		
 		model.addAttribute("outmeterList", outmaterList);} // 전체 리스트	
 	else{
-		List<Map<String,Object>> outmaterList = materialService.getOutmaterLiMap(whouse, pcd, startDate, endDate, ccd);
+		
+		Map<String, Object> search = new HashMap<String, Object>();
+		search.put("whouse", whouse);
+		search.put("startDate", startDate);
+		search.put("endDate", endDate);
+		search.put("pcd", pcd);
+		search.put("ccd", ccd);
+		System.out.println(search);
+		
+		List<Map<String,Object>> outmaterList = materialService.getOutmaterLiMap(search);
 		model.addAttribute("outmaterList", outmaterList); // 서치 결과 리스트	
 	}
 	return "material/outmaterList";
@@ -208,23 +216,24 @@ public class MaterialController {
 
 		String mtrltype = request.getParameter("mtrltype");
 		String pcd = request.getParameter("pcd");
+		System.out.println("mtrltype :"+mtrltype);
 		
 		if(mtrltype == null && pcd == null){
 			
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap();		
-			model.addAttribute("inmaterList", inmaterList);} // 전체 리스트
+			List<Map<String,Object>> materialState = materialService.mtrlStateList();		
+			model.addAttribute("materialState", materialState);} // 전체 리스트
 		
 		else {
 			
 			Map<String, Object> search = new HashMap<String, Object>();
 			search.put("mtrltype", mtrltype);
 			search.put("pcd", pcd);
-
 			System.out.println(search);
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap(search);
-			model.addAttribute("inmaterList", inmaterList); // 서치 결과 리스트
+			
+			List<Map<String,Object>> materialState = materialService.mtrlStateList(search);
+			model.addAttribute("materialState", materialState ); // 서치 결과 리스트
 		}
-		return "material/inmaterList";
+		return "material/materialState";
 	}
-		
+
 }

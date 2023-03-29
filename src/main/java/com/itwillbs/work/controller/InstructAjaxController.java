@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itwillbs.work.service.InstructService;
 import com.itwillbs.work.service.PerformService;
 
 @RestController
@@ -21,6 +22,7 @@ public class InstructAjaxController {
 	@Inject
 	private PerformService performService;
 	
+	// 작업지시현황
 	@RequestMapping(value = "/work/InstrStateList", method = RequestMethod.GET)
 	public String instrStateList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("InstructAjaxController instrStateList");

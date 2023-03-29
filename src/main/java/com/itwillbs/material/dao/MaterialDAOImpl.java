@@ -52,23 +52,8 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd) {
+	public List<Map<String, Object>> getOutmaterLiMap(Map<String, Object> search) {
 		System.out.println("OutmaterialDAOImpl getOutmaterLiMap(서치용)");
-		
-		if(whouse==null) {
-			whouse="";
-		}
-
-		Map<String,String> search = new HashMap<>();
-		
-		search.put("whouse", whouse);
-		search.put("pcd", pcd);
-		search.put("startDate", startDate);
-		search.put("endDate", endDate);
-		search.put("ccd", ccd);
-
-		
-		System.out.println("search : "+search);
 	   
 		return sqlSession.selectList(namespace+".getSearchOutmaterLiMap",search);
 	}
@@ -102,6 +87,28 @@ public class MaterialDAOImpl implements MaterialDAO{
 	public Integer countClientlist(Map<String, Object> search) {
 		System.out.println("intmaterialDAOImpl countClientlist()");
 		return sqlSession.selectOne(namespace+".countClientlist", search);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search) {
+		System.out.println("intmaterialDAOImpl mtrlStateList()");
+		return sqlSession.selectList(namespace+".mtrlStateSearch", search);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> mtrlStateList() {
+		System.out.println("intmaterialDAOImpl mtrlStateList()");
+		return sqlSession.selectList(namespace + ".mtrlStateList");
+	}
+
+
+	@Override
+	public List<Map<String, Object>> materialState() {
+		System.out.println("materialDAOImpl materialState()");
+		
+		return sqlSession.selectList(namespace + ".materialState");
 	}
 
 }

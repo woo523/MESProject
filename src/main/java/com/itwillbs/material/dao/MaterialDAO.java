@@ -16,9 +16,9 @@ public interface MaterialDAO {
 		
 	public List<Map<String, Object>> outmaterList();
 
-	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd);
-
 	public List<Map<String, Object>> getOutmaterLiMap();
+
+	public List<Map<String, Object>> getOutmaterLiMap(Map<String, Object> search);
 
 	public List<ItemDTO> getItemlist(Map<String, Object> search);
 
@@ -27,6 +27,12 @@ public interface MaterialDAO {
 	public List<ClientDTO> getClientlist(Map<String, Object> search);
 
 	public Integer countClientlist(Map<String, Object> search);
+
+	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search);
+
+	public List<Map<String, Object>> mtrlStateList();
+
+	public List<Map<String, Object>> materialState();
 
 
 }

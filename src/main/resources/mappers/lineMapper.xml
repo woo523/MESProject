@@ -34,6 +34,26 @@
 		</choose>
 	</select>
 	
+	<!-- line 전체 개수 -->
+	<select id="lineTotalCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM line
+	</select>
+	
+	<!-- line 조회 개수 -->
+	<select id="lineSearchCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM line
+		WHERE line_cd LIKE CONCAT('%', #{lineCode}, '%')
+			AND line_nm LIKE CONCAT('%', #{lineName}, '%')
+			<choose>
+				<when test="useChoice == 'Y'.toString()">
+					AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
+				</when>
+				<when test="useChoice == 'N'.toString()">
+					AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
+				</when>
+			</choose>
+	</select>
+	
 	<sql id="List">
 		SELECT line_cd as lineCode,
 			   line_nm as lineName,

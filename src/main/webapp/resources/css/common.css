@@ -79,3 +79,8 @@
 .ml10 {
 	margin-left: 10px;
 }
+
+/* 중복체크 */
+
+.olmessagef {color: red; font-style: Italic;}
+.olmessaget {color: blue; font-style: Italic;}

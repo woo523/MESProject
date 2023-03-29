@@ -30,4 +30,18 @@ public class LineServiceImpl implements LineService{
 		return lineDAO.lineSearch(lineSearch);
 	}
 
+	@Override
+	public Integer lineTotalCount() {
+		System.out.println("LineServiceImpl lineTotalCount");
+		
+		return lineDAO.lineTotalCount();
+	}
+
+	@Override
+	public Integer lineSearchCount(Map<String, Object> lineSearch) {
+		System.out.println("LineServiceImpl lineSearchCount");
+		
+		return lineDAO.lineSearchCount(lineSearch);
+	}
+
 }

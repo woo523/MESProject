@@ -10,5 +10,9 @@ public interface LineService {
 	public List<LineDTO> lineList();
 	
 	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch);
+	
+	public Integer lineTotalCount();
+	
+	public Integer lineSearchCount(Map<String, Object> lineSearch);
 
 }

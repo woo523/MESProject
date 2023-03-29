@@ -36,7 +36,9 @@ public class LineController {
 			// 라인 전체 조회
 			
 			List<LineDTO> lineList = lineService.lineList();
+			int totalCnt = lineService.lineTotalCount();
 			model.addAttribute("lineList", lineList);
+			model.addAttribute("totalCnt", totalCnt);
 			
 		} else {
 			// 라인 검색 조회
@@ -48,7 +50,9 @@ public class LineController {
 			System.out.println(lineSearch);
 			
 			List<Map<String, Object>> lineList = lineService.lineSearch(lineSearch);
+			int searchCnt = lineService.lineSearchCount(lineSearch);
 			model.addAttribute("lineList", lineList);
+			model.addAttribute("searchCnt", searchCnt);
 		}
 		return "line/line";
 	}

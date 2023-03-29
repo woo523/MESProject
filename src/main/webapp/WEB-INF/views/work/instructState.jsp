@@ -140,11 +140,7 @@ article input {
 		<h2>목록</h2>
 		
 		<div class="listButtons">
-			<c:choose>
-				<c:when test="${! empty instrList}">
-					<span>총 ${instrSearchCount}건</span>
-				</c:when>
-			</c:choose>
+			<span id="printCnt"></span>
 		</div>
 		
 		<table border="1" class="instrList">
@@ -198,7 +194,6 @@ article input {
 			</c:choose>
 		</table>
 	</form>
-	
 	<div>
 		<h2>작업지시현황</h2>
 		
@@ -210,7 +205,7 @@ article input {
 				<th>단위</th>
 				<th>양품</th>
 				<th>불량</th>
-				<th>불량사유</th>
+				<th style="width: 250px">불량사유</th>
 			</tr>
 		</table>
 	</div>
@@ -275,8 +270,9 @@ function openilist(){
     window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
-// 작업지시현황 유효성 검사
 $(document).ready(function() {
+	
+	// 작업지시현황 유효성 검사
 	$('#instrSearch').submit(function() {
 		if($('#sDate').val() == "") {
 			alert("지시일자를 선택해주세요.");
@@ -292,8 +288,19 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+	
+	// 전체 목록 개수
+	$('#printCnt').html("<span>총 " + ${instrTotal} + "건</span>");
+	console.log(${instrTotal});
+	
+	// 검색 목록 개수
+	var count = '${instrSearchCount}';
+	if(count != "") {
+		$('#printCnt').html("<span>총 " + ${instrSearchCount} + "건</span>");
+	}
+	console.log("getSearchCnt");
+	
 });
-
 
 // 작업지시번호에 해당하는 지시 현황 ajax
 function getInstrStateList(a,b) {
@@ -318,13 +325,13 @@ function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 	
 	if(arr[0].itemNum == null) {
 		output = output + "<span>총 0건</span>";
-		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th></th></tr>";
+		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th style='width: 250px'>불량사유</th></tr>";
 		output = output + "<tr><td colspan='7'></td></tr>";
 		output = output + "<tr><td colspan='7'> 해당 자료가 존재하지 않습니다. </td></tr>";	
 	
 	} else {
 		output = output + "<span>총 " + arr.length + "건</span>";
-		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th></th></tr>";
+		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th style='width: 250px'>불량사유</th></tr>";
 		
 		for(var i = 0; i < arr.length; i++) {
 			output = output+"<tr id = 'instrList'>";
@@ -335,8 +342,6 @@ function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 			output = output+"<td>"+arr[i].gbY+"</td>";
 			output = output+"<td>"+arr[i].gbN+"</td>";
 			output = output+"<td>"+arr[i].dbReason+"</td>";
-			output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+arr[i].performId+")'>";
-			output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+arr[i].performId+")'></td>";
 			output=output+"</tr>";
 		} // for
 	} // if else

@@ -85,6 +85,19 @@ public class ComCodeDAOImpl implements ComCodeDAO{
 		System.out.println("ComCodeDAOImpl selcetCode()");
 		return sqlSession.selectList(namespace + ".selcetCode", cdGrp);
 	}
+
+	// 중복확인
+	@Override
+	public ComCodeDTO comCheck(ComCodeDTO comCodeDTO) {
+		System.out.println("ComCodeDAOImpl comCheck() 중복확인");
+		
+		return sqlSession.selectOne(namespace + ".comCheck", comCodeDTO);
+		// (이름+".전체이름",변수);
+	}
+
+	
+	
+
 	
 	
 

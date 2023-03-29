@@ -88,11 +88,7 @@
 		<h2>목록</h2>
 		
 		<div class="listButtons">
-			<c:choose>
-				<c:when test="${! empty instrList}">
-					<span>총 ${instrSearchCount}건</span>
-				</c:when>
-			</c:choose>
+			<span id="printCnt"></span>
 			<button type="button">취소</button>
 			<button type="button">저장</button>
 		</div>
@@ -231,6 +227,18 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+	
+	// 전체 목록 개수
+	$('#printCnt').html("<span>총 " + ${instrTotal} + "건</span>");
+	console.log(${instrTotal});
+	
+	// 검색 목록 개수
+	var count = '${instrSearchCount}';
+	if(count != "") {
+		$('#printCnt').html("<span>총 " + ${instrSearchCount} + "건</span>");
+	}
+	console.log("getSearchCnt");
+	
 });
 
      
