@@ -84,6 +84,22 @@ public class ComCodeServiceImpl implements ComCodeService {
 		
 		return comCodeDAO.selcetCode(cdGrp);
 	}
+
+	// 공통코드 중복체크
+	@Override
+	public ComCodeDTO comCheck(ComCodeDTO comCodeDTO) {
+		System.out.println("ComCodeServiceImpl comCheck()");
+		
+		return comCodeDAO.comCheck(comCodeDTO);
+	}
+
+
+	
+
+
+	
+
+	
 	
 	
 	

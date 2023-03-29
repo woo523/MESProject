@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,6 +24,7 @@ public class ComCodeController {
 
 	@Inject
 	private ComCodeService comCodeService; // 4버전.자동으로 객체생성 한 것.
+	
 	
 	
 	/**********************************코드그룹(상위코드) 이동 및 처리부분 시작**************************************/
@@ -96,10 +98,12 @@ public class ComCodeController {
 	public String delete(ComCodeDTO comCodeDTO, HttpSession session) {
 		System.out.println("ComCodeController delete()");
 		// 디비 삭제 처리 => 처리 => 디비 자바 메서드 호출
-
-		// 삭제작업
-		comCodeService.deleteComCode(comCodeDTO);
 		
+		// 삭제작업
+		comCodeService.deleteComCode(comCodeDTO); 	// 상위코드 삭제
+		
+		comCodeDTO.setCdGrp(comCodeDTO.getCd());	// 하위코드를 삭제하기 위해서 상위코드를 하위코드그룹으로 세팅
+		comCodeDTO.setCd(null);						// cdGrp로만 삭제하기 위해서 cd는 null로 세팅(cd가 null일경우, 쿼리 where절에 cd는 포함안됨) 
 		
 		if("POP".equals(comCodeDTO.getMode())) {//팝업에서 삭제하였을 경우		
 			//return "common/offwindow";//팝업에서 등록하였을 경우 팝업창 닫는 페이지로 이동
@@ -110,6 +114,7 @@ public class ComCodeController {
 	}
 	
 	/**********************************코드그룹(상위코드) 이동 및 처리부분 끝**************************************/
+	
 	
 	
 	
@@ -168,13 +173,31 @@ public class ComCodeController {
        return "comCode/editPop";
    }
 	
-	
-	// 수정화면 팝업이동
-	
-	
-	
-	
-	
-	
    /**********************************코드(하위코드) 이동 및 처리부분 끝**************************************/
+   
+   	 // 중복확인 
+	// 가상주소 http://localhost:8080/comCode/comCheck
+	@RequestMapping(value = "/comCode/comCheck")
+	public ResponseEntity<String> comCheck(ComCodeDTO comCodeDTO,HttpServletRequest request) {
+		System.out.println("ComCodeController comCheck() ");
+		String result="";
+		// request 파라미터 cdGrp 가져오기 (cd포함)
+		String cdGrp=request.getParameter("cdGrp");
+		
+		// 디비 아이디 중복체크
+		ComCodeDTO comCodeDTO2 = comCodeService.comCheck(comCodeDTO);
+		
+		if(comCodeDTO2!=null) {
+			//아이디 있음 => 아이디 중복
+			result="Y";
+		}else {
+			//아이디 없음 => 아이디 사용가능
+			result="N";
+		}
+		//출력 결과 ResponseEntity 저장 => 되돌아감
+		ResponseEntity<String> entity= new ResponseEntity<String>(result,HttpStatus.OK);
+		return entity;
+	}   
+   
+   
 }

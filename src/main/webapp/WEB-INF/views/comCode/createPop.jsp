@@ -33,15 +33,58 @@
 
 <script type="text/javascript">
 
-	$(document).ready(function() {
-	
-	
-	});
-
+	$(document).ready(function() {});
+	function check(){
+		if($('#cd').val()==""){
+			alert("코드를 입력하세요");
+			$('#cd').focus();
+			return false;
+		}
+		$.ajax({
+			url:'/comCode/comCheck',
+			data:{cd:$('#cd').val() , cdGrp:$('#cdGrp').val()},
+			type:"post",
+			success:function(result){
+				if(result.trim()=="Y"){
+					alert("이미 사용중인 코드그룹명입니다.");
+					$('#checkYn').val("N");
+				}else{
+					alert("사용가능한 코드그룹명입니다.");
+					$('#checkYn').val("Y");
+					$('#checkId').val($('#cd').val());
+				}
+			}
+		})
+	};
 	function create() {
+	if (!valChk($("#cd"), "코드")) return false;
+	if (!valChk($("#cdNm"), "코드명")) return false;
+	if (!valChk($("#sortNum"), "정렬순서")) return false;
+	
+	if ($('#checkYn').val() != "Y") {
+		alert("코드그룹 중복검사를 해주세요.");
+		$('#cd').focus();
+		return false;
+	}
+
+	if ($('#cd').val() != $('#checkId').val()) {
+		alert("코드그룹 중복검사를 해주세요.");
+		$('#id').focus();
+		return false;
+	}
 	$('#createForm').submit();
+	
 	}
 	
+	function valChk(obj, alias) {
+		if ($(obj).val() == "") {
+			alert(alias + '을(를) 입력하세요.');
+			$(obj).focus();
+			return false;
+		} else {
+			return true;
+		}
+	}
 </script>
 
 
@@ -57,6 +100,8 @@
 			
 			<form action="/comCode/insert" id="createForm" method="post">
 			<input type="hidden" name="insertId" id="insertId" value="${sessionScope.id }">
+			<input type="hidden" name="checkYn" id="checkYn" value="N">
+			<input type="hidden" name="checkId" id="checkId" value="">
 			<input type="hidden" name="cdGrp" id="cdGrp" value="${parentCdDTO.cd }">
 			<input type="hidden" name="mode" id="mode" value="POP">
 				<table>
@@ -67,7 +112,9 @@
 					<tbody>
 					<tr>
 						<th>코드</th>
-						<td><input type="text" name="cd" id="cd" placeholder="코드를 입력하세요"></td>
+						<td><input type="text" name="cd" id="cd" placeholder="코드를 입력하세요">
+							<input type="button" class="ml10" id="checkId" value="중복확인" onclick="check();">
+						</td>
 					</tr>
 					<tr>
 						<th>코드명</th>

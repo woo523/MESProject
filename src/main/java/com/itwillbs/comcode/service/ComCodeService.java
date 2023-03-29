@@ -25,4 +25,8 @@ public interface ComCodeService {
 	
 	//사용여부가 사용이면서 코드그룹으로 하위코드 리스트들 조회
 	public List<ComCodeDTO> selcetCode(String cdGrp);
+
+	// 공통코드 중복체크
+	public ComCodeDTO comCheck(ComCodeDTO comCodeDTO);
+
 }

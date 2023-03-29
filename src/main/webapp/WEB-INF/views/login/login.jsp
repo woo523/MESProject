@@ -13,7 +13,7 @@
 
 <div class="content_body">
 	<!-- 내용시작 -->
-	<form action="${pageContext.request.contextPath }/login/loginPro" method="post">
+	<form action="/login/loginPro" method="post">
 		<table>
 			<tr>
 				<td>아이디 :</td>
