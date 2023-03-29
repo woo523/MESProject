@@ -50,23 +50,26 @@ text-align: center;
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
 	background-position:98%;
+	border: 1px solid;
 }
 
 #pnm {
 	background-color: #EAEAEA;
 	background-position:98%;
-	
+	border: 1px solid;
 }
 
 #ccd {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
 	background-position: 98%;
+	border: 1px solid;
 }
 
 #cnm {
 	background-color: #EAEAEA;
 	background-position:98%;
+	border: 1px solid;
 }
 
 .form-control {
@@ -74,6 +77,7 @@ text-align: center;
 		background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
 		background-repeat: no-repeat;
 		background-position: 98%;
+		border: 1px solid;
 
 	}
 	

@@ -192,11 +192,19 @@ public class MaterialController {
 		
 	if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
 			
-		List<Map<String, Object>> outmaterList =  materialService.getOutmaterLiMap();
-		
+		List<Map<String, Object>> outmaterList =  materialService.getOutmaterLiMap();		
 		model.addAttribute("outmeterList", outmaterList);} // 전체 리스트	
 	else{
-		List<Map<String,Object>> outmaterList = materialService.getOutmaterLiMap(whouse, pcd, startDate, endDate, ccd);
+		
+		Map<String, Object> search = new HashMap<String, Object>();
+		search.put("whouse", whouse);
+		search.put("startDate", startDate);
+		search.put("endDate", endDate);
+		search.put("pcd", pcd);
+		search.put("ccd", ccd);
+		System.out.println(search);
+		
+		List<Map<String,Object>> outmaterList = materialService.getOutmaterLiMap(search);
 		model.addAttribute("outmaterList", outmaterList); // 서치 결과 리스트	
 	}
 	return "material/outmaterList";

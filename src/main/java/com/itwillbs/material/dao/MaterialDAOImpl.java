@@ -52,23 +52,8 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd) {
+	public List<Map<String, Object>> getOutmaterLiMap(Map<String, Object> search) {
 		System.out.println("OutmaterialDAOImpl getOutmaterLiMap(서치용)");
-		
-		if(whouse==null) {
-			whouse="";
-		}
-
-		Map<String,String> search = new HashMap<>();
-		
-		search.put("whouse", whouse);
-		search.put("pcd", pcd);
-		search.put("startDate", startDate);
-		search.put("endDate", endDate);
-		search.put("ccd", ccd);
-
-		
-		System.out.println("search : "+search);
 	   
 		return sqlSession.selectList(namespace+".getSearchOutmaterLiMap",search);
 	}

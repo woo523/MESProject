@@ -44,11 +44,10 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String startDate, String endDate,
-			String ccd) {
+	public List<Map<String, Object>> getOutmaterLiMap(Map<String, Object> search) {
 		System.out.println("OutmaterialServiceImpl getOutmaterLiMap(서치용)");
 		
-		return materialDAO.getOutmaterLiMap(whouse, pcd, startDate, endDate, ccd);
+		return materialDAO.getOutmaterLiMap(search);
 	}
 
 	@Override

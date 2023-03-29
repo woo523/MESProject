@@ -16,9 +16,9 @@ public interface MaterialService {
 	
 	public List<Map<String, Object>> outmaterList();
 	
-	public List<Map<String, Object>> getOutmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd);
-
 	public List<Map<String, Object>> getOutmaterLiMap();
+
+	public List<Map<String, Object>> getOutmaterLiMap(Map<String, Object> search);
 
 	public List<ItemDTO> getItemlist(Map<String, Object> search);
 

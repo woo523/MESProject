@@ -61,11 +61,13 @@ text-align: center;
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
 	background-position:98%;
+	border: 1px solid;
 }
 
 #pnm {
 	background-color: #EAEAEA;
 	background-position:98%;
+	border: 1px solid;
 	
 }
 
