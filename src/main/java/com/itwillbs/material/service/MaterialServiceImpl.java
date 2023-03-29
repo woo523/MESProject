@@ -82,6 +82,25 @@ public class MaterialServiceImpl implements MaterialService{
 		return materialDAO.countClientlist(search);
 	}
 
+	@Override
+	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search) { // 자재현황 리스트
+		System.out.println("materialServiceImpl mtrlStateList()");
+		return materialDAO.mtrlStateList(search);
+	}
+
+	@Override
+	public List<Map<String, Object>> mtrlStateList() {
+		System.out.println("materialServiceImpl mtrlStateList()");
+		return materialDAO.mtrlStateList();
+	}
+
+	@Override
+	public List<Map<String, Object>> materialState() {
+		System.out.println("materialServiceImpl materialState()");
+		
+		return materialDAO.materialState();
+	}
+
 
 
 }

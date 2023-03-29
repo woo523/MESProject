@@ -37,7 +37,6 @@ padding: 10px;
 	text-align:right;
 }
 
-
 table#search {
  border:1px solid;
 }
@@ -51,13 +50,11 @@ text-align: center;
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
 	background-position:98%;
-	border: 1px solid;
 }
 
 #pnm {
 	background-color: #EAEAEA;
 	background-position:98%;
-	border: 1px solid;
 	
 }
 
@@ -65,13 +62,11 @@ text-align: center;
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
 	background-position: 98%;
-	border: 1px solid;
 }
 
 #cnm {
 	background-color: #EAEAEA;
 	background-position:98%;
-	border: 1px solid;
 }
 
 .form-control {
@@ -79,8 +74,12 @@ text-align: center;
 		background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
 		background-repeat: no-repeat;
 		background-position: 98%;
-		border: 1px solid;
+
 	}
+	
+.selectButtons tr, td{
+ border:0px;
+}
 	
 </style>
 
@@ -114,7 +113,6 @@ text-align: center;
 			<td>품번</td>
 			<td><input type="text" name="pcd" id="pcd" placeholder="품번코드" onclick="openilist()">
 				<input type="text" name="pnm" id="pnm" placeholder="품번명" readonly></td>
-			
 			<td>업체</td>
 			<td><input type="text" name="ccd" id="ccd" placeholder="업체코드" onclick="openclist()">
 				<input type="text" name="cnm" id="cnm" placeholder="업체명" readonly></td>
