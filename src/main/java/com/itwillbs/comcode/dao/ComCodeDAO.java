@@ -20,9 +20,9 @@ public interface ComCodeDAO {
 	public ComCodeDTO getComCode(ComCodeDTO comCodeDTO);
 	
 	//하위코드리스트 팝업에서 뿌려줄 하위코드들 조회 (코드그룹을 where 조건으로 줘서 조회)
-	public List<ComCodeDTO> getSubComCodeList(String cd);
+	public List<ComCodeDTO> getSubComCodeList(String cdGrp);
 
 	//사용여부가 사용이면서 코드그룹으로 하위코드 리스트들 조회
-	public List<ComCodeDTO> selcetCode(String cd);
+	public List<ComCodeDTO> selcetCode(String cdGrp);
 	
 }

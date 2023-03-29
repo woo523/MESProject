@@ -9,8 +9,10 @@
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 function delMember(memId) {
-	$("#deleteForm #id").val(memId); // ("#deleteForm #id" : deleteForm이라는 이름의 form의 id값만 가져온다 / val(memId) == function delMember(memId) 
-	$("#deleteForm").submit(); // deleteForm을 전송한다.
+	if(confirm("정말 삭제하시겠습니까?")){
+		$("#deleteForm #id").val(memId); // ("#deleteForm #id" : deleteForm이라는 이름의 form의 id값만 가져온다 / val(memId) == function delMember(memId) 
+		$("#deleteForm").submit(); // deleteForm을 전송한다.
+	}
 }
 </script>
 <!-- 스크립트 끝. -->

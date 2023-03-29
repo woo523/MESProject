@@ -20,7 +20,7 @@
 	</select>
 	
 
-<!-- 공통코드 전체조회 -->
+	<!-- 공통코드 전체조회 (상위코드) -->
 	<select id="getComCodeList" resultType="com.itwillbs.comcode.domain.ComCodeDTO">
 		select * 
 		from com_code
@@ -29,7 +29,7 @@
         limit #{startRow} , #{pageSize}
 	</select>
 	
-<!-- 페이징용 -->	
+	<!-- 페이징용 -->	
 	<select id="getComCodeCount" resultType="java.lang.Integer">
         select count(*) 
         from com_code
@@ -61,7 +61,7 @@
 	<select id="getSubComCodeList" resultType="com.itwillbs.comcode.domain.ComCodeDTO">
 		select * 
 		from com_code
-		where cd_grp = #{cd}
+		where cd_grp = #{cdGrp}
 		order by sort_num 
 	</select>
 	
@@ -70,7 +70,7 @@
 	<select id="selcetCode" resultType="com.itwillbs.comcode.domain.ComCodeDTO">
 		select * 
 		from com_code
-		where cd_grp = #{cd}
+		where cd_grp = #{cdGrp}
 		and use_yn = 'Y'
 		order by sort_num 
 	</select>

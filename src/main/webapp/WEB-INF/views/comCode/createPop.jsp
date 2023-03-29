@@ -53,11 +53,11 @@
 		
 		
 		<div class="content_body">	
-			<h1>‖ 공통코드 - ${cdGrpNm } 조회 ‖</h1> <br><br>
+			<h1>‖ 공통코드 - ${parentCdDTO.cdNm } 등록 ‖</h1> <br><br>
 			
 			<form action="/comCode/insert" id="createForm" method="post">
 			<input type="hidden" name="insertId" id="insertId" value="${sessionScope.id }">
-			<input type="hidden" name="cdGrp" id="cdGrp" value="${comCodeDTO.cdGrp }">
+			<input type="hidden" name="cdGrp" id="cdGrp" value="${parentCdDTO.cd }">
 			<input type="hidden" name="mode" id="mode" value="POP">
 				<table>
 					<colgroup>

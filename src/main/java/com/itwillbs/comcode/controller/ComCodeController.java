@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,7 +25,7 @@ public class ComCodeController {
 	private ComCodeService comCodeService; // 4버전.자동으로 객체생성 한 것.
 	
 	
-	///////코드그룹(상위코드) 이동 및 처리부분 시작
+	/**********************************코드그룹(상위코드) 이동 및 처리부분 시작**************************************/
 	// 목록화면 이동
 	@RequestMapping(value = "/comCode/list", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
@@ -67,8 +68,8 @@ public class ComCodeController {
 		comCodeService.insertComCode(comCodeDTO);
 		
 		if("POP".equals(comCodeDTO.getMode())) {//팝업에서 등록하였을 경우
-			return "common/offwindow";//팝업에서 등록하였을 경우 팝업창 닫는 페이지로 이동
-//			return "redirect:/comCode/listPop";//팝업에서 등록하였을 경우 팝업리스트로 이동
+			//return "common/offwindow";//팝업에서 등록하였을 경우 팝업창 닫는 페이지로 이동
+			return "redirect:/comCode/listPop?cdGrp="+comCodeDTO.getCdGrp();//팝업에서 등록하였을 경우 팝업리스트로 이동
 		}else {// 그 외 리스트로 이동
 			return "redirect:/comCode/list";
 		}
@@ -82,7 +83,12 @@ public class ComCodeController {
 
 		comCodeService.updateComCode(comCodeDTO);
 
-		return "redirect:/comCode/list";
+		
+		if("POP".equals(comCodeDTO.getMode())) {//팝업에서 수정하였을 경우
+			return "redirect:/comCode/listPop?cdGrp="+comCodeDTO.getCdGrp();//팝업에서 수정하였을 경우 팝업리스트로 이동
+		}else {// 그 외 리스트로 이동
+			return "redirect:/comCode/list";
+		}
 	}
 
 	// 삭제처리
@@ -93,40 +99,73 @@ public class ComCodeController {
 
 		// 삭제작업
 		comCodeService.deleteComCode(comCodeDTO);
-		// 세션 초기화
-		return "redirect:/comCode/list";
+		
+		
+		if("POP".equals(comCodeDTO.getMode())) {//팝업에서 삭제하였을 경우		
+			//return "common/offwindow";//팝업에서 등록하였을 경우 팝업창 닫는 페이지로 이동
+			return "redirect:/comCode/listPop?cdGrp="+comCodeDTO.getCdGrp();//팝업에서 삭제하였을 경우 팝업리스트로 이동
+		}else {// 그 외 리스트로 이동
+			return "redirect:/comCode/list";
+		}
 	}
 	
-	///////코드그룹(상위코드) 이동 및 처리부분 끝
+	/**********************************코드그룹(상위코드) 이동 및 처리부분 끝**************************************/
 	
 	
 	
-	///////코드(하위코드) 이동 및 처리부분 시작
+	/**********************************코드(하위코드) 이동 및 처리부분 시작**************************************/
 	//하위코드목록 팝업이동
 	@RequestMapping(value = "/comCode/listPop", method = RequestMethod.GET)
 	public String listPop(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
 		System.out.println("ComCodeController listPop()");
 		
-		List<ComCodeDTO> comCodeList = comCodeService.getSubComCodeList(comCodeDTO.getCd());
 		
-		model.addAttribute("comCodeList", comCodeList);
-		model.addAttribute("cdGrp", comCodeDTO.getCd());
-		model.addAttribute("cdGrpNm", comCodeDTO.getCdNm());
+		//코드그룹(상위코드)에 따른 하위코드 리스트 조회
+		List<ComCodeDTO> comCodeList = comCodeService.getSubComCodeList(comCodeDTO.getCdGrp());
+		
+		//상위코드 정보 조회
+		comCodeDTO.setCd(comCodeDTO.getCdGrp());
+		comCodeDTO.setCdGrp("0000");
+		ComCodeDTO parentCdDTO = comCodeService.getComCode(comCodeDTO);
+		
+		model.addAttribute("comCodeList", comCodeList); //코드그룹(상위코드)에 따른 하위코드 리스트 조회
+		model.addAttribute("parentCdDTO", parentCdDTO); //상위코드 정보
 		return "comCode/listPop";
 	}
 	
+	// 등록화면 팝업이동
+	@RequestMapping(value = "/comCode/createPop", method = RequestMethod.GET)
+	public String createPop(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
+		
+		//상위코드 정보 조회
+		comCodeDTO.setCd(comCodeDTO.getCdGrp());
+		comCodeDTO.setCdGrp("0000");
+		ComCodeDTO parentCdDTO = comCodeService.getComCode(comCodeDTO);
+		
+		model.addAttribute("parentCdDTO", parentCdDTO); //상위코드 정보
+		
+		return "comCode/createPop";
+	}
+
 	// 수정화면 팝업이동
    @RequestMapping(value = "/comCode/editPop", method = RequestMethod.GET)
    public String editPop(HttpServletRequest request, HttpServletResponse response, Model model, ComCodeDTO comCodeDTO) {
        System.out.println("ComCodeController edit()");
+       	
+       //수정할 하위코드 정보 조회
+       ComCodeDTO dto = comCodeService.getComCode(comCodeDTO);
 
-         //comCodeDTO.setCdGrp("0000");
-
-         ComCodeDTO dto = comCodeService.getComCode(comCodeDTO);
-         
-         model.addAttribute("dto", dto);
-
-         return "comCode/editPop";
+        
+       //상위코드 정보 조회
+       comCodeDTO.setCd(comCodeDTO.getCdGrp());
+       comCodeDTO.setCdGrp("0000");
+       ComCodeDTO parentCdDTO = comCodeService.getComCode(comCodeDTO);
+      		
+      		
+       model.addAttribute("dto", dto); //수정할 하위코드 정보
+       model.addAttribute("parentCdDTO", parentCdDTO); //상위코드 정보
+       
+       return "comCode/editPop";
    }
 	
 	
@@ -137,5 +176,5 @@ public class ComCodeController {
 	
 	
 	
-	///////코드(하위코드) 이동 및 처리부분 끝
+   /**********************************코드(하위코드) 이동 및 처리부분 끝**************************************/
 }
