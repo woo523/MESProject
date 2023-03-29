@@ -104,4 +104,26 @@ public class MaterialDAOImpl implements MaterialDAO{
 		return sqlSession.selectOne(namespace+".countClientlist", search);
 	}
 
+
+	@Override
+	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search) {
+		System.out.println("intmaterialDAOImpl mtrlStateList()");
+		return sqlSession.selectList(namespace+".mtrlStateSearch", search);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> mtrlStateList() {
+		System.out.println("intmaterialDAOImpl mtrlStateList()");
+		return sqlSession.selectList(namespace + ".mtrlStateList");
+	}
+
+
+	@Override
+	public List<Map<String, Object>> materialState() {
+		System.out.println("materialDAOImpl materialState()");
+		
+		return sqlSession.selectList(namespace + ".materialState");
+	}
+
 }

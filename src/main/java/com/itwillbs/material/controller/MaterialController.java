@@ -208,23 +208,24 @@ public class MaterialController {
 
 		String mtrltype = request.getParameter("mtrltype");
 		String pcd = request.getParameter("pcd");
+		System.out.println("mtrltype :"+mtrltype);
 		
 		if(mtrltype == null && pcd == null){
 			
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap();		
-			model.addAttribute("inmaterList", inmaterList);} // 전체 리스트
+			List<Map<String,Object>> materialState = materialService.mtrlStateList();		
+			model.addAttribute("materialState", materialState);} // 전체 리스트
 		
 		else {
 			
 			Map<String, Object> search = new HashMap<String, Object>();
 			search.put("mtrltype", mtrltype);
 			search.put("pcd", pcd);
-
 			System.out.println(search);
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap(search);
-			model.addAttribute("inmaterList", inmaterList); // 서치 결과 리스트
+			
+			List<Map<String,Object>> materialState = materialService.mtrlStateList(search);
+			model.addAttribute("materialState", materialState ); // 서치 결과 리스트
 		}
-		return "material/inmaterList";
+		return "material/materialState";
 	}
-		
+
 }

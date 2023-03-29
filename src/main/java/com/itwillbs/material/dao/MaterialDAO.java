@@ -28,5 +28,11 @@ public interface MaterialDAO {
 
 	public Integer countClientlist(Map<String, Object> search);
 
+	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search);
+
+	public List<Map<String, Object>> mtrlStateList();
+
+	public List<Map<String, Object>> materialState();
+
 
 }

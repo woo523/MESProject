@@ -22,11 +22,8 @@
     <result column="whouse" property="stockwhouse"/>
     <result column="item_num" property="itemNum"/>
     <result column="item_nm" property="itemName"/>
-    <result column="invnt_unit" property="itemUnit"/>
-    
-    
+    <result column="invnt_unit" property="itemUnit"/>   
     </resultMap>
-
 
 
 	<select id="getInmaterLiMap" resultMap="InmaterMap"> <!-- 처음에 조회되는 자재입고 리스트 -->
@@ -243,4 +240,48 @@
    clnt_nm like CONCAT('%', #{clientName}, '%')
    </if>   
    </select>
+   
+
+	<!-- 자재현황에 현황리스트 부분 -->
+    <resultMap type="map" id="MtrlStateMap">
+    
+	<!--     column= "디비열이름" property="멤버변수이름" -->
+	<id column="id" property=""/>
+    <result column="mtrl_type" property="mtrltype"/>
+    <result column="cur_stock" property="stockcur"/>
+    <result column="whouse" property="stockwhouse"/>
+    <result column="item_num" property="itemNum"/>
+    <result column="item_nm" property="itemName"/>
+    <result column="invnt_unit" property="itemUnit"/>   
+    </resultMap>
+
+	<select id="mtrlStateList" resultMap="MtrlStateMap"> <!-- 처음에 조회되는 자재현황 리스트 -->
+  select 
+			item.item_num, 
+	    	item.item_nm,
+            item.mtrl_type,
+	    	item.invnt_unit,
+			stock.whouse,
+			stock.cur_stock
+		from  
+			item item join stock stock
+			on item.item_id = stock.item_id	
+	</select>
+ 
+   
+    <select id="mtrlStateSearch" resultMap="MtrlStateMap"> <!--  검색 자재현황 리스트 -->
+  select 
+			item.item_num, 
+	    	item.item_nm,
+            item.mtrl_type,
+	    	item.invnt_unit,
+			stock.whouse,
+			stock.cur_stock
+		from  
+			item item join stock stock
+			on item.item_id = stock.item_id			
+	where mtrl_type like CONCAT('%', #{mtrltype}, '%') 
+	and
+	item_num like CONCAT('%', #{pcd}, '%'); 
+    </select>
 </mapper>
