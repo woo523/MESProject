@@ -53,9 +53,9 @@
 		
 		
 		<div class="content_body">	
-			<h1>‖ 공통코드 - ${cdGrpNm } 조회 ‖</h1> <br><br>
+			<h1>‖ 공통코드 - ${parentCdDTO.cdNm } 수정 ‖</h1> <br><br>
 			
-			<form action="/comCode/editPop" id="editForm" method="post">
+			<form action="/comCode/update" id="editForm" method="post">
 			<input type="hidden" name="updateId" id="updateId" value="${sessionScope.id }">
 			<input type="hidden" name="cdGrp" id="cdGrp" value="${dto.cdGrp }">
 			<input type="hidden" name="mode" id="mode" value="POP">
@@ -67,7 +67,7 @@
 					<tbody>
 					<tr>
 						<th>코드</th>
-						<td><input type="text" name="cd" id="cd" value="${dto.cd }"></td>
+						<td><input type="text" name="cd" id="cd" value="${dto.cd }" readonly></td>
 					</tr>
 					<tr>
 						<th>코드명</th>

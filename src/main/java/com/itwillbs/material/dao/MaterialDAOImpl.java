@@ -29,26 +29,12 @@ public class MaterialDAOImpl implements MaterialDAO{
 		return sqlSession.selectList(namespace + ".inmaterList");
 	}
 
+
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd) {
-		System.out.println("InmaterialDAOImpl getInmaterLiMap(서치용)");
+	public List<Map<String, Object>> getInmaterLiMap(Map<String, Object> search) {
+		System.out.println("intmaterialDAOImpl getInmaterLiMap()");
 		
-		if(whouse==null) {
-			whouse="";
-		}
-
-
-		Map<String,String> search = new HashMap<>();
-		
-		search.put("whouse", whouse);
-		search.put("pcd", pcd);
-		search.put("startDate", startDate);
-		search.put("endDate", endDate);
-		search.put("ccd", ccd);
-
-		
-		System.out.println("search : "+search);
-	    return sqlSession.selectList(namespace+".getSearchInmaterLiMap",search);
+		return sqlSession.selectList(namespace + ".getSearchInmaterLiMap", search);
 	}
 
 	@Override
@@ -117,4 +103,5 @@ public class MaterialDAOImpl implements MaterialDAO{
 		System.out.println("intmaterialDAOImpl countClientlist()");
 		return sqlSession.selectOne(namespace+".countClientlist", search);
 	}
+
 }

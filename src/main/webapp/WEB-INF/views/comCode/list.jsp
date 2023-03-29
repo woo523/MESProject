@@ -9,14 +9,16 @@
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 function delComCd(cdGrp,cd) {
-	$("#deleteForm #cdGrp").val(cdGrp); // ("#deleteForm #id" : deleteForm이라는 이름의 form의 id값만 가져온다 / val(memId) == function delMember(memId) 
-	$("#deleteForm #cd").val(cd);
-	$("#deleteForm").submit(); // deleteForm을 전송한다.
+	if(confirm("정말 삭제하시겠습니까?")){
+		$("#deleteForm #cdGrp").val(cdGrp); // ("#deleteForm #id" : deleteForm이라는 이름의 form의 id값만 가져온다 / val(memId) == function delMember(memId) 
+		$("#deleteForm #cd").val(cd);
+		$("#deleteForm").submit(); // deleteForm을 전송한다.
+	}
 }
 
 
-function openPop(cd, cdNm) {
-	window.open("/comCode/listPop?cd="+cd+"&cdNm="+cdNm,"하위코드목록","width=750,height=600");
+function openPop(cdGrp) {
+	window.open("/comCode/listPop?cdGrp="+cdGrp,"하위코드목록","width=750,height=600");
 }
 
 </script>
@@ -59,7 +61,7 @@ function openPop(cd, cdNm) {
 						<td>${dto.cd }</td>
 						<td><a href="/comCode/edit?cd=${dto.cd }">${dto.cdNm }</a></td>
 						<td>${dto.useYn }</td>
-						<td><button type="button" class="sm_btn" onclick="openPop('${dto.cd }', '${dto.cdNm }')">하위코드 보기</button></td>
+						<td><button type="button" class="sm_btn" onclick="openPop('${dto.cd }')">하위코드 보기</button></td>
 						<td><button type="button" class="sm_btn" onclick="delComCd('${dto.cdGrp }','${dto.cd }');">삭제</button></td>
 					</tr>
 				</c:forEach>

@@ -38,5 +38,11 @@ public interface PerformDAO {
 	
 	public List<Map<String, Object>> PerformLiMap(Map<String, Object> search);
 	
+	public Integer countPerformLi(Map<String,Object> search);
+	
+	public List<Map<String, Object>> ReqList(String performId);
+	
+	
+	
 	
 }

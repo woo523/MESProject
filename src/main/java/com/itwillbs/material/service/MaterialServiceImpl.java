@@ -25,9 +25,9 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap(String whouse, String pcd, String startDate, String endDate, String ccd) {
-		System.out.println("InmaterialServiceImpl getInmaterLiMap(서치용)");
-		return materialDAO.getInmaterLiMap(whouse, pcd, startDate, endDate, ccd);
+	public List<Map<String, Object>> getInmaterLiMap(Map<String, Object> search) {
+		System.out.println("InmaterialServiceImpl getInmaterLiMap()");
+		return materialDAO.getInmaterLiMap(search);
 	}
 
 	@Override
@@ -81,5 +81,7 @@ public class MaterialServiceImpl implements MaterialService{
 		System.out.println("InmaterialServiceImpl countClientlist()");
 		return materialDAO.countClientlist(search);
 	}
+
+
 
 }

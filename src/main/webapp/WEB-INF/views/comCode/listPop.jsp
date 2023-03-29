@@ -28,6 +28,17 @@
 
 <link href="/resources/css/tablelist.css"  rel="stylesheet" type="text/css">
 <link href="/resources/css/common.css"  rel="stylesheet" type="text/css">
+<!-- 자바스크립트 들어가는 곳 -->
+<script type="text/javascript">
+function delComCd(cdGrp,cd) {
+	if(confirm("정말 삭제하시겠습니까?")){
+		$("#deleteForm #cdGrp").val(cdGrp); // ("#deleteForm #id" : deleteForm이라는 이름의 form의 id값만 가져온다 / val(memId) == function delMember(memId) 
+		$("#deleteForm #cd").val(cd);
+		$("#deleteForm").submit(); // deleteForm을 전송한다.
+	}
+}
+</script>
+<!-- 스크립트 끝. -->
 </head>
 <body>
 	<div class="container">
@@ -35,19 +46,21 @@
 		
 		
 		<div class="content_body">	
-			<h1>‖ 공통코드 - ${cdGrpNm } 조회 ‖</h1> <br><br>
+			<h1>‖ 공통코드 - ${parentCdDTO.cdNm } 조회 ‖</h1> <br><br>
 			
 			<table>
 				<colgroup>
 					<col width="20%">
-					<col width="*">
-					<col width="15%">
-					<col width="15%">
+					<col width="20%">
+					<col width="20%">
+					<col width="20%">
+					<col width="20%">
 				</colgroup>
 				<thead>
 					<tr>
 					<th>코드</th>
 					<th>코드명</th>
+					<th>정렬순서</th>
 					<th>사용여부</th>
 					<th>삭제</th>
 					</tr>
@@ -55,7 +68,7 @@
 				<tbody>
 					<c:if test="${fn:length(comCodeList) eq 0}">
 						<tr>
-							<td colspan="4">결과가 없습니다.</td>
+							<td colspan="5">결과가 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach items="${comCodeList }" var="dto" varStatus="i" > 
@@ -64,6 +77,7 @@
 							<td>${dto.cd }</td>
 							<td><a href="/comCode/editPop?cdGrp=${dto.cdGrp }&cd=${dto.cd}">${dto.cdNm }</a></td>
 <%-- 							<td><a href="/comCode/editPop?cd=${dto.cd }">${dto.cdNm }</a></td> --%>
+							<td>${dto.sortNum }</td>
 							<td>${dto.useYn }</td>
 							<td><button type="button" class="sm_btn" onclick="delComCd('${dto.cdGrp }','${dto.cd }');">삭제</button></td>
 						</tr>
@@ -73,7 +87,7 @@
 			<br><br>
 			
 			<div class="fr">
-			<button type="button" class="btn" onclick="location.href='/comCode/createPop?cdGrp=${cdGrp }'">등록</button>
+			<button type="button" class="btn" onclick="location.href='/comCode/createPop?cdGrp=${parentCdDTO.cd }'">등록</button>
 			</div>
 			<div class="clear"></div>
 			
@@ -81,6 +95,7 @@
 			<form name="deleteForm" id="deleteForm" action="/comCode/delete"  method="POST">
 			 	<input type="hidden" id="cdGrp" name="cdGrp" value="">
 			 	<input type="hidden" id="cd" name="cd" value="">
+			 	<input type="hidden" id="mode" name="mode" value="POP">
 			</form>
 		</div>
 	

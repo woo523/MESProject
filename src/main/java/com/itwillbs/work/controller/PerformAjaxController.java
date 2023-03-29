@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.itwillbs.work.service.PerformService;
 
@@ -70,5 +73,21 @@ public class PerformAjaxController {
 
 		return null;
 	}
+	
+	
+	@RequestMapping(value = "/work/reqlist", method = RequestMethod.GET)
+	public ResponseEntity<List<Map<String, Object>>> reqlist(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("PerformAjaxController reqlist()");
+		String performId= request.getParameter("performId"); // 실적 번호 들고 오기
+		List<Map<String, Object>> reqlist = performService.ReqList(performId); // 지시번호 해당되는 실적리스트
+
+		ResponseEntity<List<Map<String, Object>>> entity =
+				new ResponseEntity<List<Map<String, Object>>>(reqlist,HttpStatus.OK);
+		return entity;
+	}
+	
+	
+	
+	
 	
 }

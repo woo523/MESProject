@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 
@@ -14,10 +14,12 @@
 table {
     width: 1125px;
   }
+  
 th,td{
 border-bottom: 1px solid black;
 padding: 10px;
 }
+
 #th {
 	font-weight: bold;
 }
@@ -35,13 +37,6 @@ padding: 10px;
 	text-align:right;
 }
 
-h1{
-	font-weight: bold;
-}
-
-.search_bar tr, td{
- border:0px;
-}
 
 table#search {
  border:1px solid;
@@ -55,23 +50,38 @@ text-align: center;
 #pcd {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
-	background-position: right;
+	background-position:98%;
+	border: 1px solid;
 }
 
 #pnm {
 	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
+	
 }
 
 #ccd {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
-	background-position: right;
+	background-position: 98%;
+	border: 1px solid;
 }
 
 #cnm {
 	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
 }
 
+.form-control {
+		width: 150px;
+		background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+		background-repeat: no-repeat;
+		background-position: 98%;
+		border: 1px solid;
+	}
+	
 </style>
 
 </head>
@@ -80,15 +90,14 @@ text-align: center;
 
 <div class="content_body">
 	<!-- 내용시작 -->
-	
+<article>	
 <h1>자재 입고 관리</h1>
-	<div class="search_bar">
-		<form>
-			<table id="btn">
-				<tr><td><button>조회</button></td></tr>
-			</table>
-			
-	<table id="search">
+	<form id="inmtrl">
+	<div class="selectButtons">
+			<button type="submit" id="submit">조회</button>
+			<button type="button" onclick="insertBtn()">추가</button>
+		</div>
+	<table class="searchBox">
 		<tr>
 			<td>입고창고</td>
 				<td><select name="whouse">
@@ -103,20 +112,30 @@ text-align: center;
 		</tr>
 		<tr>
 			<td>품번</td>
-			<td><input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openilist()">
-				<input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
+			<td><input type="text" name="pcd" id="pcd" placeholder="품번코드" onclick="openilist()">
+				<input type="text" name="pnm" id="pnm" placeholder="품번명" readonly></td>
 			
 			<td>업체</td>
-			<td><input type="text" name="ccd" id="ccd" class="form-control" placeholder="업체코드" onclick="openclist()">
-				<input type="text" name="cnm" id="cnm" class="form-control" placeholder="업체명" readonly></td>
+			<td><input type="text" name="ccd" id="ccd" placeholder="업체코드" onclick="openclist()">
+				<input type="text" name="cnm" id="cnm" placeholder="업체명" readonly></td>
 		</tr>
 		</table>
-	</form>
-</div>
+
 
 	<br><br><br>
 	<h1>자재 입고 목록</h1>
 	<br>
+	
+	<div class="listButtons">
+			<c:choose>
+				<c:when test="${! empty interList}">
+					<span>총 ${interSearchCount}건</span>
+				</c:when>
+			</c:choose>
+			<button type="button">취소</button>
+			<button type="button">저장</button>
+		</div>
+	
 	<table border="1" class="inList">	
 	<tr id="th">
 		<th>입고번호</th><th>입고일자</th><th>품번</th><th>품명</th><th>단위</th>
@@ -138,41 +157,57 @@ text-align: center;
 		  	<td>${inte.inmtrlLot}</td>
 		  	<td>${inte.note}</td>
 		</c:forEach>
-	</tr>
-</table>
+			</tr>
+		</table>
+	</form>
+</article>
+
+   <br>
+    <div id="pagination">
+    <!-- 1페이지 이전 -->
+	<c:if test="${pageDTO.currentPage > 1}">
+	<a href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.currentPage-1}"><</a>
+	</c:if>
+
+<!-- 10페이지 이전 -->
+	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
+	<a href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	</c:if>
 	
+	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+	<a id="num" href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${i}">${i}</a> 
+	</c:forEach>
 
-	<br><br><br>
+<!-- 1페이지 다음 -->	
+	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.currentPage+1}">></a>
+	</c:if>
 
-	<table id="btn">
-		<tr><td><button id="add" onclick="addNewRow()">추가</button>
-				<button>수정</button>
-				<button>삭제</button>
-				<button>취소</button></tr>
-	</table>
+<!-- 10페이지 다음 -->
+ 	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	</c:if>
+	</div>
 
 <script type="text/javascript">
 
 $(function() {
 	$("#sDate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-           ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
-           ,buttonText: "선택" //버튼 호버 텍스트              
-           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-           ,closeText: '닫기' // 닫기 버튼 패널
+			 ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
+	           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
+	           ,changeYear: true //option값 년 선택 가능
+	           ,changeMonth: true //option값  월 선택 가능
+	           ,buttonText: "선택" //버튼 호버 텍스트              
+	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+	           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시여부
+	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+	           ,closeText: '닫기' // 닫기 버튼 패널
            ,onClose: function ( selectedDate ) {
         	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
         	   $("input[name='endDate']").datepicker("option", "minDate", selectedDate );
@@ -183,26 +218,27 @@ $(function() {
 $(function() {
 	$("#eDate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-           ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
-           ,buttonText: "선택" //버튼 호버 텍스트              
-           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-           ,closeText: '닫기' // 닫기 버튼 패널
+			 ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
+	           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
+	           ,changeYear: true //option값 년 선택 가능
+	           ,changeMonth: true //option값  월 선택 가능
+	           ,buttonText: "선택" //버튼 호버 텍스트              
+	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+	           ,closeText: '닫기' // 닫기 버튼 패널
            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
 
+//오늘 버튼 패널 클릭 시 오늘 날짜 입력과 동시에 캘린더 닫힘
+$('button.ui-datepicker-current').live('click', function() {
+	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
+})
 
 function openilist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
@@ -211,6 +247,36 @@ function openilist(){
 function openclist(){
     window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
 }
+
+function openmodi(a){ // 수정창
+    window.open("${pageContext.request.contextPath}/material/immodi?inmtrlId","popup", "width=500, height=500,left=100, top=100");
+}
+
+// 유효성 검사
+$(document).ready(function() {
+	$('#inmtrl').submit(function() {
+		if($('#sDate').val() == "") {
+			alert("입고일자를 선택해주세요.");
+			$('#sDate').focus();
+			
+			return false;
+		}
+		
+		if($('#pcd').val() == "") {
+			alert("품번코드를 입력해주세요.");
+			$('#pcd').focus();
+			
+			return false;
+		}
+		
+// 		if($('#ccd').val() == "") {
+// 			alert("업체코드를 입력해주세요.");
+// 			$('#ccd').focus();
+			
+// 			return false;
+// 		}
+	});
+});
 </script>
 
 

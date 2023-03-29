@@ -61,16 +61,22 @@ text-align: center;
 
 .form-control{
 	width:150px;
+	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
 }
 
 #pcd {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
-	background-position: right;
+	background-position: 98%;
+	border: 1px solid;
 }
 
 #pnm {
 	background-color: #EAEAEA;
+	border: 1px solid;
 }
 
 
@@ -173,9 +179,6 @@ $(function() {
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
            ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
            ,buttonText: "선택" //버튼 호버 텍스트              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
@@ -200,9 +203,6 @@ $(function() {
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
            ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
            ,buttonText: "선택" //버튼 호버 텍스트              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
@@ -244,8 +244,8 @@ $(function() {
 	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td>
 	<td><input type="text" id="eDate" class="form-control" name="edate" readonly></td>
 	<td>품번</td>
-	<td><input type="text" name="pcd" id="pcd" class="form-control" onclick="openilist()" placeholder="품번"></td>
-	<td><input type="text" id="pnm" class="form-control" onclick="openilist()" placeholder="품명"></td></tr>
+	<td><input type="text" name="pcd" id="pcd" onclick="openilist()" placeholder="품번"></td>
+	<td><input type="text" id="pnm" onclick="openilist()" placeholder="품명"></td></tr>
 	<tr><td>지시상태</td>
 	<td colspan="8">
 	<input type="checkbox" name="ists1" value="지시"> 지시 

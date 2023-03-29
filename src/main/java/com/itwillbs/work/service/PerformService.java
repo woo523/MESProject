@@ -34,4 +34,10 @@ public interface PerformService {
 	public List<ItemDTO> getItemlist(Map<String,Object> search);
 	
 	public Integer countItemlist(Map<String,Object> search);
+	
+	public List<Map<String, Object>> PerformLiMap(Map<String, Object> search);
+	
+	public Integer countPerformLi(Map<String,Object> search);
+	
+	public List<Map<String, Object>> ReqList(String performId);
 }

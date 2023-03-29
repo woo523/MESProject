@@ -9,10 +9,10 @@
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
- table {
+table {
       width: 1125px;  
 
-   } 
+} 
 
 th,td{
 border-bottom: 1px solid black;
@@ -61,8 +61,23 @@ text-align: center;
 
 .form-control{
 	width:150px;
+	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
 }
 
+#pcd {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
+}
+
+#pnm {
+	background-color: #EAEAEA;
+	border: 1px solid;
+}
 </style>
 </head>
 <body>
@@ -86,9 +101,6 @@ $(function() {
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
            ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
            ,buttonText: "선택" //버튼 호버 텍스트              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
@@ -113,9 +125,6 @@ $(function() {
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
            ,changeMonth: true //option값  월 선택 가능                
-           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
            ,buttonText: "선택" //버튼 호버 텍스트              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
@@ -128,6 +137,54 @@ $(function() {
            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
+
+
+
+function getPerformList(a){ // 해당 작업지시번호에 맞는 생산실적 ajax로 불러오기
+	var performId = a;
+// 	alert(instrId);
+
+	$.ajax({
+		type : "get",
+		url : "${pageContext.request.contextPath }/work/reqlist",
+		data : {"performId" : performId},
+		dataType : "json",
+		async : false, 
+		/* 동기는 응답을 받을 때까지 기다렸다가 다음 작업을 하는 것 */
+		/* 비동기는 요청에 대한 응답이 끝나기 전에 다음 작업을 먼저 함 */
+		/* asyns는 기본 값이 true, false이면 응답이 끝나면 다음 작업을 수행하라는 의미 */
+		success : function(array){
+// 			alert("성공");
+// 			alert("array.length"+ array.length);
+			PerformListPrint(array);
+
+		} //function(array) 
+		
+	}); // ajax
+} 
+
+function PerformListPrint(array){ // 해당 생산실적 출력
+
+	var output ="";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>단위</th><th>투입량</th></tr>";
+	for (var i=0; i<array.length; i++) {
+	
+		output=output+"<tr id='con'>";
+		output=output+"<td><span id='a'>"+array[i].itemNum+"</span></td>";
+		output=output+"<td>"+array[i].itemName+"</td>";
+		output=output+"<td>"+array[i].inventUnit+"</td>";	
+		output=output+"<td>"+array[i].reqAmnt+"</td>";	
+		output=output+"</tr>";	
+		}
+
+	output=output+"</table>";
+	
+	$("#Require_ajax").html(output); // innerHtml과 같은 역할
+
+		
+} //PerformListPrint(array)
+
+
 
 </script>
 <!-- 스크립트 끝. -->
@@ -154,8 +211,8 @@ $(function() {
 	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td>
 	<td><input type="text" id="eDate" class="form-control" name="edate" readonly></td>
 	<td>품번</td>
-	<td><input type="text" name="pcd" id="pcd" class="form-control" onclick="openilist()" placeholder="품번"></td>
-	<td><input type="text" id="pnm" class="form-control" onclick="openilist()" placeholder="품명"></td></tr>
+	<td><input type="text" name="pcd" id="pcd"  onclick="openilist()" placeholder="품번"></td>
+	<td><input type="text" id="pnm"  onclick="openilist()" placeholder="품명"></td></tr>
 	<tr><td>지시번호</td>
 	<td colspan="8">
 	<input type="text" name="worknum" placeholder="지시번호"> 
@@ -164,8 +221,84 @@ $(function() {
 	</table>
 	</form>
 	</div>
+	<br><br><br>
+	<h2>생산실적</h2>
+	<br>
+	<table border="1" id="main">
+	
+	<tr id="th"><th>실적일자</th><th>라인명</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th>지시번호</th><th>수주번호</th><th>업체</th></tr>
+	
+	
+	<c:forEach var="pdto" items="${performlist }">
+	<tr id="con" onclick="getPerformList(${pdto.performId })">
+		<td>${pdto.performDate }</td>
+		<td>${pdto.instrId }</td>
+	  	<td>${pdto.itemNum }</td>
+	  	<td>${pdto.itemName }</td>
+	  	<td>${pdto.invntUnit }</td>
+	 	<td><c:choose>
+	 	<c:when test="${pdto.gbY == null }">
+	 	-</c:when>
+	 	<c:otherwise>
+	 	${pdto.gbY}
+	 	</c:otherwise>
+	 	</c:choose></td>
+	  	<td><c:choose>
+	 	<c:when test="${pdto.gbN == null }">
+	 	-</c:when>
+	 	<c:otherwise>
+	 	${pdto.gbN }
+	 	</c:otherwise>
+	 	</c:choose></td>
+	  	<td><c:choose>
+	 	<c:when test="${pdto.dbReason == null }">
+	 	-</c:when>
+	 	<c:otherwise>
+	 	${pdto.dbReason }
+	 	</c:otherwise>
+	 	</c:choose></td>
+	  	<td>${pdto.workNum }</td>
+	  	<td>${pdto.ordNum }</td>
+	  	<td>${pdto.ClientName }</td></tr>
+	</c:forEach>
 
+    </table>
+    <br>
+    <div id="pagination">
+    <!-- 1페이지 이전 -->
+	<c:if test="${pageDTO.currentPage > 1}">
+	<a href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${pageDTO.currentPage-1}"><</a>
+	</c:if>
 
+<!-- 10페이지 이전 -->
+	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
+	<a href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+	<a id="num" href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${i}">${i}</a> 
+	</c:forEach>
+
+<!-- 1페이지 다음 -->	
+	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${pageDTO.currentPage+1}">></a>
+	</c:if>
+
+<!-- 10페이지 다음 -->
+ 	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	</c:if>
+	</div>
+	<br><br><br>
+	<h2>생산실적 현황</h2>
+	<br>
+
+    <div id="Require_ajax">
+	<table border="1">
+	<tr id="th"><th>품번</th><th>품명</th><th>단위</th><th>투입량</th></tr>
+	<tr id="con"><td colspan="4"> 투입량을 확인하려면 해당 실적을 클릭해주세요 </td></tr>
+    </table>
+    </div>
 
 
 

@@ -92,9 +92,27 @@ public class PerformServiceImpl implements PerformService {
 	}
 
 	@Override
-	public Integer countItemlist(Map<String, Object> search) {
+	public Integer countItemlist(Map<String, Object> search) { // 품목 개수
 		System.out.println("PerformServiceImpl countItemlist()");
 		return performDAO.countItemlist(search);
+	}
+
+	@Override
+	public List<Map<String, Object>> PerformLiMap(Map<String, Object> search) { // 실적등록 현황 생산실적 목록
+		System.out.println("PerformServiceImpl PerformLiMap()");
+		return performDAO.PerformLiMap(search);
+	}
+
+	@Override
+	public Integer countPerformLi(Map<String, Object> search) { // 실적등록 현황 생산실적 목록 개수(for 페이징)
+		System.out.println("PerformServiceImpl countPerformLi()");
+		return performDAO.countPerformLi(search);
+	}
+
+	@Override
+	public List<Map<String, Object>> ReqList(String performId) {
+		System.out.println("PerformServiceImpl ReqList()");
+		return performDAO.ReqList(performId);
 	}
 
 

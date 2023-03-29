@@ -35,28 +35,28 @@ public class OrderController {
 			String eOdate = request.getParameter("eOdate");
 			String name = request.getParameter("name");
 			String sDdate = request.getParameter("sDdate");
-			String eDdate = request.getParameter("eDdate");
+			String eDdate = request.getParameter("eDdate"); 	
 			
-			// 한 화면에 보여줄 글 개수 설정
-			int pageSize = 3; // sql문에 들어가는 항목
+			// �븳 �솕硫댁뿉 蹂댁뿬以� 湲� 媛쒖닔 �꽕�젙
+			int pageSize = 3; // sql臾몄뿉 �뱾�뼱媛��뒗 �빆紐�
 			
-			// 현페이지 번호 가져오기
+			// �쁽�럹�씠吏� 踰덊샇 媛��졇�삤湲�
 			String pageNum = request.getParameter("pageNum");
 			if(pageNum==null) {
 				pageNum="1";
 			}
-			// 페이지번호를 정수형 변경
+			// �럹�씠吏�踰덊샇瑜� �젙�닔�삎 蹂�寃�
 			int currentPage=Integer.parseInt(pageNum);
 			pageDTO.setPageSize(pageSize);
 			pageDTO.setPageNum(pageNum);
 			pageDTO.setCurrentPage(currentPage);
-			int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+			int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql臾몄뿉 �뱾�뼱媛��뒗 �빆紐�
 			int endRow = startRow+pageDTO.getPageSize()-1;
 			
-			pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+			pageDTO.setStartRow(startRow-1); // limit startRow (0�씠 1�뿴�씠湲� �븣臾� 1�쓣 類�)
 			pageDTO.setEndRow(endRow);
 
-			Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+			Map<String,Object> search = new HashMap<>(); // sql�뿉 �뱾�뼱媛��빞�븷 �꽌移� �빆紐� 諛� pageDTO �빆紐� map�뿉 �떞湲�
 			search.put("clntCd", clntCd);
 			search.put("sOdate", sOdate);
 			search.put("eOdate", eOdate);
@@ -70,15 +70,15 @@ public class OrderController {
 			
 			List<Map<String,Object>> orderList;
 			if(clntCd == null && sOdate == null && eOdate == null && name == null && sDdate == null && eDdate == null) {
-			// 조회 안한 경우
-				orderList = orderService.getOrderMap(pageDTO); // page만 필요해서
+			// 議고쉶 �븞�븳 寃쎌슦
+				orderList = orderService.getOrderMap(pageDTO); // page留� �븘�슂�빐�꽌
 			
-			}else { // 조회값 넣은 경우
+			}else { // 議고쉶媛� �꽔�� 寃쎌슦
 				orderList = orderService.getOrderMap(search);
 				
 			}
 					
-			//페이징 처리
+			//�럹�씠吏� 泥섎━
 			int count = orderService.countOrder(search);
 
 			int pageBlock = 10;
@@ -105,30 +105,30 @@ public class OrderController {
 		return "order/management";
 	}
 	@RequestMapping(value = "/order/itemList", method = RequestMethod.GET)
-	public String itemList(Model model, HttpServletRequest request, PageDTO pageDTO) { // 품목 리스트
+	public String itemList(Model model, HttpServletRequest request, PageDTO pageDTO) { // �뭹紐� 由ъ뒪�듃
 		String itemNum = request.getParameter("itemNum");
 		String itemName = request.getParameter("itemName");
 		
-		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		// �븳 �솕硫댁뿉 蹂댁뿬以� 湲� 媛쒖닔 �꽕�젙
+		int pageSize = 5; // sql臾몄뿉 �뱾�뼱媛��뒗 �빆紐�
 		
-		// 현페이지 번호 가져오기
+		// �쁽�럹�씠吏� 踰덊샇 媛��졇�삤湲�
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum==null) {
 			pageNum="1";
 		}
-		// 페이지번호를 정수형 변경
+		// �럹�씠吏�踰덊샇瑜� �젙�닔�삎 蹂�寃�
 		int currentPage=Integer.parseInt(pageNum);
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql臾몄뿉 �뱾�뼱媛��뒗 �빆紐�
 		int endRow = startRow+pageDTO.getPageSize()-1;
 		
-		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setStartRow(startRow-1); // limit startRow (0�씠 1�뿴�씠湲� �븣臾� 1�쓣 類�)
 		pageDTO.setEndRow(endRow);
 
-		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+		Map<String,Object> search = new HashMap<>(); // sql�뿉 �뱾�뼱媛��빞�븷 �꽌移� �빆紐� 諛� pageDTO �빆紐� map�뿉 �떞湲�
 		search.put("itemNum", itemNum);
 		search.put("itemName", itemName);
 		search.put("startRow", pageDTO.getStartRow());
@@ -136,7 +136,7 @@ public class OrderController {
  
 		List<ItemDTO> itemList = orderService.getItemList(search);
 			
-		//페이징 처리
+		//�럹�씠吏� 泥섎━
 		int count = orderService.countItemList(search);
 
 		int pageBlock = 10;
@@ -163,26 +163,26 @@ public class OrderController {
 		String userNum = request.getParameter("userNum");
 		String userName = request.getParameter("userName");
 		
-		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		// �븳 �솕硫댁뿉 蹂댁뿬以� 湲� 媛쒖닔 �꽕�젙
+		int pageSize = 5; // sql臾몄뿉 �뱾�뼱媛��뒗 �빆紐�
 		
-		// 현페이지 번호 가져오기
+		// �쁽�럹�씠吏� 踰덊샇 媛��졇�삤湲�
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum==null) {
 			pageNum="1";
 		}
-		// 페이지번호를 정수형 변경
+		// �럹�씠吏�踰덊샇瑜� �젙�닔�삎 蹂�寃�
 		int currentPage=Integer.parseInt(pageNum);
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql臾몄뿉 �뱾�뼱媛��뒗 �빆紐�
 		int endRow = startRow+pageDTO.getPageSize()-1;
 		
-		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setStartRow(startRow-1); // limit startRow (0�씠 1�뿴�씠湲� �븣臾� 1�쓣 類�)
 		pageDTO.setEndRow(endRow);
 
-		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+		Map<String,Object> search = new HashMap<>(); // sql�뿉 �뱾�뼱媛��빞�븷 �꽌移� �빆紐� 諛� pageDTO �빆紐� map�뿉 �떞湲�
 		search.put("userNum", userNum);
 		search.put("userName", userName);
 		search.put("startRow", pageDTO.getStartRow());
@@ -190,7 +190,7 @@ public class OrderController {
  
 		List<userDTO> userList = orderService.getUserList(search);
 			
-		//페이징 처리
+		//�럹�씠吏� 泥섎━
 		int count = orderService.countUserList(search);
 
 		int pageBlock = 10;
@@ -217,26 +217,26 @@ public class OrderController {
 		String clntCd = request.getParameter("clntCd");
 		String clntName = request.getParameter("clntName");
 		
-		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		// �븳 �솕硫댁뿉 蹂댁뿬以� 湲� 媛쒖닔 �꽕�젙
+		int pageSize = 5; // sql臾몄뿉 �뱾�뼱媛��뒗 �빆紐�
 		
-		// 현페이지 번호 가져오기
+		// �쁽�럹�씠吏� 踰덊샇 媛��졇�삤湲�
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum==null) {
 			pageNum="1";
 		}
-		// 페이지번호를 정수형 변경
+		// �럹�씠吏�踰덊샇瑜� �젙�닔�삎 蹂�寃�
 		int currentPage=Integer.parseInt(pageNum);
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql臾몄뿉 �뱾�뼱媛��뒗 �빆紐�
 		int endRow = startRow+pageDTO.getPageSize()-1;
 		
-		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setStartRow(startRow-1); // limit startRow (0�씠 1�뿴�씠湲� �븣臾� 1�쓣 類�)
 		pageDTO.setEndRow(endRow);
 
-		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+		Map<String,Object> search = new HashMap<>(); // sql�뿉 �뱾�뼱媛��빞�븷 �꽌移� �빆紐� 諛� pageDTO �빆紐� map�뿉 �떞湲�
 		search.put("clntCd", clntCd);
 		search.put("clntName", clntName);
 		search.put("startRow", pageDTO.getStartRow());
@@ -244,7 +244,7 @@ public class OrderController {
  
 		List<clntDTO> clntList = orderService.getClntList(search);
 			
-		//페이징 처리
+		//�럹�씠吏� 泥섎━
 		int count = orderService.countClntList(search);
 
 		int pageBlock = 10;

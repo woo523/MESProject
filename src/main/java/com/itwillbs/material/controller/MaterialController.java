@@ -38,10 +38,19 @@ public class MaterialController {
 		if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
 			
 			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap();		
-			model.addAttribute("inmaterList", inmaterList);} // 전체 리스트
+			model.addAttribute("inmaterList", inmaterList); // 전체 리스트
 		
-		else {
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap(whouse, pcd, startDate, endDate, ccd);
+		}else {
+			
+			Map<String, Object> search = new HashMap<String, Object>();
+			search.put("whouse", whouse);
+			search.put("startDate", startDate);
+			search.put("endDate", endDate);
+			search.put("pcd", pcd);
+			search.put("ccd", ccd);
+			System.out.println(search);
+			
+			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap(search);
 			model.addAttribute("inmaterList", inmaterList); // 서치 결과 리스트
 		}
 		return "material/inmaterList";
@@ -179,7 +188,7 @@ public class MaterialController {
 		String endDate = request.getParameter("endDate");
 		String ccd = request.getParameter("ccd");
 		
-System.out.println("whouse :"+whouse);
+		System.out.println("whouse :"+whouse);
 		
 	if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
 			
@@ -192,4 +201,30 @@ System.out.println("whouse :"+whouse);
 	}
 	return "material/outmaterList";
 	}
+	
+	@RequestMapping(value = "/material/materialState", method = RequestMethod.GET)
+	public String materialState(HttpServletRequest request, Model model) {
+		System.out.println("MaterialController materialState()");
+
+		String mtrltype = request.getParameter("mtrltype");
+		String pcd = request.getParameter("pcd");
+		
+		if(mtrltype == null && pcd == null){
+			
+			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap();		
+			model.addAttribute("inmaterList", inmaterList);} // 전체 리스트
+		
+		else {
+			
+			Map<String, Object> search = new HashMap<String, Object>();
+			search.put("mtrltype", mtrltype);
+			search.put("pcd", pcd);
+
+			System.out.println(search);
+			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap(search);
+			model.addAttribute("inmaterList", inmaterList); // 서치 결과 리스트
+		}
+		return "material/inmaterList";
+	}
+		
 }
