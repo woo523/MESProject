@@ -90,8 +90,10 @@
 </body>
 
 <script>
-// 라인 유효성 검사
+
 $(document).ready(function() {
+	
+	// 라인 유효성 검사
 	$('#lineSearch').submit(function() {
 		if($('.lineCode').val() == "") {
 			alert("라인코드를 입력해주세요.")
