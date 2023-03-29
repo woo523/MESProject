@@ -49,7 +49,7 @@ public class PerformAjaxController {
 			JSONObject jsobject = new JSONObject(); // 제이슨 객체
 			System.out.println("itemName : " + pfliDTO.get("itemName"));
 			if(pfliDTO.get("dbReason")==null){ // 불량사유가 null이면 공백 출력되게
-				jsobject.put("dbReason", "");
+				jsobject.put("dbReason", "-");
 			}else {
 				jsobject.put("dbReason", pfliDTO.get("dbReason"));
 			}

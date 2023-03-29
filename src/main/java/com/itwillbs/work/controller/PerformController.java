@@ -323,7 +323,67 @@ public class PerformController {
 		return "redirect:/work/performRegist";
 	}
 
+	@RequestMapping(value = "/work/popPfRe", method = RequestMethod.GET)
+	public String popPfRe(Model model, HttpServletRequest request, PageDTO pageDTO) { // 팝 실적등록창
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 5; // sql문에 들어가는 항목
+		
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
+		
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);
+		List<Map<String,Object>> instrList = performService.getInstrLiMap(pageDTO); 
+
+		
+		Map<String,Object> search = new HashMap<>();
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
+
+		//페이징 처리
+		int count = performService.countInstrLi(search);
+
+		int pageBlock = 10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if(endPage > pageCount){
+		 	endPage = pageCount;
+		 }
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		model.addAttribute("instrList", instrList); 
+		model.addAttribute("pageDTO", pageDTO);
+
+		
+		return "/work/pop_prfmRe";
+	}
 	
+	@RequestMapping(value = "/work/popConfirm", method = RequestMethod.GET)
+	public String popConfirm(HttpServletRequest request, Model model) { // 실적 삭제창
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		
+		Map<String, Object> inst = performService.getInstrMap(instrId);
+		
+		model.addAttribute("inst", inst); 
+		
+		return "work/pop_confirm";
+	}
 	
 	
 	
