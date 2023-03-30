@@ -3,7 +3,6 @@ package com.itwillbs.order.domain;
 public class clntDTO {
 	private String clntCd;		
 	private String clntNm;	
-
 	
 	
 	public String getClntCd() {
@@ -15,11 +14,6 @@ public class clntDTO {
 	public void setClntCd(String clntCd) {
 		this.clntCd = clntCd;
 	}
-
-
-
-	
-
 
 
 	public String getClntNm() {
@@ -37,6 +31,7 @@ public class clntDTO {
 	@Override
 	public String toString() {
 		return "clntDTO [clntCd=" + clntCd + ", clntName=" + clntNm + "]";
+		
 	}
 	
 }

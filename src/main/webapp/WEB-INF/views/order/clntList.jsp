@@ -47,7 +47,6 @@
 
         function selectClnt(a,b){ // 부모창으로 값 넘기기
 
-          opener.document.getElementById("clntCd").value = a 
           opener.document.getElementById("clntNm").value = b
           window.close();
 

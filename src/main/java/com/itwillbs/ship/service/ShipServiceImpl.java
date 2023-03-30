@@ -17,6 +17,12 @@ public class ShipServiceImpl implements ShipService{
 		return null;
 	}
 
+	@Override
+	public List<Map<String, Object>> shipAdmin(Map<String, Object> shipAdmin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	

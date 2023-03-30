@@ -45,9 +45,8 @@
 			</tr>
 
 			<script type="text/javascript">
-				function selectUser(a, b) { // 부모창으로 값 넘기기
+				function selectUser(a,b) { // 부모창으로 값 넘기기
 
-					opener.document.getElementById("userNum").value = a
 					opener.document.getElementById("userName").value = b
 					window.close();
 

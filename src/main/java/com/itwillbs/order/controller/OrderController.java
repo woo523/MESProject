@@ -32,12 +32,12 @@ public class OrderController {
 	public String management(Model model, HttpServletRequest request, PageDTO pageDTO) {
 
 			String clntCd = request.getParameter("clntCd");
-			String sdate = request.getParameter("sdate");
-			String edate = request.getParameter("edate");
+			String sOdate = request.getParameter("sOdate");
+			String eOdate = request.getParameter("eOdate");
 			String user = request.getParameter("user");
-//			String sdate = request.getParameter("sdate");
-//			String edate = request.getParameter("edate");
-//			
+			String sDdate = request.getParameter("sDdate");
+			String eDdate = request.getParameter("eDdate");
+			
 			// 한 화면에 보여줄 글 개수 설정
 			int pageSize = 3; // sql문에 들어가는 항목
 			
@@ -59,18 +59,18 @@ public class OrderController {
 
 			Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
 			search.put("clntCd", clntCd);
-			search.put("sdate", sdate);
-			search.put("edate", edate);
+			search.put("sOdate", sOdate);
+			search.put("eOdate", eOdate);
 			search.put("user", user);
-			search.put("sdate", sdate);
-			search.put("edate", edate);
+			search.put("sDdate", sDdate);
+			search.put("eDdate", eDdate);
 			
 			search.put("startRow", pageDTO.getStartRow());
 			search.put("pageSize", pageDTO.getPageSize());
 	 
 			
 			List<Map<String,Object>> orderList;
-			if(clntCd == null && sdate == null && edate == null && user == null && sdate == null && edate == null) {
+			if(clntCd == null && sOdate == null && eOdate == null && user == null && sDdate == null && eDdate == null) {
 			// 조회 안한 경우
 				orderList = orderService.getOrderMap(pageDTO); // page만 필요해서
 			
@@ -110,6 +110,7 @@ public class OrderController {
 	public String itemList(Model model, HttpServletRequest request, PageDTO pageDTO) { // 품목 리스트
 		String itemNum = request.getParameter("itemNum");
 		String itemName = request.getParameter("itemName");
+		String invntUnit = request.getParameter("invntUnit");
 		
 		// 한 화면에 보여줄 글 개수 설정
 		int pageSize = 5; // sql문에 들어가는 항목

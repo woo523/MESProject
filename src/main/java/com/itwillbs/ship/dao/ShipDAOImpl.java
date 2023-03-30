@@ -22,6 +22,12 @@ public class ShipDAOImpl implements ShipDAO{
 		return null;
 	}
 
+	@Override
+	public List<Map<String, Object>> shipAdmin(Map<String, Object> shipAdmin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 
