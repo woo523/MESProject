@@ -138,7 +138,7 @@
 		resultType="com.itwillbs.order.domain.ItemDTO">
 		select
 		item_num as itemNum,
-		item_nm as itemName,
+		item_nm as itemNm,
 		invnt_unit as invntUnit
 		from item
 		<if test="itemNum!=null and itemName!=null">

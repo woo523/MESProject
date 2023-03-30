@@ -126,7 +126,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/itemList", method = RequestMethod.GET)
 	public String itemList(Model model, HttpServletRequest request, PageDTO pageDTO) { // 품목 리스트
 		String itemNum = request.getParameter("itemNum");
-		String itemName = request.getParameter("itemName");
+		String itemNm = request.getParameter("itemNm");
 		String invntUnit = request.getParameter("invntUnit");
 		
 		// 한 화면에 보여줄 글 개수 설정
@@ -150,7 +150,8 @@ public class OrderController {
 
 		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
 		search.put("itemNum", itemNum);
-		search.put("itemName", itemName);
+		search.put("itemNm", itemNm);
+		search.put("invntUnit", invntUnit);
 		search.put("startRow", pageDTO.getStartRow());
 		search.put("pageSize", pageDTO.getPageSize());
  

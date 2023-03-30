@@ -2,7 +2,7 @@ package com.itwillbs.order.domain;
 
 public class ItemDTO {
 	private String itemNum;		// ��踰�
-	private String itemName;	// ��紐�
+	private String itemNm;	// ��紐�
 	private String invntUnit;
 	
 	public String getInvntUnit() {
@@ -17,16 +17,17 @@ public class ItemDTO {
 	public void setItemNum(String itemNum) {
 		this.itemNum = itemNum;
 	}
-	public String getItemName() {
-		return itemName;
-	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
+
 	
+	public String getItemNm() {
+		return itemNm;
+	}
+	public void setItemNm(String itemNm) {
+		this.itemNm = itemNm;
+	}
 	@Override
 	public String toString() {
-		return "itemDTO [itemNum=" + itemNum + ", itemName=" + itemName + ",invntUnit=" + invntUnit + "]";
+		return "itemDTO [itemNum=" + itemNum + ", itemNm=" + itemNm + ",invntUnit=" + invntUnit + "]";
 	}
 	
 }
