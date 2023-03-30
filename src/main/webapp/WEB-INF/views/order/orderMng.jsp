@@ -294,7 +294,7 @@ $(function() {
 			<table id="search">
 				<tr>
 				<td>수주업체</td>
-				<td><input type="text" id="clntNm" onclick="openClntList()"></td>
+				<td><input type="text" id="clntNm" name="clntNm" onclick="openClntList()"></td>
 				
 				<td>수주일자</td>
 				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
@@ -302,7 +302,7 @@ $(function() {
 				</tr>
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" id="user" onclick="openUserList()"></td>
+				<td><input type="text" id="userNm" name="userNm" onclick="openUserList()"></td>
 			
 				<td>납품예정일</td>
 				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>
@@ -322,7 +322,6 @@ $(function() {
 			<th>납품예정일</th>
 			<th>담당자코드</th>
 			<th>담당자</th>
-			<th>고객수주번호</th>
 		</tr>
 	<c:choose>
 		<c:when test="${empty orderList}">
@@ -342,7 +341,6 @@ $(function() {
 				<td>${odto.dlvryDt}</td>
 				<td>${odto.id}</td>
 				<td>${odto.name}</td>
-				<td>${odto.csmtrOrdNum}</td>
 				</tr>
 			</c:forEach>
 		</c:otherwise>
@@ -353,102 +351,30 @@ $(function() {
     <div id="pagination">
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
-	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userName=${search.userName }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage-1}"><</a>
+	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
 
 <!-- 10페이지 이전 -->
 	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userName=${search.userName }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 	</c:if>
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a id="num" href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userName=${search.userName }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${i}">${i}</a> 
+	<a id="num" href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${i}">${i}</a> 
 	</c:forEach>
 
 <!-- 1페이지 다음 -->	
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userName=${search.userName }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage+1}">></a>
+	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>
 
 <!-- 10페이지 다음 -->
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userName=${search.userName }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
 	</div>
 <br>
-	<h1>수주품목상세</h1>
-	<div class="orderdetail">
-		<form id="detail">
-			<div id="btn">
-				<button type="reset">취소</button>
-				<button>저장</button>
-			</div>
-				<br>
-			<table id="detail">
-				<tr>
-				<td>업체코드</td>
-				<td><input type="text" id="clntCd" onclick="openClntList()"></td>
-				
-				<td>수주일자</td>
-				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eOdate" class="form-control" name="eOdate" readonly></td>
-				</tr>
-				<tr>
-				<td>담당자</td>
-				<td><input type="text" id="userName" onclick="openUserList()"></td>
-			
-				<td>납품예정일</td>
-				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eDdate" class="form-control" name="eDdate" readonly></td>
-
-				<td>고객수주번호</td>
-				<td><input type="text" id="clntnum"></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-<br>
-<br>
-	<h1>수주정보</h1>
-	<div class="orderinfo">
-		<form id="info">
-			<div id="btn">
-				<button type="reset">취소</button>
-				<button>저장</button>
-			</div>
-				<br>
-			<table id="info">
-				<tr>
-				<td>품번</td>
-				<td><input type="text" id="itemNum" onclick="openItemList()"></td>
-				<td>품명</td>
-				<td><input type="text" id="itemName" onclick="openItemList()"></td>
-				<td>단위</td>
-				<td><input type="text" id="invntUnit" readonly="readonly"></td>
-				<td>수량</td>
-				<td><input type="text" id="increase"></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-<br>
-	<h2>생산실적</h2>
-    <div id="PerformList_ajax">
-	<table border="1">
-	<tr id="th">
-	<th>품번</th>
-	<th>품명</th>
-	<th>단위</th>
-	<th>수량</th>
-	<th>비고사항</th>
-	</tr>
-	<tr id="con"><td colspan="6"> 실적 등록할 작업 지시를 클릭해주세요 </td></tr>
-    </table>
-    </div>
-
-	
-	
-
+<a href="${pageContext.request.contextPath }/order/orderInsert">추가</a></h1>
 
 
 </div>

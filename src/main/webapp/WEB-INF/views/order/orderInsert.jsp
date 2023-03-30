@@ -91,6 +91,8 @@ text-align: center;
 
 </style>
 </head>
+
+
 <body>
 
 <!-- 자바스크립트 들어가는 곳 -->
@@ -278,10 +280,11 @@ $(function() {
 </script>
 <!-- 스크립트 끝. -->
 
+<div class="content_body"> <!-- 지우면안됨 -->
 
 <br>
 	<h1>수주품목상세</h1>
-		<form id="detail" action="/order/orderInsertPro" method="get">
+		<form id="insertOrder" action="${pageContext.request.contextPath }/order/orderInsertPro" method="get">
 	<div class="orderdetail">
 			<div id="btn">
 				<button type="reset">취소</button>
@@ -290,18 +293,18 @@ $(function() {
 				<br>
 			<table id="detail">
 				<tr>
-				<td>업체코드</td>
+				<td>업체명</td>
 				<td><input type="text" id="clntNm" name="clntNm" onclick="openClntList()">
-					<input type="hidden" name="clntID" value="">
-					<input type="hidden" name="clntCD" value=""></td>
+<!-- 					<input type="hidden" name="clntId" value=""> -->
+<!-- 					<input type="hidden" name="clntCd" value=""></td> -->
 				<td>수주일자</td>
 				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
 				<td></td>
 				</tr>
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" id="userName" name="userName" onclick="openUserList()">
-				<input type="hidden" name="userID" value=""></td>
+				<td><input type="text" id="userNm" name="userNm" onclick="openUserList()">
+					<input type="hidden" name="userId" value=""></td>
 				<td>납품예정일</td>
 				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>
 				<td></td>
@@ -320,23 +323,19 @@ $(function() {
 				<td>품번</td>
 				<td><input type="text" id="itemNum" name="itemNum" onclick="openItemList()"></td>
 				<td>품명</td>
-				<td><input type="text" id="itemName" name= "itemName" onclick="openItemList()"></td>
+				<td><input type="text" id="itemName" name= "itemNm" onclick="openItemList()"></td>
 				<td>단위</td>
 				<td><input type="text" id="invntUnit" name="invntUnit" readonly="readonly"></td>
 				<td>수량</td>
-				<td><input type="text" id="increase" name="increase"></td>
+				<td><input type="text" id="increase" name="ordQty"></td>
 				</tr>
 			</table>
 	</div>
 		</form>
 <br>
 
-	
-	
-
-
-
 </div>
+
 </body>
 <!-- 푸터 -->
-<%-- <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 --> --%>
+<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
