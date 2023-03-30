@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 
@@ -24,6 +23,14 @@ padding: 10px;
 	font-weight: bold;
 }
 
+.search_bar tr, td{
+ border:0px;
+}
+
+table#search {
+ border:1px solid;
+}
+
 #con {
 	text-align: center;
 }
@@ -34,6 +41,7 @@ padding: 10px;
 }
 
 #btn{
+	width: 1125px;
 	text-align:right;
 }
 
@@ -95,13 +103,14 @@ text-align: center;
 	<!-- 내용시작 -->
 <article>
 	<h1>자재 출고 관리</h1>
-	<form id="outmtrl">	
-	<div class="selectButtons">
+	<div class="search_bar">
+	<form id="search">	
+	<div id="btn">
 			<button type="submit" id="submit">조회</button>
 			<button type="button" onclick="insertBtn()">추가</button>
 		</div>
-		
-	<table class="searchBox">
+	<br>	
+	<table id="search">
 		<tr><td>출고창고</td>
 				<td><select name="whouse">
 					<option value="" selected>전체</option>
@@ -122,12 +131,14 @@ text-align: center;
 					<input type="text" name="cnm" id="cnm" placeholder="업체명" readonly></td>
 		</tr>
 		</table>
+		</form>
+</div>
 
 	<br><br><br>
 	<h1>자재 출고 목록</h1>
 	<br>
 	
-		<div class="listButtons">
+		<div id="btn">
 			<c:choose>
 				<c:when test="${! empty outterList}">
 					<span>총 ${outterSearchCount}건</span>
@@ -136,7 +147,7 @@ text-align: center;
 			<button type="button">취소</button>
 			<button type="button">저장</button>
 		</div>
-	
+	<br>
 	<table border="1" class="outList">	
 	<tr id="th">
 		<th>출고번호</th><th>출고일자</th><th>품번</th><th>품명</th><th>단위</th>

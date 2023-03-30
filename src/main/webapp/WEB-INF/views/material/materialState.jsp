@@ -11,10 +11,6 @@
 
 <style type="text/css">
 
-.content_body .selectButtons, .listButtons {
-	text-align: right;
-}
-
 .content_body button {
 	display: inline-block;
 	width: 70px;
@@ -44,7 +40,16 @@ padding: 10px;
 	cursor:pointer;
 }
 
+.search_bar tr, td{
+ border:0px;
+}
+
+table#search {
+ border:1px solid;
+}
+
 #btn{
+	width: 1125px;
 	text-align:right;
 }
 
@@ -87,18 +92,6 @@ text-align: center;
 	padding: 10px;
 	text-align: center;
 }	
-.selectButtons tr, td{
- border:0px;
-}
-	article input {
-	height: 20px;
-}
-
-.content_body .inList {
-	width: 100%;
-	margin: 10px 0px 40px 0px;
-	border-collapse: collapse;
-}
 
 .content_body .inList th{
 	border-top: 1px solid black;
@@ -133,12 +126,13 @@ function openlist(){
 <div class="content_body">
 <article>
 	<h2>자재재고현황</h2>
-	<form id="inmtrl">
-		<div class="selectButtons">
+		<div class="search_bar">
+		<form id="search">
+		<div id="btn">
 			<button type="submit" id="submit">조회</button>
 		</div>
-		
-		<table class="searchBox">
+		<br>
+		<table id="search">
 			<tr>
 				<td>자재유형</td>
 				<td><select name="mtrltype">
@@ -152,9 +146,11 @@ function openlist(){
 						<input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
 			</tr>
 	</table>
-	
+</form>
+</div>
+<br><br><br>	
 	<h2>자재재고</h2>
-		<div class="listButtons">
+		<div id="btn">
 			<c:choose>
 				<c:when test="${! empty inmaterList}">
 					<span>총 ${inmtrlSearchCount}건</span>
@@ -163,7 +159,7 @@ function openlist(){
 			<button type="button">취소</button>
 			<button type="button">저장</button>
 		</div>
-		
+	<br>	
 	<table border="1" class="inList">	
 	<tr id="th">
 		<th>품번</th>
