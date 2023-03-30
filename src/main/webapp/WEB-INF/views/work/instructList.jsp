@@ -1,4 +1,3 @@
-<%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -145,6 +144,32 @@
 		</table>
 	</form>
 </article>
+
+<div class="center">
+ 	<div class="pagination">			
+		<c:choose>
+			<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
+				<a href="/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+			</c:when>
+			<c:otherwise>
+				<a class="none">◀</a>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+			<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+		</c:forEach>
+		
+		<c:choose>
+			<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
+				<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+			</c:when>
+			<c:otherwise>
+				<a class="none">▶</a>
+			</c:otherwise>
+		</c:choose>
+	</div>
+</div> <!-- 페이징 -->
 	
 </div>
 
@@ -212,21 +237,21 @@ function openilist(){
 
 // 작업지시 유효성 검사
 $(document).ready(function() {
-	$('#instr').submit(function() {
-		if($('#sDate').val() == "") {
-			alert("지시일자를 선택해주세요.");
-			$('#sDate').focus();
+// 	$('#instr').submit(function() {
+// 		if($('#sDate').val() == "") {
+// 			alert("지시일자를 선택해주세요.");
+// 			$('#sDate').focus();
 			
-			return false;
-		}
+// 			return false;
+// 		}
 		
-		if($('#pcd').val() == "") {
-			alert("품번코드를 입력해주세요.");
-			$('#pcd').focus();
+// 		if($('#pcd').val() == "") {
+// 			alert("품번코드를 입력해주세요.");
+// 			$('#pcd').focus();
 			
-			return false;
-		}
-	});
+// 			return false;
+// 		}
+// 	});
 	
 	// 전체 목록 개수
 	$('#printCnt').html("<span>총 " + ${instrTotal} + "건</span>");

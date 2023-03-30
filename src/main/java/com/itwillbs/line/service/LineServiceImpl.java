@@ -6,7 +6,10 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import com.itwillbs.common.PageDTO;
+import com.itwillbs.common.PageUtil;
 import com.itwillbs.line.dao.LineDAO;
 import com.itwillbs.line.domain.LineDTO;
 
@@ -24,10 +27,23 @@ public class LineServiceImpl implements LineService{
 	}
 
 	@Override
-	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch) {
+	public List<Map<String, Object>> lineList(PageDTO pageDTO, Model model) {
+		System.out.println("LineServiceImpl lineList()");
+		
+		int totalCnt = lineDAO.lineTotalCount();
+		PageUtil.getPaging(pageDTO, model, totalCnt);
+		
+		return lineDAO.lineList(pageDTO);
+	}
+
+	@Override
+	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch, PageDTO pageDTO, Model model) {
 		System.out.println("LineServiceImpl lineSearch()");
 		
-		return lineDAO.lineSearch(lineSearch);
+		int totalCnt = lineDAO.lineSearchCount(lineSearch);
+		PageUtil.getPaging(pageDTO, model, totalCnt);
+		
+		return lineDAO.lineSearch(lineSearch, pageDTO);
 	}
 
 	@Override

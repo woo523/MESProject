@@ -80,6 +80,32 @@
 		</table>
 	</form>
 </article>
+
+<div class="center">
+ 	<div class="pagination">			
+		<c:choose>
+			<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
+				<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+			</c:when>
+			<c:otherwise>
+				<a class="none">◀</a>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+			<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+		</c:forEach>
+		
+		<c:choose>
+			<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
+				<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+			</c:when>
+			<c:otherwise>
+				<a class="none">▶</a>
+			</c:otherwise>
+		</c:choose>
+	</div>
+</div>
 	
 </div>
 
@@ -94,21 +120,21 @@
 $(document).ready(function() {
 	
 	// 라인 유효성 검사
-	$('#lineSearch').submit(function() {
-		if($('.lineCode').val() == "") {
-			alert("라인코드를 입력해주세요.")
-			$('.lineCode').focus();
+// 	$('#lineSearch').submit(function() {
+// 		if($('.lineCode').val() == "") {
+// 			alert("라인코드를 입력해주세요.")
+// 			$('.lineCode').focus();
 			
-			return false;
-		}
+// 			return false;
+// 		}
 		
-		if($('.lineName').val() == "") {
-			alert("라인명을 입력해주세요.")
-			$('.lineName').focus();
+// 		if($('.lineName').val() == "") {
+// 			alert("라인명을 입력해주세요.")
+// 			$('.lineName').focus();
 			
-			return false;
-		}
-	});
+// 			return false;
+// 		}
+// 	});
 	
 	// 라인 전체 목록 개수
 	$('#printCnt').html("<span>총 " + ${totalCnt} + "건</span>");

@@ -4,6 +4,7 @@
 <mapper namespace="com.itwillbs.mappers.lineMapper">
 	
 	<resultMap type="map" id="lineMap">
+		<result property="lineId" column="lineId" />
 		<result property="lineCode" column="lineCode" />
 		<result property="lineName" column="lineName" />
 		<result property="proCode" column="proCode" />
@@ -15,23 +16,31 @@
 	<!-- line 전체 select 구문 -->
 	<select id="lineList" resultMap="lineMap">
 		<include refid="List" />
+		ORDER BY line_id DESC
 	</select>
 	
-	<!-- line 조회 select 구문 -->
+	<!-- line 전체 select 구문 + 페이징 -->
+	<select id="lineListPaging" resultMap="lineMap">
+		<include refid="List" />
+		ORDER BY line_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- line 조회 select 구문 + 페이징 -->
 	<select id="lineSearch" resultMap="lineMap">
 		<include refid="List" />
-		<![CDATA[
- 			WHERE line_cd LIKE CONCAT('%', #{lineCode}, '%')
-			AND line_nm LIKE CONCAT('%', #{lineName}, '%')
- 		]]>
+		WHERE line_cd LIKE CONCAT('%', #{lineSearch.lineCode}, '%')
+		AND line_nm LIKE CONCAT('%', #{lineSearch.lineName}, '%')
 		<choose>
 			<when test="useChoice == 'Y'.toString()">
-				AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
+				AND use_yn LIKE CONCAT('%', #{lineSearch.useChoice}, '%')
 			</when>
 			<when test="useChoice == 'N'.toString()">
-				AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
+				AND use_yn LIKE CONCAT('%', #{lineSearch.useChoice}, '%')
 			</when>
 		</choose>
+		ORDER BY line_id DESC
+		LIMIT #{pageDTO.startRow}, #{pageDTO.pageSize}
 	</select>
 	
 	<!-- line 전체 개수 -->
@@ -43,19 +52,20 @@
 	<select id="lineSearchCount" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM line
 		WHERE line_cd LIKE CONCAT('%', #{lineCode}, '%')
-			AND line_nm LIKE CONCAT('%', #{lineName}, '%')
-			<choose>
-				<when test="useChoice == 'Y'.toString()">
-					AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
-				</when>
-				<when test="useChoice == 'N'.toString()">
-					AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
-				</when>
-			</choose>
+		AND line_nm LIKE CONCAT('%', #{lineName}, '%')
+		<choose>
+			<when test="useChoice == 'Y'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
+			</when>
+			<when test="useChoice == 'N'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useChoice}, '%')
+			</when>
+		</choose>
 	</select>
 	
 	<sql id="List">
-		SELECT line_cd as lineCode,
+		SELECT line_id as lineId,
+	   		   line_cd as lineCode,
 			   line_nm as lineName,
 			   pro_cd as proCode,
 			   place as linePlace,

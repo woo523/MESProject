@@ -6,7 +6,10 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import com.itwillbs.common.PageDTO;
+import com.itwillbs.common.PageUtil;
 import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.work.dao.InstructDAO;
 import com.itwillbs.work.domain.InstructDTO;
@@ -18,16 +21,25 @@ public class InstructServiceImpl implements InstructService{
 	private InstructDAO instructDAO;
 
 	@Override
-	public List<Map<String, Object>> instrList() {
+	public List<Map<String, Object>> instrList(PageDTO pageDTO, Model model) {
+		System.out.println("InstructServiceImpl instrList 전체");
 		
-		return instructDAO.instrList();
+		int totalCnt = instructDAO.instrCount();
+		
+		PageUtil.getPaging(pageDTO, model, totalCnt);
+		
+		return instructDAO.instrList(pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch) {
-		System.out.println("InstructServiceImpl instrList");
+	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch, PageDTO pageDTO, Model model) {
+		System.out.println("InstructServiceImpl instrList 검색");
 		
-		return instructDAO.instrList(instrSearch);
+		int totalCnt = instructDAO.instrCount(instrSearch);
+		
+		PageUtil.getPaging(pageDTO, model, totalCnt);
+		
+		return instructDAO.instrList(instrSearch, pageDTO);
 	}
 
 	@Override
