@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.order.dao.OrderDAO;
+import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
 import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
@@ -72,6 +73,12 @@ public class OrderServiceImpl implements OrderService{
 	public Integer countClntList(Map<String, Object> search) {
 		System.out.println("OrderServiceImpl countClntList()");
 		return orderDAO.countClntList(search);
+	}
+
+	@Override
+	public void insertOrder(OrderDTO orderDTO) {
+		System.out.println("OrderServiceImpl 메서드틀 정의 구현()");
+		orderDAO.insertOrder(orderDTO);
 	}
 
 

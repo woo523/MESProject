@@ -29,6 +29,8 @@ public interface OrderDAO {
 
 	public Integer countClntList(Map<String, Object> search);
 
+	public void insertOrder(OrderDTO orderDTO);
+
 
 	
 }

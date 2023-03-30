@@ -203,6 +203,12 @@
 			clnt_nm	like CONCAT('%', #{clntNm}, '%')
 		</if>
 	</select>
+	
+	<insert id="insertOrder">
+	
+	
+	
+	</insert>
 
 </mapper>
 

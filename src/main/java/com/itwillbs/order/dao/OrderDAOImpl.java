@@ -79,6 +79,12 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.selectOne(namespace+".countClntList", search);
 	}
 
+	@Override
+	public void insertOrder(OrderDTO orderDTO) {
+		System.out.println("OrderDAOImpl insertOrder() 화면단 정보를 db에 저장");
+		sqlSession.selectOne(namespace+".insertOrder", orderDTO);
+	}
+
 
 
 

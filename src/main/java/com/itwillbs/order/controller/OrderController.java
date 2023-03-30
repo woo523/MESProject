@@ -28,7 +28,23 @@ public class OrderController {
 	@Inject
 	private OrderService orderService;
 
-	@RequestMapping(value = "/order/orderMng", method = RequestMethod.GET)
+	@RequestMapping(value = "/order/orderInsert", method = RequestMethod.GET)
+	public String orderInsert() {
+		
+		
+		return "order/orderInsert";
+	}
+	
+	@RequestMapping(value = "/order/orderInsertPro", method = RequestMethod.GET)
+	public String orderInsertPro(OrderDTO orderDTO) {
+		System.out.println("insert화면에서 넘어옴orderDTO");
+		orderService.insertOrder(orderDTO);
+		
+		return "redirect:/order/orderMng";
+	}
+	
+
+		@RequestMapping(value = "/order/orderMng", method = RequestMethod.GET)
 	public String management(Model model, HttpServletRequest request, PageDTO pageDTO) {
 
 			String clntCd = request.getParameter("clntCd");

@@ -27,6 +27,8 @@ public interface OrderService {
 	public List<clntDTO> getClntList(Map<String, Object> search);
 
 	public Integer countClntList(Map<String, Object> search);
+
+	public void insertOrder(OrderDTO orderDTO);
 	
 
 }
