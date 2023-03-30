@@ -159,7 +159,7 @@ function valChk(obj, alias) {
 					<th>부서</th>
 					<td>
 						<select name="departments"  id="departments">	<!-- name,id 동일하게 -->
-							<c:forEach items="${departmentComCdList }" var="codeDto">	<!--items="${컨트롤러에서 모델에 담은 이름. var =codeDTO로 쓰기.(큰의미는없음) }  -->
+							<c:forEach items="${departmentComCdList }" var="codeDto">	<!--items="{컨트롤러에서 모델에 담은 이름. var =codeDTO로 쓰기.(큰의미는없음) }  -->
 								<option value="${codeDto.cd }" 
 								<c:if test="${memberDTO.departments eq codeDto.cd}">selected</c:if>> <!-- 셀렉트박스 옵션을 selected상태로 하기위해 if문 사용. -->
 											<!-- 회원.부서 = 공통코드.코드 같으면 selected를 준다. -->

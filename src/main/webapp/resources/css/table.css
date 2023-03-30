@@ -52,38 +52,11 @@ input, select {
   	resize: vertical;
 }
 
-/* 반응형 width가 768px 일때 css */
-@media all and (max-width: 768px) { 
-	/* table, thead, tbody, th, td, tr {
-		display: block;
-	}
-	th {
-		text-align: right;
-	}
-	table {
-		position: relative;
-		padding-bottom: 0;
-		border: none;
-		box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-	}
-	thead {
-		float: left;
-		white-space: nowrap;
-	}
-	tbody {
-		overflow-x: auto;
-		overflow-y: hidden;
-		position: relative;
-		white-space: nowrap;
-	}
-	tr {
-		display: inline-block;
-		vertical-align: top;
-	}
-	th {
-		border-bottom: 1px solid #a39485;
-	}
-	td {
-		border-bottom: 1px solid #e5e5e5;
-	} */
+.noresize { /*텍스트라*/
+  height:100px;
+  width:300px;
+  resize: none; /* 사용자 임의 변경 불가 */
+/*   resize: both; 사용자 변경이 모두 가능 */
+/*   resize: horizontal; 좌우만 가능 */
+/*   resize: vertical; 상하만 가능 */
 }

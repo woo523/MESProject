@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 파일이름 대신에 namespace 이름을 불러서 사용 -->
+<mapper namespace="com.itwillbs.mappers.menuMapper">
+
+	<!-- 메뉴 등록 -->
+	<insert id="insertMenu" >
+		insert into menu (upper_menu_cd
+						 ,menu_nm
+						 ,sort_num
+						 ,url
+						 ,use_yn
+						 ,note
+						 ,insert_id
+						 ,insert_dt)
+				  values(#{upperMenuCd}
+				  		,#{menuNm}
+				  		,#{sortNum}
+				  		,#{url}
+				  		,#{useYn}
+				  		,#{note}
+				  		,#{insertId}
+				  		,now())
+	</insert>
+	
+	<!-- 메뉴 수정 -->
+<!-- 	<update id="updateMenu"> -->
+<!-- 		update menu -->
+<!-- 		set upper_menu_cd = #{upperMenuCd} -->
+<!-- 			menu_nm	= #{menuNm} -->
+<!-- 			sort_num = #{sortNum} -->
+<!-- 			url = #{url} -->
+<!-- 			use_yn = #{useYn} -->
+<!-- 			note = #{note} -->
+<!-- 			update_id = #{updateId} -->
+<!-- 			update_dt = now() -->
+<!-- 		where menu_cd = #{menuCd} -->
+<!-- 	</update> -->
+	
+	<!-- 메뉴 삭제 -->
+<!-- 	<delete id="deleteMenu"> -->
+<!-- 		delete  -->
+<!-- 		from menu -->
+<!-- 		where menu_cd = #{menuCd} -->
+<!-- 	</delete>	 -->
+	
+	<!-- 메뉴 조회 -->
+	<select id="getMenuList" resultType="com.itwillbs.menu.domain.MenuDTO">
+		select menu_cd
+			  ,upper_menu_cd
+			  ,menu_nm
+			  ,sort_num
+			  ,url
+			  ,use_yn
+			  ,note
+			  ,insert_id
+			  ,insert_dt
+			  ,update_id
+			  ,update_dt
+		from menu
+		order by sort_num desc, menu_cd asc
+	</select>
+	
+</mapper>

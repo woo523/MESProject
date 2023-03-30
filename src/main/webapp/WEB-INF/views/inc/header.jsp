@@ -58,7 +58,7 @@
                             <li><a href="/member/list">사용자 관리</a></li>
                             <li><a href="#">권한 관리</a></li>
                             <li><a href="/comCode/list">공통 코드 관리</a></li>
-                            <li><a href="#">시스템 메뉴 관리</a></li>
+                            <li><a href="/menu/create">시스템 메뉴 관리</a></li>
                         </ul>
                     </ul>
                     <ul class="big_menu">

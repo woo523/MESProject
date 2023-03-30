@@ -81,11 +81,11 @@ text-align: center;
 
 
 div.side{ 
- height : 780px;
+/*  height : 780px; */
  }  
 
 div.content{ 
- height : 780px; 
+/*  height : 780px;  */
  } 
 </style>
 </head>
