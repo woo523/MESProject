@@ -36,18 +36,22 @@
 		<tr>
 			<td>품번</td>
 			<td>품명</td>
+			<td>userId</td>
 		</tr>
 		<c:forEach var="userList" items="${userList }">
 			<tr id="con"
-				onclick="selectUser('${userList.userNum }','${userList.userName }')">
+				onclick="selectUser('${userList.userNum }','${userList.userName }','${userList.userId }')">
 				<td>${userList.userNum }</td>
 				<td>${userList.userName }</td>
+				<td>${userList.userId }</td>
 			</tr>
 
 			<script type="text/javascript">
-				function selectUser(a,b) { // 부모창으로 값 넘기기
+				function selectUser(a,b,c) { // 부모창으로 값 넘기기
 
-					opener.document.getElementById("userName").value = b
+					opener.document.getElementById("userNum").value = a;
+					opener.document.getElementById("userName").value = b;
+					opener.document.getElementById("userId").value = c;
 					window.close();
 
 				}

@@ -165,6 +165,7 @@
 	<select id="getUserList"
 		resultType="com.itwillbs.order.domain.userDTO">
 		select
+		user_id as userId,
 		id as userNum,
 		name as userName
 		from user
@@ -196,7 +197,8 @@
 		resultType="com.itwillbs.order.domain.clntDTO">
 		select
 		clnt_cd as clntCd,
-		clnt_nm as clntNm
+		clnt_nm as clntNm,
+		clnt_id as clntId
 		from client
 		<if test="clntCd!=null and clntNm!=null">
 			where
@@ -219,24 +221,28 @@
 	</select>
 	
 	<insert id="insertOrder">
-    insert into order_insert
-    (clnt_nm,
+    insert into order_mng
+    (ord_id,
+    clnt_id,
+	user_id,
 	order_dt,
-	user_name,
 	dlvry_dt, 
-	item_num, 
-	item_nm,
-	invnt_unit,
-	ord_qty)
+	ord_num, 
+	insert_id,
+	insert_dt,
+	update_id,
+	update_dt)
 	values
-	(#{clntNm},
-	#{sOdate},
-	#{userNm},
-	#{sDdate},
-	#{itemNum},
-	#{itemNm},
-	#{invntUnit},
-	#{ordQty})
+	(#{ord_id},
+    {clnt_id},
+	{user_id},
+	{order_dt},
+	{dlvry_dt}, 
+	{ord_num},  <!-- 서비스단에서 만들기, 게시판 max num 처럼 -->
+	{insert_id},
+	{insert_dt},
+	{update_id},
+	{update_dt})
     </insert>
 	
 	

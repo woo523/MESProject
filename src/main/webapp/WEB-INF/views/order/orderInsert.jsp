@@ -294,19 +294,20 @@ $(function() {
 			<table id="detail">
 				<tr>
 				<td>업체명</td>
-				<td><input type="text" id="clntNm" name="clntNm" onclick="openClntList()">
-<!-- 					<input type="hidden" name="clntId" value=""> -->
-<!-- 					<input type="hidden" name="clntCd" value=""></td> -->
+				<td><input type="text" id="clntNm" name="clnt_nm" onclick="openClntList()">
+					<input type="text" name="clnt_id" id="clntId" value="">
+					<input type="text" name="clnt_cd" id="clntCd" value=""></td>
 				<td>수주일자</td>
-				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="sOdate" class="form-control" name="order_dt" placeholder="날짜를 선택해주세요" readonly></td>
 				<td></td>
 				</tr>
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" id="userNm" name="userNm" onclick="openUserList()">
-					<input type="hidden" name="userId" value=""></td>
+				<td><input type="text" id="userName" name="user_nm" onclick="openUserList()">
+					<input type="text" name="user_id" id="userId"value="">
+					<input type="text" name="user_num" id="userNum" value=""></td>
 				<td>납품예정일</td>
-				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="sDdate" class="form-control" name="dlvry_dt" placeholder="날짜를 선택해주세요" readonly></td>
 				<td></td>
 
 				<td></td>

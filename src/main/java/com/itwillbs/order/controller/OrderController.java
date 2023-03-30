@@ -39,6 +39,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/orderInsertPro", method = RequestMethod.GET)
 	public String orderInsertPro(OrderDTO orderDTO) {
 		System.out.println("insert화면에서 넘어옴orderDTO");
+		System.out.println("orderDTO"+orderDTO.getUser_num());
 		orderService.insertOrder(orderDTO);
 		
 		return "redirect:/order/orderMng";

@@ -24,11 +24,18 @@ public class OrderDTO {
 	
 	private String clnt_nm;
 	private String user_nm;
+	private String user_num;
 	private String item_nm;
 	private String invnt_unit;
 	 
 	
 	
+	public String getUser_num() {
+		return user_num;
+	}
+	public void setUser_num(String user_num) {
+		this.user_num = user_num;
+	}
 	public String getClnt_nm() {
 		return clnt_nm;
 	}

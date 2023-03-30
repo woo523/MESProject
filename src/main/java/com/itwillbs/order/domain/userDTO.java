@@ -1,30 +1,41 @@
 package com.itwillbs.order.domain;
 
 public class userDTO {
-	private String userNum;		// 품번
-	private String userName;	// 품명
-//	private String invntUnit;	// 재고단위
+	private String userNum;		
+	private String userName;	
+	private int userId;
+
 	
-	public String getuserNum() {
+	public String getUserNum() {
 		return userNum;
 	}
-	public void setuserNum(String userNum) {
+
+
+	public void setUserNum(String userNum) {
 		this.userNum = userNum;
 	}
-	public String getuserName() {
+
+
+	public String getUserName() {
 		return userName;
 	}
-	public void setuserName(String userName) {
+
+
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-//	public String getInvntUnit() {
-//		return invntUnit;
-//	}
-//	public void setInvntUnit(String invntUnit) {
-//		this.invntUnit = invntUnit;
-//	}
-	
-	
+
+
+	public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
 	@Override
 	public String toString() {
 		return "userDTO [userNum=" + userNum + ", userName=" + userName + "]";

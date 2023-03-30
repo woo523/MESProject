@@ -38,16 +38,19 @@
 		</tr>
 		<c:forEach var="clntList" items="${clntList }">
 			<tr id="con"
-				onclick="selectClnt('${clntList.clntCd }','${clntList.clntNm }')">
+				onclick="selectClnt('${clntList.clntCd }','${clntList.clntNm }','${clntList.clntId }')">
 				<td>${clntList.clntCd }</td>
 				<td>${clntList.clntNm }</td>
+				<td>${clntList.clntId }</td>
 			</tr>
 
 			<script type="text/javascript">
 
-        function selectClnt(a,b){ // 부모창으로 값 넘기기
+        function selectClnt(a,b,c){ // 부모창으로 값 넘기기
 
-          opener.document.getElementById("clntNm").value = b
+          opener.document.getElementById("clntCd").value = a;
+          opener.document.getElementById("clntNm").value = b;
+          opener.document.getElementById("clntId").value = c;
           window.close();
 
         }
