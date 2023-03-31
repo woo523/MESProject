@@ -4,85 +4,112 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class OrderDTO {
-	private int ord_id; 		 // auto_increament ��二쇨�由� 湲곕낯��
-	private int clnt_id; 		 // FK 嫄곕��泥���蹂� 湲곕낯��
-	private int user_id;  		 // FK �ъ�⑹��愿�由� 湲곕낯��
-	private Date order_dt; 		 // ��二쇱�쇱��  
-	private Date dlvry_dt; 		 // �⑺��������
-	private int csmtr_ord_num; 	 // 怨�媛���二쇰���
-	private String ord_num; 	 // ��二쇰���
-	private String insert_id; 	 // �깅���
-	private Timestamp insert_dt; // �깅���
-	private String update_id; 	 // 蹂�寃쎌�� 
-	private Timestamp update_dt; // 蹂�寃쎌��
+	private int ordId; 		 // auto_increament ��二쇨�由� 湲곕낯��
+	private int clntId; 		 // FK 嫄곕��泥���蹂� 湲곕낯��
+	private int userId;  		 // FK �ъ�⑹��愿�由� 湲곕낯��
+	private Date orderDt; 		 // ��二쇱�쇱��  
+	private Date dlvryDt; 		 // �⑺��������
+	private String ordNum; 	 // ��二쇰���
+	private String insertId; 	 // �깅���
+	private Timestamp insertDt; // �깅���
+	private String updateId; 	 // 蹂�寃쎌�� 
+	private Timestamp updateDt; // 蹂�寃쎌��
 	
-	private int ord_info;
-	private int item_id;
-	private int ord_qty;
-	private String cmplt_yn;
+	private int ordInfo;
+	private int itemId;
+	private int ordQty;
+	private String cmpltYn;
 	private String note;
 	
-	private String clnt_nm;
-	private String user_nm;
-	private String user_num;
-	private String item_nm;
-	private String invnt_unit;
-	 
+	private String clntNm;
+	private String userNm;
+	private String userNum;
+	private String itemNm;
+	private String invntUnit;
 	
-	
-	public String getUser_num() {
-		return user_num;
+	public int getOrdId() {
+		return ordId;
 	}
-	public void setUser_num(String user_num) {
-		this.user_num = user_num;
+	public void setOrdId(int ordId) {
+		this.ordId = ordId;
 	}
-	public String getClnt_nm() {
-		return clnt_nm;
+	public int getClntId() {
+		return clntId;
 	}
-	public void setClnt_nm(String clnt_nm) {
-		this.clnt_nm = clnt_nm;
+	public void setClntId(int clntId) {
+		this.clntId = clntId;
 	}
-	public String getUser_nm() {
-		return user_nm;
+	public int getUserId() {
+		return userId;
 	}
-	public void setUser_nm(String user_nm) {
-		this.user_nm = user_nm;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-	public String getItem_nm() {
-		return item_nm;
+	public Date getOrderDt() {
+		return orderDt;
 	}
-	public void setItem_nm(String item_nm) {
-		this.item_nm = item_nm;
+	public void setOrderDt(Date orderDt) {
+		this.orderDt = orderDt;
 	}
-	public String getInvnt_unit() {
-		return invnt_unit;
+	public Date getDlvryDt() {
+		return dlvryDt;
 	}
-	public void setInvnt_unit(String invnt_unit) {
-		this.invnt_unit = invnt_unit;
+	public void setDlvryDt(Date dlvryDt) {
+		this.dlvryDt = dlvryDt;
 	}
-	public int getOrd_info() {
-		return ord_info;
+	public String getOrdNum() {
+		return ordNum;
 	}
-	public void setOrd_info(int ord_info) {
-		this.ord_info = ord_info;
+	public void setOrdNum(String ordNum) {
+		this.ordNum = ordNum;
 	}
-	public int getItem_id() {
-		return item_id;
+	public String getInsertId() {
+		return insertId;
 	}
-	public void setItem_id(int item_id) {
-		this.item_id = item_id;
+	public void setInsertId(String insertId) {
+		this.insertId = insertId;
 	}
-	public int getOrd_qty() {
-		return ord_qty;
+	public Timestamp getInsertDt() {
+		return insertDt;
 	}
-	public void setOrd_qty(int ord_qty) {
-		this.ord_qty = ord_qty;
+	public void setInsertDt(Timestamp insertDt) {
+		this.insertDt = insertDt;
 	}
-	public String getCmplt_yn() {
-		return cmplt_yn;
+	public String getUpdateId() {
+		return updateId;
 	}
-	public void setCmplt_yn(String cmplt_yn) {
-		this.cmplt_yn = cmplt_yn;
+	public void setUpdateId(String updateId) {
+		this.updateId = updateId;
+	}
+	public Timestamp getUpdateDt() {
+		return updateDt;
+	}
+	public void setUpdateDt(Timestamp updateDt) {
+		this.updateDt = updateDt;
+	}
+	public int getOrdInfo() {
+		return ordInfo;
+	}
+	public void setOrdInfo(int ordInfo) {
+		this.ordInfo = ordInfo;
+	}
+	public int getItemId() {
+		return itemId;
+	}
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	public int getOrdQty() {
+		return ordQty;
+	}
+	public void setOrdQty(int ordQty) {
+		this.ordQty = ordQty;
+	}
+	public String getCmpltYn() {
+		return cmpltYn;
+	}
+	public void setCmpltYn(String cmpltYn) {
+		this.cmpltYn = cmpltYn;
 	}
 	public String getNote() {
 		return note;
@@ -90,71 +117,38 @@ public class OrderDTO {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public int getOrd_id() {
-		return ord_id;
+	public String getClntNm() {
+		return clntNm;
 	}
-	public void setOrd_id(int ord_id) {
-		this.ord_id = ord_id;
+	public void setClntNm(String clntNm) {
+		this.clntNm = clntNm;
 	}
-	public int getClnt_id() {
-		return clnt_id;
+	public String getUserNm() {
+		return userNm;
 	}
-	public void setClnt_id(int clnt_id) {
-		this.clnt_id = clnt_id;
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
 	}
-	public int getUser_id() {
-		return user_id;
+	public String getUserNum() {
+		return userNum;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserNum(String userNum) {
+		this.userNum = userNum;
 	}
-	public Date getOrder_dt() {
-		return order_dt;
+	public String getItemNm() {
+		return itemNm;
 	}
-	public void setOrder_dt(Date order_dt) {
-		this.order_dt = order_dt;
+	public void setItemNm(String itemNm) {
+		this.itemNm = itemNm;
 	}
-	public Date getDlvry_dt() {
-		return dlvry_dt;
+	public String getInvntUnit() {
+		return invntUnit;
 	}
-	public void setDlvry_dt(Date dlvry_dt) {
-		this.dlvry_dt = dlvry_dt;
+	public void setInvntUnit(String invntUnit) {
+		this.invntUnit = invntUnit;
 	}
-	public int getCsmtr_ord_num() {
-		return csmtr_ord_num;
-	}
-	public void setCsmtr_ord_num(int csmtr_ord_num) {
-		this.csmtr_ord_num = csmtr_ord_num;
-	}
-	public String getOrd_num() {
-		return ord_num;
-	}
-	public void setOrd_num(String ord_num) {
-		this.ord_num = ord_num;
-	}
-	public String getInsert_id() {
-		return insert_id;
-	}
-	public void setInsert_id(String insert_id) {
-		this.insert_id = insert_id;
-	}
-	public Timestamp getInsert_dt() {
-		return insert_dt;
-	}
-	public void setInsert_dt(Timestamp insert_dt) {
-		this.insert_dt = insert_dt;
-	}
-	public String getUpdate_id() {
-		return update_id;
-	}
-	public void setUpdate_id(String update_id) {
-		this.update_id = update_id;
-	}
-	public Timestamp getUpdate_dt() {
-		return update_dt;
-	}
-	public void setUpdate_dt(Timestamp update_dt) {
-		this.update_dt = update_dt;
-	}
+	 
 	
+	
+
 }

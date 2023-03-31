@@ -25,9 +25,9 @@
 		<table>
 			<tr>
 				<td>사번</td>
-				<td><input type="text" name="userNum"></td>
+				<td><input type="text" name="user_num"></td>
 				<td>이름</td>
-				<td><input type="text" name="userName"></td>
+				<td><input type="text" name="user_nm"></td>
 				<td><input type="submit" value="조회"></td>
 			</tr>
 		</table>
@@ -40,9 +40,9 @@
 		</tr>
 		<c:forEach var="userList" items="${userList }">
 			<tr id="con"
-				onclick="selectUser('${userList.userNum }','${userList.userName }','${userList.userId }')">
+				onclick="selectUser('${userList.userNum }','${userList.userNm }','${userList.userId }')">
 				<td>${userList.userNum }</td>
-				<td>${userList.userName }</td>
+				<td>${userList.userNm }</td>
 				<td>${userList.userId }</td>
 			</tr>
 
@@ -50,7 +50,7 @@
 				function selectUser(a,b,c) { // 부모창으로 값 넘기기
 
 					opener.document.getElementById("userNum").value = a;
-					opener.document.getElementById("userName").value = b;
+					opener.document.getElementById("userNm").value = b;
 					opener.document.getElementById("userId").value = c;
 					window.close();
 
@@ -67,31 +67,31 @@
 		<!-- 1페이지 이전 -->
 		<c:if test="${pageDTO.currentPage > 1}">
 			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userName=${search.userName}&pageNum=${pageDTO.currentPage-1}"><</a>
+				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.currentPage-1}"><</a>
 		</c:if>
 
 		<!-- 10페이지 이전 -->
 		<c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
 			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userName=${search.userName}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 		</c:if>
 
 		<c:forEach var="i" begin="${pageDTO.startPage }"
 			end="${pageDTO.endPage }" step="1">
 			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userName=${search.userName}&pageNum=${i}">${i}</a>
+				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${i}">${i}</a>
 		</c:forEach>
 
 		<!-- 1페이지 다음 -->
 		<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
 			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userName=${search.userName}&pageNum=${pageDTO.currentPage+1}">></a>
+				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.currentPage+1}">></a>
 		</c:if>
 
 		<!-- 10페이지 다음 -->
 		<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
 			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userName=${search.userName}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 		</c:if>
 
 	</div>

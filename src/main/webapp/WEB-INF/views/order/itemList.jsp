@@ -25,13 +25,13 @@
 		<table>
 			<tr>
 				<td>품번</td>
-				<td><input type="text" name="itemNum"></td>
+				<td><input type="text" name="item_num"></td>
 				<td>품명</td>
-				<td><input type="text" name="itemName"></td>
+				<td><input type="text" name="item_nm"></td>
 				<td><input type="submit" value="조회"></td>
 			</tr>
 		</table>
-	</form>
+
 	<table>
 		<tr>
 			<td>품번</td>
@@ -40,18 +40,18 @@
 		</tr>
 		<c:forEach var="itemList" items="${itemList }">
 			<tr id="con"
-				onclick="selectItem('${itemList.itemNum }','${itemList.itemNm },'${itemList.invntUnit }')">
+				onclick="selectItem('${itemList.itemNum }','${itemList.itemNm },'${itemList.invntUnit })">
 				<td>${itemList.itemNum }</td>
 				<td>${itemList.itemNm }</td>
 				<td>${itemList.invntUnit }</td>
 			</tr>
 
 			<script type="text/javascript">
-				function selectItem(a, b, c) { // 부모창으로 값 넘기기
+				function selectItem(a, b,c) { // 부모창으로 값 넘기기
 
-					opener.document.getElementById("itemNum").value = a
-					opener.document.getElementById("itemNm").value = b
-					opener.document.getElementById("invntUnit").value = c
+					opener.document.getElementById("itemNum").value = a;
+					opener.document.getElementById("itemNm").value = b;
+					opener.document.getElementById("invntUnit").value = c;
 					window.close();
 
 				}
@@ -95,5 +95,6 @@
 		</c:if>
 
 	</div>
+	
 </body>
 </html>

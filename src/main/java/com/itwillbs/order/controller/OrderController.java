@@ -39,7 +39,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/orderInsertPro", method = RequestMethod.GET)
 	public String orderInsertPro(OrderDTO orderDTO) {
 		System.out.println("insert화면에서 넘어옴orderDTO");
-		System.out.println("orderDTO"+orderDTO.getUser_num());
+		System.out.println("orderDTO"+orderDTO.getUserNum());
 		orderService.insertOrder(orderDTO);
 		
 		return "redirect:/order/orderMng";
@@ -47,12 +47,13 @@ public class OrderController {
 	
 
 		@RequestMapping(value = "/order/orderMng", method = RequestMethod.GET)
-	public String management(Model model, HttpServletRequest request, PageDTO pageDTO) {
+	public String orderMng(Model model, HttpServletRequest request, PageDTO pageDTO) {
 
+			// 조회값들
 			String clntCd = request.getParameter("clntCd");
 			String sOdate = request.getParameter("sOdate");
 			String eOdate = request.getParameter("eOdate");
-			String user = request.getParameter("user");
+			String userNm = request.getParameter("userNm");
 			String sDdate = request.getParameter("sDdate");
 			String eDdate = request.getParameter("eDdate");
 			
@@ -79,7 +80,7 @@ public class OrderController {
 			search.put("clntCd", clntCd);
 			search.put("sOdate", sOdate);
 			search.put("eOdate", eOdate);
-			search.put("user", user);
+			search.put("userNm", userNm);
 			search.put("sDdate", sDdate);
 			search.put("eDdate", eDdate);
 			
@@ -88,7 +89,7 @@ public class OrderController {
 	 
 			
 			List<Map<String,Object>> orderList;
-			if(clntCd == null && sOdate == null && eOdate == null && user == null && sDdate == null && eDdate == null) {
+			if(clntCd == null && sOdate == null && eOdate == null && userNm == null && sDdate == null && eDdate == null) {
 			// 조회 안한 경우
 				orderList = orderService.getOrderMap(pageDTO); // page만 필요해서
 			
@@ -183,7 +184,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/userList", method = RequestMethod.GET)
 	public String userList(Model model, HttpServletRequest request, PageDTO pageDTO) { 
 		String userNum = request.getParameter("userNum");
-		String userName = request.getParameter("userName");
+		String userNm = request.getParameter("userNm");
 		
 		// 한 화면에 보여줄 글 개수 설정
 		int pageSize = 5; // sql문에 들어가는 항목
@@ -206,7 +207,7 @@ public class OrderController {
 
 		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
 		search.put("userNum", userNum);
-		search.put("userName", userName);
+		search.put("userNm", userNm);
 		search.put("startRow", pageDTO.getStartRow());
 		search.put("pageSize", pageDTO.getPageSize());
  

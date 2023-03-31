@@ -102,10 +102,10 @@ text-align: center;
 function openItemList(){
         window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
     }
-function openUserList(b){
+function openUserList(){
         window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
     }
-function openClntList(b){
+function openClntList(){
         window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
     }
 
@@ -189,7 +189,7 @@ function delPf(a) {
 
 
 $(function() {
-	$("#sOdate").datepicker({
+	$("#orderDt").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -207,13 +207,13 @@ $(function() {
            ,closeText: '닫기' // 닫기 버튼 패널
            ,onClose: function ( selectedDate ) {
         	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+        	   $("input[name='order_dt']").datepicker("option", "minDate", selectedDate );
            }
 	});
 });
 
 $(function() {
-	$("#eOdate").datepicker({
+	$("#dlvryDt").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -231,6 +231,9 @@ $(function() {
            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
+
+
+
 $(function() {
 	$("#sDdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
@@ -294,20 +297,20 @@ $(function() {
 			<table id="detail">
 				<tr>
 				<td>업체명</td>
-				<td><input type="text" id="clntNm" name="clnt_nm" onclick="openClntList()">
+				<td><input type="text" name="clnt_nm" id="clntNm" onclick="openClntList()">
 					<input type="text" name="clnt_id" id="clntId" value="">
 					<input type="text" name="clnt_cd" id="clntCd" value=""></td>
 				<td>수주일자</td>
-				<td><input type="text" id="sOdate" class="form-control" name="order_dt" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="orderDt" class="form-control" name="orderDt" placeholder="날짜를 선택해주세요"></td>
 				<td></td>
 				</tr>
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" id="userName" name="user_nm" onclick="openUserList()">
+				<td><input type="text" name="user_nm" id="userNm" onclick="openUserList()">
 					<input type="text" name="user_id" id="userId"value="">
 					<input type="text" name="user_num" id="userNum" value=""></td>
 				<td>납품예정일</td>
-				<td><input type="text" id="sDdate" class="form-control" name="dlvry_dt" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="dlvryDt" class="form-control" name="dlvryDt" placeholder="날짜를 선택해주세요"></td>
 				<td></td>
 
 				<td></td>
@@ -322,13 +325,13 @@ $(function() {
 			<table id="info">
 				<tr>
 				<td>품번</td>
-				<td><input type="text" id="itemNum" name="itemNum" onclick="openItemList()"></td>
+				<td><input type="text" name="item_num" id="itemNum"  onclick="openItemList()"></td>
 				<td>품명</td>
-				<td><input type="text" id="itemName" name= "itemNm" onclick="openItemList()"></td>
+				<td><input type="text" name= "item_nm" id="itemNm"  onclick="openItemList()"></td>
 				<td>단위</td>
-				<td><input type="text" id="invntUnit" name="invntUnit" readonly="readonly"></td>
+				<td><input type="text" name="invnt_unit" id="invntUnit"  value="" ></td>
 				<td>수량</td>
-				<td><input type="text" id="increase" name="ordQty"></td>
+				<td><input type="text" name="ord_qty" id="ordQty" value="" ></td>
 				</tr>
 			</table>
 	</div>

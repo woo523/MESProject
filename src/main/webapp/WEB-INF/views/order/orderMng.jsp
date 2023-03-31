@@ -97,7 +97,7 @@ text-align: center;
 <script type="text/javascript">
 
 
-function openItemList(){
+function openItemList(b){
         window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
     }
 function openUserList(b){
@@ -294,7 +294,7 @@ $(function() {
 			<table id="search">
 				<tr>
 				<td>수주업체</td>
-				<td><input type="text" id="clntNm" name="clntNm" onclick="openClntList()"></td>
+				<td><input type="text" id="clntNm" name="clnt_nm" onclick="openClntList()"></td>
 				
 				<td>수주일자</td>
 				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
@@ -302,7 +302,7 @@ $(function() {
 				</tr>
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" id="userNm" name="userNm" onclick="openUserList()"></td>
+				<td><input type="text" id="userNm" name="user_nm" onclick="openUserList()"></td>
 			
 				<td>납품예정일</td>
 				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>

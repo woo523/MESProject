@@ -2,7 +2,7 @@ package com.itwillbs.order.domain;
 
 public class userDTO {
 	private String userNum;		
-	private String userName;	
+	private String userNm;	
 	private int userId;
 
 	
@@ -16,13 +16,13 @@ public class userDTO {
 	}
 
 
-	public String getUserName() {
-		return userName;
+	public String getUserNm() {
+		return userNm;
 	}
 
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
 	}
 
 
@@ -38,7 +38,7 @@ public class userDTO {
 
 	@Override
 	public String toString() {
-		return "userDTO [userNum=" + userNum + ", userName=" + userName + "]";
+		return "userDTO [userNum=" + userNum + ", userNm=" + userNm + "]";
 	}
 	
 }
