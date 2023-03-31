@@ -120,21 +120,21 @@
 $(document).ready(function() {
 	
 	// 라인 유효성 검사
-// 	$('#lineSearch').submit(function() {
-// 		if($('.lineCode').val() == "") {
-// 			alert("라인코드를 입력해주세요.")
-// 			$('.lineCode').focus();
+	$('#lineSearch').submit(function() {
+		if($('.lineCode').val() == "") {
+			alert("라인코드를 입력해주세요.")
+			$('.lineCode').focus();
 			
-// 			return false;
-// 		}
+			return false;
+		}
 		
-// 		if($('.lineName').val() == "") {
-// 			alert("라인명을 입력해주세요.")
-// 			$('.lineName').focus();
+		if($('.lineName').val() == "") {
+			alert("라인명을 입력해주세요.")
+			$('.lineName').focus();
 			
-// 			return false;
-// 		}
-// 	});
+			return false;
+		}
+	});
 	
 	// 라인 전체 목록 개수
 	$('#printCnt').html("<span>총 " + ${totalCnt} + "건</span>");
