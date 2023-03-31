@@ -1,6 +1,6 @@
 package com.itwillbs.material.dao;
 
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +10,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.material.domain.ClientDTO;
-import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -38,11 +37,18 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap() {
+	public List<Map<String, Object>> getInmaterLiMap(PageDTO pageDTO) {
 		System.out.println("InmaterialDAOImpl getInmaterLiMap()");
-		return sqlSession.selectList(namespace+".getInmaterLiMap");
+		
+		return sqlSession.selectList(namespace+".getInmaterLiMap", pageDTO);
 	}
 
+	@Override
+	public Integer countMtrlLi(Map<String, Object> search) {
+		System.out.println("InmaterialDAOImpl countMtrlLi()");
+		
+		return sqlSession.selectOne(namespace+".countMtrlLi", search);
+	}
 	
 	@Override
 	public List<Map<String, Object>> outmaterList() {
@@ -110,5 +116,6 @@ public class MaterialDAOImpl implements MaterialDAO{
 		
 		return sqlSession.selectList(namespace + ".materialState");
 	}
+
 
 }

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.material.dao.MaterialDAO;
 import com.itwillbs.material.domain.ClientDTO;
+import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.work.domain.ItemDTO;
+
 
 @Service
 public class MaterialServiceImpl implements MaterialService{
@@ -26,14 +28,20 @@ public class MaterialServiceImpl implements MaterialService{
 
 	@Override
 	public List<Map<String, Object>> getInmaterLiMap(Map<String, Object> search) {
-		System.out.println("InmaterialServiceImpl getInmaterLiMap()");
+		System.out.println("InmaterialServiceImpl getInmaterLiMap(서치용)");
 		return materialDAO.getInmaterLiMap(search);
 	}
 
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap() {
+	public List<Map<String, Object>> getInmaterLiMap(PageDTO pageDTO) {
 		System.out.println("InmaterialServiceImpl getInmaterLiMap()");
-		return materialDAO.getInmaterLiMap();
+		return materialDAO.getInmaterLiMap(pageDTO);
+	}
+	
+	@Override
+	public Integer countMtrlLi(Map<String, Object> search) {
+		System.out.println("InmaterialServiceImpl countMtrlLi()");
+		return  materialDAO.countMtrlLi(search);
 	}
 	
 	@Override
@@ -99,6 +107,8 @@ public class MaterialServiceImpl implements MaterialService{
 		
 		return materialDAO.materialState();
 	}
+
+
 
 
 

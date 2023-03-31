@@ -3,16 +3,23 @@ package com.itwillbs.material.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.itwillbs.material.domain.ClientDTO;
+import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
+
+@Service
 public interface MaterialService {
 
 	public List<Map<String, Object>> inmaterList();
 	
 	public List<Map<String, Object>> getInmaterLiMap(Map<String, Object> search);
 
-	public List<Map<String, Object>> getInmaterLiMap();
+	public List<Map<String, Object>> getInmaterLiMap(PageDTO pageDTO);
+	
+	public Integer countMtrlLi(Map<String,Object> search);
 	
 	public List<Map<String, Object>> outmaterList();
 	
