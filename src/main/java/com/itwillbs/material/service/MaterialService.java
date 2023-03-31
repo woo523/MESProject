@@ -23,9 +23,11 @@ public interface MaterialService {
 	
 	public List<Map<String, Object>> outmaterList();
 	
-	public List<Map<String, Object>> getOutmaterLiMap();
+	public List<Map<String, Object>> getOutmaterLiMap(PageDTO pageDTO);
 
 	public List<Map<String, Object>> getOutmaterLiMap(Map<String, Object> search);
+	
+	public Integer countOutLi(Map<String,Object> search);
 
 	public List<ItemDTO> getItemlist(Map<String, Object> search);
 

@@ -65,10 +65,17 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap() {
+	public List<Map<String, Object>> getOutmaterLiMap(PageDTO pageDTO) {
 		System.out.println("OutmaterialDAOImpl getOutmaterLiMap()");
 		
-		return sqlSession.selectList(namespace+".getOutmaterLiMap");
+		return sqlSession.selectList(namespace+".getOutmaterLiMap", pageDTO);
+	}
+	
+	@Override
+	public Integer countOutLi(Map<String, Object> search) {
+		System.out.println("InmaterialDAOImpl countOutLi()");
+		
+		return sqlSession.selectOne(namespace+".countOutLi", search);
 	}
 
 	@Override

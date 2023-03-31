@@ -36,7 +36,7 @@ public class MaterialController {
 		String ccd = request.getParameter("ccd");
 
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		int pageSize = 5 ; // sql문에 들어가는 항목
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -221,7 +221,7 @@ public class MaterialController {
 	
 	
 	@RequestMapping(value = "/material/outmaterList", method = RequestMethod.GET)
-	public String outmeterList(HttpServletRequest request, Model model) {
+	public String outmeterList(HttpServletRequest request, Model model, PageDTO pageDTO) {
 		System.out.println("MaterialController outmaterList()");
 
 		String whouse = request.getParameter("whouse");
@@ -230,25 +230,67 @@ public class MaterialController {
 		String endDate = request.getParameter("endDate");
 		String ccd = request.getParameter("ccd");
 		
-		System.out.println("whouse :"+whouse);
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 5 ; // sql문에 들어가는 항목
 		
-	if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
-			
-		List<Map<String, Object>> outmaterList =  materialService.getOutmaterLiMap();		
-		model.addAttribute("outmeterList", outmaterList);} // 전체 리스트	
-	else{
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
 		
-		Map<String, Object> search = new HashMap<String, Object>();
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);
+		
+		Map<String, Object> search = new HashMap<>();
 		search.put("whouse", whouse);
 		search.put("startDate", startDate);
 		search.put("endDate", endDate);
 		search.put("pcd", pcd);
 		search.put("ccd", ccd);
-		System.out.println(search);
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
 		
-		List<Map<String,Object>> outmaterList = materialService.getOutmaterLiMap(search);
-		model.addAttribute("outmaterList", outmaterList); // 서치 결과 리스트	
+		List<Map<String, Object>> outmaterList;
+	if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
+			
+		outmaterList =  materialService.getOutmaterLiMap(pageDTO);		
+	
+	}else{
+		
+		outmaterList = materialService.getOutmaterLiMap(search);			
 	}
+	
+	//페이징 처리
+	int count = materialService.countOutLi(search);
+	
+	int pageBlock = 10;
+	int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+	int endPage=startPage+pageBlock-1;
+	int pageCount=count/pageSize+(count%pageSize==0?0:1);
+	if(endPage > pageCount){
+	 	endPage = pageCount;
+	 }
+	
+	pageDTO.setCount(count);
+	pageDTO.setPageBlock(pageBlock);
+	pageDTO.setStartPage(startPage);
+	pageDTO.setEndPage(endPage);
+	pageDTO.setPageCount(pageCount);
+
+	System.out.println("endPage :"+pageDTO.getEndPage());
+	System.out.println("count :"+pageDTO.getCount());
+	model.addAttribute("outmaterList", outmaterList);
+	model.addAttribute("pageDTO", pageDTO);
+	model.addAttribute("search", search);
+	
 	return "material/outmaterList";
 	}
 	

@@ -182,6 +182,7 @@ text-align: center;
 			</c:choose>
 		</table>
 	
+</article>
 
 
 	<div class="center">
@@ -210,7 +211,6 @@ text-align: center;
 		</div>
 	</div> <!-- 페이징 -->
 
-</article>
 
 <script type="text/javascript">
 

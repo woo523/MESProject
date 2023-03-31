@@ -59,10 +59,16 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap() {
+	public List<Map<String, Object>> getOutmaterLiMap(PageDTO pageDTO) {
 		System.out.println("OutmaterialServiceImpl getOutmaterLiMap()");
 		
-		return materialDAO.getOutmaterLiMap();
+		return materialDAO.getOutmaterLiMap(pageDTO);
+	}
+	
+	@Override
+	public Integer countOutLi(Map<String, Object> search) {
+		System.out.println("InmaterialServiceImpl countOutLi()");
+		return  materialDAO.countOutLi(search);
 	}
 
 	@Override
