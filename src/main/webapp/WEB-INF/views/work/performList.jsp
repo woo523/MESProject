@@ -226,7 +226,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	<br>
 	<table border="1" id="main">
 	
-	<tr id="th"><th>실적일자</th><th>라인명</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th>지시번호</th><th>수주번호</th><th>업체</th></tr>
+	<tr id="th"><th>실적일자</th><th>라인명</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th>지시번호</th><th>수주번호</th><th>업체</th><th>등록자</th></tr>
 	
 	
 	<c:forEach var="pdto" items="${performlist }">
@@ -259,7 +259,9 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	 	</c:choose></td>
 	  	<td>${pdto.workNum }</td>
 	  	<td>${pdto.ordNum }</td>
-	  	<td>${pdto.ClientName }</td></tr>
+	  	<td>${pdto.ClientName }</td>
+	  	<td>${pdto.name }</td>
+	  	</tr>
 	</c:forEach>
 
     </table>

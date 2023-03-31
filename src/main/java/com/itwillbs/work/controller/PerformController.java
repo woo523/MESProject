@@ -385,8 +385,11 @@ public class PerformController {
 		
 		Map<String, Object> inst = performService.getInstrMap(instrId);
 		
-		model.addAttribute("inst", inst); 
+		List<Map<String, Object>> pflist = performService.getPfLiMap(request.getParameter("instrId"));
 		
+		System.out.println(pflist);
+		model.addAttribute("inst", inst); 
+		model.addAttribute("pflist", pflist); 
 		
 		
 		return "work/pop_confirm";

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,8 +87,21 @@ $(document).ready(function(){
     
     <button onclick="location.href='${pageContext.request.contextPath }/work/popInsert?instrId=${inst.instrId}'">예</button>
     <button onclick="history.back()">아니오</button>
-    
-    
+    <br><br>
+    실적 등록 현황
+    <table border="1">
+    <tr id="th"><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th></tr>
+	<c:choose>
+    <c:when test="${empty pflist}">
+    <tr><td colspan="5"> 등록된 실적이 없습니다.</td></tr>
+    </c:when>
+    <c:otherwise>
+    <c:forEach var="pdto" items="${pflist }">
+    <tr><td>${pdto.performDate}</td><td>${pdto.gbYn}</td><td>${pdto.performQty}</td><td>${pdto.dbReason}</td><td>${pdto.name}</td></tr>
+   </c:forEach>
+   </c:otherwise>
+   </c:choose>
+    </table>
 
 </body>
 </html>
