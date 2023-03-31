@@ -18,7 +18,6 @@
 	
 	.content_body #instrList:hover {
 		background-color: #e1e1e1;
-		cursor: pointer;
 	}
 	
 	.content_body .searchBox #pcd {
@@ -124,8 +123,8 @@
 					<c:forEach var="instrDTO" items="${instrList}">
 						<tr id="instrList">
 							<td>${instrDTO.workNum}</td>
-							<td>업체명</td>
-							<td>수주번호</td>
+							<td>${instrDTO.clntDTO.clientName}</td>
+							<td>${instrDTO.orderMngDTO.orderNum}</td>
 							<td>${instrDTO.workDate}</td>
 							<td>${instrDTO.workSts}</td>
 							<td>${instrDTO.itemDTO.itemNum}</td>
@@ -237,21 +236,21 @@ function openilist(){
 
 // 작업지시 유효성 검사
 $(document).ready(function() {
-// 	$('#instr').submit(function() {
-// 		if($('#sDate').val() == "") {
-// 			alert("지시일자를 선택해주세요.");
-// 			$('#sDate').focus();
+	$('#instr').submit(function() {
+		if($('#sDate').val() == "") {
+			alert("지시일자를 선택해주세요.");
+			$('#sDate').focus();
 			
-// 			return false;
-// 		}
+			return false;
+		}
 		
-// 		if($('#pcd').val() == "") {
-// 			alert("품번코드를 입력해주세요.");
-// 			$('#pcd').focus();
+		if($('#pcd').val() == "") {
+			alert("품번코드를 입력해주세요.");
+			$('#pcd').focus();
 			
-// 			return false;
-// 		}
-// 	});
+			return false;
+		}
+	});
 	
 	// 전체 목록 개수
 	$('#printCnt').html("<span>총 " + ${instrTotal} + "건</span>");

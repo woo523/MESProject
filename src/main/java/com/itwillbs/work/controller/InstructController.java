@@ -78,33 +78,38 @@ public class InstructController {
 		String workSts2 = request.getParameter("workSts2");
 		String workSts3 = request.getParameter("workSts3");
 		
+		Map<String, Object> instrSearch = new HashMap<String, Object>();
+		instrSearch.put("lineName", lineName);
+		instrSearch.put("startDate", startDate);
+		instrSearch.put("endDate", endDate);
+		instrSearch.put("itemNum", itemNum);
+		instrSearch.put("workSts1", workSts1);
+		instrSearch.put("workSts2", workSts2);
+		instrSearch.put("workSts3", workSts3);
+		
+		List<Map<String, Object>> instrList;
+		
 		if(lineName == null && startDate == null && endDate == null && itemNum == null && workSts1==null && workSts2==null && workSts3==null) {
 			// 작업지시 전체 조회
 			
-			List<Map<String, Object>> instrList = instructService.instrList(pageDTO, model);
+			instrList = instructService.instrList(pageDTO, model);
 			int instrTotal = instructService.instrCount();
 			model.addAttribute("instrList", instrList);
 			model.addAttribute("instrTotal", instrTotal);
 		
 		} else {
 			// 작업지시 검색 조회
-			
-			Map<String, Object> instrSearch = new HashMap<String, Object>();
-			instrSearch.put("lineName", lineName);
-			instrSearch.put("startDate", startDate);
-			instrSearch.put("endDate", endDate);
-			instrSearch.put("itemNum", itemNum);
-			instrSearch.put("workSts1", workSts1);
-			instrSearch.put("workSts2", workSts2);
-			instrSearch.put("workSts3", workSts3);
-			System.out.println(instrSearch);
-			
-			List<Map<String, Object>> instrList = instructService.instrList(instrSearch, pageDTO, model);
+
+			instrList = instructService.instrList(instrSearch, pageDTO, model);
 			int instrSearchCount = instructService.instrCount(instrSearch);
 			model.addAttribute("instrList", instrList);
 			model.addAttribute("instrSearchCount", instrSearchCount);
 			
 		}
+		
+		model.addAttribute("instrList", instrList);
+		model.addAttribute("instrSearch", instrSearch);
+		
 		return "work/instructState";
 	}
 	

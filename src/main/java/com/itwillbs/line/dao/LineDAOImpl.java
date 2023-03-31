@@ -39,14 +39,12 @@ public class LineDAOImpl implements LineDAO{
 		System.out.println("LineDAOImpl lineSearch()");
 		System.out.println("라인 : " + lineSearch);
 		
-		// lineSearchPaging 리스트에 lineSearch, pageDTO 넣기
-		Map<String, Object> lineSearchPaging = new HashMap<String, Object>();
-		lineSearchPaging.put("lineSearch", lineSearch);
-		lineSearchPaging.put("pageDTO", pageDTO);
+		lineSearch.put("startRow", pageDTO.getStartRow());
+		lineSearch.put("pageSize", pageDTO.getPageSize());
 		
-		System.out.println("라인 페이징 : " + lineSearchPaging);
+		System.out.println("라인 페이징 : " + lineSearch);
 		
-		return sqlSession.selectList(namespace+".lineSearch", lineSearchPaging);
+		return sqlSession.selectList(namespace+".lineSearch", lineSearch);
 	}
 
 	@Override
