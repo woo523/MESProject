@@ -137,5 +137,9 @@ $(document).ready(function(){
 	<a href="${pageContext.request.contextPath }/work/popPfRe?&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
 	</div>
+	
+
+작업자 : ${sessionScope.name}
+<a href="${pageContext.request.contextPath }/work/logout">작업자 변경 </a>
 </body>
 </html>

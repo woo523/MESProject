@@ -138,7 +138,7 @@ $(document).ready(function(){
 비고 : <input type="text" name="note"><br>
 
 
-<input type="submit" value="실적 등록" onclick="clickEvent()">
+<input type="submit" value="실적 등록">
 <button type="reset">초기화</button>
 
 </form>

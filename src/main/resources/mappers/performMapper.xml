@@ -158,7 +158,8 @@
     on i.item_id = p.item_id
     join work_instr it
     on it.instr_id = p.instr_id
-    where p.instr_id = #{instrId};
+    where p.instr_id = #{instrId}
+    order by p.prfrm_id desc
     </select>
     
     <select id="getInstr" resultType="com.itwillbs.work.domain.InstructDTO">

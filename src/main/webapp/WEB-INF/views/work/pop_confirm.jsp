@@ -70,7 +70,7 @@ $(document).ready(function(){
 	
 	
 
-	<tr id="con" onclick="${pageContext.request.contextPath }/work/popConfirm?instrId=${idto.instrId}">
+	<tr id="con">
 		<td>${inst.workNum }</td>
 	  	<td>${inst.itemNum}</td>
 	  	<td>${inst.itemName}</td>
@@ -84,8 +84,10 @@ $(document).ready(function(){
     
     선택한 작업 지시 및 품명이 맞나요?
     
-    <button onclick="location.href='${pageContext.request.contextPath }/work/popInsert'">예</button>
+    <button onclick="location.href='${pageContext.request.contextPath }/work/popInsert?instrId=${inst.instrId}'">예</button>
     <button onclick="history.back()">아니오</button>
+    
+    
 
 </body>
 </html>

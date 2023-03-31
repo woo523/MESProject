@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.itwillbs.work.domain.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.line.service.LineService;
+import com.itwillbs.login.service.LoginService;
+import com.itwillbs.member.domain.MemberDTO;
 import com.itwillbs.work.domain.ItemDTO;
 import com.itwillbs.work.domain.PerformDTO;
 import com.itwillbs.work.service.PerformService;
@@ -33,6 +35,9 @@ public class PerformController {
 	
 	@Inject
 	private LineService lineService;
+	
+	@Inject
+	private LoginService loginService;
 	
 	@RequestMapping(value = "/work/performRegist", method = RequestMethod.GET)
 	public String performRegist(Model model, HttpServletRequest request, PageDTO pageDTO) {
@@ -375,19 +380,91 @@ public class PerformController {
 	}
 	
 	@RequestMapping(value = "/work/popConfirm", method = RequestMethod.GET)
-	public String popConfirm(HttpServletRequest request, Model model) { // 실적 삭제창
+	public String popConfirm(HttpServletRequest request, Model model) { // 팝화면 지시 확인창
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
 		
 		Map<String, Object> inst = performService.getInstrMap(instrId);
 		
 		model.addAttribute("inst", inst); 
 		
+		
+		
 		return "work/pop_confirm";
 	}
 	
 	
+	@RequestMapping(value = "/work/popInsert", method = RequestMethod.GET)
+	public String popInsert(HttpServletRequest request, Model model) { // 팝화면 실적 등록창
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		
+		Map<String, Object> inst = performService.getInstrMap(instrId);
+		
+		model.addAttribute("inst", inst);
+		return "work/pop_insert";
+	}
+	
+	@RequestMapping(value = "/work/PopinsertPro", method = RequestMethod.GET)
+	public String PopinserPro (HttpServletRequest request, HttpSession session){ // 팝화면 실적 등록 실행
+
+		PerformDTO performDTO = new PerformDTO();
+		String id = (String)session.getAttribute("id");
+		performDTO.setInsertId(id);
+		performDTO.setInstrId(Integer.parseInt(request.getParameter("instrId")));
+
+
+		String date = request.getParameter("performDate");
+		Date performDate = Date.valueOf(date); // String -> Date(sql)로 변환
+		performDTO.setPerformDate(performDate);
+
+		performDTO.setPerformQty(Integer.parseInt(request.getParameter("performQty")));
+		performDTO.setGbYn(request.getParameter("gbYn"));
+		performDTO.setDbReason(request.getParameter("dbReason"));
+		performDTO.setNote(request.getParameter("note"));
+		
+		
+		performService.insertPf(performDTO);
+		
+		return "redirect:/work/popPfRe";
+	}
 	
 	
+	
+	@RequestMapping(value = "/work/logout", method = RequestMethod.GET) // 팝화면 로그아웃
+	public String poplogout(HttpSession session) {
+
+		// 세션 초기화
+		session.invalidate();
+		
+		return "redirect:/work/poplogin";
+	}
+	
+	@RequestMapping(value = "/work/poplogin", method = RequestMethod.GET) // 팝화면 로그인
+	public String poplogin() {
+		
+		return "work/poplogin";
+	}
+	
+	@RequestMapping(value = "/work/loginPro", method = RequestMethod.POST) // 팝화면 로그인pro
+	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+		System.out.println(memberDTO.getId());
+		System.out.println(memberDTO.getPass());
+		
+		MemberDTO memberDTO2 = loginService.login(memberDTO);
+
+		if (memberDTO2 != null) { // 아이디,비밀번호 일치
+			
+			
+			session.setAttribute("id", memberDTO.getId());
+			session.setAttribute("name", memberDTO2.getName());
+
+			// 주소 변경되면서 메인페이지로 이동
+			return "redirect:/work/popPfRe";
+		} else { // 아이디,비밀번호 틀림
+
+			// common/msg.jsp 만들어서 "아이디 비밀번호 틀림" 메시지 출력하고 뒤로이동
+			return "common/msg";
+		}
+	}
 	
 	
 }
