@@ -36,28 +36,9 @@
 	<!-- instructList 조회 select 구문 -->
 	<select id="instrSearch" resultMap="instrMap">
 		<include refid="List" />
-		WHERE line.line_cd like CONCAT('%', #{instrSearch.lineName}, '%')
-		<if test="startDate=='' and endDate==''">
-		</if>
-		<if test="startDate != '' and endDate != ''">
-			AND work_dt BETWEEN	#{instrSearch.startDate} and #{instrSearch.endDate}
-		</if>
-		<if test="startDate != ''">
-			AND work_dt &gt;= #{instrSearch.startDate}
-		</if>
-		<if test="endDate != ''">
-			AND work_dt &lt;= #{instrSearch.endDate}
-		</if>
-		<choose>
-			<when test="(workSts1=='' and workSts2=='' and workSts3=='') or (workSts1==null and workSts2==null and workSts3==null)">
-			</when>
-			<otherwise>
-				AND (work_sts = #{instrSearch.workSts1} or work_sts = #{instrSearch.workSts2} or work_sts = #{instrSearch.workSts3})
-			</otherwise>
-		</choose>
-		AND item.item_num LIKE CONCAT('%' , #{instrSearch.itemNum}, '%')
+		<include refid="Search" />
 		ORDER BY work.instr_id
-		LIMIT #{pageDTO.startRow}, #{pageDTO.pageSize}
+		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
 	<!-- 작업지시 전체 목록 개수 -->

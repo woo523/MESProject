@@ -55,6 +55,7 @@ public class InstructController {
 			// 작업지시 검색 조회
 			
 			instrList = instructService.instrList(instrSearch, pageDTO, model);
+			System.out.println("컨트롤러 : " + instrList);
 			int instrSearchCount = instructService.instrCount(instrSearch);
 			model.addAttribute("instrSearchCount", instrSearchCount);
 		}

@@ -30,13 +30,12 @@ public class InstructDAOImpl implements InstructDAO {
 	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch, PageDTO pageDTO) {
 		System.out.println("InstructDAOImpl instrSearch");
 		
-		Map<String, Object> instrListPaging = new HashMap<String, Object>();
-		instrListPaging.put("instrSearch", instrSearch);
-		instrListPaging.put("pageDTO", pageDTO);
+		instrSearch.put("startRow", pageDTO.getStartRow());
+		instrSearch.put("pageSize", pageDTO.getPageSize());
 		
-		System.out.println("작업지시 페이징 : " + instrListPaging);
+		System.out.println("작업지시 페이징 : " + instrSearch);
 		
-		return sqlSession.selectList(namespace+".instrSearch", instrListPaging);
+		return sqlSession.selectList(namespace+".instrSearch", instrSearch);
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class InstructDAOImpl implements InstructDAO {
 
 	@Override
 	public Integer instrCount(Map<String, Object> instrSearch) {
-		System.out.println("InstructDAOImpl instrSearch");
+		System.out.println("InstructDAOImpl instrSearchCount");
 		
 		return sqlSession.selectOne(namespace+".instrSearchCount", instrSearch);
 	}
