@@ -295,28 +295,73 @@ public class MaterialController {
 	}
 	
 	@RequestMapping(value = "/material/materialState", method = RequestMethod.GET)
-	public String materialState(HttpServletRequest request, Model model) {
+	public String materialState(HttpServletRequest request, Model model, PageDTO pageDTO) {
 		System.out.println("MaterialController materialState()");
 
 		String mtrltype = request.getParameter("mtrltype");
 		String pcd = request.getParameter("pcd");
 		System.out.println("mtrltype :"+mtrltype);
 		
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 10 ; // sql문에 들어가는 항목
+		
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
+		
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);		
+		
+		Map<String, Object> search = new HashMap<>();
+		search.put("mtrltype", mtrltype);
+		search.put("pcd", pcd);
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
+		
+		List<Map<String,Object>> materialState;
 		if(mtrltype == null && pcd == null){
 			
-			List<Map<String,Object>> materialState = materialService.mtrlStateList();		
-			model.addAttribute("materialState", materialState);} // 전체 리스트
+			materialState = materialService.mtrlStateList(pageDTO);		
 		
-		else {
+		}else {
+						
+			materialState = materialService.mtrlStateList(search);
 			
-			Map<String, Object> search = new HashMap<String, Object>();
-			search.put("mtrltype", mtrltype);
-			search.put("pcd", pcd);
-			System.out.println(search);
-			
-			List<Map<String,Object>> materialState = materialService.mtrlStateList(search);
-			model.addAttribute("materialState", materialState ); // 서치 결과 리스트
 		}
+		
+		//페이징 처리
+		int count = materialService.countStateLi(search);
+		
+		int pageBlock = 10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if(endPage > pageCount){
+		 	endPage = pageCount;
+		 }
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+
+		
+		System.out.println("endPage :"+pageDTO.getEndPage());
+		System.out.println("count :"+pageDTO.getCount());
+		model.addAttribute("materialState", materialState );
+		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("search", search);
+		
 		return "material/materialState";
 	}
 

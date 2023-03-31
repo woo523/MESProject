@@ -39,9 +39,11 @@ public interface MaterialService {
 
 	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search);
 
-	public List<Map<String, Object>> mtrlStateList();
+	public List<Map<String, Object>> mtrlStateList(PageDTO pageDTO);
 	
 	public List<Map<String, Object>> materialState();
+
+	public Integer countStateLi(Map<String, Object> search);
 	
 
 }

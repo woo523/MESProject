@@ -105,15 +105,15 @@ public class MaterialDAOImpl implements MaterialDAO{
 
 	@Override
 	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search) {
-		System.out.println("intmaterialDAOImpl mtrlStateList()");
+		System.out.println("intmaterialDAOImpl mtrlStateList(검색)");
 		return sqlSession.selectList(namespace+".mtrlStateSearch", search);
 	}
 
 
 	@Override
-	public List<Map<String, Object>> mtrlStateList() {
+	public List<Map<String, Object>> mtrlStateList(PageDTO pageDTO) {
 		System.out.println("intmaterialDAOImpl mtrlStateList()");
-		return sqlSession.selectList(namespace + ".mtrlStateList");
+		return sqlSession.selectList(namespace + ".mtrlStateList", pageDTO);
 	}
 
 
@@ -122,6 +122,13 @@ public class MaterialDAOImpl implements MaterialDAO{
 		System.out.println("materialDAOImpl materialState()");
 		
 		return sqlSession.selectList(namespace + ".materialState");
+	}
+
+
+	@Override
+	public Integer countStateLi(Map<String, Object> search) {
+		System.out.println("materialDAOImpl countStateLi()");
+		return sqlSession.selectOne(namespace+".countStateLi", search);
 	}
 
 

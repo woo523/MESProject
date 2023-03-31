@@ -109,7 +109,8 @@
 		join item item
 		on inmater.item_id = item.item_id
 		join stock stock
-		on item.item_id = stock.item_id				
+		on item.item_id = stock.item_id	
+		<if test="(whouse != null and pcd != null and ccd != null and startDate != null and endDate != null)">			
 	where whouse like CONCAT('%', #{whouse}, '%') 
 	<if test="startDate!='' and endDate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
 	and
@@ -129,6 +130,7 @@
 	item_num like CONCAT('%', #{pcd}, '%') 
 	and
 	clnt_cd like CONCAT('%', #{ccd}, '%')
+    </if>
     </select>        
         
         
@@ -229,7 +231,8 @@
 		join item item
 		on outmater.item_id = item.item_id
 		join stock stock
-		on item.item_id = stock.item_id			
+		on item.item_id = stock.item_id	
+		<if test="(whouse != null and pcd != null and ccd != null and startDate != null and endDate != null)">		
 	where whouse like CONCAT('%', #{whouse}, '%') 
 	<if test="startDate!='' and endDate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
 	and
@@ -249,6 +252,7 @@
 	item_num like CONCAT('%', #{pcd}, '%') 
 	and
 	clnt_cd like CONCAT('%', #{ccd}, '%')
+	</if>
     </select>    		    
 
    <select id="itemlist" resultType="com.itwillbs.material.domain.ItemDTO">
@@ -327,7 +331,9 @@
 			stock.cur_stock
 		from  
 			item item join stock stock
-			on item.item_id = stock.item_id	
+			on item.item_id = stock.item_id
+		order by item.item_id desc
+		limit #{startRow}, #{pageSize}	
 	</select>
  
    
@@ -344,6 +350,22 @@
 			on item.item_id = stock.item_id			
 	where mtrl_type like CONCAT('%', #{mtrltype}, '%') 
 	and
-	item_num like CONCAT('%', #{pcd}, '%'); 
+	item_num like CONCAT('%', #{pcd}, '%')
+	order by item.item_id desc
+	limit #{startRow}, #{pageSize}
+    </select>
+    
+  <select id="countStateLi" resultType="java.lang.Integer">        
+    select
+    count(*)
+	from  
+		item item join stock stock
+		on item.item_id = stock.item_id	
+	<if test="(mtrltype != null and pcd != null)">		
+	where mtrl_type like CONCAT('%', #{mtrltype}, '%') 
+	and
+	item_num like CONCAT('%', #{pcd}, '%')
+	</if>
+	
     </select>
 </mapper>

@@ -97,14 +97,14 @@ public class MaterialServiceImpl implements MaterialService{
 
 	@Override
 	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search) { // 자재현황 리스트
-		System.out.println("materialServiceImpl mtrlStateList()");
+		System.out.println("materialServiceImpl mtrlStateList(검색)");
 		return materialDAO.mtrlStateList(search);
 	}
 
 	@Override
-	public List<Map<String, Object>> mtrlStateList() {
+	public List<Map<String, Object>> mtrlStateList(PageDTO pageDTO) {
 		System.out.println("materialServiceImpl mtrlStateList()");
-		return materialDAO.mtrlStateList();
+		return materialDAO.mtrlStateList(pageDTO);
 	}
 
 	@Override
@@ -112,6 +112,12 @@ public class MaterialServiceImpl implements MaterialService{
 		System.out.println("materialServiceImpl materialState()");
 		
 		return materialDAO.materialState();
+	}
+
+	@Override
+	public Integer countStateLi(Map<String, Object> search) {
+		System.out.println("InmaterialServiceImpl countStateLi()");
+		return materialDAO.countStateLi(search);
 	}
 
 

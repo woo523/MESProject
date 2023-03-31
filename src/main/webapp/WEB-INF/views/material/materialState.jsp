@@ -151,11 +151,6 @@ function openlist(){
 <br><br><br>	
 	<h2>자재재고</h2>
 		<div id="btn">
-			<c:choose>
-				<c:when test="${! empty inmaterList}">
-					<span>총 ${inmtrlSearchCount}건</span>
-				</c:when>
-			</c:choose>
 			<button type="button">취소</button>
 			<button type="button">저장</button>
 		</div>
@@ -192,9 +187,34 @@ function openlist(){
 	</c:otherwise>
 	</c:choose>
 </table>
-</form>
 </article>
 </div>
+
+	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock }">
+					<a href="/material/materialState?mtrltype=${search.mtrltype}&pcd=${search.pcd}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+				<a href="/material/materialState?mtrltype=${search.mtrltype}&pcd=${search.pcd}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount }">
+					<a href="/material/materialState?mtrltype=${search.mtrltype}&pcd=${search.pcd }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div> <!-- 페이징 -->
 
 </body>
 </html>

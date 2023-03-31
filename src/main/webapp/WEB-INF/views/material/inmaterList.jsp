@@ -109,7 +109,7 @@ text-align: center;
 	<form id="search">
 	<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="insertBtn()">추가</button>
+			<button type="button" onclick="location.href='/work/instructInsert'">추가</button>
 		</div>
 		<br>
 	<table id="search">
