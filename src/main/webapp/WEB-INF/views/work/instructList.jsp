@@ -9,12 +9,81 @@
 	<meta charset="UTF-8">
 	<title>instructList</title>
 	
-	<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
+<%-- 	<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css"> --%>
+
 	<style type="text/css">
-	article {
-		width: 1125px;
-		margin: 0px auto;
-	}
+	@charset "UTF-8";
+
+
+.content_body .selectButtons, .listButtons {
+	text-align: right;
+}
+
+.content_body button {
+	display: inline-block;
+	width: 70px;
+	height: 28px;
+	font-size: 15px;
+}
+
+.content_body .searchBox {
+	width: 100%;
+	height: 20px;
+	border: 1px solid black;
+	margin: 10px 0px 40px 0px;
+}
+
+.searchBox td {
+	padding: 10px;
+}
+
+.content_body .instrList, .instrStateList {
+	width: 100%;
+	margin: 10px 0px 40px 0px;
+	border-collapse: collapse;
+}
+
+.content_body .instrList th, .instrStateList th {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 5px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.content_body .instrList td {
+	padding: 10px;
+	text-align: center;
+}
+
+article input {
+	height: 20px;
+}
+
+.searchBox .form-control {
+	width: 150px;
+}
+
+.content_body #instrList:hover {
+	background-color: #e1e1e1;
+ 	cursor: pointer;
+}
+
+.content_body .searchBox #itemSearch {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.content_body .searchBox #itemSearchRead {
+	background-color: #EAEAEA;
+}
+	
+article {
+	width: 1200px;
+	margin: 0px auto;
+}
 	
 	.content_body #instrList:hover {
 		background-color: #e1e1e1;
@@ -52,7 +121,7 @@
 	<form id="instr">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="insertBtn()">추가</button>
+			<button type="button" onclick="location.href='/work/instructInsert'">추가</button>
 		</div>
 		
 		<table class="searchBox">
@@ -87,8 +156,6 @@
 		
 		<div class="listButtons">
 			<span id="printCnt"></span>
-			<button type="button">취소</button>
-			<button type="button">저장</button>
 		</div>
 		
 		<table border="1" class="instrList">
@@ -103,6 +170,7 @@
 				<th rowspan="2">지시수량</th>
 				<th rowspan="2">등록일</th>
 				<th rowspan="2">등록자</th>
+				<th rowspan="2"></th>
 			</tr>
 			<tr>
 				<th>품번</th>
@@ -114,9 +182,9 @@
 			</tr>
 			<c:choose>
 				<c:when test="${empty instrList}">
-					<tr><td colspan="14"></td></tr>
+					<tr><td colspan="15"></td></tr>
 					<tr>
-						<td colspan="14">해당 데이터가 존재하지 않습니다.</td>
+						<td colspan="15">해당 데이터가 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -136,40 +204,42 @@
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${instrDTO.insertId}</td>
+							<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick=''>
+								<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick=''></td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
 	</form>
-</article>
-
-<div class="center">
- 	<div class="pagination">			
-		<c:choose>
-			<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
-				<a href="/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
-			</c:when>
-			<c:otherwise>
-				<a class="none">◀</a>
-			</c:otherwise>
-		</c:choose>
-		
-		<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
-			<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
-		</c:forEach>
-		
-		<c:choose>
-			<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
-				<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
-			</c:when>
-			<c:otherwise>
-				<a class="none">▶</a>
-			</c:otherwise>
-		</c:choose>
-	</div>
-</div> <!-- 페이징 -->
 	
+	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
+					<a href="/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+				<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
+					<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div> <!-- 페이징 -->
+	
+</article>
 </div>
 
 <!-- <footer> -->
@@ -264,11 +334,6 @@ $(document).ready(function() {
 	console.log("getSearchCnt");
 	
 });
-
-     
-function insertBtn() {
-	alert("btn");
-}
       
 </script>
 </html>

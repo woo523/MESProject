@@ -113,4 +113,15 @@ public class InstructController {
 		return "work/instructState";
 	}
 	
+	// 작업지시 등록
+	@RequestMapping(value = "/work/instructInsert", method = RequestMethod.GET)
+	public String instructInsert() {
+		System.out.println("InstructController instructInsert()");
+		
+		// id 값
+		
+		
+		return null;
+	}
+	
 }

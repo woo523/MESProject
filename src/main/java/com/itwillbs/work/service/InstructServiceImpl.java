@@ -10,9 +10,7 @@ import org.springframework.ui.Model;
 
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.common.PageUtil;
-import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.work.dao.InstructDAO;
-import com.itwillbs.work.domain.InstructDTO;
 
 @Service 
 public class InstructServiceImpl implements InstructService{
