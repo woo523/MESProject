@@ -15,6 +15,14 @@
 		<result property="invntUnit" column="itemUnit" />
 	</resultMap>
 	
+	<resultMap type="map" id="clntMap">
+		<result property="clientName" column="clientName" />
+	</resultMap>
+	
+	<resultMap type="map" id="ordMngMap">
+		<result property="orderNum" column="orderNum" />
+	</resultMap>
+	
  	<resultMap type="map" id="instrMap">
  		<result property="instr_id" column="instr_id"/>
 		<result property="workNum" column="workNum"/>
@@ -25,6 +33,8 @@
 		<result property="insertId" column="insertId"/>
 		<collection property="lineDTO" resultMap="lineMap" />
 		<collection property="itemDTO" resultMap="itemMap" />
+		<collection property="clntDTO" resultMap="clntMap" />
+		<collection property="orderMngDTO" resultMap="ordMngMap" />
 	</resultMap>
 	
 	<!-- instructList 메인 전체 select 구문 -->

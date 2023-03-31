@@ -175,8 +175,8 @@ article input {
 					<c:forEach var="instrDTO" items="${instrList}">
 						<tr id="instrList" onclick="getInstrStateList(${instrDTO.instr_id}, '${instrDTO.workNum}')">
 							<td>${instrDTO.workNum}</td>
-							<td>업체명</td>
-							<td>수주번호</td>
+							<td>${instrDTO.clntDTO.clientName}</td>
+							<td>${instrDTO.orderMngDTO.orderNum}</td>
 							<td>${instrDTO.workDate}</td>
 							<td>${instrDTO.workSts}</td>
 							<td>${instrDTO.itemDTO.itemNum}</td>
