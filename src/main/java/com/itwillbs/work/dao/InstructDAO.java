@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.itwillbs.common.PageDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 
 public interface InstructDAO {
@@ -15,4 +16,7 @@ public interface InstructDAO {
 	public Integer instrCount();
 	
 	public Integer instrCount(Map<String, Object> instrSearch);
+	
+	public void insertInstr(InstructDTO instructDTO);
+	
 }

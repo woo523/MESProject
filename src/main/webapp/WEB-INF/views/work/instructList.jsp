@@ -81,7 +81,7 @@ article input {
 }
 	
 article {
-	width: 1200px;
+	width: 1170px;
 	margin: 0px auto;
 }
 	
@@ -121,7 +121,15 @@ article {
 	<form id="instr">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="location.href='/work/instructInsert'">추가</button>
+			<c:choose>
+				<c:when test="${empty sessionScope.id}">
+					<!-- 로그인 후 이용하실 수 있습니다 alert 
+						 로그인 창으로 이동 -->
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="location.href='/work/instructInsert'">추가</button>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		
 		<table class="searchBox">
@@ -141,7 +149,8 @@ article {
 			<tr>	
 				<td>품번</td>
 				<td><input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
-					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly></td>
+					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly>
+				</td>
 				<td>지시상태</td>
 				<td colspan="8">
 					<input type="checkbox" name="workSts1" value="지시" class="sCheck">지시
@@ -203,7 +212,7 @@ article {
 							<td>${instrDTO.lineDTO.proCode}</td>
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
-							<td>${instrDTO.insertId}</td>
+							<td>${instrDTO.userDTO.name}</td>
 							<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick=''>
 								<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick=''></td>
 						</tr>
@@ -301,7 +310,7 @@ $('button.ui-datepicker-current').live('click', function() {
 
 // 품명 검색 팝업창
 function openilist(){
-    window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath}/work/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
 // 작업지시 유효성 검사

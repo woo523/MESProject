@@ -1,5 +1,8 @@
 package com.itwillbs.work.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.common.PageDTO;
+import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.order.domain.clntDTO;
+import com.itwillbs.work.domain.ItemDTO;
+import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.service.InstructService;
 
 @Controller
@@ -121,7 +128,23 @@ public class InstructController {
 		// id 값
 		
 		
-		return null;
+		return "work/instructInsert";
 	}
+	
+	// 작업지시 등록
+		@RequestMapping(value = "/work/instructInsertPro", method = RequestMethod.POST)
+		public String instructInsertPro(HttpServletRequest request, InstructDTO instructDTO) {
+			System.out.println("InstructController instructInsertPro()");
+			
+			instructDTO.setWorkNum(request.getParameter("instrNum"));
+			instructDTO.setInsertId(request.getParameter("insertId"));
+			instructDTO.setItemId(Integer.parseInt(request.getParameter("pid")));
+			instructDTO.setWorkQty(Integer.parseInt(request.getParameter("instrCnt")));
+			
+			instructService.insertInstr(instructDTO);
+			System.out.println(instructDTO);
+			
+			return "redirect:/work/instructList";
+		}
 	
 }

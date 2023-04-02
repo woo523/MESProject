@@ -1,5 +1,6 @@
 package com.itwillbs.work.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.common.PageUtil;
 import com.itwillbs.work.dao.InstructDAO;
+import com.itwillbs.work.domain.InstructDTO;
 
 @Service 
 public class InstructServiceImpl implements InstructService{
@@ -52,6 +54,16 @@ public class InstructServiceImpl implements InstructService{
 		System.out.println("InstructServiceImpl instrCount");
 		
 		return instructDAO.instrCount(instrSearch);
+	}
+
+	@Override
+	public void insertInstr(InstructDTO instructDTO) {
+		System.out.println("InstructServiceImpl insertInstr");
+		
+		instructDTO.setWorkDate(new Timestamp(System.currentTimeMillis()));
+		instructDTO.setInsertDate(new Timestamp(System.currentTimeMillis()));
+		
+		instructDAO.insertInstr(instructDTO);
 	}
 	
 }

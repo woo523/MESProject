@@ -23,6 +23,10 @@
 		<result property="orderNum" column="orderNum" />
 	</resultMap>
 	
+	<resultMap type="map" id="userMap">
+		<result property="name" column="name" />
+	</resultMap>
+	
  	<resultMap type="map" id="instrMap">
  		<result property="instr_id" column="instr_id"/>
 		<result property="workNum" column="workNum"/>
@@ -35,11 +39,13 @@
 		<collection property="itemDTO" resultMap="itemMap" />
 		<collection property="clntDTO" resultMap="clntMap" />
 		<collection property="orderMngDTO" resultMap="ordMngMap" />
+		<collection property="userDTO" resultMap="userMap" />
 	</resultMap>
 	
 	<!-- instructList 메인 전체 select 구문 -->
 	<select id="instrList" resultMap="instrMap">
 		<include refid="List" />
+		ORDER BY insertDate DESC
 		LIMIT #{startRow} , #{pageSize}
 	</select>
 	
@@ -47,7 +53,7 @@
 	<select id="instrSearch" resultMap="instrMap">
 		<include refid="List" />
 		<include refid="Search" />
-		ORDER BY work.instr_id
+		ORDER BY insertDate DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
@@ -62,20 +68,35 @@
 		<include refid="Search" />
 	</select>
 	
+	<!-- 작업지시 등록 -->
+	<insert id="insertInstr">
+		INSERT INTO work_instr (instr_id, work_num, insert_id, ord_id, ord_info_id, work_sts, item_id, line_id, work_qty, work_dt, insert_dt)
+		VALUES (#{instrId}, #{workNum}, #{insertId}, #{ordId}, #{ordInfoId}, #{workSts}, #{itemId}, #{lineId}, #{workQty}, #{workDate}, #{insertDate})
+	</insert>
+
+	<select id="selectInstr" resultMap="instrMap">
+		<include refid="List" />
+		WHERE clnt.clnt_id LIKE CONCAT('%', #{clntId}, '%')
+		AND oder.ord_id LIKE CONCAT('%', ${ordId}, '%')
+		AND item.item_id LIKE CONCAT('%', ${itemId}, '%')
+		AND line.line_id LIKE CONCAT('%', ${lineId}, '%')
+	</select>
+	
 	<sql id="List">
-		SELECT work.instr_id, work.work_num as workNum, clnt.clnt_nm as clientName, oder.csmtr_ord_num as orderNum, 
-			   work.work_dt as workDate, work.work_sts as workSts,
-          	   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
-          	   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
-          	   work.work_qty as workQty, work.insert_dt as insertDate, work.insert_id as insertId
-		FROM work_instr work JOIN order_mng oder ON work.ord_id = oder.ord_id
-        JOIN item item ON work.item_id = item.item_id
-        JOIN client clnt ON item.clnt_id = clnt.clnt_id
-        JOIN line line ON work.line_id = line.line_id
+		SELECT work.instr_id, work.work_num as workNum, clnt.clnt_nm as clientName, omng.csmtr_ord_num as orderNum, 
+		   work.work_dt as workDate, work.work_sts as workSts,
+		   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
+		   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
+		   work.work_qty as workQty, work.insert_dt as insertDate, user.name
+		FROM work_instr work JOIN order_mng omng ON work.ord_id = omng.ord_id
+		JOIN item item ON item.item_id = work.item_id
+		JOIN client clnt ON clnt.clnt_id = item.clnt_id
+		JOIN line line ON work.line_id = line.line_id
+		JOIN user user ON work.insert_id = user.id
 	</sql>
 	
 	<sql id="Search">
-		WHERE line.line_cd like CONCAT('%', #{lineName}, '%')
+		WHERE line.line_cd LIKE CONCAT('%', #{lineName}, '%')
 		<if test="startDate != '' and endDate != ''">
 			AND work_dt BETWEEN	#{startDate} and #{endDate}
 		</if>

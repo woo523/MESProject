@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.ui.Model;
 
 import com.itwillbs.common.PageDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 public interface InstructService {
 	
@@ -16,5 +17,7 @@ public interface InstructService {
 	public Integer instrCount();
 	
 	public Integer instrCount(Map<String, Object> instrSearch);
+	
+	public void insertInstr(InstructDTO instructDTO);
 	
 }

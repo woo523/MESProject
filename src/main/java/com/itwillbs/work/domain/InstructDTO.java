@@ -3,6 +3,8 @@ package com.itwillbs.work.domain;
 import java.sql.Timestamp;
 
 import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.work.domain.ItemDTO;
+import com.itwillbs.order.domain.clntDTO;
 
 public class InstructDTO {
 	private int instrId;	// 작업지시 기본키
@@ -20,6 +22,7 @@ public class InstructDTO {
 	// InstructDTO : DTO = 1 : n 관계
 	private LineDTO lineDTO;
 	private ItemDTO itemDTO;
+	private clntDTO clntDTO;
 
 	public int getInstrId() {
 		return instrId;
@@ -100,6 +103,12 @@ public class InstructDTO {
 	}
 	public void setItemDTO(ItemDTO itemDTO) {
 		this.itemDTO = itemDTO;
+	}
+	public clntDTO getClntDTO() {
+		return clntDTO;
+	}
+	public void setClntDTO(clntDTO clntDTO) {
+		this.clntDTO = clntDTO;
 	}
 
 }

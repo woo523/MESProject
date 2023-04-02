@@ -253,10 +253,11 @@
    
    <select id="itemlist" resultType="com.itwillbs.work.domain.ItemDTO">
    select
+   item_id as itemId,
    item_num as itemNum,
    item_nm as itemName
    from item
-   <if test="itemNum!=null and itemName!=null">
+   <if test="itemId !=null and itemNum!=null and itemName!=null">
    where 
    item_num like CONCAT('%', #{itemNum}, '%') and
    item_nm like CONCAT('%', #{itemName}, '%')

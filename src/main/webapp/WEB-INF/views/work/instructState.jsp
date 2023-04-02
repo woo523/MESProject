@@ -61,7 +61,7 @@
 }
 	
 article {
-	width: 1200px;
+	width: 1170px;
 	margin: 0px auto;
 }
 
@@ -187,7 +187,7 @@ article input {
 							<td>${instrDTO.lineDTO.proCode}</td>
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
-							<td>${instrDTO.insertId}</td>
+							<td>${instrDTO.userDTO.name}</td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>

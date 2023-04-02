@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.common.PageDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 @Repository
 public class InstructDAOImpl implements InstructDAO {
@@ -49,6 +50,13 @@ public class InstructDAOImpl implements InstructDAO {
 		System.out.println("InstructDAOImpl instrSearchCount");
 		
 		return sqlSession.selectOne(namespace+".instrSearchCount", instrSearch);
+	}
+
+	@Override
+	public void insertInstr(InstructDTO instructDTO) {
+		System.out.println("InstructDAOImpl insertInstr");
+		
+		sqlSession.insert(namespace+".insertInstr", instructDTO);
 	}
 
 }
