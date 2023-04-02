@@ -5,15 +5,30 @@ import java.sql.Timestamp;
 public class ShipDTO {
 	private int shipId;						// 출하관리 기본키
 	private int ordId;						// 수주관리 기본키
-	private int ordInfoId;				// 수주정보 기본키
+	private int ordInfoId;					// 수주정보 기본키
 	private int shipQty;					// 출하량
-	private Timestamp shipDt;		// 출하일자
-	private String shipNum;			// 출하번호
-	private String barcord;				// 바코드
+	private Timestamp shipDt;				// 출하일자
+	private String shipNum;					// 출하번호
+	private String barcord;					// 바코드
 	private String insertId;				// 등록자
-	private Timestamp insertDt;		// 등록일
-	private String updateId;			// 변경자
-	private Timestamp updateDt;	// 변경일
+	private Timestamp insertDt;				// 등록일
+	private String updateId;				// 변경자
+	private Timestamp updateDt;				// 변경일
+	private String shipCond;				// 출하상태
+	private String amount;					// 수량
+	
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	public String getShipCond() {
+		return shipCond;
+	}
+	public void setShipCond(String shipCond) {
+		this.shipCond = shipCond;
+	}
 	public int getShipId() {
 		return shipId;
 	}
