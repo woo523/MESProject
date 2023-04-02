@@ -127,7 +127,7 @@ article {
 						 로그인 창으로 이동 -->
 				</c:when>
 				<c:otherwise>
-					<button type="button" onclick="location.href='/work/instructInsert'">추가</button>
+					<button type="button" onclick="location.href='/work/instructInsert'">등록</button>
 				</c:otherwise>
 			</c:choose>
 		</div>
