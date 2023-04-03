@@ -11,8 +11,7 @@
 	
 <%-- 	<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css"> --%>
 
-	<style type="text/css">
-	@charset "UTF-8";
+<style type="text/css">
 
 
 .content_body .selectButtons, .listButtons {
@@ -121,15 +120,7 @@ article {
 	<form id="instr">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
-			<c:choose>
-				<c:when test="${empty sessionScope.id}">
-					<!-- 로그인 후 이용하실 수 있습니다 alert 
-						 로그인 창으로 이동 -->
-				</c:when>
-				<c:otherwise>
-					<button type="button" onclick="location.href='/work/instructInsert'">등록</button>
-				</c:otherwise>
-			</c:choose>
+			<button type="button" onclick="loginCheck()">등록</button>
 		</div>
 		
 		<table class="searchBox">
@@ -148,9 +139,9 @@ article {
 			</tr>
 			<tr>	
 				<td>품번</td>
-				<td><input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
-					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly>
-				</td>
+				<td><input type="hidden" id="pid" name="pid">
+					<input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
+					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly></td>
 				<td>지시상태</td>
 				<td colspan="8">
 					<input type="checkbox" name="workSts1" value="지시" class="sCheck">지시
@@ -343,6 +334,22 @@ $(document).ready(function() {
 	console.log("getSearchCnt");
 	
 });
-      
+
+// 작업지시 등록 버튼 유효성 검사
+function loginCheck() {
+	
+	// 세션값 받아오기
+	var id = '<%=(String)session.getAttribute("id")%>';
+	
+	if(id == "null") {
+		// 로그인 X, 로그인 페이지로 이동
+		alert("로그인 후 이용하실 수 있습니다.");
+		location.href='/login/login';
+	} else {
+		// 로그인 O, 등록 페이지로 이동
+		location.href='/work/instructInsert';
+	}
+}
+
 </script>
 </html>

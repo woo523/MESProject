@@ -21,6 +21,7 @@ public class InstructDAOImpl implements InstructDAO {
 
 	@Override
 	public List<Map<String, Object>> instrList(PageDTO pageDTO) {
+		// 작업지시 전체 목록
 		System.out.println("InstructDAOImpl instrList()");
 		
 		return sqlSession.selectList(namespace+".instrList", pageDTO);
@@ -28,6 +29,7 @@ public class InstructDAOImpl implements InstructDAO {
 
 	@Override
 	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch, PageDTO pageDTO) {
+		// 작업지시 조회 목록
 		System.out.println("InstructDAOImpl instrSearch");
 		
 		instrSearch.put("startRow", pageDTO.getStartRow());
@@ -40,6 +42,7 @@ public class InstructDAOImpl implements InstructDAO {
 
 	@Override
 	public Integer instrCount() {
+		// 작업지시 전체 목록 개수
 		System.out.println("InstructDAOImpl instrCount");
 		
 		return sqlSession.selectOne(namespace+".instrCount");
@@ -47,6 +50,7 @@ public class InstructDAOImpl implements InstructDAO {
 
 	@Override
 	public Integer instrCount(Map<String, Object> instrSearch) {
+		// 작업지시 조회 목록 개수
 		System.out.println("InstructDAOImpl instrSearchCount");
 		
 		return sqlSession.selectOne(namespace+".instrSearchCount", instrSearch);
@@ -54,9 +58,18 @@ public class InstructDAOImpl implements InstructDAO {
 
 	@Override
 	public void insertInstr(InstructDTO instructDTO) {
+		// 작업지시 등록
 		System.out.println("InstructDAOImpl insertInstr");
 		
 		sqlSession.insert(namespace+".insertInstr", instructDTO);
+	}
+
+	@Override
+	public List<Map<String, Object>> getLineList(String lineName) {
+		// 작업지시 등록 라인 조회
+		System.out.println("InstructDAOImpl getLineList");
+		
+		return sqlSession.selectList(namespace+".getLineList", lineName);
 	}
 
 }

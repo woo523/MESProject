@@ -4,9 +4,12 @@
 <mapper namespace="com.itwillbs.mappers.instructMapper">
 	
 	<resultMap type="map" id="lineMap">
+		<result property="lineId" column="lineId"/>
 		<result property="lineCode" column="lineCode" />
 		<result property="lineName" column="lineName" />
 		<result property="proCode" column="proCode" />
+		<result property="linePlace" column="linePlace" />
+		<result property="useChoice" column="useChoice" />
 	</resultMap>
 	
 	<resultMap type="map" id="itemMap">
@@ -89,8 +92,9 @@
 		   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
 		   work.work_qty as workQty, work.insert_dt as insertDate, user.name
 		FROM work_instr work JOIN order_mng omng ON work.ord_id = omng.ord_id
-		JOIN item item ON item.item_id = work.item_id
-		JOIN client clnt ON clnt.clnt_id = item.clnt_id
+		JOIN order_info oinfo ON work.ord_info_id = oinfo.ord_info_id
+		JOIN item item ON item.item_id = oinfo.item_id
+		JOIN client clnt ON clnt.clnt_id = omng.clnt_id
 		JOIN line line ON work.line_id = line.line_id
 		JOIN user user ON work.insert_id = user.id
 	</sql>
@@ -129,5 +133,15 @@
         JOIN client clnt ON item.clnt_id = clnt.clnt_id
         JOIN line line ON work.line_id = line.line_id
 	</sql>
+	
+	<select id="getLineList" resultMap="lineMap">
+		SELECT line_id AS lineId,
+			   line_nm AS lineName,
+			   pro_cd AS proCode,
+			   place AS linePlace,
+			   use_yn AS useChoice
+		FROM line
+		WHERE line_nm LIKE CONCAT('%', #{lineName}, '%')
+	</select>
 
 </mapper>
