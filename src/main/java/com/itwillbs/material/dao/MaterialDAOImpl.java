@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.material.domain.ClientDTO;
+import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -139,10 +140,17 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 
+//	@Override
+//	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+//		System.out.println("materialDAOImpl getInmtrlMap()");
+//		return sqlSession.selectOne(namespace+".getInmtrlMap",inmtrlId);
+//	}
+
+
 	@Override
-	public Map<String, Object> getInmtrlMap(int inmtrlId) {
-		System.out.println("materialDAOImpl getInmtrlMap()");
-		return sqlSession.selectOne(namespace+".getInmtrlMap",inmtrlId);
+	public void insertInmtrl(InmaterialDTO inmaterialDTO) {
+		System.out.println("materialDAOImpl insertInmtrl()");
+		sqlSession.insert(namespace+".insertInmtrl", inmaterialDTO);
 	}
 
 

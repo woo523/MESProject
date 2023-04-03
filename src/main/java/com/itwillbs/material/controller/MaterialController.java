@@ -16,6 +16,7 @@ import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.material.service.MaterialService;
+import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
 
@@ -365,8 +366,9 @@ public class MaterialController {
 		return "material/materialState";
 	}
 	
+	// 입고 삭제창
 	@RequestMapping(value = "/material/del", method = RequestMethod.GET)
-	public String del(HttpServletRequest request, Model model) { // 실적 삭제창
+	public String del(HttpServletRequest request, Model model) { 
 		int inmtrlNum = Integer.parseInt(request.getParameter("inmtrlNum"));
 		
 		materialService.delPf(inmtrlNum);
@@ -376,14 +378,25 @@ public class MaterialController {
 	
 	// 자재입고 등록
 	@RequestMapping(value = "/material/inmtrlInsert", method = RequestMethod.GET)
-	public String inmtrlInsert(HttpServletRequest request, Model model) {
+	public String inmtrlInsert() {
 		System.out.println("MaterialController inmtrlInsert()");
-		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
-		
-		Map<String, Object> getInmtrl = materialService.getInmtrlMap(inmtrlId);
-		
-		model.addAttribute("getInmtrl", getInmtrl);
+
 		return "material/inmtrlInsert";
 	}	
-
-}
+	
+	// 자재입고 등록
+	@RequestMapping(value = "/material/inmtrlInsertPro", method = RequestMethod.POST)
+	public String inmtrlInsertPro(HttpServletRequest request, InmaterialDTO inmaterialDTO) {
+		System.out.println("MaterialController inmtrlInsertPro()");
+		
+		inmaterialDTO.setInmtrlNum(request.getParameter("inmtrlNum"));
+		inmaterialDTO.setInsertId(request.getParameter("insertId"));
+		inmaterialDTO.setItemId(Integer.parseInt(request.getParameter("pcd")));
+		inmaterialDTO.setClntId(Integer.parseInt(request.getParameter("ccd")));
+		
+		materialService.insertInmtrl(inmaterialDTO);
+		System.out.println(inmaterialDTO);
+		
+		return "redirect:/material/inmtrlInsert";
+	}
+}	

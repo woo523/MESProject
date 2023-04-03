@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.material.dao.MaterialDAO;
 import com.itwillbs.material.domain.ClientDTO;
+import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -126,10 +127,16 @@ public class MaterialServiceImpl implements MaterialService{
 		materialDAO.delPf(inmtrlNum);
 	}
 
+//	@Override
+//	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+//		System.out.println("InmaterialServiceImpl getInmtrlMap()");
+//		return materialDAO.getInmtrlMap(inmtrlId);
+//	}
+
 	@Override
-	public Map<String, Object> getInmtrlMap(int inmtrlId) {
-		System.out.println("InmaterialServiceImpl getInmtrlMap()");
-		return materialDAO.getInmtrlMap(inmtrlId);
+	public void insertInmtrl(InmaterialDTO inmaterialDTO) {
+		System.out.println("InmaterialServiceImpl insertInmtrl()");
+		materialDAO.insertInmtrl(inmaterialDTO);
 	}
 
 

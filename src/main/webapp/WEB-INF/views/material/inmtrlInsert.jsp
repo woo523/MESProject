@@ -19,13 +19,17 @@ function openclist(){
 
 
 <body>
+<!-- <header> -->
+	<jsp:include page="../inc/header.jsp" />
+<!-- </header> -->
+
 	<h2>자재입고 등록</h2>
+	<br>
 	<form action="${pageContext.request.contextPath }/material/InmtrlInsertPro" method="get">	
-		
-	<input type="hidden" name="inmtrlId" value="${getInmtrl.inmtrlId}">	
-		
+				
 		<ul>
 			<li>입고번호 <input type="text" name="inmtrlNum"></li>
+			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
 			<li>입고일자 <input type="date" id="Date" class="mtDate" name="materialDate"></li>
 			<li>제품 정보 <input type="text" name="pcd" id="pcd" placeholder="품번코드" onclick="openilist()">
 					   <input type="text" name="pnm" id="pnm" placeholder="품번명" readonly></li>
@@ -46,5 +50,9 @@ function openclist(){
 		<input type="submit" value="등록">
 		<button type="reset">초기화</button>
 	</form>
+	
+<!-- <footer> -->
+	<jsp:include page="../inc/footer.jsp" />
+<!-- </footer> -->
 </body>
 </html>

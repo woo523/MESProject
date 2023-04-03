@@ -161,6 +161,14 @@
 <!-- 		on item.item_id = stock.item_id	 -->
 <!-- 		where inmater.in_mtrl_id = #{inmtrlId} -->
 <!--  	</select> -->
+ 
+	<!-- 작업지시 등록 -->
+	<insert id="insertInmtrl">
+		INSERT INTO in_material (in_mtrl_num, in_mtrl_dt, insert_id, in_mtrl_qty, in_mtrl_lot, note, clnt_cd, clnt_nm, item_num, item_nm, invnt_unit)
+		VALUES (#{inmtrlNum}, #{inmtrlDt}, #{insertId}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{clientCode}, #{clientName}, #{itemNum}, #{itemName}, #{itemUnit})
+	</insert>
+
+
         
 	<!-- 자재출고에 출고리스트 부분 -->
     <resultMap type="map" id="OutmaterMap">
