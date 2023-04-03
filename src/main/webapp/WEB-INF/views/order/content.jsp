@@ -99,12 +99,6 @@ text-align: center;
 <script type="text/javascript">
 
 
-
-
-
-
-
-
 </script>
 <!-- 스크립트 끝. -->
 
