@@ -1,6 +1,7 @@
 package com.itwillbs.material.controller;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -388,29 +389,21 @@ public class MaterialController {
 	
 	// 자재입고 등록
 	@RequestMapping(value = "/material/inmtrlInsertPro", method = RequestMethod.POST)
-	public String inmtrlInsertPro(HttpServletRequest request) {
+	public String inmtrlInsertPro(InmaterialDTO inmaterialDTO) {
 		System.out.println("MaterialController inmtrlInsertPro()");
-		
-		InmaterialDTO inmaterialDTO = new InmaterialDTO();
-		
-		inmaterialDTO.setInmtrlNum(request.getParameter("inmtrlNum"));
-		inmaterialDTO.setInsertId(request.getParameter("insertId"));
-		
-		String date = request.getParameter("inmtrlDt");
-		Date inmtrlDt = Date.valueOf(date);
-		inmaterialDTO.setInmtrlDt(inmtrlDt);
-		
-		inmaterialDTO.setItemId(Integer.parseInt(request.getParameter("pcd")));
-		inmaterialDTO.setClntId(Integer.parseInt(request.getParameter("ccd")));
-		
-		inmaterialDTO.setInmtrlQty(Integer.parseInt(request.getParameter("materialQty")));
-		inmaterialDTO.setInmtrlLot(Integer.parseInt(request.getParameter("inmtrlLot")));
-		inmaterialDTO.setNote(request.getParameter("note"));
+		String date = inmaterialDTO.getInmtrlDt(); // 등록 날짜
+		String date2 = date.replaceAll("-", ""); // "-" 빼기
+		int count = materialService.countMtrlLi(null)+1; // 입고 리스트 갯수+1
+		String inmtrlNum = String.format("IN%s%05d", date2,count); // 규격코드 만들기
+		System.out.println("규격코드:"+inmtrlNum);
+		inmaterialDTO.setInmtrlNum(inmtrlNum);
+		inmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
 		
 		materialService.insertInmtrl(inmaterialDTO);
 		System.out.println(inmaterialDTO);
 		
-		return "redirect:/material/inmtrlInsert";
+		
+		return "redirect:/material/inmaterList";
 	}
 	
 	// 실사량

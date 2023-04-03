@@ -96,7 +96,7 @@ div.content{
 
 
 function openilist(){
-        window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
+        window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
     }
 
 
@@ -250,6 +250,7 @@ $(function() {
 	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td>
 	<td><input type="text" id="eDate" class="form-control" name="edate" readonly></td>
 	<td>품번</td>
+		<input type="hidden" id="pid">
 	<td><input type="text" name="pcd" id="pcd" onclick="openilist()" placeholder="품번"></td>
 	<td><input type="text" id="pnm" onclick="openilist()" placeholder="품명"></td></tr>
 	<tr><td>지시상태</td>
@@ -265,6 +266,7 @@ $(function() {
 	<br><br><br>
 	<h2>작업지시</h2>
 	<br>
+	총 ${pageDTO.count } 건
 	<table border="1" id="main">
 	
 	<tr id="th"><th>작업지시번호</th><th>라인</th><th>라인명</th><th>품번</th><th>품명</th><th>지시상태</th><th>지시일자</th><th>지시수량</th><th>수주번호</th><th>업체</th></tr>

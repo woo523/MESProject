@@ -22,7 +22,9 @@
     <result column="whouse" property="stockwhouse"/>
     <result column="item_num" property="itemNum"/>
     <result column="item_nm" property="itemName"/>
-    <result column="invnt_unit" property="itemUnit"/>   
+    <result column="invnt_unit" property="itemUnit"/>  
+    <result column="item_id" property="itemId"/>  
+     
     </resultMap>
 
 
@@ -39,7 +41,8 @@
 			stock.whouse,
 			item.item_num, 
 	    	item.item_nm,
-	    	item.invnt_unit
+	    	item.invnt_unit,
+	    	item.item_id
 		from  
 			in_material inmater join client clnt
 			on inmater.clnt_id = clnt.clnt_id
@@ -175,8 +178,9 @@
  
 	<!-- 자재입고 등록 -->
 	<insert id="insertInmtrl">
-		insert into in_material (in_mtrl_num, in_mtrl_dt, whouse, insert_id, in_mtrl_qty, in_mtrl_lot, note, clnt_cd, clnt_nm, item_num, item_nm, invnt_unit)
-		VALUES (#{inmtrlNum}, #{inmtrlDt}, #{insertId}, #{whouse}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{clientCode}, #{clientName}, #{itemNum}, #{itemName}, #{itemUnit})
+		insert into in_material 
+		(item_id, clnt_id, in_mtrl_num, in_mtrl_dt, in_mtrl_qty, in_mtrl_lot, note, insert_id, insert_dt) 
+		VALUES (#{itemId}, #{clntId}, #{inmtrlNum},  #{inmtrlDt}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{insertId}, #{insertDt})
 	</insert>
 
 
@@ -305,7 +309,8 @@
    <select id="itemlist" resultType="com.itwillbs.material.domain.ItemDTO">
    select
    item_num as itemNum,
-   item_nm as itemName
+   item_nm as itemName,
+   item_id as itemId
    from item
    <if test="itemNum!=null and itemName!=null">
    where 
@@ -331,7 +336,8 @@
    <select id="clientlist" resultType="com.itwillbs.material.domain.ClientDTO">
    select
    clnt_cd as clientCode,
-   clnt_nm as clientName
+   clnt_nm as clientName,
+   clnt_id as clientId
    from client
    <if test="clientCode!=null and clientName!=null">
    where 

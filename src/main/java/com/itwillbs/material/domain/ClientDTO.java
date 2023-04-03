@@ -4,7 +4,14 @@ public class ClientDTO {
 	private String clientCode;	// 거래처코드
 	private String clientName;	// 거래처명
 	private int bsnsNum; 		// 사업자번호
+	private int clientId;
 	
+	public int getClientId() {
+		return clientId;
+	}
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
 	public String getClientCode() {
 		return clientCode;
 	}

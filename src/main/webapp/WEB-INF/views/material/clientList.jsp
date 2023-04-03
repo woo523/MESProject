@@ -39,14 +39,16 @@ text-align: center;
 		<td>업체명</td>
 	</tr>
 	<c:forEach var="clientList" items="${clientList }">
-		<tr id="con" onclick="selectClient('${clientList.clientCode }','${clientList.clientName }')">
+		<tr id="con" onclick="selectClient('${clientList.clientCode }','${clientList.clientName }', ${clientList.clientId } )">
 			<td>${clientList.clientCode }</td>
 			<td>${clientList.clientName }</td>
+
 		</tr>	
 		<script type="text/javascript">
-			function selectClient(a,b){ // 부모창으로 값 넘기기
+			function selectClient(a,b,c){ // 부모창으로 값 넘기기
 				opener.document.getElementById("ccd").value = a 
 		        opener.document.getElementById("cnm").value = b
+		        opener.document.getElementById("cid").value = c
 		        window.close();
 			}
 		</script>

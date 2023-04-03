@@ -211,8 +211,10 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td>
 	<td><input type="text" id="eDate" class="form-control" name="edate" readonly></td>
 	<td>품번</td>
+		<input type="hidden" id="pid">
 	<td><input type="text" name="pcd" id="pcd"  onclick="openilist()" placeholder="품번"></td>
 	<td><input type="text" id="pnm"  onclick="openilist()" placeholder="품명"></td></tr>
+
 	<tr><td>지시번호</td>
 	<td colspan="8">
 	<input type="text" name="worknum" placeholder="지시번호"> 
@@ -224,11 +226,10 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	<br><br><br>
 	<h2>생산실적</h2>
 	<br>
+	총 ${pageDTO.count }건
 	<table border="1" id="main">
-	
 	<tr id="th"><th>실적일자</th><th>라인명</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th>지시번호</th><th>수주번호</th><th>업체</th><th>등록자</th></tr>
-	
-	
+
 	<c:forEach var="pdto" items="${performlist }">
 	<tr id="con" onclick="getPerformList(${pdto.performId })">
 		<td>${pdto.performDate }</td>

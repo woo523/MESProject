@@ -159,7 +159,7 @@ text-align: center;
 				</c:when>
 				<c:otherwise>
 	<c:forEach var="inte" items="${inmaterList}">
-		<tr id="con" onclick="inmaterList(${inte.inmaterId})">
+		<tr id="con" onclick="inmaterList(${inte.inmaterId}, ${inte.itemId })">
 			<td>${inte.inmtrlNum}</td>
 			<td>${inte.inmtrlDt}</td>
 		  	<td>${inte.itemNum}</td>
