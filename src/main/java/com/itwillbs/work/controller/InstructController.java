@@ -125,26 +125,36 @@ public class InstructController {
 	public String instructInsert() {
 		System.out.println("InstructController instructInsert()");
 		
-		// id 값
-		
-		
 		return "work/instructInsert";
 	}
 	
 	// 작업지시 등록
-		@RequestMapping(value = "/work/instructInsertPro", method = RequestMethod.POST)
-		public String instructInsertPro(HttpServletRequest request, InstructDTO instructDTO) {
-			System.out.println("InstructController instructInsertPro()");
-			
-			instructDTO.setWorkNum(request.getParameter("instrNum"));
-			instructDTO.setInsertId(request.getParameter("insertId"));
-			instructDTO.setItemId(Integer.parseInt(request.getParameter("pid")));
-			instructDTO.setWorkQty(Integer.parseInt(request.getParameter("instrCnt")));
-			
-			instructService.insertInstr(instructDTO);
-			System.out.println(instructDTO);
-			
-			return "redirect:/work/instructList";
-		}
+	@RequestMapping(value = "/work/instructInsertPro", method = RequestMethod.POST)
+	public String instructInsertPro(HttpServletRequest request, InstructDTO instructDTO) {
+		System.out.println("InstructController instructInsertPro()");
+		
+		instructDTO.setWorkNum(request.getParameter("instrNum"));
+		instructDTO.setInsertId(request.getParameter("insertId"));
+		instructDTO.setItemId(Integer.parseInt(request.getParameter("pid")));
+		instructDTO.setLineId(Integer.parseInt(request.getParameter("lineId")));
+		instructDTO.setWorkQty(Integer.parseInt(request.getParameter("instrCnt")));
+		
+		instructService.insertInstr(instructDTO);
+		
+		return "redirect:/work/instructList";
+	}
+	
+	// 작업지시 등록 라인 조회
+	@RequestMapping(value = "/work/lineList", method = RequestMethod.GET)
+	public String lineList(HttpServletRequest request, Model model) {
+		
+		String lineName = request.getParameter("lineName");
+		
+		List<Map<String, Object>> getLineList = instructService.getLineList(lineName);
+		System.out.println(getLineList);
+		model.addAttribute("getLineList", getLineList);
+		
+		return "work/lineList";
+	}
 	
 }

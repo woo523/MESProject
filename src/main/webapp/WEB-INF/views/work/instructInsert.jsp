@@ -16,19 +16,23 @@
 	<br>
 	<form action="${pageContext.request.contextPath}/work/instructInsertPro" method="post">
 		<ul>
-			
 			<li>작업지시번호 <input type="text" name="instrNum"></li>	<!-- 번호 자동생성 -->
 			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
-			<li>수주 <input type="text" name="ordId" placeholder="수주정보"><input type="text" name="ordInfoId" placeholder="수주정보"> </li>
+			<li>수주 <input type="text" name="ordId" placeholder="수주번호" onclick="openOrd()">
+					 <input type="text" name="ordInfoId" placeholder="수주정보"></li>
 			<li>지시상태
-				<input type="checkbox" name="workSts" value="지시" class="sCheck">지시
-				<input type="checkbox" name="workSts" value="시작" class="sCheck">시작
-				<input type="checkbox" name="workSts" value="마감" class="sCheck">마감 </li>
-			<li>제품 정보 <input type="text" id="pcd" name="pcd" placeholder="품번" onclick="openItem()">
+				<!-- 체크 해제 못하도록 막음 -->
+				<input type="checkbox" name="workSts" value="지시" class="sCheck" checked="checked" onclick="return false;">지시</li>
+			<li>제품 정보 <input type="hidden" id="pid" name="pid">
+						  <input type="text" id="pcd" name="pcd" placeholder="품번" onclick="openItem()" readonly>
 						  <input type="text" id="pnm" placeholder="품명">
-						  <input type="hidden" id="pid" name="pid"></li>
-			<li>공정 정보 <input type="text" name="lineId"> </li>
-			<li>지시수량  <input type="text" name="instrCnt"></li>			
+						  </li>
+			<li>공정 정보 <input type="text" id="lineId"  name="lineId" placeholder="라인 검색" onclick="openLine()" readonly> 
+						  <input type="text" id="lineName" placeholder="라인명">
+						  <input type="text" id="proCode" placeholder="공정">
+						  <input type="text" id="linePlace" placeholder="작업장">
+						  <input type="text" id="useChoice" placeholder="라인사용여부"></li>
+			<li>지시수량  <input type="text" name="instrCnt" required></li>			
 		</ul>
 		
 		<input type="submit" value="등록">
@@ -46,6 +50,11 @@
 // 품목 검색 팝업창
 function openItem() {
 	window.open("${pageContext.request.contextPath}/work/itemList", "popup", "width=500, height=500, left=100, top=100");
+}
+
+// 라인 검색 팝업창
+function openLine() {
+	window.open("${pageContext.request.contextPath}/work/lineList", "popup", "width=500, height=500, left=100, top=100");	
 }
 </script>
 

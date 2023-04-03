@@ -19,4 +19,6 @@ public interface InstructDAO {
 	
 	public void insertInstr(InstructDTO instructDTO);
 	
+	public List<Map<String, Object>> getLineList(String lineName);
+	
 }
