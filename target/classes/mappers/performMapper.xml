@@ -445,10 +445,29 @@
 	on r.c_item_id = i.item_id
 	join work_prfrm p
 	on p.item_id = r.p_item_id
-	where p.prfrm_id = #{performId};
+	where p.prfrm_id = #{performId}
     </select>
     
 
+	<select id="checkY"  resultType="boolean">
+    select
+	count(*)
+	from
+	(select
+	it.work_qty,
+    sum(if(p.gb_yn='Y',p.prfrm_qty,0)) as "Y"
+	from work_prfrm p join work_instr it
+	on it.instr_id = p.instr_id
+    where it.instr_id = #{instrId}
+    group by it.instr_id
+	having it.work_qty &lt;= sum(if(p.gb_yn='Y',p.prfrm_qty,0))) as table1
+	</select>
+	
+	<update id="turnclose">
+	update work_instr
+	set work_sts = '마감'
+	where instr_id = #{instrId}
+	</update>
 
    
 </mapper>

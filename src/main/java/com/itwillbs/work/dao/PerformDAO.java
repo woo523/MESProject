@@ -42,7 +42,9 @@ public interface PerformDAO {
 	
 	public List<Map<String, Object>> ReqList(String performId);
 	
+	public boolean checkY(int instrId);
 	
+	public void updateClose (int instrId);
 	
 	
 }

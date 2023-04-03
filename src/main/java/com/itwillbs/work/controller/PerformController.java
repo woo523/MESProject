@@ -329,7 +329,15 @@ public class PerformController {
 	}
 
 	@RequestMapping(value = "/work/popPfRe", method = RequestMethod.GET)
-	public String popPfRe(Model model, HttpServletRequest request, PageDTO pageDTO) { // 팝 실적등록창
+	public String popPfRe(Model model, HttpServletRequest request, PageDTO pageDTO, HttpSession session) { // 팝 실적등록창
+
+		if(session.getAttribute("id")!=null) {
+		MemberDTO memberDTO = new MemberDTO();
+		String id = (String)session.getAttribute("id");
+		memberDTO.setId(id);
+		MemberDTO memberDTO2 = loginService.idCheck(memberDTO);
+		session.setAttribute("name", memberDTO2.getName());
+		}
 		// 한 화면에 보여줄 글 개수 설정
 		int pageSize = 5; // sql문에 들어가는 항목
 		
@@ -381,6 +389,9 @@ public class PerformController {
 	
 	@RequestMapping(value = "/work/popConfirm", method = RequestMethod.GET)
 	public String popConfirm(HttpServletRequest request, Model model) { // 팝화면 지시 확인창
+		
+		
+		
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
 		
 		Map<String, Object> inst = performService.getInstrMap(instrId);
@@ -408,7 +419,7 @@ public class PerformController {
 	
 	@RequestMapping(value = "/work/PopinsertPro", method = RequestMethod.GET)
 	public String PopinserPro (HttpServletRequest request, HttpSession session){ // 팝화면 실적 등록 실행
-
+		
 		PerformDTO performDTO = new PerformDTO();
 		String id = (String)session.getAttribute("id");
 		performDTO.setInsertId(id);
