@@ -106,84 +106,11 @@ function openUserList(b){
 function openClntList(b){
         window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
     }
+// function openContent(){
+//         window.open("${pageContext.request.contextPath}/order/content?ordId=","${odto.ordId}","popup", "width=500, height=500,left=100, top=100");
+//     }
 
-
-function getPerformList(a,b){ // 해당 작업지시번호에 맞는 생산실적 ajax로 불러오기
-	console.log("getPerformList 호출");
-	var instrId = a;
-// 	alert(instrId);
-
-	$.ajax({
-		type : "get",
-		url : "${pageContext.request.contextPath }/order/Pflist",
-		data : {"instrId" : instrId,
-				"workNum" : b},
-		dataType : "json",
-		async : false, 
-		/* 동기는 응답을 받을 때까지 기다렸다가 다음 작업을 하는 것 */
-		/* 비동기는 요청에 대한 응답이 끝나기 전에 다음 작업을 먼저 함 */
-		/* asyns는 기본 값이 true, false이면 응답이 끝나면 다음 작업을 수행하라는 의미 */
-		success : function(array){
-// 			alert("성공");
-// 			alert("array.length"+ array.length);
-			PerformListPrint(array);
-
-		} //function(array) 
-		
-	}); // ajax
-} 
-
-function PerformListPrint(array){ // 해당 생산실적 출력
-
-	var output ="<br>★ 선택한 작업지시 번호는 "+array[0].workNum+"입니다. <br>";
-	output=output+"<div id='btn'><button id='add' onclick='pfRegi("+array[0].instrId+")'>실적 등록</button></div><br>";
-	if(array[0].itemNum==null){
-		output=output+"<총 0건><br>";
-		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
-		output=output+"<tr id='con'><td colspan='6'> 해당 자료가 없습니다 </td> </tr>";
-	}else{
-		output=output+"<총 "+ array.length +"건><br>";
-		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
-	for (var i=0; i<array.length; i++) {
-	
-		output=output+"<tr id='con'>";
-		output=output+"<td><span id='a'>"+array[i].itemNum+"</span></td>";
-		output=output+"<td>"+array[i].itemName+"</td>";
-		output=output+"<td>"+array[i].performDate+"</td>";
-		output=output+"<td>"+array[i].gbYn+"</td>";	
-		output=output+"<td>"+array[i].performQty+"</td>";	
-		output=output+"<td>"+array[i].dbReason+"</td>";
-		output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
-		output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+array[i].performId+")'></td>";
-		output=output+"</tr>";
-		
-		}
-	}
-	output=output+"</table>";
-	
-	$("#PerformList_ajax").html(output); // innerHtml과 같은 역할
-
-		
-} //PerformListPrint(array)
-
-function openmodi(a){ // 실적 수정창
-        window.open("${pageContext.request.contextPath}/work/pfmodi?performId="+a,"popup", "width=500, height=500,left=100, top=100");
-    }
-
-function pfRegi(a){ // 실적 등록창
-	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=500,left=100, top=100");
-}
-
-
-function delPf(a) {
-	
-	if(confirm("삭제하시겠습니까?")){
-		alert("해당 실적이 삭제되었습니다.");
-		location.href="${pageContext.request.contextPath}/work/del?performId="+a;
-	}else{
-		alert("취소되었습니다.");
-	}}
-	
+// "'${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'"
 
 
 $(function() {
@@ -226,7 +153,7 @@ $(function() {
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
 $(function() {
@@ -269,11 +196,48 @@ $(function() {
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
   
+$(document).ready(function () {
+	// class = "brown" 클릭했을 때 "클릭"
+	$('.search').click(function () {
+	
+	// 자바스크립트 배열(json) <= DB에서 가져옴
+	var arr = [
+			   {"subject":"제목1","date":"2023-01-01"},
+			   {"subject":"제목2","date":"2023-01-02"},
+			   {"subject":"제목3","date":"2023-01-03"}
+			  ];
+	
+	// 초기화
+	$('table').html('');
+	
+	$.ajax({
+		url:'${pageContext.request.contextPath}/board/listjson', 			// json형태로 들고옴 (페이지에 가서)
+		dataType:'json',			// json형태로 받아옴 (json형태)
+		success:function(arr){ 		// json형태로 만든 arr를 가져옴
+		
+					// 반복해서 출력 .each()
+					// arr 배열을 반복하겠다 반복할때의 기능은 어떻게 할건지?
+					$.each(arr,function(index, item){
+					// 클릭을 하면 0,1,2번 배열을 반복함
+//	 				alert(index);
+//	 				alert(item.subject);
+//	 				alert(item.date);
 
+					// 변수이기에 +로 연결시켜줘야 함
+					// 기존내용 없애고 그자리에 새로 넣기, 마지막 게 나옴 ,하나에 덮어서 써진다
+//	 				$('table').html('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
+					
+					// 추가하겠다는 함수 다시 사용 (html -> append로 바꾸기)
+					$('table').append('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
+				});
+			}
+		});
+	});
+});
 
 </script>
 <!-- 스크립트 끝. -->
@@ -285,16 +249,19 @@ $(function() {
 	<!-- 내용시작 -->
 	
 	<h1>수주관리</h1>
-	<div class="ordermng">
-		<form id="search">
-			<div id="btn">
-				<button>조회</button>
-			</div>
+<div class="search_bar">
+	<form id="search">
+		<div id="btn">
+			<button type="submit" id="submit">조회</button>
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/order/orderInsert'">추가</button>		
+		</div>
 				<br>
 			<table id="search">
 				<tr>
 				<td>수주업체</td>
-				<td><input type="text" id="clntNm" name="clnt_nm" onclick="openClntList()"></td>
+				<td><input type="text" name="clntNm" id="clntNm" onclick="openClntList()">
+					<input type="text" name="clntId" id="clntId" value="">
+					<input type="text" name="clntCd" id="clntCd" value=""></td>
 				
 				<td>수주일자</td>
 				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
@@ -302,7 +269,9 @@ $(function() {
 				</tr>
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" id="userNm" name="user_nm" onclick="openUserList()"></td>
+				<td><input type="text" name="userNm" id="userNm" onclick="openUserList()">
+					<input type="text" name="userId" id="userId"value="">
+					<input type="text" name="userNum" id="userNum" value=""></td>
 			
 				<td>납품예정일</td>
 				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>
@@ -323,28 +292,16 @@ $(function() {
 			<th>담당자코드</th>
 			<th>담당자</th>
 		</tr>
-	<c:choose>
-		<c:when test="${empty orderList}">
-			<tr>
-			<td colspan="6"></td>
-			</tr>
-			<tr>
-			<td colspan="6">해당 주문 정보가 존재하지 않습니다.</td>
-			</tr>
-		</c:when>
-		<c:otherwise>
 			<c:forEach var="odto" items="${orderList}">
-				<tr>
+			<tr onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">
 				<td>${odto.clntCd}</td>
 				<td>${odto.clntNm}</td>
-				<td>${odto.orderDt}</td>
-				<td>${odto.dlvryDt}</td>
-				<td>${odto.id}</td>
-				<td>${odto.name}</td>
+				<td>${odto.sOdate}</td>
+				<td>${odto.eDdate}</td>
+				<td>${odto.userNum}</td>
+				<td>${odto.userNm}</td>
 				</tr>
 			</c:forEach>
-		</c:otherwise>
-	</c:choose>
   </table>
   
     <br>

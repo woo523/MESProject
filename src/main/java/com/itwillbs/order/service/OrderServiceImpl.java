@@ -1,6 +1,5 @@
 package com.itwillbs.order.service;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -9,11 +8,11 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.order.dao.OrderDAO;
+import com.itwillbs.order.domain.ItemDTO;
 import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
 import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
-import com.itwillbs.work.domain.ItemDTO;
 
 
 @Service
@@ -28,9 +27,9 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOrderMap(Map<String, Object> search) {
-		System.out.println("OrderServiceImpl getOrderMap(寃���)");
-		return orderDAO.getOrderMap(search);
+	public List<Map<String, Object>> getSearchOrderMap(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl getSearchOrderMap()");
+		return orderDAO.getSearchOrderMap(search);
 	}
 
 	@Override
@@ -79,6 +78,12 @@ public class OrderServiceImpl implements OrderService{
 	public void insertOrder(OrderDTO orderDTO) {
 		System.out.println("OrderServiceImpl 메서드틀 정의 구현()");
 		orderDAO.insertOrder(orderDTO);
+	}
+
+	@Override
+	public OrderDTO getBoard(int ordId) {
+		System.out.println("OrderServiceImpl getBoard()");
+		return orderDAO.getBoard(ordId);
 	}
 
 

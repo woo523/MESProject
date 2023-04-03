@@ -40,15 +40,17 @@
 		</tr>
 		<c:forEach var="itemList" items="${itemList }">
 			<tr id="con"
-				onclick="selectItem('${itemList.itemNum }','${itemList.itemNm },'${itemList.invntUnit })">
+				onclick="selectItem('${itemList.itemId }','${itemList.itemNum }','${itemList.itemNm }','${itemList.invntUnit }')">
+				<td>${itemList.itemId }</td>
 				<td>${itemList.itemNum }</td>
 				<td>${itemList.itemNm }</td>
 				<td>${itemList.invntUnit }</td>
 			</tr>
 
 			<script type="text/javascript">
-				function selectItem(a, b,c) { // 부모창으로 값 넘기기
+				function selectItem(a, b, c, d) { // 부모창으로 값 넘기기
 
+					opener.document.getElementById("itemId").value = a;
 					opener.document.getElementById("itemNum").value = a;
 					opener.document.getElementById("itemNm").value = b;
 					opener.document.getElementById("invntUnit").value = c;

@@ -8,11 +8,11 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.order.domain.ItemDTO;
 import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
 import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
-import com.itwillbs.work.domain.ItemDTO;
 
 
 @Repository
@@ -23,15 +23,14 @@ public class OrderDAOImpl implements OrderDAO{
 	private static final String namespace ="com.itwillbs.mappers.orderMapper";
 
 	@Override
-	public List<Map<String, Object>> getOrderMap(PageDTO pageDTO) { // ��泥� 議고��
+	public List<Map<String, Object>> getOrderMap(PageDTO pageDTO) { 
 		System.out.println("OrderDAOImpl getOrderMap()");
-		
 		return sqlSession.selectList(namespace+".getOrderMap", pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> getOrderMap(Map<String, Object> search) { // 寃��� 議고��
-		System.out.println("OrderDAOImpl getOrderMap(寃���)"); 
+	public List<Map<String, Object>> getSearchOrderMap(Map<String, Object> search) { 
+		System.out.println("OrderDAOImpl getSearchOrderMap()"); 
 
 	    return sqlSession.selectList(namespace+".getSearchOrderMap",search);
 	}
@@ -82,7 +81,13 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public void insertOrder(OrderDTO orderDTO) {
 		System.out.println("OrderDAOImpl insertOrder() 화면단 정보를 db에 저장");
-		sqlSession.selectList(namespace+".insertOrder", orderDTO);
+		sqlSession.insert(namespace+".insertOrder", orderDTO);
+	}
+
+	@Override
+	public OrderDTO getBoard(int ordId) {
+		System.out.println("OrderDAOImpl getBoard() ");
+		return sqlSession.selectOne(namespace+".getBoard", ordId);
 	}
 
 

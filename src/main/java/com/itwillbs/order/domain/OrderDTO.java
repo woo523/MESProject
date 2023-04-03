@@ -7,8 +7,10 @@ public class OrderDTO {
 	private int ordId; 		 // auto_increament ��二쇨�由� 湲곕낯��
 	private int clntId; 		 // FK 嫄곕��泥���蹂� 湲곕낯��
 	private int userId;  		 // FK �ъ�⑹��愿�由� 湲곕낯��
-	private Date orderDt; 		 // ��二쇱�쇱��  
-	private Date dlvryDt; 		 // �⑺��������
+	private Date sOdate; 		 // ��二쇱�쇱��  
+	private Date eOdate; 		 // �⑺��������
+	private Date sDdate; 		 // �⑺��������
+	private Date eDdate; 		 // �⑺��������
 	private String ordNum; 	 // ��二쇰���
 	private String insertId; 	 // �깅���
 	private Timestamp insertDt; // �깅���
@@ -24,9 +26,18 @@ public class OrderDTO {
 	private String clntNm;
 	private String userNm;
 	private String userNum;
+	private String itemNum;
 	private String itemNm;
 	private String invntUnit;
 	
+	
+	
+	public String getItemNum() {
+		return itemNum;
+	}
+	public void setItemNum(String itemNum) {
+		this.itemNum = itemNum;
+	}
 	public int getOrdId() {
 		return ordId;
 	}
@@ -45,17 +56,30 @@ public class OrderDTO {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public Date getOrderDt() {
-		return orderDt;
+
+	public Date getsOdate() {
+		return sOdate;
 	}
-	public void setOrderDt(Date orderDt) {
-		this.orderDt = orderDt;
+	public void setsOdate(Date sOdate) {
+		this.sOdate = sOdate;
 	}
-	public Date getDlvryDt() {
-		return dlvryDt;
+	public Date geteOdate() {
+		return eOdate;
 	}
-	public void setDlvryDt(Date dlvryDt) {
-		this.dlvryDt = dlvryDt;
+	public void seteOdate(Date eOdate) {
+		this.eOdate = eOdate;
+	}
+	public Date getsDdate() {
+		return sDdate;
+	}
+	public void setsDdate(Date sDdate) {
+		this.sDdate = sDdate;
+	}
+	public Date geteDdate() {
+		return eDdate;
+	}
+	public void seteDdate(Date eDdate) {
+		this.eDdate = eDdate;
 	}
 	public String getOrdNum() {
 		return ordNum;

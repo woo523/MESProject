@@ -13,13 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itwillbs.material.domain.ClientDTO;
+import com.itwillbs.order.domain.ItemDTO;
 import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
 import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
 import com.itwillbs.order.service.OrderService;
-import com.itwillbs.work.domain.ItemDTO;
 
 
 @Controller
@@ -39,7 +38,10 @@ public class OrderController {
 	@RequestMapping(value = "/order/orderInsertPro", method = RequestMethod.GET)
 	public String orderInsertPro(OrderDTO orderDTO) {
 		System.out.println("insert화면에서 넘어옴orderDTO");
-		System.out.println("orderDTO"+orderDTO.getUserNum());
+		System.out.println("orderDTO"+orderDTO.getUserId());
+		System.out.println("orderDTO"+orderDTO.getUserNm());
+		System.out.println("orderDTO"+orderDTO.getClntNm());
+		
 		orderService.insertOrder(orderDTO);
 		
 		return "redirect:/order/orderMng";
@@ -50,13 +52,18 @@ public class OrderController {
 	public String orderMng(Model model, HttpServletRequest request, PageDTO pageDTO) {
 
 			// 조회값들
+			String ordId = request.getParameter("ordId");
+			String clntId = request.getParameter("clntId");
 			String clntCd = request.getParameter("clntCd");
+			String clntNm = request.getParameter("clntNm");
 			String sOdate = request.getParameter("sOdate");
 			String eOdate = request.getParameter("eOdate");
-			String userNm = request.getParameter("userNm");
 			String sDdate = request.getParameter("sDdate");
 			String eDdate = request.getParameter("eDdate");
-			
+			String userNum = request.getParameter("userNum");
+			String userNm = request.getParameter("userNm");
+			String userId = request.getParameter("userId");
+	
 			// 한 화면에 보여줄 글 개수 설정
 			int pageSize = 3; // sql문에 들어가는 항목
 			
@@ -77,24 +84,30 @@ public class OrderController {
 			pageDTO.setEndRow(endRow);
 
 			Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+			search.put("ordId", ordId);
 			search.put("clntCd", clntCd);
+			search.put("clntNm", clntNm);
+			search.put("clntId", clntId);
 			search.put("sOdate", sOdate);
 			search.put("eOdate", eOdate);
-			search.put("userNm", userNm);
 			search.put("sDdate", sDdate);
 			search.put("eDdate", eDdate);
+			search.put("userNum", userNum);
+			search.put("userNm", userNm);
+			search.put("userId", userId);
 			
 			search.put("startRow", pageDTO.getStartRow());
 			search.put("pageSize", pageDTO.getPageSize());
 	 
 			
 			List<Map<String,Object>> orderList;
-			if(clntCd == null && sOdate == null && eOdate == null && userNm == null && sDdate == null && eDdate == null) {
+			if(ordId == null && clntCd == null && clntNm == null && sOdate == null && eOdate== null 
+					&& sDdate == null && eDdate == null && userNum == null && userNm == null) {
 			// 조회 안한 경우
 				orderList = orderService.getOrderMap(pageDTO); // page만 필요해서
 			
 			}else { // 조회값 넣은 경우
-				orderList = orderService.getOrderMap(search);
+				orderList = orderService.getSearchOrderMap(search);
 				
 			}
 					
@@ -290,6 +303,18 @@ public class OrderController {
 		model.addAttribute("clntList", clntList);				
 
 		return "order/clntList";
+	}
+	
+	@RequestMapping(value = "/order/content", method = RequestMethod.GET)
+	public String content(HttpServletRequest request, Model model) {
+		System.out.println("OrderController content()");
+		int ordId=Integer.parseInt(request.getParameter("ordId"));
+		
+		OrderDTO orderDTO=orderService.getBoard(ordId);
+		
+		model.addAttribute("orderDTO", orderDTO);
+		
+		return "order/content";
 	}
 }
 
