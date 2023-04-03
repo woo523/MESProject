@@ -380,7 +380,7 @@ public class MaterialController {
 	
 	// 자재입고 등록
 	@RequestMapping(value = "/material/inmtrlInsert", method = RequestMethod.GET)
-	public String inmtrlInsert(HttpServletRequest request) {
+	public String inmtrlInsert() {
 		System.out.println("MaterialController inmtrlInsert()");
 
 		return "material/inmtrlInsert";
