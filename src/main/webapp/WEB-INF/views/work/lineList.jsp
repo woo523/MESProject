@@ -32,7 +32,6 @@ text-align: center;
 	</form>
 	<table>
 		<tr>
-			<th>-</th>
 			<th>라인명</th>
 			<th>공정</th>
 			<th>작업장</th>
@@ -40,22 +39,22 @@ text-align: center;
 		</tr>
 		<c:forEach var="lineList" items="${getLineList}">
 			<tr id="con"
-				onclick="selectline('${lineList.lineId}','${lineList.lineName}','${lineList.proCode}','${lineList.linePlace}','${lineList.useChoice}')">
-				<td>${lineList.lineId}</td>
+				onclick="selectline('${lineList.lineName}','${lineList.proCode}','${lineList.linePlace}','${lineList.useChoice}','${lineList.lineId}')">
 				<td>${lineList.lineName}</td>
 				<td>${lineList.proCode}</td>
 				<td>${lineList.linePlace}</td>
 				<td>${lineList.useChoice}</td>
+				<td><input type="hidden" value="${lineList.lineId}"></td>
 			</tr>
 
 			<script type="text/javascript">
 				function selectline(a, b, c, d, e) { // 부모창으로 값 넘기기
 					
-					opener.document.getElementById("lineId").value = a
-					opener.document.getElementById("lineName").value = b
-					opener.document.getElementById("proCode").value = c
-					opener.document.getElementById("linePlace").value = d
-					opener.document.getElementById("useChoice").value = e
+					opener.document.getElementById("lineName").value = a
+					opener.document.getElementById("proCode").value = b
+					opener.document.getElementById("linePlace").value = c
+					opener.document.getElementById("useChoice").value = d
+					opener.document.getElementById("lineId").value = e
 					window.close();
 				
 				}

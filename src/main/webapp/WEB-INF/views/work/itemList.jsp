@@ -35,18 +35,18 @@ text-align: center;
 <table>
 <tr><td>품번</td><td>품명</td></tr>
 <c:forEach var="itemList" items="${itemList}">
-<tr id="con" onclick="selectItem('${itemList.itemId}','${itemList.itemNum }','${itemList.itemName }')">
-	<td>${itemList.itemId}</td>
+<tr id="con" onclick="selectItem('${itemList.itemNum }','${itemList.itemName }','${itemList.itemId}')">
 	<td>${itemList.itemNum}</td>
-	<td>${itemList.itemName}</td></tr>
+	<td>${itemList.itemName}</td>
+	<td><input type="hidden" value="${itemList.itemId}"></td></tr>
 
     <script type="text/javascript">
 
         function selectItem(a,b,c){ // 부모창으로 값 넘기기
 		  
-          opener.document.getElementById("pid").value = a
-          opener.document.getElementById("pcd").value = b 
-          opener.document.getElementById("pnm").value = c
+          opener.document.getElementById("pcd").value = a 
+          opener.document.getElementById("pnm").value = b
+          opener.document.getElementById("pid").value = c
           window.close();
 
         }

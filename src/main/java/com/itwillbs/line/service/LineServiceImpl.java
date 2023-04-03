@@ -60,4 +60,34 @@ public class LineServiceImpl implements LineService{
 		return lineDAO.lineSearchCount(lineSearch);
 	}
 
+	@Override
+	public void insertLine(LineDTO lineDTO) {
+		System.out.println("LineServiceImpl insertLine");
+		
+		lineDAO.insertLine(lineDTO);
+	}
+
+	@Override
+	public LineDTO getLineList(int lineId) {
+		// lindId에 해당하는 라인 목록 가져오기
+		System.out.println("LineServiceImpl getLineList");
+		
+		return lineDAO.getLineList(lineId);
+	}
+
+	@Override
+	public void updateLine(LineDTO lineDTO, int lineId) {
+		// lineId에 해당하는 라인 수정
+		System.out.println("LineServiceImpl updateLine");
+		
+		lineDAO.updateLine(lineDTO, lineId);
+	}
+
+	@Override
+	public void deleteLine(int lineId) {
+		System.out.println("LineServiceImpl deleteLine");
+		
+		lineDAO.deleteLine(lineId);
+	}
+
 }

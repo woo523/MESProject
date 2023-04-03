@@ -1,6 +1,5 @@
 package com.itwillbs.line.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +58,37 @@ public class LineDAOImpl implements LineDAO{
 		System.out.println("LineDAOImpl lineSearchCount");
 		
 		return sqlSession.selectOne(namespace+".lineSearchCount", lineSearch);
+	}
+
+	@Override
+	public void insertLine(LineDTO lineDTO) {
+		System.out.println("LineDAOImpl insertLine");
+		
+		sqlSession.selectList(namespace+".insertLine", lineDTO);
+	}
+
+	@Override
+	public LineDTO getLineList(int lineId) {
+		// lindId에 해당하는 라인 목록 가져오기
+		System.out.println("LineDAOImpl getLineList");
+		
+		return sqlSession.selectOne(namespace+".getLineList", lineId);
+	}
+
+	@Override
+	public void updateLine(LineDTO lineDTO, int lineId) {
+		System.out.println("LineDAOImpl updateLine");
+		
+		lineDTO.setLineId(lineId);
+		
+		sqlSession.update(namespace+".updateLine", lineDTO);
+	}
+
+	@Override
+	public void deleteLine(int lineId) {
+		System.out.println("LineDAOImpl deleteLine");
+		
+		sqlSession.delete(namespace+".deleteLine", lineId);
 	}
 
 }

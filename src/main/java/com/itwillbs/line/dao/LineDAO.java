@@ -18,4 +18,12 @@ public interface LineDAO {
 	
 	public Integer lineSearchCount(Map<String, Object> lineSearch);
 	
+	public void insertLine(LineDTO lineDTO);
+	
+	public LineDTO getLineList(int lineId);
+	
+	public void updateLine(LineDTO lineDTO, int lineId);
+	
+	public void deleteLine(int lineId);
+	
 }

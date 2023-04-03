@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>line</title>
+	<title>Line</title>
 	
 	<link href="/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
 </head>
@@ -21,7 +21,7 @@
 	<form id="lineSearch">
 		<div class="selectButtons">
 			<button type="submit">조회</button>
-			<button type="button">추가</button>
+			<button type="button" onclick="loginCheck()">등록</button>
 		</div>
 		
 		<table class="searchBox">
@@ -53,13 +53,14 @@
 				<th>작업장</th>
 				<th>정렬순서</th>
 				<th>사용여부</th>
+				<th>비고</th>
 				<th></th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty lineList}">
-					<tr><td colspan="7"></td></tr>
+					<tr><td colspan="8"></td></tr>
 					<tr>
-						<td colspan="7">해당 라인 정보가 존재하지 않습니다.</td>
+						<td colspan="8">해당 라인 정보가 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -71,8 +72,11 @@
 							<td>${lineDTO.linePlace}</td>
 							<td>${lineDTO.sortOrder}</td>
 							<td>${lineDTO.useChoice}</td>
-							<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick=''>
-								<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick=''></td>      
+							<td>${lineDTO.note}</td>
+							<c:if test="${! empty sessionScope.id}">
+								<td><a href="/line/lineModify?lineId=${lineDTO.lineId}"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
+									<a href="/line/lineDelete?lineId=${lineDTO.lineId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>      
+							</c:if>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
@@ -148,5 +152,23 @@ $(document).ready(function() {
 	console.log(${searchCnt});
 	
 });
+
+// 라인 등록 로그인 후 가능
+function loginCheck() {
+	
+	// 세션값 받아오기
+	var id = '<%=(String)session.getAttribute("id")%>';
+	
+	if(id == "null") {
+		// 로그인 X, 로그인 페이지로 이동
+		alert("로그인 후 이용하실 수 있습니다.");
+		location.href='/login/login';
+	} else {
+		// 로그인 O, 등록 페이지로 이동
+		location.href='/line/lineInsert';
+	}
+}
+
+
 </script>
 </html>

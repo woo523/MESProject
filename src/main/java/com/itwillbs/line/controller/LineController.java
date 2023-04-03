@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.line.service.LineService;
+import com.itwillbs.work.domain.InstructDTO;
 
 @Controller
 public class LineController {
@@ -58,5 +59,63 @@ public class LineController {
 		
 		return "line/line";
 	}
+	
+	// 라인 등록
+	@RequestMapping(value = "/line/lineInsert", method = RequestMethod.GET)
+	public String lineInsert() {
+		System.out.println("LineController lineInsert()");
+		
+		return "line/lineInsert";
+	}
 
+	// 라인 등록
+	@RequestMapping(value = "/line/lineInsertPro", method = RequestMethod.POST)
+	public String lineInsertPro(HttpServletRequest request, LineDTO lineDTO) {
+		System.out.println("LineController lineInsertPro()");
+		
+		lineService.insertLine(lineDTO);
+		System.out.println(lineDTO);
+		
+		return "redirect:/line/line";
+	}
+	
+	// 라인 수정
+	@RequestMapping(value = "/line/lineModify", method = RequestMethod.GET)
+	public String lineModify(HttpServletRequest request, Model model) {
+		System.out.println("LineController lineModify()");
+		
+		int lineId = Integer.parseInt(request.getParameter("lineId"));
+		
+		LineDTO lineDTO = lineService.getLineList(lineId);
+		model.addAttribute("lineDTO", lineDTO);
+		System.out.println("폼 : " + lineDTO);
+		
+		return "line/lineModify";
+	}
+	
+	// 라인 수정
+	@RequestMapping(value = "/line/lineModifyPro", method = RequestMethod.POST)
+	public String lineModifyPro(HttpServletRequest request, LineDTO lineDTO) {
+		System.out.println("LineController lineModifyPro()");
+		
+		int lineId = Integer.parseInt(request.getParameter("lineId"));
+		
+		lineService.updateLine(lineDTO, lineId);
+		System.out.println("디비 : " + lineDTO);
+		
+		return "redirect:/line/line";
+	}
+	
+	// 라인 삭제
+	@RequestMapping(value = "/line/lineDelete", method = RequestMethod.GET)
+	public String lineDelete(HttpServletRequest request) {
+		System.out.println("LineController lineDelete");
+		
+		int lineId = Integer.parseInt(request.getParameter("lineId"));
+		
+		lineService.deleteLine(lineId);
+		
+		return "redirect:/line/line";
+	}
+	
 }

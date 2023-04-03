@@ -204,8 +204,8 @@ article {
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${instrDTO.userDTO.name}</td>
-							<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick=''>
-								<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick=''></td>
+							<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openModify'>
+								<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='openDelete'></td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
@@ -350,6 +350,7 @@ function loginCheck() {
 		location.href='/work/instructInsert';
 	}
 }
+
 
 </script>
 </html>

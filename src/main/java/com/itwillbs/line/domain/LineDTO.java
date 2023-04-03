@@ -10,6 +10,7 @@ public class LineDTO {
 	private String linePlace;	// 작업장
 	private int sortOrder;		// 정렬순서
 	private String useChoice;	// 사용여부
+	private String note;		// 비고
 	private String insertId;	// 등록자
 	private Timestamp insertDate;	// 등록일
 	
@@ -56,6 +57,12 @@ public class LineDTO {
 	public void setUseChoice(String useChoice) {
 		this.useChoice = useChoice;
 	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	public String getInsertId() {
 		return insertId;
 	}
@@ -74,7 +81,8 @@ public class LineDTO {
 	public String toString() {
 		return "LineDTO [lineId=" + lineId + ", lineCode=" + lineCode + ", lineName=" + lineName + ", proCode="
 				+ proCode + ", linePlace=" + linePlace + ", sortOrder=" + sortOrder + ", useChoice=" + useChoice
-				+ ", insertId=" + insertId + ", insertDate=" + insertDate + "]";
+				+ ", note=" + note + ", insertId=" + insertId + ", insertDate=" + insertDate + "]";
 	}
+	
 
 }

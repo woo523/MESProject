@@ -11,6 +11,7 @@
 		<result property="linePlace" column="linePlace" />
 		<result property="sortOrder" column="sortOrder" />
 		<result property="useChoice" column="useChoice" />
+		<result property="note" column="note" />
 	</resultMap>
 	
 	<!-- line 전체 select 구문 -->
@@ -70,8 +71,39 @@
 			   pro_cd as proCode,
 			   place as linePlace,
 			   sort_ord as sortOrder,
-			   use_yn as useChoice
+			   use_yn as useChoice,
+			   note as note
 		FROM line
 	</sql>
+	
+	<!-- 라인 등록 -->
+	<insert id="insertLine">
+		INSERT INTO line (line_id, line_cd, line_nm, pro_cd, place, sort_ord, use_yn, note)
+		VALUES (#{lineId}, #{lineCode}, #{lineName}, #{proCode}, #{linePlace}, #{sortOrder}, #{useChoice}, #{note})
+	</insert>
+	
+	<!-- lineId에 맞는 라인 목록 -->
+	<select id="getLineList" resultType="com.itwillbs.line.domain.LineDTO">
+		<include refid="List" />
+		WHERE line_id LIKE CONCAT('%', #{lineId}, '%')
+	</select>
+	
+	<!-- 라인 수정 -->
+	<update id="updateLine">
+		UPDATE line
+		SET line_cd = #{lineCode},
+			line_nm = #{lineName},
+			pro_cd = #{proCode},
+			place = #{linePlace},
+			sort_ord = #{sortOrder},
+			use_yn = #{useChoice},
+			note = #{note}
+		WHERE line_id = #{lineId}
+	</update>
+	
+	<delete id="deleteLine">
+		DELETE FROM line
+		WHERE line_id = #{lineId}
+	</delete>
 	
 </mapper>
