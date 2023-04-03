@@ -1,5 +1,6 @@
 package com.itwillbs.material.controller;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
+import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.material.service.MaterialService;
 import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.domain.ItemDTO;
@@ -378,7 +380,7 @@ public class MaterialController {
 	
 	// 자재입고 등록
 	@RequestMapping(value = "/material/inmtrlInsert", method = RequestMethod.GET)
-	public String inmtrlInsert() {
+	public String inmtrlInsert(HttpServletRequest request) {
 		System.out.println("MaterialController inmtrlInsert()");
 
 		return "material/inmtrlInsert";
@@ -386,17 +388,46 @@ public class MaterialController {
 	
 	// 자재입고 등록
 	@RequestMapping(value = "/material/inmtrlInsertPro", method = RequestMethod.POST)
-	public String inmtrlInsertPro(HttpServletRequest request, InmaterialDTO inmaterialDTO) {
+	public String inmtrlInsertPro(HttpServletRequest request) {
 		System.out.println("MaterialController inmtrlInsertPro()");
+		
+		InmaterialDTO inmaterialDTO = new InmaterialDTO();
 		
 		inmaterialDTO.setInmtrlNum(request.getParameter("inmtrlNum"));
 		inmaterialDTO.setInsertId(request.getParameter("insertId"));
+		
+		String date = request.getParameter("inmtrlDt");
+		Date inmtrlDt = Date.valueOf(date);
+		inmaterialDTO.setInmtrlDt(inmtrlDt);
+		
 		inmaterialDTO.setItemId(Integer.parseInt(request.getParameter("pcd")));
 		inmaterialDTO.setClntId(Integer.parseInt(request.getParameter("ccd")));
+		
+		inmaterialDTO.setInmtrlQty(Integer.parseInt(request.getParameter("materialQty")));
+		inmaterialDTO.setInmtrlLot(Integer.parseInt(request.getParameter("inmtrlLot")));
+		inmaterialDTO.setNote(request.getParameter("note"));
 		
 		materialService.insertInmtrl(inmaterialDTO);
 		System.out.println(inmaterialDTO);
 		
 		return "redirect:/material/inmtrlInsert";
+	}
+	
+	// 실사량
+	@RequestMapping(value = "/material/addList", method = RequestMethod.GET)
+	public String addList(HttpServletRequest request, Model model) {
+		System.out.println("MaterialController addList()");
+
+		
+		return "material/addList";
+	}
+	
+	// 실사량
+	@RequestMapping(value = "/material/addListPro", method = RequestMethod.POST)
+	public String addListPro() {
+		System.out.println("MaterialController addListPro()");
+		
+		
+		return "redirect:/material/addList";
 	}
 }	

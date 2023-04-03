@@ -26,6 +26,8 @@ function openclist(){
 	<h2>자재입고 등록</h2>
 	<br>
 	<form action="${pageContext.request.contextPath }/material/InmtrlInsertPro" method="get">	
+	
+
 				
 		<ul>
 			<li>입고번호 <input type="text" name="inmtrlNum"></li>
@@ -43,7 +45,7 @@ function openclist(){
 					</select></li>
 			<li>단위  <input type="text" name="unit"></li>
 			<li>입고수량  <input type="number" class="Qty" name="materialQty"></li>
-			<li>입고LOT  <input type="text" name="note"> </li>
+			<li>입고LOT  <input type="text" name="inmtrlLot"> </li>
 			<li>비고  <input type="text" name="note"> </li>
 		</ul>
 		

@@ -95,9 +95,6 @@
 	order by inmater.in_mtrl_id desc
 	limit #{startRow}, #{pageSize}
     </select>
-   
-
-    
 
 
 	<select id="countMtrlLi" resultType="java.lang.Integer">        
@@ -137,8 +134,22 @@
    	delete from in_material	
    	where in_mater_id = #{inmaterId}
    	</delete>
+   	
+<!-- 실사량   	 -->
+<!--    	<select id="getStock" resultType="com.itwillbs.work.domain.StockDTO"> -->
+<!--    	select -->
+<!--    	stock_id,  -->
+<!-- 	item_id, -->
+<!-- 	whouse, -->
+<!-- 	cur_stock, -->
+<!-- 	insert_id, -->
+<!-- 	insert_dt -->
+<!--    	from stock -->
+<!--    	</select> -->
 
-<!-- 	<select id="getInmtrlMap" resultMap="InmaterMap">  자재입고 등록 -->
+
+<!-- 자재입고 등록 -->
+<!-- 	<select id="getInmtrlMap" resultMap="InmaterMap">  -->
 <!-- 	select -->
 <!-- 		inmater.in_mtrl_num,  -->
 <!-- 		inmater.in_mtrl_dt,   -->
@@ -162,10 +173,10 @@
 <!-- 		where inmater.in_mtrl_id = #{inmtrlId} -->
 <!--  	</select> -->
  
-	<!-- 작업지시 등록 -->
+	<!-- 자재입고 등록 -->
 	<insert id="insertInmtrl">
-		INSERT INTO in_material (in_mtrl_num, in_mtrl_dt, insert_id, in_mtrl_qty, in_mtrl_lot, note, clnt_cd, clnt_nm, item_num, item_nm, invnt_unit)
-		VALUES (#{inmtrlNum}, #{inmtrlDt}, #{insertId}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{clientCode}, #{clientName}, #{itemNum}, #{itemName}, #{itemUnit})
+		insert into in_material (in_mtrl_num, in_mtrl_dt, whouse, insert_id, in_mtrl_qty, in_mtrl_lot, note, clnt_cd, clnt_nm, item_num, item_nm, invnt_unit)
+		VALUES (#{inmtrlNum}, #{inmtrlDt}, #{insertId}, #{whouse}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{clientCode}, #{clientName}, #{itemNum}, #{itemName}, #{itemUnit})
 	</insert>
 
 
