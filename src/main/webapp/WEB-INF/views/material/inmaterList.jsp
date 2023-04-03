@@ -127,9 +127,11 @@ text-align: center;
 		</tr>
 		<tr>
 			<td>품번</td>
+			<input type="hidden" id="pid">
 			<td><input type="text" name="pcd" id="pcd" placeholder="품번코드" onclick="openilist()">
 				<input type="text" name="pnm" id="pnm" placeholder="품번명" readonly></td>
 			<td>업체</td>
+			<input type="hidden" id="cid">
 			<td><input type="text" name="ccd" id="ccd" placeholder="업체코드" onclick="openclist()">
 				<input type="text" name="cnm" id="cnm" placeholder="업체명" readonly></td>
 		</tr>
@@ -140,10 +142,7 @@ text-align: center;
 	<br><br><br>
 	<h1>자재 입고 목록</h1>
 	<br>
-	
-	<div id="btn">
-				<span id="printCnt"></span>
-		</div>
+	<h2>총 ${pageDTO.count } 건</h2>
 	<br>
 	<table border="1" class="inList">	
 	<tr>
@@ -161,6 +160,7 @@ text-align: center;
 	<c:forEach var="inte" items="${inmaterList}">
 		<tr id="con" onclick="inmaterList(${inte.inmaterId}, ${inte.itemId })">
 			<td>${inte.inmtrlNum}</td>
+			 <input type="hidden" name="inmtrlId" id="inmtrlId">
 			<td>${inte.inmtrlDt}</td>
 		  	<td>${inte.itemNum}</td>
 		  	<td>${inte.itemName}</td>
@@ -173,7 +173,7 @@ text-align: center;
 		  	<td>${inte.inmtrlLot}</td>
 		  	<td>${inte.note}</td>
 		  	<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi()'>
-				<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf()'></td>		
+				<a href="/material/del?inmtrlId=${materialDTO.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>		
 			</tr>
 			</c:forEach>
 			</c:otherwise>
@@ -278,14 +278,14 @@ function openmodi(a){ // 수정창
     window.open("${pageContext.request.contextPath}/material/immodi?inmtrlId"+a,"popup", "width=500, height=500,left=100, top=100");
 }
 
-function delPf(a) {
+// function delPf(a) {
 	
-	if(confirm("삭제하시겠습니까?")){
-		alert("해당 입고내역이 삭제되었습니다.");
-		location.href="${pageContext.request.contextPath}/material/del?inmaterId="+a;
-	}else{
-		alert("취소되었습니다.");
-	}}
+// 	if(confirm("삭제하시겠습니까?")){
+// 		alert("해당 입고내역이 삭제되었습니다.");
+// 		location.href="${pageContext.request.contextPath}/material/del?inmaterId="+a;
+// 	}else{
+// 		alert("취소되었습니다.");
+// 	}}
 
 // 유효성 검사
 $(document).ready(function() {

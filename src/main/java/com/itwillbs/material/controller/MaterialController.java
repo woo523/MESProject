@@ -371,10 +371,10 @@ public class MaterialController {
 	
 	// 입고 삭제창
 	@RequestMapping(value = "/material/del", method = RequestMethod.GET)
-	public String del(HttpServletRequest request, Model model) { 
-		int inmtrlNum = Integer.parseInt(request.getParameter("inmtrlNum"));
+	public String del(HttpServletRequest request) { 
+		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
 		
-		materialService.delPf(inmtrlNum);
+		materialService.deleteInmtrl(inmtrlId);
 		
 		return "redirect:/material/inmaterList";
 	}

@@ -124,9 +124,11 @@ text-align: center;
 		</tr>
 		<tr>
 			<td>품번</td>
+			<input type="hidden" id="pid">
 				<td><input type="text" name="pcd" id="pcd"  placeholder="품번코드" onclick="openilist()">
 					<input type="text" name="pnm" id="pnm" placeholder="품번명" readonly></td>
 			<td>업체</td>
+			<input type="hidden" id="cid">
 			<td><input type="text" name="ccd" id="ccd" placeholder="업체코드" onclick="openclist()">
 				<input type="text" name="cnm" id="cnm" placeholder="업체명" readonly></td>
 		</tr>
@@ -137,12 +139,7 @@ text-align: center;
 	<br><br><br>
 	<h1>자재 출고 목록</h1>
 	<br>
-	
-		<div id="btn">
-			<span id="printCnt"></span>
-			<button type="button">취소</button>
-			<button type="button">저장</button>
-		</div>
+	<h2>총 ${pageDTO.count } 건</h2>
 	<br>
 	<table border="1" class="outList">	
 	<tr>

@@ -35,11 +35,12 @@ function openclist(){
 			<li>입고일자 <input type="date" id="Date" class="mtDate" name="inmtrlDt"></li>
 			<li>제품 정보 <input type="text" id="pcd" placeholder="품번코드" onclick="openilist()">
 					   <input type="text" id="pnm" placeholder="품번명" readonly></li>
-					    <input type="text" name="itemId" id="pid" >
+					    <input type="hidden" name="itemId" id="pid" >
 			<li>거래처 정보 <input type="text" id="ccd" placeholder="업체코드" onclick="openclist()">
 						 <input type="text" id="cnm" placeholder="업체명" readonly></li>
-						 <input type="text" name="clntId" id="cid">
-
+						 <input type="hidden" name="clntId" id="cid">
+			 <input type="hidden" name="whouse" id="whouse">
+			<input type="hidden" name="curStock" id="stockcur">
 			<li>단위  <input type="text" name="unit"></li>
 			<li>입고수량  <input type="number" class="Qty" name="inmtrlQty"></li>
 			<li>입고LOT  <input type="text" name="inmtrlLot"> </li>

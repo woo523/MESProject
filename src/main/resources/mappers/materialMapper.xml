@@ -133,7 +133,7 @@
     </if>
     </select>        
         
-   <delete id="delPf"> <!-- 자재입고 삭제 -->
+   <delete id="deleteInmtrl"> <!-- 자재입고 삭제 -->
    	delete from in_material	
    	where in_mater_id = #{inmaterId}
    	</delete>
@@ -151,30 +151,7 @@
 <!--    	</select> -->
 
 
-<!-- 자재입고 등록 -->
-<!-- 	<select id="getInmtrlMap" resultMap="InmaterMap">  -->
-<!-- 	select -->
-<!-- 		inmater.in_mtrl_num,  -->
-<!-- 		inmater.in_mtrl_dt,   -->
-<!-- 		inmater.in_mtrl_qty,			  -->
-<!-- 		inmater.in_mtrl_lot,  -->
-<!-- 		inmater.note,  -->
-<!-- 		clnt.clnt_cd, -->
-<!-- 		clnt.clnt_nm, -->
-<!-- 		stock.cur_stock, -->
-<!-- 		stock.whouse, -->
-<!-- 		item.item_num,  -->
-<!--     	item.item_nm, -->
-<!--     	item.invnt_unit -->
-<!-- 	from   -->
-<!-- 		in_material inmater join client clnt -->
-<!-- 		on inmater.clnt_id = clnt.clnt_id -->
-<!-- 		join item item -->
-<!-- 		on inmater.item_id = item.item_id -->
-<!-- 		join stock stock -->
-<!-- 		on item.item_id = stock.item_id	 -->
-<!-- 		where inmater.in_mtrl_id = #{inmtrlId} -->
-<!--  	</select> -->
+
  
 	<!-- 자재입고 등록 -->
 	<insert id="insertInmtrl">

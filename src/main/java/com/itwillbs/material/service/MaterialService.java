@@ -46,11 +46,11 @@ public interface MaterialService {
 
 	public Integer countStateLi(Map<String, Object> search);
 
-	public void delPf(int inmtrlNum);
-
 //	public Map<String, Object> getInmtrlMap(int inmtrlId);
 
 	public void insertInmtrl(InmaterialDTO inmaterialDTO);
+
+	public void deleteInmtrl(int inmtrlId);
 	
 
 }

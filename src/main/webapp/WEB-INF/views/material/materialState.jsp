@@ -145,6 +145,7 @@ function openadd(){
 						<option value="3">자재 3</option>
 					</select></td>
 				<td>품번</td>
+				<input type="hidden" id="pid">
 					<td><input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openlist()">
 						<input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
 			</tr>
@@ -154,6 +155,8 @@ function openadd(){
 <br><br><br>	
 	<h2>자재재고</h2>
 	<br>	
+	<h2>총 ${pageDTO.count } 건</h2>
+	<br>
 	<table border="1" class="inList">	
 	<tr id="th">
 		<th>품번</th>

@@ -121,11 +121,6 @@ public class MaterialServiceImpl implements MaterialService{
 		return materialDAO.countStateLi(search);
 	}
 
-	@Override
-	public void delPf(int inmtrlNum) {
-		System.out.println("InmaterialServiceImpl delPf()");
-		materialDAO.delPf(inmtrlNum);
-	}
 
 //	@Override
 //	public Map<String, Object> getInmtrlMap(int inmtrlId) {
@@ -137,6 +132,13 @@ public class MaterialServiceImpl implements MaterialService{
 	public void insertInmtrl(InmaterialDTO inmaterialDTO) {
 		System.out.println("InmaterialServiceImpl insertInmtrl()");
 		materialDAO.insertInmtrl(inmaterialDTO);
+	}
+
+	@Override
+	public void deleteInmtrl(int inmtrlId) {
+		System.out.println("InmaterialServiceImpl deleteInmtrl()");
+	
+		materialDAO.deleteInmtrl(inmtrlId);
 	}
 
 
