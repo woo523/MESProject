@@ -132,4 +132,18 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 
+	@Override
+	public void delPf(int inmtrlNum) {
+		System.out.println("materialDAOImpl delPf()");
+		sqlSession.delete(namespace+".delPf", inmtrlNum);
+	}
+
+
+	@Override
+	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+		System.out.println("materialDAOImpl getInmtrlMap()");
+		return sqlSession.selectOne(namespace+".getInmtrlMap",inmtrlId);
+	}
+
+
 }

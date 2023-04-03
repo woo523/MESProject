@@ -42,5 +42,7 @@ public interface MaterialDAO {
 	
 	public Integer countStateLi(Map<String, Object> search);
 
+	public void delPf(int inmtrlNum);
 
+	public Map<String, Object> getInmtrlMap(int inmtrlId);
 }

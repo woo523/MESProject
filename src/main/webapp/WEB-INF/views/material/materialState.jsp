@@ -116,6 +116,9 @@ function openlist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
+function openadd(){
+    window.open("${pageContext.request.contextPath }/material/addList","popup", "width=500, height=500,left=100, top=100");
+}
 </script>
 
 <body>
@@ -150,10 +153,6 @@ function openlist(){
 </div>
 <br><br><br>	
 	<h2>자재재고</h2>
-		<div id="btn">
-			<button type="button">취소</button>
-			<button type="button">저장</button>
-		</div>
 	<br>	
 	<table border="1" class="inList">	
 	<tr id="th">
@@ -181,7 +180,7 @@ function openlist(){
 		  	<td>${inte.itemUnit}</td>
 		  	<td>${inte.stockwhouse}</td>
 		  	<td>${inte.stockcur}</td>
-		  	<td></td>
+		  	<td><img src='${pageContext.request.contextPath}/resources/image/add.png' width='17px' onclick='openadd()'></td>
 		</tr>
 		</c:forEach>
 	</c:otherwise>

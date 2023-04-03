@@ -44,6 +44,10 @@ public interface MaterialService {
 	public List<Map<String, Object>> materialState();
 
 	public Integer countStateLi(Map<String, Object> search);
+
+	public void delPf(int inmtrlNum);
+
+	public Map<String, Object> getInmtrlMap(int inmtrlId);
 	
 
 }

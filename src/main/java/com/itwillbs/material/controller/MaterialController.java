@@ -364,5 +364,26 @@ public class MaterialController {
 		
 		return "material/materialState";
 	}
+	
+	@RequestMapping(value = "/material/del", method = RequestMethod.GET)
+	public String del(HttpServletRequest request, Model model) { // 실적 삭제창
+		int inmtrlNum = Integer.parseInt(request.getParameter("inmtrlNum"));
+		
+		materialService.delPf(inmtrlNum);
+		
+		return "redirect:/material/inmaterList";
+	}
+	
+	// 자재입고 등록
+	@RequestMapping(value = "/material/inmtrlInsert", method = RequestMethod.GET)
+	public String inmtrlInsert(HttpServletRequest request, Model model) {
+		System.out.println("MaterialController inmtrlInsert()");
+		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
+		
+		Map<String, Object> getInmtrl = materialService.getInmtrlMap(inmtrlId);
+		
+		model.addAttribute("getInmtrl", getInmtrl);
+		return "material/inmtrlInsert";
+	}	
 
 }

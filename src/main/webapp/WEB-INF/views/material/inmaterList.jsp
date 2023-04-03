@@ -109,7 +109,7 @@ text-align: center;
 	<form id="search">
 	<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="location.href='/work/instructInsert'">추가</button>
+			<button type="button" onclick="location.href='/material/inmtrlInsert'">추가</button>
 		</div>
 		<br>
 	<table id="search">
@@ -143,8 +143,6 @@ text-align: center;
 	
 	<div id="btn">
 				<span id="printCnt"></span>
-			<button type="button">취소</button>
-			<button type="button">저장</button>
 		</div>
 	<br>
 	<table border="1" class="inList">	
@@ -263,7 +261,10 @@ $('button.ui-datepicker-current').live('click', function() {
 	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
 })
 
-var in_mtrl_id = a;
+function inmaterList(a){
+	console.log("inmaterList 호출");
+	var inmaterId = a;
+}
 
 function openilist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
@@ -274,14 +275,14 @@ function openclist(){
 }
 
 function openmodi(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/immodi?in_mtrl_id"+a,"popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath}/material/immodi?inmtrlId"+a,"popup", "width=500, height=500,left=100, top=100");
 }
 
 function delPf(a) {
 	
 	if(confirm("삭제하시겠습니까?")){
 		alert("해당 입고내역이 삭제되었습니다.");
-		location.href="${pageContext.request.contextPath}/material/del?in_mtrl_id="+a;
+		location.href="${pageContext.request.contextPath}/material/del?inmaterId="+a;
 	}else{
 		alert("취소되었습니다.");
 	}}
