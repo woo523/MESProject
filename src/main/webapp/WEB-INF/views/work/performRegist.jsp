@@ -80,6 +80,14 @@ text-align: center;
 }
 
 
+#si{
+	font-weight: bolder;
+}
+#ma{
+	color:red;
+}
+
+
 div.side{ 
 /*  height : 780px; */
  }  
@@ -249,7 +257,7 @@ $(function() {
 		</c:forEach>
 		</select></td>
 	<td>지시일자</td>
-	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td>
+	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td><td>~</td>
 	<td><input type="text" id="eDate" class="form-control" name="edate" readonly></td>
 	<td>품번</td>
 		<input type="hidden" id="pid">
@@ -281,7 +289,12 @@ $(function() {
 	  	<td>${idto.lineName}</td>
 	  	<td>${idto.itemNum}</td>
 	  	<td>${idto.itemName}</td>
-	 	<td>${idto.workSts}</td>
+	  	<c:if test="${idto.workSts eq '지시'}">
+	 	<td>${idto.workSts}</td></c:if>
+	 	<c:if test="${idto.workSts eq '시작'}">
+	 	<td id="si">${idto.workSts}</td></c:if>
+	 	<c:if test="${idto.workSts eq '마감'}">
+	 	<td id="ma">${idto.workSts}</td></c:if>
 	  	<td>${idto.workDate}</td>
 	  	<td>${idto.workQty}</td>
 	  	<td>${idto.ordNum}</td>

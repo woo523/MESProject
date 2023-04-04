@@ -69,6 +69,12 @@ public class PerformServiceImpl implements PerformService {
 		if(performDAO.checkY(performDTO.getInstrId())) { // 양품이 지시수량보다 같거나 많으면
 			performDAO.updateClose(performDTO.getInstrId()); // 마감으로 지시 상태 변경
 		}
+		
+		Map<String, Object> instr = performDAO.getInstrMap(performDTO.getInstrId());
+		if(instr.get("workSts").equals("지시")) { // 지시 상태면 
+			performDAO.updateStart(performDTO.getInstrId()); // 시작으로 변경
+		}
+		
 	}
 
 	@Override

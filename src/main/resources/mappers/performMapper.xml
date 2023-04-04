@@ -468,6 +468,13 @@
 	set work_sts = '마감'
 	where instr_id = #{instrId}
 	</update>
+	
+	<update id="turnstart">
+	update work_instr
+	set work_sts = '시작'
+	where instr_id = #{instrId}
+	</update>
+	
 
    
 </mapper>

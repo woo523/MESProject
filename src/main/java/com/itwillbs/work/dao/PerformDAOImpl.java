@@ -139,6 +139,12 @@ public class PerformDAOImpl implements PerformDAO {
 		
 	}
 
+	@Override
+	public void updateStart(int instrId) { // 실적 등록 시작하면 상태 시작으로 변경
+		System.out.println("PerformDAOImpl updateStart()");
+		sqlSession.update(namespace+".turnstart", instrId);
+	}
+
 	
 
 	

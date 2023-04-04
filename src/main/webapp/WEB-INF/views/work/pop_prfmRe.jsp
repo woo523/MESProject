@@ -47,6 +47,9 @@ padding-right: 3px;
 border-top: 1px solid white;
 }
 
+td:hover{
+	cursor: pointer;
+}
 .popcontainer{
 	width: 1450px;
 
@@ -175,7 +178,7 @@ $(document).ready(function(){
 
 
 	<table id="main">
-	<tr id="th"><th>작업지시번호</th><th>라인명</th><th>품명</th><th>지시상태</th><th>지시일자</th><th>지시수량</th><th>수주번호</th><th>업체</th><th>생산량</th><th>양품</th><th>불량</th></tr>
+	<tr id="th"><th>작업지시번호</th><th>라인명</th><th>품명</th><th>지시상태</th><th>지시일자</th><th>지시수량</th><th>생산량</th><th>양품</th><th>불량</th><th>수주번호</th><th>업체</th></tr>
 	
 	
 	<c:forEach var="idto" items="${instrList }">
@@ -191,11 +194,11 @@ $(document).ready(function(){
 	 	<td id="ma">${idto.workSts}</td></c:if>
 	  	<td>${idto.workDate}</td>
 	  	<td>${idto.workQty}</td>
-	  	<td>${idto.ordNum}</td>
-	  	<td>${idto.ClientName}</td>
 	  	<td>${idto.pqty }</td>
 	  	<td id="si">${idto.Y }</td>
-	  	<td id="ma">${idto.N }</td></tr>
+	  	<td id="ma">${idto.N }</td>
+	  	<td>${idto.ordNum}</td>
+	  	<td>${idto.ClientName}</td></tr>
 	</c:forEach>
 
     </table>

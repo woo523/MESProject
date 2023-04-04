@@ -339,7 +339,7 @@ public class PerformController {
 		session.setAttribute("name", memberDTO2.getName());
 		}
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		int pageSize = 8; // sql문에 들어가는 항목
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");

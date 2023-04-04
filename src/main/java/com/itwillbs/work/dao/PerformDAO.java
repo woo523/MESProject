@@ -46,5 +46,7 @@ public interface PerformDAO {
 	
 	public void updateClose (int instrId);
 	
+	public void updateStart (int instrId);
+	
 	
 }

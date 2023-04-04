@@ -78,6 +78,8 @@ text-align: center;
 	background-color: #EAEAEA;
 	border: 1px solid;
 }
+
+
 </style>
 </head>
 <body>
@@ -210,7 +212,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 		</c:forEach>
 		</select></td>
 	<td>실적일자</td>
-	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td>
+	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td><td>~</td>
 	<td><input type="text" id="eDate" class="form-control" name="edate" readonly></td>
 	<td>품번</td>
 		<input type="hidden" id="pid">
