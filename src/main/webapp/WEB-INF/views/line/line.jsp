@@ -78,7 +78,7 @@
 							<td>${lineDTO.linePlace}</td>
 							<td>${lineDTO.sortOrder}</td>
 							<td>${lineDTO.useChoice}</td>
-							<td>${lineDTO.note}</td>
+							<td style="width: 350px">${lineDTO.note}</td>
 							<c:if test="${! empty sessionScope.id}">
 								<td><a href="/line/lineModify?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
 									<a href="/line/lineDelete?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>      

@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.common.PageUtil;
-import com.itwillbs.line.dao.LineDAO;
 import com.itwillbs.work.dao.InstructDAO;
 import com.itwillbs.work.domain.InstructDTO;
 
@@ -62,7 +61,6 @@ public class InstructServiceImpl implements InstructService{
 		// 작업지시 등록
 		System.out.println("InstructServiceImpl insertInstr");
 		
-		instructDTO.setWorkDate(new Timestamp(System.currentTimeMillis()));
 		instructDTO.setInsertDate(new Timestamp(System.currentTimeMillis()));
 		
 		instructDAO.insertInstr(instructDTO);
@@ -74,6 +72,13 @@ public class InstructServiceImpl implements InstructService{
 		System.out.println("InstructServiceImpl getLineList");
 		
 		return instructDAO.getLineList(lineName);
+	}
+
+	@Override
+	public void instrDelete(int instrId) {
+		System.out.println("InstructServiceImpl instrDelete");
+		
+		instructDAO.instrDelete(instrId);
 	}
 	
 }

@@ -61,7 +61,7 @@ public class InstructDAOImpl implements InstructDAO {
 		// 작업지시 등록
 		System.out.println("InstructDAOImpl insertInstr");
 		
-		sqlSession.insert(namespace+".insertInstr", instructDTO);
+		sqlSession.insert(namespace+".instrInsert", instructDTO);
 	}
 
 	@Override
@@ -70,6 +70,13 @@ public class InstructDAOImpl implements InstructDAO {
 		System.out.println("InstructDAOImpl getLineList");
 		
 		return sqlSession.selectList(namespace+".getLineList", lineName);
+	}
+
+	@Override
+	public void instrDelete(int instrId) {
+		System.out.println("InstructDAOImpl instrDelete");
+		
+		sqlSession.delete(namespace+".instrDelete", instrId);
 	}
 
 }

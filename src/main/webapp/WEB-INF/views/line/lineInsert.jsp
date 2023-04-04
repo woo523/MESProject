@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Line insert</title>
+<style type="text/css">
+	.content_body textarea {
+		resize: none;
+	}
+
+</style>
 </head>
 <body>
 <!-- <header> -->
@@ -16,7 +22,6 @@
 	<br>
 	<form action="${pageContext.request.contextPath}/line/lineInsertPro" method="post" onsubmit="return checkForm()">
 		<ul>
-			<li>라인코드 <input type="text" name="lineCode"></li>
 			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
 			<li>라인명 <input type="text" name="lineName" ></li>
 			<li>공정 	<select name="proCode">
@@ -32,7 +37,8 @@
 			<li>일렬번호 <input type="text" name="sortOrder"> </li>
 			<li>사용여부 <input type="radio" name="useChoice" value="Y" class="sCheck">Y
 						 <input type="radio" name="useChoice" value="N" class="sCheck">N</li>
-			<li>비고 <textarea rows="5" cols="30" name="note"></textarea></li>
+			<li>비고 <textarea rows="5" cols="30" name="note" maxlength="25"
+							   placeholder="글자수는 최대 25자 입니다"></textarea></li>
 		</ul>
 		
 		<input type="submit" value="등록">

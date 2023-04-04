@@ -31,7 +31,7 @@
 	</resultMap>
 	
  	<resultMap type="map" id="instrMap">
- 		<result property="instr_id" column="instr_id"/>
+ 		<result property="instrId" column="instr_id"/>
 		<result property="workNum" column="workNum"/>
 		<result property="workDate" column="workDate"/>
 		<result property="workSts" column="workSts"/>
@@ -69,20 +69,6 @@
 	<select id="instrSearchCount" resultType="java.lang.Integer">
 		<include refid="SearchCount" />
 		<include refid="Search" />
-	</select>
-	
-	<!-- 작업지시 등록 -->
-	<insert id="insertInstr">
-		INSERT INTO work_instr (instr_id, work_num, insert_id, ord_id, ord_info_id, work_sts, item_id, line_id, work_qty, work_dt, insert_dt)
-		VALUES (#{instrId}, #{workNum}, #{insertId}, #{ordId}, #{ordInfoId}, #{workSts}, #{itemId}, #{lineId}, #{workQty}, #{workDate}, #{insertDate})
-	</insert>
-
-	<select id="selectInstr" resultMap="instrMap">
-		<include refid="List" />
-		WHERE clnt.clnt_id LIKE CONCAT('%', #{clntId}, '%')
-		AND oder.ord_id LIKE CONCAT('%', ${ordId}, '%')
-		AND item.item_id LIKE CONCAT('%', ${itemId}, '%')
-		AND line.line_id LIKE CONCAT('%', ${lineId}, '%')
 	</select>
 	
 	<sql id="List">
@@ -143,5 +129,17 @@
 		FROM line
 		WHERE line_nm LIKE CONCAT('%', #{lineName}, '%')
 	</select>
+	
+	<!-- 작업지시 등록 -->
+	<insert id="instrInsert">
+		INSERT INTO work_instr (instr_id, work_num, insert_id, ord_id, ord_info_id, work_sts, item_id, line_id, work_qty, work_dt, insert_dt)
+		VALUES (#{instrId}, #{workNum}, #{insertId}, #{ordId}, #{ordInfoId}, #{workSts}, #{itemId}, #{lineId}, #{workQty}, #{workDate}, #{insertDate})
+	</insert>
+	
+	<!-- 작업지시 삭제 -->
+	<delete id="instrDelete">
+		DELETE FROM work_instr
+		WHERE instr_id = #{instrId}
+	</delete>
 
 </mapper>
