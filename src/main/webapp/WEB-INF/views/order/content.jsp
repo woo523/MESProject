@@ -104,23 +104,28 @@ text-align: center;
 
 <div class="content_body"> <!-- 지우면안됨 -->
 <br>
+<form>
+
 	<h1>수주품목상세</h1>
 	<div class="content">
 			<div id="btn">
-				<button type="reset">취소</button>
+				<button type="button" value="글수정" class="btn"
+	onclick="location.href='${pageContext.request.contextPath}/order/update?ordId=${orderDTO.ordId }'"> 수정 </button>
 				<button type="submit" >저장</button>
 			</div>
 				<br>
 
 	<table id="content" border="1">
+	<tr><td>${orderDTO.ordId }</td></tr>
+	
 	<tr><td>업체명</td>
 	<td>${orderDTO.clntNm }</td></tr>
 	<tr><td>수주일자</td>
-	<td>${orderDTO.sOdate }</td></tr>
+	<td>${orderDTO.orderDt }</td></tr>
 	<tr><td>담당자</td>
 	<td>${orderDTO.userNm }</td></tr>
 	<tr><td>납품예정일</td>
-	<td>${orderDTO.sDdate }</td></tr>
+	<td>${orderDTO.dlvryDt }</td></tr>
 	<tr><td>품번</td>
 	<td>${orderDTO.itemNum }</td></tr>
 	<tr><td>품명</td>
@@ -133,8 +138,8 @@ text-align: center;
 	</div>
 <br>
 
+</form>
 </div>
-
 </body>
 <!-- 푸터 -->
 <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->

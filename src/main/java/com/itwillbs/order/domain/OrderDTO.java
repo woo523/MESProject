@@ -4,25 +4,25 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class OrderDTO {
-	private int ordId; 		 // auto_increament ��二쇨�由� 湲곕낯��
-	private int clntId; 		 // FK 嫄곕��泥���蹂� 湲곕낯��
-	private int userId;  		 // FK �ъ�⑹��愿�由� 湲곕낯��
-	private Date sOdate; 		 // ��二쇱�쇱��  
-	private Date eOdate; 		 // �⑺��������
-	private Date sDdate; 		 // �⑺��������
-	private Date eDdate; 		 // �⑺��������
-	private String ordNum; 	 // ��二쇰���
-	private String insertId; 	 // �깅���
-	private Timestamp insertDt; // �깅���
-	private String updateId; 	 // 蹂�寃쎌�� 
-	private Timestamp updateDt; // 蹂�寃쎌��
-	
+	private int ordId; 		
+	private int clntId; 		 
+	private int userId;  
 	private int ordInfo;
 	private int itemId;
 	private int ordQty;
+	private Date sOdate; 		 
+	private Date eOdate; 		
+	private Date sDdate; 		
+	private Date eDdate; 		 
+	private Date orderDt; 		 
+	private Date dlvryDt; 		
+	private Timestamp insertDt; 
+	private Timestamp updateDt;
+	private String ordNum; 
+	private String insertId; 	 
+	private String updateId; 	 
 	private String cmpltYn;
 	private String note;
-	
 	private String clntNm;
 	private String userNm;
 	private String userNum;
@@ -32,6 +32,18 @@ public class OrderDTO {
 	
 	
 	
+	public Date getOrderDt() {
+		return orderDt;
+	}
+	public void setOrderDt(Date orderDt) {
+		this.orderDt = orderDt;
+	}
+	public Date getDlvryDt() {
+		return dlvryDt;
+	}
+	public void setDlvryDt(Date dlvryDt) {
+		this.dlvryDt = dlvryDt;
+	}
 	public String getItemNum() {
 		return itemNum;
 	}

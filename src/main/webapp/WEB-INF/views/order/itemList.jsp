@@ -34,7 +34,8 @@
 
 	<table>
 		<tr>
-			<td>품번</td>
+			<td>품id</td>
+			<td>품번</td>			
 			<td>품명</td>
 			<td>단위</td>
 		</tr>
@@ -51,9 +52,9 @@
 				function selectItem(a, b, c, d) { // 부모창으로 값 넘기기
 
 					opener.document.getElementById("itemId").value = a;
-					opener.document.getElementById("itemNum").value = a;
-					opener.document.getElementById("itemNm").value = b;
-					opener.document.getElementById("invntUnit").value = c;
+					opener.document.getElementById("itemNum").value = b;
+					opener.document.getElementById("itemNm").value = c;
+					opener.document.getElementById("invntUnit").value = d;
 					window.close();
 
 				}

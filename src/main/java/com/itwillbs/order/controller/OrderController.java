@@ -310,11 +310,32 @@ public class OrderController {
 		System.out.println("OrderController content()");
 		int ordId=Integer.parseInt(request.getParameter("ordId"));
 		
-		OrderDTO orderDTO=orderService.getBoard(ordId);
-		
+		OrderDTO orderDTO=orderService.getOrder(ordId);
+		System.out.println(orderDTO.getUserNm());
 		model.addAttribute("orderDTO", orderDTO);
 		
 		return "order/content";
+	}
+	
+	@RequestMapping(value = "/order/update", method = RequestMethod.GET)
+	public String update(HttpServletRequest request, Model model) {
+		System.out.println("OrderController update()");
+		int ordId=Integer.parseInt(request.getParameter("ordId"));
+		
+		OrderDTO orderDTO=orderService.getOrder(ordId);
+		
+		model.addAttribute("orderDTO", orderDTO);
+		
+		return "order/update";
+	}
+	@RequestMapping(value = "/order/updatePro", method = RequestMethod.POST)
+	public String updatePro(OrderDTO orderDTO,HttpServletRequest request) {
+		System.out.println("OrderController updatePro()");
+		
+		orderService.updateOrder(orderDTO);
+		
+
+		return "redirect:/order/update";
 	}
 }
 

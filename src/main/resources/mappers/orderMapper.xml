@@ -8,13 +8,12 @@
 		<result column="ord_id" property="ordId" />
 		<result column="clnt_cd" property="clntCd" />
 		<result column="clnt_nm" property="clntNm" />
-		<result column="order_dt" property="sOdate" />
-		<result column="dlvry_dt" property="eDdate" />
+		<result column="order_dt" property="orderDt" />
+		<result column="dlvry_dt" property="dlvryDt" />
 		<result column="id" property="userNum" />
-		<result column="name" property="userNm" />
+		<result column="userNm" property="userNm" />
 		<result column="user_id" property="userId" />
 		<result column="clnt_id" property="clntId" />
-
 		<result column="item_num" property="itemNum" />
 		<result column="item_nm" property="itemNm" />
 		<result column="item_id" property="itemId" />
@@ -22,11 +21,18 @@
 		<result column="ord_qty" property="ordQty" />
 
 	</resultMap>
+	
 
-	<select id="getBoard" resultType="com.itwillbs.order.domain.OrderDTO">
-	select * 
-	from order_mng
-	where ord_id = #{ordId}
+	
+	<select id="getOrder" resultType="com.itwillbs.order.domain.OrderDTO">
+	select o.ord_id,c.clnt_nm, o.order_dt, u.name as userNm , o.dlvry_dt, i.item_num, i.item_nm, i.invnt_unit, o.ord_qty
+	from client c join order_mng o
+	on o.clnt_id = c.clnt_id
+	join user u
+	on o.user_id = u.user_id
+	join item i
+	on o.item_id = i.item_id
+	where o.ord_id = #{ordId}
 	</select>
 	
 	
@@ -250,6 +256,20 @@
 		values(#{clntId},#{orderDt},#{userId},#{dlvryDt},#{itemId},#{ordQty})
 	</insert>
 
+	
+	<update id="updateOrder">
+	update order_mng 
+	set 
+	clnt_id = #{clntId},
+	order_dt = #{orderDt},
+	user_id = #{userId},
+	dlvry_dt = #{dlvryDt},
+	item_id = #{itemId},
+	ord_qty = #{ordQty}
+	where 
+	ord_id = #{ordId}
+	</update>
+	
 
 	
 </mapper>

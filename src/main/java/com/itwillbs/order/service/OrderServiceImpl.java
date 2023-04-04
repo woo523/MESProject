@@ -81,16 +81,16 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public OrderDTO getBoard(int ordId) {
-		System.out.println("OrderServiceImpl getBoard()");
-		return orderDAO.getBoard(ordId);
+	public OrderDTO getOrder(int ordId) {
+		System.out.println("OrderServiceImpl getOrder()");
+		return orderDAO.getOrder(ordId);
 	}
 
-
-
-
-
-
+	@Override
+	public void updateOrder(OrderDTO orderDTO) {
+		System.out.println("OrderServiceImpl updateOrder()");
+		orderDAO.updateOrder(orderDTO);
+	}
 
 
 

@@ -30,7 +30,9 @@ public interface OrderService {
 
 	public void insertOrder(OrderDTO orderDTO);
 
-	public OrderDTO getBoard(int ordId);
+	public OrderDTO getOrder(int ordId);
+
+	public void updateOrder(OrderDTO orderDTO);
 	
 
 }

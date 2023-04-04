@@ -85,9 +85,16 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public OrderDTO getBoard(int ordId) {
-		System.out.println("OrderDAOImpl getBoard() ");
-		return sqlSession.selectOne(namespace+".getBoard", ordId);
+	public OrderDTO getOrder(int ordId) {
+		System.out.println("OrderDAOImpl getOrder() ");
+		return sqlSession.selectOne(namespace+".getOrder", ordId);
+	}
+
+	@Override
+	public void updateOrder(OrderDTO orderDTO) {
+		System.out.println("OrderDAOImpl updateOrder() 화면단 정보를 db에 저장");
+		sqlSession.update(namespace+".updateOrder", orderDTO);
+		
 	}
 
 

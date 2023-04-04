@@ -97,18 +97,15 @@ text-align: center;
 
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
-
-
-function openItemList(){
-        window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
-    }
-function openUserList(){
-        window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
-    }
-function openClntList(){
-        window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
-    }
-
+function openItemList(b){
+    window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
+}
+function openUserList(b){
+    window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
+}
+function openClntList(b){
+    window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
+}
 $(function() {
 	$("#orderDt").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
@@ -128,7 +125,7 @@ $(function() {
            ,closeText: '닫기' // 닫기 버튼 패널
            ,onClose: function ( selectedDate ) {
         	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+        	   $("input[name='dlvryDt']").datepicker("option", "minDate", selectedDate );
            }
 	});
 });
@@ -155,69 +152,44 @@ $(function() {
 	});
 });
 
-
-
-
 </script>
 <!-- 스크립트 끝. -->
 
 <div class="content_body"> <!-- 지우면안됨 -->
-
 <br>
-	<h1>수주품목상세</h1>
-		<form id="insertOrder" action="${pageContext.request.contextPath }/order/orderInsertPro" method="get">
-	<div class="orderdetail">
+<h2>수주폼목 수정</h2>
+<form action="${pageContext.request.contextPath}/order/updatePro" method="post">
 			<div id="btn">
-				<button type="reset">취소</button>
 				<button type="submit" >저장</button>
 			</div>
-				<br>
-			<table id="detail">
-				<tr>
-				<td>업체명</td>
-				<td><input type="text" name="clntNm" id="clntNm" onclick="openClntList()">
-					<input type="hidden" name="clntId" id="clntId" value="">
-					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
-				<td>수주일자</td>
-				<td><input type="text" id="orderDt" class="form-control" name="orderDt" placeholder="날짜를 선택해주세요" readonly></td>
-				<td></td>
-				</tr>
-				<tr>
-				<td>담당자</td>
-				<td><input type="text" name="userNm" id="userNm" onclick="openUserList()">
-					<input type="hidden" name="userId" id="userId"value="">
-					<input type="hidden" name="userNum" id="userNum" value=""></td>
-				<td>납품예정일</td>
-				<td><input type="text" id="dlvryDt" class="form-control" name="dlvryDt" placeholder="날짜를 선택해주세요" readonly></td>
-				<td></td>
-
-				<td></td>
-				<td></td>
-				</tr>
-			</table>
-	</div>
-<br>
-<br>
-	<h1>수주정보</h1>
-	<div class="orderinfo">
-			<table id="info">
-				<tr>
-				<td><input type="hidden" name="itemId" id="itemId"  onclick="openItemList()"></td>
-				<td>품번</td>
-				<td><input type="text" name="itemNum" id="itemNum"  onclick="openItemList()"></td>
-				<td>품명</td>
-				<td><input type="text" name= "itemNm" id="itemNm"  onclick="openItemList()"></td>
-				<td>단위</td>
-				<td><input type="text" name="invntUnit" id="invntUnit" value="" ></td>
-				<td>수량</td>
-				<td><input type="text" name="ordQty" id="ordQty" value="" ></td>
-				</tr>
-			</table>
-	</div>
-		</form>
-<br>
-
+			
+	<table id="update">
+	<tr><td>업체명</td>
+	
+	<td><input type="text" id="clntNm" name="clntNm" value="${orderDTO.clntNm }"  onclick="openClntList()">
+		<input type="hidden" id="clntId" name="clntId" id="clntId" value="">
+		<input type="hidden" id="clntCd" name="clntCd" id="clntCd" value=""></td></tr>
+	<tr><td>수주일자</td>
+	<td><input type="text" id="orderDt" name="orderDt" class="form-control" value="${orderDTO.orderDt }"></td></tr>
+	<tr><td>담당자</td>
+	<td><input type="text" id="userNm" name="userNm" value="${orderDTO.userNm }" onclick="openUserList()">
+		<input type="hidden" id="userId" name="userId" id="userId"value="">
+		<input type="hidden" id="userNum" name="userNum" id="userNum" value=""></td></tr>
+	<tr><td>납품예정일</td>
+	<td><input type="text" id="dlvryDt" name="dlvryDt"  class="form-control" value="${orderDTO.dlvryDt }" ></td></tr>
+	<tr><td>품번</td>
+	<td><input type="hidden" id="itemId" name="itemId" id="itemId"  onclick="openItemList()">
+		<input type="text" id="itemNum" name="itemNum" value="${orderDTO.itemNum }" onclick="openItemList()"></td>
+	<tr><td>품명</td>
+	<td><input type="text" id="itemNm" name="itemNm" value="${orderDTO.itemNm }" readonly"></td>
+	<tr><td>단위</td>
+	<td><input type="text" id="invntUnit" name="invntUnit" value="${orderDTO.invntUnit }" readonly></td></tr>
+	<tr><td>수량</td>
+	<td><input type="text" id="ordQty" name="ordQty" value="${orderDTO.ordQty }"></td></tr>
+	</table>
+</form>	
 </div>
+<br>
 
 </body>
 <!-- 푸터 -->
