@@ -14,7 +14,7 @@
 <div class="content_body">
 	<h2>라인 수정</h2> 
 	<br>
-	<form action="${pageContext.request.contextPath}/line/lineModifyPro" method="post">
+	<form action="${pageContext.request.contextPath}/line/lineModifyPro" method="post" onsubmit="return checkForm()">
 		<input type="hidden" name="lineId" value="${lineDTO.lineId}">
 		<ul>
 			<li>라인코드 <input type="text" name="lineCode" value="${lineDTO.lineCode}"></li>
@@ -66,6 +66,15 @@ $(document).ready(function() {
 	console.log(Choice);
 	
 });
+
+// 수정 여부 확인 후 폼 전송
+function checkForm() {
+	if(confirm("수정하시겠습니까?")) {
+		return true;	// 폼 전송 O
+	} else {
+		return false;	// 폼 전송 X
+	}
+}
 
 </script>
 

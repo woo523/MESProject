@@ -4,10 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Line</title>
-	
-	<link href="/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+<title>Line</title>
+
+<link href="/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+	.content_body #lineList:hover {
+		background-color: #e1e1e1;
+	}
+</style>
 </head>
 
 <body>
@@ -65,7 +71,7 @@
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="lineDTO" items="${lineList}">
-						<tr>
+						<tr id="lineList">
 							<td>${lineDTO.lineCode}</td>
 							<td>${lineDTO.lineName}</td>
 							<td>${lineDTO.proCode}</td>
@@ -74,8 +80,8 @@
 							<td>${lineDTO.useChoice}</td>
 							<td>${lineDTO.note}</td>
 							<c:if test="${! empty sessionScope.id}">
-								<td><a href="/line/lineModify?lineId=${lineDTO.lineId}"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
-									<a href="/line/lineDelete?lineId=${lineDTO.lineId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>      
+								<td><a href="/line/lineModify?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
+									<a href="/line/lineDelete?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>      
 							</c:if>
 						</tr>
 					</c:forEach>

@@ -14,7 +14,7 @@
 <div class="content_body">
 	<h2>라인 등록</h2> 
 	<br>
-	<form action="${pageContext.request.contextPath}/line/lineInsertPro" method="post">
+	<form action="${pageContext.request.contextPath}/line/lineInsertPro" method="post" onsubmit="return checkForm()">
 		<ul>
 			<li>라인코드 <input type="text" name="lineCode"></li>
 			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
@@ -47,7 +47,14 @@
 </body>
 
 <script type="text/javascript">
-
+// 등록 여부 확인 후 폼 전송
+function checkForm() {
+	if(confirm("등록하시겠습니까?")) {
+		return true;
+	} else {
+		return false;
+	}
+}
 </script>
 
 </html>
