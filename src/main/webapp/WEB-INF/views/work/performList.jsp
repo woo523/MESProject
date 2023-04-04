@@ -79,6 +79,11 @@ text-align: center;
 	border: 1px solid;
 }
 
+button{
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
 
 </style>
 </head>

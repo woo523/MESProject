@@ -113,7 +113,7 @@ span.change{
 button{
 	width: 150px;
 	height: 150px;
-	font-size: 50pt;
+	font-size: 65pt;
 	border-radius: 20px;
 	background-color: white;
 	font-family: 'TheJamsil5Bold';
@@ -124,14 +124,16 @@ button.re{
 	font-size: 25pt;
 }
 
-.qty, .reason{
+.Qty, .reason{
 	width: 300px;
 	height: 80px;
 
 }
 
+
+
 .reason{
-font-size:45pt; 	
+font-size:30pt; 	
 font-family: 'TheJamsil5Bold';"
 }
 
@@ -196,6 +198,38 @@ $(document).ready(function(){
         $('input[name=performDate]').attr('value',today);
         
         
+  		 
+    	$('#insert').submit(function(){ // 유효성 검사
+
+    	    if($('.Qty').val()==null||$('.Qty').val()==""){
+    	    	alert("실적 수량을 입력하세요");
+    			$('.Qty').focus();
+
+    			return false;
+    	    }
+    	
+    	
+    	    if($('.Qty').val()<=0){
+    	    	alert("실적 수량은 양수로 입력해주세요");
+    			$('.Qty').focus();
+    			return false;
+    	    }
+    	
+    	    if($("input[name=gbYn]:checked").val() == null){
+    	    	alert("양불여부를 선택하세요");
+    			return false;
+    	    }
+    	   
+    	    if($("input[name=gbYn]:checked").val() == "N"){ // 불량일때
+    	    	if($('.reason').val()==null || $('.reason').val()==""){ // 불량사유 값 없으면
+    	    		alert("불량사유를 선택하세요");
+    	    		$('.reason').focus();
+    	    		return false;
+    	        }
+    	    	}
+
+    		});
+  		 
         
         
         $("input:radio[name=gbYn]").click(function(){
@@ -209,20 +243,20 @@ $(document).ready(function(){
             }
         });
        
-        $('.qty').focus();
+        $('.Qty').focus();
 
         $('#keypad button').click(function() {
             var val = $(this).val();
-            var qty = $('.qty').val();
+            var qty = $('.Qty').val();
             if ($(this).text() == "초기화") {
-              $('.qty').val("");
+              $('.Qty').val("");
               $('input[name="gbYn"]').prop('checked', false);
               $('.reason').prop('selectedIndex', 0);
               $("select[name=dbReason]").attr("disabled", false);
             } else if ($(this).text() == "처음으로") {
               window.location.href = "${pageContext.request.contextPath }/work/popPfRe";
             } else if (qty.length < 5) {
-              $('.qty').val(qty + val).focus();
+              $('.Qty').val(qty + val).focus();
             }
           });
 });
@@ -262,16 +296,16 @@ $(document).ready(function(){
 	  	<td id="red">${inst.N }</td></tr>
     </table>
     <div id="form">
-    <form action="${pageContext.request.contextPath }/work/PopinsertPro">
+    <form action="${pageContext.request.contextPath }/work/PopinsertPro" id="insert">  
     <input type="hidden" name="instrId" value="${inst.instrId}">
     <input type="hidden" name="performDate" value="">
     <br>
    	<table id="in">
-    <tr><td>수량</td><td><input type="number" name="performQty" class="qty" style="font-size:50pt; 	font-family: 'TheJamsil5Bold';"></td></tr>
+    <tr><td>수량</td><td><input type="number" name="performQty" class="Qty" style="font-size:50pt; 	font-family: 'TheJamsil5Bold';"></td></tr>
     <tr><td>양불</td><td><input type="radio" style="width:30px;height:30px;border:1px;" name="gbYn" value="Y"> Y(양품)<br>
 		<input type="radio"  style="width:30px;height:30px;border:1px;"name="gbYn" value="N"> N(불량)</td></tr>
     <tr><td>사유</td><td><select name="dbReason" class="reason">
-		<option value="" >불량사유</option>
+		<option value="" >불량사유 선택</option>
 		<option value="파손">파손</option>
 		<option value="스크래치">스크래치</option>
 		<option value="포장불량">포장불량</option>

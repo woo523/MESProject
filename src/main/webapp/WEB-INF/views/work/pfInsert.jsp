@@ -5,10 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
 
-
-</style>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-ui-1.9.2.custom.js"></script>  
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-migrate-1.4.1.min.js"></script>  
@@ -18,6 +15,51 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.mCustomScrollbar.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
+
+
+<style type="text/css">
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
+	
+	
+body{
+	font-family: 'NanumSquare', sans-serif;
+}
+h2{
+	text-align: center;
+	font-weight: 900;
+	
+}
+form{
+border:1px solid;
+padding:10px;
+width: 350px;
+margin: 0px auto;
+}
+
+#num, #bu{
+	text-align: center;
+}
+
+table{
+	margin: 0px auto;
+
+	font-size:12pt;
+}
+
+td{
+	padding : 6px;
+}
+
+input, select, button{
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
+</style>	
+	
+	
 	
 <script type="text/javascript">
 
@@ -43,6 +85,13 @@ $(document).ready(function(){
 	    
 	    if($('.Qty').val()==null||$('.Qty').val()==""){
 	    	alert("실적 수량을 입력하세요");
+			$('.Qty').focus();
+
+			return false;
+	    }
+	    
+	    if($('.Qty').val()<=0){
+	    	alert("실적 수량은 양수로 입력해주세요");
 			$('.Qty').focus();
 
 			return false;
@@ -74,58 +123,27 @@ $(document).ready(function(){
 });
 
 
-// function clickEvent(){
-	
-	
-// 	$.ajax({
-// 		  url: '${pageContext.request.contextPath}/work/PinsertPro',  
-
-// 		  type: 'get',
-// 		  data: {
-// 		    // 보낼 데이터
-// 		  },
-// 		  dataType: 'json, xml, script, text 또는 html',
-// 		  done: function(response) {
-// 		    // 성공 시 동작
-// 		  },
-// 		  fail: function(error) {
-// 		    // 실패 시 동작
-// 		  },
-// 		  always: function(response) {
-// 		    // 성공하든 실패하든 항상 할 동작
-// 		  }
-
-//    	 opener.parent.location.reload();
-
-// 	 window.close();
-
-// 	}
-
-
-
-
-
 </script> 
 
 
 <body>
 <h2>생산 실적 등록 </h2>
 
-
+<div id="num">- 작업지시 번호 : ${getInstr.workNum} - </div><br>
 <form action="${pageContext.request.contextPath }/work/PinsertPro" id="insert">
 
-★ 등록할 작업지시 번호 : ${getInstr.workNum} <br>
+
 
 <input type="hidden" name="instrId" value="${getInstr.instrId}">
-
-품번 : <input type="text"  value="${getInstr.itemNum}" readonly> <br>
-품명 : <input type="text"  value="${getInstr.itemName}" readonly> <br>
-실적일 : <input type="date" id="Date" class="pfDate" name="performDate"> <br>
-실적수량 : <input type="number" class="Qty" name="performQty"> <br>
-양불여부 : <input type="radio" name="gbYn" value="Y"> Y(양품)
+<table>
+<tr><td>품번</td><td><input type="text"  value="${getInstr.itemNum}" readonly></td> </tr>
+<tr><td>품명</td><td><input type="text"  value="${getInstr.itemName}" readonly></td> </tr>
+<tr><td>실적일</td><td><input type="date" id="Date" class="pfDate" name="performDate"></td></tr>
+<tr><td>실적수량</td><td><input type="number" class="Qty" name="performQty"></td></tr>
+<tr><td>양불여부</td><td><input type="radio" name="gbYn" value="Y"> Y(양품)
 		<input type="radio"  name="gbYn" value="N"> N(불량)
-		<br>
-불량사유 : <select name="dbReason" class="reason">
+		</td></tr>
+<tr><td>불량사유 </td><td><select name="dbReason" class="reason">
 		<option value="">불량사유</option>
 		<option value="파손">파손</option>
 		<option value="스크래치">스크래치</option>
@@ -134,13 +152,13 @@ $(document).ready(function(){
 		<option value="제품 치수 이상">제품 치수 이상</option>
 		<option value="기타">기타</option>
 		</select>
-<br>
-비고 : <input type="text" name="note"><br>
-
-
-<input type="submit" value="실적 등록">
+</td></tr>
+<tr><td>비고</td><td><input type="text" name="note"></td></tr>
+</table><br>
+<div id="bu">
+<input type="submit" value="실적 등록"> &nbsp;&nbsp;
 <button type="reset">초기화</button>
-
+</div>
 </form>
 </body>
 </html>

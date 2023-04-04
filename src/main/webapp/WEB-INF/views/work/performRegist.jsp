@@ -95,6 +95,12 @@ div.side{
 div.content{ 
 /*  height : 780px;  */
  } 
+ 
+button{
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
 </style>
 </head>
 <body>
@@ -140,7 +146,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	if(array[0].itemNum==null){
 		output=output+"<총 0건><br>";
 		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
-		output=output+"<tr id='con'><td colspan='6'> 해당 자료가 없습니다 </td> </tr>";
+		output=output+"<tr id='con'><td colspan='6'> 해당 자료가 없습니다. 실적을 등록해주세요. </td> </tr>";
 	}else{
 		output=output+"<총 "+ array.length +"건><br>";
 		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
@@ -167,11 +173,11 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 } //PerformListPrint(array)
 
 function openmodi(a){ // 실적 수정창
-        window.open("${pageContext.request.contextPath}/work/pfmodi?performId="+a,"popup", "width=500, height=500,left=100, top=100");
+        window.open("${pageContext.request.contextPath}/work/pfmodi?performId="+a,"popup", "width=500, height=500,left=500, top=200");
     }
 
 function pfRegi(a){ // 실적 등록창
-	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=500,left=100, top=100");
+	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=500,left=500, top=200");
 }
 
 

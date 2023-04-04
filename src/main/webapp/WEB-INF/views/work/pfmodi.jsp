@@ -16,6 +16,50 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
 
+<style type="text/css">
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
+	
+	
+body{
+	font-family: 'NanumSquare', sans-serif;
+}
+h2{
+	text-align: center;
+	font-weight: 900;
+	
+}
+form{
+border:1px solid;
+padding:10px;
+width: 350px;
+margin: 0px auto;
+}
+
+#num, #bu{
+	text-align: center;
+}
+
+table{
+	margin: 0px auto;
+
+	font-size:12pt;
+}
+
+td{
+	padding : 6px;
+}
+
+input, select, button{
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
+
+</style>
+
+
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -58,7 +102,12 @@ $(document).ready(function(){
 		return false;
     }
    
-	
+    if($('.Qty').val()<=0){
+    	alert("실적 수량은 양수로 입력해주세요");
+		$('.Qty').focus();
+		return false;
+    }
+    
     if($("input[name=gbYn]:checked").val() == "N"){ // 불량일때
     	if($('.reason').val()==null || $('.reason').val()==""){ // 불량사유 값 없으면
     		alert("불량사유를 선택하세요");
@@ -92,20 +141,22 @@ function fun1() {
 
 </head>
 <body>
+<br>
 <h2> 실적 수정 </h2>
 
 <form action="${pageContext.request.contextPath }/work/PmodiPro" id="update" method="post">
 
-
+<input type="hidden" name="instrId" value="${pfDTO.instrId}">
 <input type="hidden" name="performId" value="${pfDTO.performId}">
-품번 : <input type="text"  value="${getInstr.itemNum}" readonly> <br>
-품명 : <input type="text"  value="${getInstr.itemName}" readonly> <br>
-실적일 : <input type="date" id="Date" class="pfDate" name="performDate" value="${pfDTO.performDate}"> <br>
-실적수량 : <input type="number" class="Qty" name="performQty" value="${pfDTO.performQty}"> <br>
-양불여부 : <input type="radio" name="gbYn" id="Y" value="Y"> Y(양품)
-		<input type="radio" name="gbYn" id="N" value="N"> N(불량)
-		<br>
-불량사유 : <select name="dbReason" class="reason" id="dbReason">
+<table>
+<tr><td>품번</td><td><input type="text"  value="${getInstr.itemNum}" readonly></td></tr>
+<tr><td>품명</td><td><input type="text"  value="${getInstr.itemName}" readonly></td></tr>
+<tr><td>실적일</td><td><input type="date" id="Date" class="pfDate" name="performDate" value="${pfDTO.performDate}"></td></tr>
+<tr><td>실적수량</td><td><input type="number" class="Qty" name="performQty" value="${pfDTO.performQty}"></td></tr>
+<tr><td>양불여부</td><td><input type="radio" name="gbYn" id="Y" value="Y"> Y(양품)
+		<input type="radio" name="gbYn" id="N" value="N"> N(불량)</td></tr>
+		
+<tr><td>불량사유</td><td><select name="dbReason" class="reason" id="dbReason">
 		<option value="">불량사유</option>
 		<option value="파손">파손</option>
 		<option value="스크래치">스크래치</option>
@@ -113,13 +164,14 @@ function fun1() {
 		<option value="찍힘">찍힘</option>
 		<option value="제품 치수 이상">제품 치수 이상</option>
 		<option value="기타">기타</option>
-		</select>
-<br>
-비고 : <input type="text" name="note" value="${pfDTO.note}"><br>
+		</select></td></tr>
 
-
-<input type="submit"  onclick="fun1()" value="실적 수정">
+<tr><td>비고</td><td><input type="text" name="note" value="${pfDTO.note}"></td></tr>
+</table><br>
+<div id="bu">
+<input type="submit"  onclick="fun1()" value="실적 수정">  &nbsp;&nbsp;
 <button type="reset">초기화</button>
+</div>
 
 </form>
 
