@@ -80,7 +80,17 @@ public class PerformServiceImpl implements PerformService {
 	@Override
 	public void delPf(int performId) { // 실적 삭제
 		System.out.println("PerformServiceImpl delPf()");
+		PerformDTO performDTO = performDAO.getPf(performId);
+		int instrId = performDTO.getInstrId();
 		performDAO.delPf(performId);
+		
+		if(performDAO.checkY(instrId)==false) { // 양품이 지시수량보다 적으면
+			performDAO.updateStart(instrId); // 시작으로 변경
+			if(performDAO.countPerformLi(null)==0) {
+				
+			}
+		}
+	
 	}
 
 	@Override
@@ -93,6 +103,13 @@ public class PerformServiceImpl implements PerformService {
 	public void updatePf(PerformDTO performDTO) { // 실적 수정
 		System.out.println("PerformServiceImpl updatePf()");
 		performDAO.updatePf(performDTO);
+		
+		if(performDAO.checkY(performDTO.getInstrId())) { // 양품이 지시수량보다 같거나 많으면
+			performDAO.updateClose(performDTO.getInstrId()); // 마감으로 지시 상태 변경
+		}else { // 양품이 지시수량보다 적으면
+			performDAO.updateStart(performDTO.getInstrId()); // 상태는 시작
+		}
+		
 	}
 
 	@Override

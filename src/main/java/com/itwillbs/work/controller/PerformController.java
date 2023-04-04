@@ -322,8 +322,8 @@ public class PerformController {
 	@RequestMapping(value = "/work/del", method = RequestMethod.GET)
 	public String del(HttpServletRequest request, Model model) { // 실적 삭제창
 		int performId = Integer.parseInt(request.getParameter("performId"));
-		
 		performService.delPf(performId);
+		
 		
 		return "redirect:/work/performRegist";
 	}
