@@ -21,4 +21,6 @@ public interface InstructDAO {
 	
 	public List<Map<String, Object>> getLineList(String lineName);
 	
+	public void instrDelete(int instrId);
+	
 }

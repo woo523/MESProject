@@ -14,7 +14,7 @@ public class InstructDTO {
 	private int itemId;		// 품목관리 기본키
 	private String workNum;	// 작업지시번호
 	private String workSts;	// 지시상태
-	private Timestamp workDate;	// 지시일자
+	private String workDate;	// 지시일자
 	private int workQty;	// 지시수량
 	private String insertId;	// 등록자
 	private Timestamp insertDate;	// 등록일
@@ -66,10 +66,10 @@ public class InstructDTO {
 	public void setWorkSts(String workSts) {
 		this.workSts = workSts;
 	}
-	public Timestamp getWorkDate() {
+	public String getWorkDate() {
 		return workDate;
 	}
-	public void setWorkDate(Timestamp workDate) {
+	public void setWorkDate(String workDate) {
 		this.workDate = workDate;
 	}
 	public int getWorkQty() {

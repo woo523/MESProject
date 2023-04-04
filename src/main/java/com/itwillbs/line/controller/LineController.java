@@ -73,6 +73,11 @@ public class LineController {
 	public String lineInsertPro(HttpServletRequest request, LineDTO lineDTO) {
 		System.out.println("LineController lineInsertPro()");
 		
+		// 라인 규격코드
+		int count = lineService.lineTotalCount() + 1;
+		String lindCode = String.format("LINE%02d", count);
+		lineDTO.setLineCode(lindCode);
+		
 		lineService.insertLine(lineDTO);
 		System.out.println(lineDTO);
 		

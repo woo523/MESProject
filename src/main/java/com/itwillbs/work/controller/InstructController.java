@@ -1,8 +1,5 @@
 package com.itwillbs.work.controller;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
-import com.itwillbs.order.domain.clntDTO;
-import com.itwillbs.work.domain.ItemDTO;
+import com.itwillbs.line.service.LineService;
 import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.service.InstructService;
 
@@ -27,6 +23,9 @@ public class InstructController {
 	
 	@Inject
 	private InstructService instructService;
+	
+	@Inject
+	private LineService lineService;
 	
 	@RequestMapping(value = "/work/instructList", method = RequestMethod.GET)
 	public String instructList(HttpServletRequest request, Model model, PageDTO pageDTO) {
@@ -66,6 +65,10 @@ public class InstructController {
 			model.addAttribute("instrSearchCount", instrSearchCount);
 		}
 		
+		// 라인 이름 불러오기
+		List<LineDTO> lineList = lineService.lineList();
+		model.addAttribute("lineList", lineList);
+		
 		model.addAttribute("instrList", instrList);
 		model.addAttribute("instrSearch", instrSearch);
 		
@@ -93,6 +96,8 @@ public class InstructController {
 		instrSearch.put("workSts1", workSts1);
 		instrSearch.put("workSts2", workSts2);
 		instrSearch.put("workSts3", workSts3);
+		
+		
 		
 		List<Map<String, Object>> instrList;
 		
@@ -133,7 +138,14 @@ public class InstructController {
 	public String instructInsertPro(HttpServletRequest request, InstructDTO instructDTO) {
 		System.out.println("InstructController instructInsertPro()");
 		
-		instructDTO.setWorkNum(request.getParameter("instrNum"));
+		// 작업지시 규격코드
+		String instrDate = request.getParameter("instrDate");
+		String date = instrDate.replaceAll("-", "");
+		int count = instructService.instrCount() + 1;
+		String instrNum = String.format("ORD%s%05d", date, count);
+		
+		instructDTO.setWorkNum(instrNum);
+		instructDTO.setWorkDate(request.getParameter("instrDate"));
 		instructDTO.setInsertId(request.getParameter("insertId"));
 		instructDTO.setItemId(Integer.parseInt(request.getParameter("pid")));
 		instructDTO.setLineId(Integer.parseInt(request.getParameter("lineId")));
@@ -142,6 +154,14 @@ public class InstructController {
 		instructService.insertInstr(instructDTO);
 		
 		return "redirect:/work/instructList";
+	}
+	
+	// 작업지시 수주 조회
+	@RequestMapping(value = "/work/orderList", method = RequestMethod.GET)
+	public String orderList(HttpServletRequest request, Model model) {
+		
+		
+		return "work/orderList";
 	}
 	
 	// 작업지시 등록 라인 조회
@@ -155,6 +175,16 @@ public class InstructController {
 		model.addAttribute("getLineList", getLineList);
 		
 		return "work/lineList";
+	}
+	
+	// 작업지시 삭제
+	@RequestMapping(value = "/work/instrDelete", method = RequestMethod.GET)
+	public String workDelete(HttpServletRequest request, Model model) {
+		
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		instructService.instrDelete(instrId);
+		
+		return "redirect:/work/instructList";
 	}
 	
 }

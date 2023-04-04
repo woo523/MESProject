@@ -66,7 +66,6 @@ article input {
 
 .content_body #instrList:hover {
 	background-color: #e1e1e1;
- 	cursor: pointer;
 }
 
 .content_body .searchBox #itemSearch {
@@ -128,9 +127,9 @@ article {
 				<td>라인</td>
 				<td><select name="lineName">
 						<option value="" selected>전체</option>
-						<option value="1">라인 1</option>
-						<option value="2">라인 2</option>
-						<option value="3">라인 3</option>
+						<c:forEach var="line" items="${lineList}">
+							<option value="${line.lineName}">${line.lineName}</option>
+						</c:forEach>
 					</select></td>
 				<td>지시일자</td>
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
@@ -204,8 +203,10 @@ article {
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${instrDTO.userDTO.name}</td>
-							<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openModify'>
-								<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='openDelete'></td>
+							<c:if test="${! empty sessionScope.id}">
+								<td><a href="/work/instrModify?instrId=${instrDTO.instrId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
+									<a href="/work/instrDelete?instrId=${instrDTO.instrId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete()"></a></td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
@@ -256,8 +257,7 @@ $(function() {
            ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능
-           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,changeMonth: true //option값  월 선택 가능     
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
@@ -280,8 +280,7 @@ $(function() {
            ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능
-           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,changeMonth: true //option값  월 선택 가능              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
