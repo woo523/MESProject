@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.material.dao.MaterialDAO;
 import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
+import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -139,6 +140,24 @@ public class MaterialServiceImpl implements MaterialService{
 		System.out.println("InmaterialServiceImpl deleteInmtrl()");
 	
 		materialDAO.deleteInmtrl(inmtrlId);
+	}
+
+	@Override
+	public void deleteOutmtrl(int outmtrlId) {
+		System.out.println("OutmaterialServiceImpl deleteOutmtrl()");
+		materialDAO.deleteOutmtrl(outmtrlId);
+	}
+
+	@Override
+	public void insertOutmtrl(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl insertOutmtrl()");
+		materialDAO.insertOutmtrl(outmaterialDTO);
+	}
+
+	@Override
+	public InmaterialDTO getInmtrlList(int inmtrlId) {
+		System.out.println("OutmaterialServiceImpl getInmtrlList()");
+		return materialDAO.getInmtrlList(inmtrlId);
 	}
 
 

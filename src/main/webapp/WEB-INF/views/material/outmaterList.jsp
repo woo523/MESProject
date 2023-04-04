@@ -107,7 +107,7 @@ text-align: center;
 	<form id="search">	
 	<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="insertBtn()">추가</button>
+			<button type="button" onclick="location.href='/material/outmtrlInsert'">추가</button>
 		</div>
 	<br>	
 	<table id="search">
@@ -155,7 +155,7 @@ text-align: center;
 				</c:when>
 				<c:otherwise>
 		<c:forEach var="outte" items="${outmaterList}">
-	<tr id="con" onclick="outmaterList(${outte.outmaterId})">
+	<tr id="con" onclick="outmaterList(${outte.outmaterId}, ${outte.itemId })">
 			<td>${outte.outmtrlNum}</td>
 			<td>${outte.outmtrlDt}</td>
 		  	<td>${outte.itemNum}</td>
@@ -167,8 +167,8 @@ text-align: center;
 		  	<td>${outte.clientCode}</td>
 		  	<td>${outte.clientName}</td>
 		  	<td>${outte.note}</td>	
-	  		<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi()'>
-				<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf()'></td>		
+	  		<td><a href="/material/outmtrlModify?outmtrlId=${OutmaterialDTO.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px''></a>
+				<a href="/material/outDel?outmtrlId=${outte.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px''></a></td>		
 	</tr>
 	</c:forEach>
 	</c:otherwise>
@@ -256,7 +256,7 @@ $('button.ui-datepicker-current').live('click', function() {
 	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
 })
 
-var in_mtrl_id = a;
+// var in_mtrl_id = a;
 
 function openilist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
@@ -266,18 +266,6 @@ function openclist(){
     window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
 }
 
-function openmodi(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/immodi?in_mtrl_id"+a,"popup", "width=500, height=500,left=100, top=100");
-}
-
-function delPf(a) {
-	
-	if(confirm("삭제하시겠습니까?")){
-		alert("해당 입고내역이 삭제되었습니다.");
-		location.href="${pageContext.request.contextPath}/material/del?in_mtrl_id="+a;
-	}else{
-		alert("취소되었습니다.");
-	}}
 </script>
 
 

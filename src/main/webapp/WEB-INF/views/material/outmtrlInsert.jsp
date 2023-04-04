@@ -23,16 +23,16 @@ function openclist(){
 	<jsp:include page="../inc/header.jsp" />
 <!-- </header> -->
 
-	<h2>자재입고 등록</h2>
+	<h2>자재출고 등록</h2>
 	<br>
-	<form action="${pageContext.request.contextPath }/material/inmtrlInsertPro" method="post">	
+	<form action="${pageContext.request.contextPath }/material/outmtrlInsertPro" method="post">	
 	
 
 				
 		<ul>
 
 			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
-			<li>입고일자 <input type="date" id="Date" class="mtDate" name="inmtrlDt"></li>
+			<li>출고일자 <input type="date" id="Date" class="mtDate" name="outmtrlDt"></li>
 			<li>제품 정보 <input type="text" id="pcd" placeholder="품번코드" onclick="openilist()">
 					   <input type="text" id="pnm" placeholder="품번명" readonly></li>
 					    <input type="hidden" name="itemId" id="pid" >
@@ -42,8 +42,7 @@ function openclist(){
 						 <input type="hidden" name="whouse" id="whouse">
 						<input type="hidden" name="curStock" id="stockcur">
 			<li>단위  <input type="text" name="unit"></li>
-			<li>입고수량  <input type="number" class="Qty" name="inmtrlQty"></li>
-			<li>입고LOT  <input type="text" name="inmtrlLot"> </li>
+			<li>출고수량  <input type="number" class="Qty" name="outmtrlQty"></li>
 			<li>비고  <input type="text" name="note"> </li>
 		</ul>
 		

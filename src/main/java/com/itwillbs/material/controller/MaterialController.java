@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
+import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.material.service.MaterialService;
@@ -216,13 +218,6 @@ public class MaterialController {
 		return "material/clientList";
 	}
 	
-	@RequestMapping(value = "/material/immodi", method = RequestMethod.GET)
-	public String immodi(HttpServletRequest request) {
-		String inmaterId = request.getParameter("inmaterId");
-		
-		return "material/inmater";
-	}
-	
 	
 	@RequestMapping(value = "/material/outmaterList", method = RequestMethod.GET)
 	public String outmeterList(HttpServletRequest request, Model model, PageDTO pageDTO) {
@@ -273,8 +268,7 @@ public class MaterialController {
 	}
 	
 	//페이징 처리
-	int count = materialService.countOutLi(search);
-	
+	int count = materialService.countOutLi(search);	
 	int pageBlock = 10;
 	int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 	int endPage=startPage+pageBlock-1;
@@ -369,14 +363,36 @@ public class MaterialController {
 		return "material/materialState";
 	}
 	
-	// 입고 삭제창
+	// 입고 삭제
 	@RequestMapping(value = "/material/del", method = RequestMethod.GET)
 	public String del(HttpServletRequest request) { 
+		System.out.println("MaterialController del()");
 		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
 		
 		materialService.deleteInmtrl(inmtrlId);
-		
+
 		return "redirect:/material/inmaterList";
+	}
+	
+	// 입고 수정
+	@RequestMapping(value = "/material/inmtrlModify", method = RequestMethod.GET)
+	public String inmtrlModify(HttpServletRequest request, Model model) {
+		System.out.println("MaterialController inmtrlModify()");
+		
+		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
+		
+		InmaterialDTO inmaterialDTO = materialService.getInmtrlList(inmtrlId);
+		model.addAttribute("inmaterialDTO", inmaterialDTO);
+		System.out.println("폼 : " + inmtrlId);		
+		return "material/inmtrlModify";
+	}
+	
+	// 입고 수정
+	@RequestMapping(value = "/material/inmtrlModifyPro", method = RequestMethod.POST)
+	public String inmtrlModifyPro(HttpServletRequest request) {
+		System.out.println("MaterialController inmtrlModifyPro()");
+		
+		return "material/inmaterList";
 	}
 	
 	// 자재입고 등록
@@ -422,5 +438,44 @@ public class MaterialController {
 		
 		
 		return "redirect:/material/addList";
+	}
+	
+	// 출고 삭제
+	@RequestMapping(value = "/material/outDel", method = RequestMethod.GET)
+	public String outDel(HttpServletRequest request) { 
+		System.out.println("MaterialController outDel()");
+		int outmtrlId = Integer.parseInt(request.getParameter("outmtrlId"));
+		
+		materialService.deleteOutmtrl(outmtrlId);
+
+		return "redirect:/material/outmaterList";
+	}
+	
+	
+	// 자재출고 등록
+	@RequestMapping(value = "/material/outmtrlInsert", method = RequestMethod.GET)
+	public String outmtrlInsert() {
+		System.out.println("MaterialController outmtrlInsert()");
+
+		return "material/outmtrlInsert";
+	}	
+	
+	// 자재입고 등록
+	@RequestMapping(value = "/material/outmtrlInsertPro", method = RequestMethod.POST)
+	public String outmtrlInsertPro(OutmaterialDTO outmaterialDTO) {
+		System.out.println("MaterialController outmtrlInsertPro()");
+		String date = outmaterialDTO.getOutmtrlDt(); // 등록 날짜
+		String date2 = date.replaceAll("-", ""); // "-" 빼기
+		int count = materialService.countOutLi(null)+1; // 입고 리스트 갯수+1
+		String outmtrlNum = String.format("IN%s%05d", date2,count); // 규격코드 만들기
+		System.out.println("규격코드:"+outmtrlNum);
+		outmaterialDTO.setOutmtrlNum(outmtrlNum);
+		outmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
+		
+		materialService.insertOutmtrl(outmaterialDTO);
+		System.out.println(outmaterialDTO);
+		
+		
+		return "redirect:/material/outmaterList";
 	}
 }	
