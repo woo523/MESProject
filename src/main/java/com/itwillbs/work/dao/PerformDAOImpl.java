@@ -135,7 +135,7 @@ public class PerformDAOImpl implements PerformDAO {
 	@Override
 	public void updateClose(int instrId) { // 지시수량 채우면 상태 마감으로 변경
 		System.out.println("PerformDAOImpl updateClose()");
-		sqlSession.update(namespace+".sqlSession", instrId);
+		sqlSession.update(namespace+".turnclose", instrId);
 		
 	}
 

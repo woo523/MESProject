@@ -135,7 +135,9 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
+<c:if test="${empty sessionScope.id }">
+	<c:redirect url="${pageContext.request.contextPath }/work/poplogin"></c:redirect>
+</c:if>
 <div class = popcontainer>
 	<div id="clock">
 현재시간 :  <span class="date"></span>

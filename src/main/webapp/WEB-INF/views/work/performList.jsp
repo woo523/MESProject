@@ -189,7 +189,9 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 </script>
 <!-- 스크립트 끝. -->
 
-
+<c:if test="${empty sessionScope.id }">
+<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
+</c:if>
 
 
 <div class="content_body"> <!-- 지우면안됨 -->

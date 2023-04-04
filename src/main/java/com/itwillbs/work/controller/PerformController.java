@@ -284,8 +284,8 @@ public class PerformController {
 		performDTO.setDbReason(request.getParameter("dbReason"));
 		performDTO.setNote(request.getParameter("note"));
 		
-		
 		performService.insertPf(performDTO);
+		
 		
 		return "redirect:/common/offwindow";
 	}

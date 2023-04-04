@@ -154,7 +154,7 @@ $(document).ready(function(){
 <body>
 
 <c:if test="${empty sessionScope.id }">
-	<c:redirect url="/work/poplogin"></c:redirect>
+	<c:redirect url="${pageContext.request.contextPath }/work/poplogin"></c:redirect>
 </c:if>
 
 <div class = popcontainer>

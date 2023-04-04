@@ -65,6 +65,10 @@ public class PerformServiceImpl implements PerformService {
 		performDTO.setInsertDate(new Timestamp(System.currentTimeMillis()));
 		System.out.println("수량 :"+performDTO.getPerformQty());
 		performDAO.insertPf(performDTO);
+		
+		if(performDAO.checkY(performDTO.getInstrId())) { // 양품이 지시수량보다 같거나 많으면
+			performDAO.updateClose(performDTO.getInstrId()); // 마감으로 지시 상태 변경
+		}
 	}
 
 	@Override
