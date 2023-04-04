@@ -11,6 +11,7 @@
     
 	<!--     column= "디비열이름" property="멤버변수이름" -->
 	<id column="id" property=""/>
+	<result column="in_mtrl_id" property="inmtrlId"/>
     <result column="in_mtrl_num" property="inmtrlNum"/>
     <result column="in_mtrl_dt" property="inmtrlDt"/>
     <result column="in_mtrl_qty" property="inmtrlQty"/>
@@ -30,6 +31,7 @@
 
 	<select id="getInmaterLiMap" resultMap="InmaterMap"> <!-- 처음에 조회되는 자재입고 리스트 -->
 	select 
+			inmater.in_mtrl_id,
 			inmater.in_mtrl_num, 
 			inmater.in_mtrl_dt,  
 			inmater.in_mtrl_qty,			 
@@ -48,7 +50,7 @@
 			on inmater.clnt_id = clnt.clnt_id
 			join item item
 			on inmater.item_id = item.item_id
-			join stock stock
+			left join stock stock
 			on item.item_id = stock.item_id	
 			order by inmater.in_mtrl_id desc
 			limit #{startRow}, #{pageSize}
@@ -74,7 +76,7 @@
 			on inmater.clnt_id = clnt.clnt_id
 			join item item
 			on inmater.item_id = item.item_id
-			join stock stock
+			left join stock stock
 			on item.item_id = stock.item_id				
 	where whouse like CONCAT('%', #{whouse}, '%') 
 	<if test="startDate!='' and endDate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
@@ -108,7 +110,7 @@
 		on inmater.clnt_id = clnt.clnt_id
 		join item item
 		on inmater.item_id = item.item_id
-		join stock stock
+		left join stock stock
 		on item.item_id = stock.item_id	
 		<if test="(whouse != null and pcd != null and ccd != null and startDate != null and endDate != null)">			
 	where whouse like CONCAT('%', #{whouse}, '%') 
@@ -135,7 +137,7 @@
         
    <delete id="deleteInmtrl"> <!-- 자재입고 삭제 -->
    	delete from in_material	
-   	where in_mater_id = #{inmaterId}
+   	where in_mtrl_id = #{inmtrlId}
    	</delete>
    	
 <!-- 실사량   	 -->
@@ -166,6 +168,7 @@
     <resultMap type="map" id="OutmaterMap">
     
 		<!--     column= "디비열이름" property="멤버변수이름" -->
+		<result column="out_mtrl_id" property="outmtrlId"/>
 	    <result column="out_mtrl_num" property="outmtrlNum"/>
 	    <result column="out_mtrl_dt" property="outmtrlDt"/>
 	    <result column="out_mtrl_qty" property="outmtrlQty"/>
@@ -184,6 +187,7 @@
 
 	<select id="getOutmaterLiMap" resultMap="OutmaterMap"> <!-- 처음에 조회되는 자재출고 리스트 -->
 		select 
+				outmater.out_mtrl_id,
 				outmater.out_mtrl_num, 
 				outmater.out_mtrl_dt,  
 				outmater.out_mtrl_qty,			  
@@ -194,13 +198,14 @@
 				stock.whouse,
 				item.item_num, 
 		    	item.item_nm,
-		    	item.invnt_unit
+		    	item.invnt_unit,
+		    	item.item_id
 			from  
 				out_material outmater join client clnt
 				on outmater.clnt_id = clnt.clnt_id
 				join item item
 				on outmater.item_id = item.item_id
-				join stock stock
+				left join stock stock
 				on item.item_id = stock.item_id
 			order by outmater.out_mtrl_id desc
 			limit #{startRow}, #{pageSize}
@@ -224,7 +229,7 @@
 		on outmater.clnt_id = clnt.clnt_id
 		join item item
 		on outmater.item_id = item.item_id
-		join stock stock
+		left join stock stock
 		on item.item_id = stock.item_id
 	where
 	whouse like CONCAT('%', #{whouse}, '%') 
@@ -251,14 +256,13 @@
     </select>  
 
 	<select id="countOutLi" resultType="java.lang.Integer">        
-    select
-    count(*)
+    select count(*)
 	from  
 		out_material outmater join client clnt
 		on outmater.clnt_id = clnt.clnt_id
 		join item item
 		on outmater.item_id = item.item_id
-		join stock stock
+		left join stock stock
 		on item.item_id = stock.item_id	
 		<if test="(whouse != null and pcd != null and ccd != null and startDate != null and endDate != null)">		
 	where whouse like CONCAT('%', #{whouse}, '%') 
@@ -282,6 +286,18 @@
 	clnt_cd like CONCAT('%', #{ccd}, '%')
 	</if>
     </select>    		    
+
+   <delete id="deleteOutmtrl"> <!-- 자재출고 삭제 -->
+   	delete from out_material	
+   	where out_mtrl_id = #{outmtrlId}
+   	</delete>
+
+	<!-- 자재출고 등록 -->
+	<insert id="insertOutmtrl">
+		insert into out_material 
+		(item_id, clnt_id, out_mtrl_num, out_mtrl_dt, out_mtrl_qty, note, insert_id, insert_dt) 
+		VALUES (#{itemId}, #{clntId}, #{outmtrlNum},  #{outmtrlDt}, #{outmtrlQty}, #{note}, #{insertId}, #{insertDt})
+	</insert>
 
    <select id="itemlist" resultType="com.itwillbs.material.domain.ItemDTO">
    select

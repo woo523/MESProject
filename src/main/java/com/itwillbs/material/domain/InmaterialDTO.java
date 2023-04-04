@@ -1,6 +1,6 @@
 package com.itwillbs.material.domain;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
 
 public class InmaterialDTO {

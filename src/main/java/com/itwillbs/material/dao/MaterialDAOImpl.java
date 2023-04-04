@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
+import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -151,6 +152,27 @@ public class MaterialDAOImpl implements MaterialDAO{
 	public void deleteInmtrl(int inmtrlId) {
 		System.out.println("materialDAOImpl deleteInmtrl()");
 		sqlSession.delete(namespace+".deleteInmtrl", inmtrlId);
+	}
+
+
+	@Override
+	public void deleteOutmtrl(int outmtrlId) {
+		System.out.println("materialDAOImpl deleteOutmtrl()");
+		sqlSession.delete(namespace+".deleteOutmtrl", outmtrlId);
+	}
+
+
+	@Override
+	public void insertOutmtrl(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl insertOutmtrl()");
+		sqlSession.insert(namespace+".insertOutmtrl", outmaterialDTO);
+	}
+
+
+	@Override
+	public InmaterialDTO getInmtrlList(int inmtrlId) {
+		System.out.println("materialDAOImpl getInmtrlList()");
+		return sqlSession.selectOne(namespace+".getInmtrlList",inmtrlId);
 	}
 
 

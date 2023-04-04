@@ -19,7 +19,6 @@
 </style>
 
 </head>
-<body>
 	<h2>�ǻ緮</h2>
 	<form action="${pageContext.request.contextPath}/material/addPro" method="post">
 	<input type="hidden" name="id" value="${stockDTO.stockId }">

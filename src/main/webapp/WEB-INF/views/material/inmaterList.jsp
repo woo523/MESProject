@@ -160,7 +160,7 @@ text-align: center;
 	<c:forEach var="inte" items="${inmaterList}">
 		<tr id="con" onclick="inmaterList(${inte.inmaterId}, ${inte.itemId })">
 			<td>${inte.inmtrlNum}</td>
-			 <input type="hidden" name="inmtrlId" id="inmtrlId">
+<%-- 			 <input type="text" name="inmtrlId" id="inmtrlId" value="${inte.inmtrlId}"> --%>
 			<td>${inte.inmtrlDt}</td>
 		  	<td>${inte.itemNum}</td>
 		  	<td>${inte.itemName}</td>
@@ -172,8 +172,8 @@ text-align: center;
 		  	<td>${inte.clientName}</td>
 		  	<td>${inte.inmtrlLot}</td>
 		  	<td>${inte.note}</td>
-		  	<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi()'>
-				<a href="/material/del?inmtrlId=${materialDTO.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>		
+		  	<td><a href="/material/inmtrlModify?inmtrlId=${inte.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
+				<a href="/material/del?inmtrlId=${inte.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>		
 			</tr>
 			</c:forEach>
 			</c:otherwise>
@@ -261,10 +261,10 @@ $('button.ui-datepicker-current').live('click', function() {
 	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
 })
 
-function inmaterList(a){
-	console.log("inmaterList 호출");
-	var inmaterId = a;
-}
+// function inmaterList(a){
+// 	console.log("inmaterList 호출");
+// 	var inmaterId = a;
+// }
 
 function openilist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
@@ -274,18 +274,7 @@ function openclist(){
     window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
 }
 
-function openmodi(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/immodi?inmtrlId"+a,"popup", "width=500, height=500,left=100, top=100");
-}
 
-// function delPf(a) {
-	
-// 	if(confirm("삭제하시겠습니까?")){
-// 		alert("해당 입고내역이 삭제되었습니다.");
-// 		location.href="${pageContext.request.contextPath}/material/del?inmaterId="+a;
-// 	}else{
-// 		alert("취소되었습니다.");
-// 	}}
 
 // 유효성 검사
 $(document).ready(function() {
