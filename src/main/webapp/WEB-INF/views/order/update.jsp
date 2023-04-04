@@ -161,27 +161,27 @@ $(function() {
 <form action="${pageContext.request.contextPath}/order/updatePro" method="post">
 			<div id="btn">
 				<button type="submit" >저장</button>
+					
 			</div>
 			
 	<table id="update">
 	<tr><td>업체명</td>
-	
 	<td><input type="text" id="clntNm" name="clntNm" value="${orderDTO.clntNm }"  onclick="openClntList()">
-		<input type="hidden" id="clntId" name="clntId" id="clntId" value="">
-		<input type="hidden" id="clntCd" name="clntCd" id="clntCd" value=""></td></tr>
+		<input type="hidden" id="clntId" name="clntId" value="${orderDTO.clntId }">
+		<input type="hidden" id="clntCd" name="clntCd" value="${orderDTO.clntCd }"></td></tr>
 	<tr><td>수주일자</td>
 	<td><input type="text" id="orderDt" name="orderDt" class="form-control" value="${orderDTO.orderDt }"></td></tr>
 	<tr><td>담당자</td>
 	<td><input type="text" id="userNm" name="userNm" value="${orderDTO.userNm }" onclick="openUserList()">
-		<input type="hidden" id="userId" name="userId" id="userId"value="">
-		<input type="hidden" id="userNum" name="userNum" id="userNum" value=""></td></tr>
+		<input type="hidden" id="userId" name="userId" value="${orderDTO.userId }" >
+		<input type="hidden" id="userNum" name="userNum" value="${orderDTO.userNum }"  ></td></tr>
 	<tr><td>납품예정일</td>
 	<td><input type="text" id="dlvryDt" name="dlvryDt"  class="form-control" value="${orderDTO.dlvryDt }" ></td></tr>
 	<tr><td>품번</td>
-	<td><input type="hidden" id="itemId" name="itemId" id="itemId"  onclick="openItemList()">
-		<input type="text" id="itemNum" name="itemNum" value="${orderDTO.itemNum }" onclick="openItemList()"></td>
+	<td><input type="hidden" id="itemId" name="itemId"  value="${orderDTO.itemId }" onclick="openItemList()">
+		<input type="text" id="itemNum" name="itemNum" value="${orderDTO.itemNum }" onclick="openItemList()"></td></tr>
 	<tr><td>품명</td>
-	<td><input type="text" id="itemNm" name="itemNm" value="${orderDTO.itemNm }" readonly"></td>
+	<td><input type="text" id="itemNm" name="itemNm" value="${orderDTO.itemNm }" readonly></td></tr>
 	<tr><td>단위</td>
 	<td><input type="text" id="invntUnit" name="invntUnit" value="${orderDTO.invntUnit }" readonly></td></tr>
 	<tr><td>수량</td>

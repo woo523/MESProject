@@ -10,10 +10,10 @@ public class OrderDTO {
 	private int ordInfo;
 	private int itemId;
 	private int ordQty;
-	private Date sOdate; 		 
-	private Date eOdate; 		
-	private Date sDdate; 		
-	private Date eDdate; 		 
+//	private Date sOdate; 		 
+//	private Date eOdate; 		
+//	private Date sDdate; 		
+//	private Date eDdate; 		 
 	private Date orderDt; 		 
 	private Date dlvryDt; 		
 	private Timestamp insertDt; 
@@ -29,9 +29,17 @@ public class OrderDTO {
 	private String itemNum;
 	private String itemNm;
 	private String invntUnit;
+	private String clntCd;
 	
 	
 	
+	
+	public String getClntCd() {
+		return clntCd;
+	}
+	public void setClntCd(String clntCd) {
+		this.clntCd = clntCd;
+	}
 	public Date getOrderDt() {
 		return orderDt;
 	}
@@ -69,30 +77,30 @@ public class OrderDTO {
 		this.userId = userId;
 	}
 
-	public Date getsOdate() {
-		return sOdate;
-	}
-	public void setsOdate(Date sOdate) {
-		this.sOdate = sOdate;
-	}
-	public Date geteOdate() {
-		return eOdate;
-	}
-	public void seteOdate(Date eOdate) {
-		this.eOdate = eOdate;
-	}
-	public Date getsDdate() {
-		return sDdate;
-	}
-	public void setsDdate(Date sDdate) {
-		this.sDdate = sDdate;
-	}
-	public Date geteDdate() {
-		return eDdate;
-	}
-	public void seteDdate(Date eDdate) {
-		this.eDdate = eDdate;
-	}
+//	public Date getsOdate() {
+//		return sOdate;
+//	}
+//	public void setsOdate(Date sOdate) {
+//		this.sOdate = sOdate;
+//	}
+//	public Date geteOdate() {
+//		return eOdate;
+//	}
+//	public void seteOdate(Date eOdate) {
+//		this.eOdate = eOdate;
+//	}
+//	public Date getsDdate() {
+//		return sDdate;
+//	}
+//	public void setsDdate(Date sDdate) {
+//		this.sDdate = sDdate;
+//	}
+//	public Date geteDdate() {
+//		return eDdate;
+//	}
+//	public void seteDdate(Date eDdate) {
+//		this.eDdate = eDdate;
+//	}
 	public String getOrdNum() {
 		return ordNum;
 	}

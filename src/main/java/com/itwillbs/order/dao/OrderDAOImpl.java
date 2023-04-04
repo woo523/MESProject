@@ -97,6 +97,13 @@ public class OrderDAOImpl implements OrderDAO{
 		
 	}
 
+	@Override
+	public void getDelete(int ordId) {
+		System.out.println("OrderDAOImpl updateOrder() 화면단 정보를 db에 저장");
+		sqlSession.delete(namespace+".getDelete", ordId);
+		
+	}
+
 
 
 

@@ -35,6 +35,8 @@ public interface OrderDAO {
 
 	public void updateOrder(OrderDTO orderDTO);
 
+	public void getDelete(int ordId);
+
 
 	
 }

@@ -260,17 +260,20 @@
 	<update id="updateOrder">
 	update order_mng 
 	set 
+	ord_id= #{ordId},
 	clnt_id = #{clntId},
 	order_dt = #{orderDt},
 	user_id = #{userId},
 	dlvry_dt = #{dlvryDt},
 	item_id = #{itemId},
 	ord_qty = #{ordQty}
-	where 
-	ord_id = #{ordId}
+	where ord_id = #{ordId}
 	</update>
 	
-
+	<delete id="getDelete">
+	delete from order_mng
+	where ord_id = #{ordID}
+	</delete>
 	
 </mapper>
 

@@ -92,6 +92,13 @@ public class OrderServiceImpl implements OrderService{
 		orderDAO.updateOrder(orderDTO);
 	}
 
+	@Override
+	public void getDelete(int ordId) {
+		System.out.println("OrderServiceImpl getDelete()");
+		orderDAO.getDelete(ordId);
+		
+	}
+
 
 
 

@@ -33,6 +33,8 @@ public interface OrderService {
 	public OrderDTO getOrder(int ordId);
 
 	public void updateOrder(OrderDTO orderDTO);
+
+	public void getDelete(int ordId);
 	
 
 }

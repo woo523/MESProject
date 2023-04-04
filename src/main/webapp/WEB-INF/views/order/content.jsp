@@ -108,10 +108,11 @@ text-align: center;
 
 	<h1>수주품목상세</h1>
 	<div class="content">
-			<div id="btn">
-				<button type="button" value="글수정" class="btn"
-	onclick="location.href='${pageContext.request.contextPath}/order/update?ordId=${orderDTO.ordId }'"> 수정 </button>
-				<button type="submit" >저장</button>
+		<div id="btn">
+			<input type="button" value="수정" class="btn"
+				onclick="location.href='${pageContext.request.contextPath}/order/update?ordId=${orderDTO.ordId }'">
+			<input type="button" value="삭제" class="btn"
+				onclick="location.href='${pageContext.request.contextPath}/order/delete?ordId=${orderDTO.ordId }'">
 			</div>
 				<br>
 
