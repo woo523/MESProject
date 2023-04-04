@@ -40,10 +40,10 @@
     
     
     
-<!--     출하 요청 등록, 수정, 삭제 (add, edit, delete) -->
-    <select id="addeditdel" resultMap="shipADMap">
+<!--     출하 요청 등록, 수정, 삭제 (add, edit, delete) --> 
+<!--     <select id="addeditdel" resultMap="shipADMap"> -->
     	
-    </select>
+<!--     </select> -->
     
     
     
@@ -82,9 +82,9 @@
     
     
 <!--     출하 현황 수정, 삭제 (edit, delete) -->
-    <select id="addeditdel" resultMap="shipLIMap">
+<!--     <select id="addeditdel" resultMap="shipLIMap"> -->
     	
-    </select>
+<!--     </select> -->
     
     
     
