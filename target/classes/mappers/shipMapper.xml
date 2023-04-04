@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itwillbs.mappers.shipMapper">
-  
-  <resultMap type="map" id="shipMap">
+
+  <!--   출하 요청 리스트 -->
+  <resultMap type="map" id="shipADMap">
   		<result property="shipId" column="ship_id"/>
   		<result property="ordId" column="ord_id"/>
   		<result property="ordInfoId" column="ord_info_id"/>
@@ -15,39 +16,165 @@
   		<result property="insertDt" column="insert_dt"/>
   		<result property="updateId" column="update_id"/>
   		<result property="updateDt" column="update_dt"/>
-  		
   		<result property="shipCond" column="update_dt"/>
   
   </resultMap>
-  
-  
-  
-  
-    <select id="getShipMap" resultMap="shipMap">
-    
-    	SELECT 
-			shipId
-			ordId
-			ordInfoId
-			shipQty
-			shipDt
-			shipNum
-			barcord
-			insertId
-			insertDt
-			updateId
-			updateDt
-		FROM ship
 
+    
+<!--     출하 리스트 첫 화면 -->
+    <select id="getShipAdLiMap" resultMap="shipADMap">
+    	
     </select>
     
-	
-	
-		<insert id="insertShip">
-    insert into shipAdmin
-    (clnt_id, order_dt,user_id,dlvry_dt,item_id,ord_qty)
-	values(#{clntId},#{orderDt},#{userId},#{dlvryDt},#{itemId},#{ordQty})		
-	 
-    </insert>
+    
+<!--     검색 출하 리스트 search -->
+    <select id="getSearchShipAdLiMap" resultMap="shipADMap">
+    	
+    </select>
+    
+    
+<!--     출하 리스트 count -->
+    <select id="countShipAdLi" resultMap="shipADMap">
+    	
+    </select>
+    
+    
+    
+<!--     출하 요청 등록, 수정, 삭제 (add, edit, delete) -->
+    <select id="addeditdel" resultMap="shipADMap">
+    	
+    </select>
+    
+    
+    
+        <!--   출하 현황 리스트 -->
+      <resultMap type="map" id="shipLIMap">
+  		<result property="shipNum" column="ship_id"/>
+  		<result property="itemName" column="ord_id"/>
+  		<result property="amount" column="ord_info_id"/>
+  		<result property="shipDt" column="ship_qty"/>
+  		<result property="clntNm" column="ship_dt"/>
+  		<result property="trackNum" column="ship_num"/>
+  		<result property="clntId" column="barcord"/>
+  		<result property="shipCond" column="insert_id"/>
+ 	 </resultMap>
+    
+    
+
+    
+<!--     출하현황 리스트 첫 화면 -->
+    <select id="getShipLiMap" resultMap="shipLIMap">
+    	
+    </select>
+    
+    
+<!--     검색 출하현황 리스트 search -->
+    <select id="getSearchShipLiMap" resultMap="shipLIMap">
+    	
+    </select>
+    
+    
+<!--     출하현황 리스트 count -->
+    <select id="countShipLi" resultMap="shipLIMap">
+    	
+    </select>
+    
+    
+    
+<!--     출하 현황 수정, 삭제 (edit, delete) -->
+    <select id="addeditdel" resultMap="shipLIMap">
+    	
+    </select>
+    
+    
+    
+    
+    
+<!--     item list -->
+    <select id="ItemList" resultMap="com.itwillbs.ship.domain.ItemDTO">
+    	select
+		item_num as itemNum,
+		item_nm as itemNm
+		from item
+		<if test="itemNum!=null and itemNm!=null">
+			where
+			item_num like CONCAT('%', #{itemNum}, '%') and
+			item_nm like CONCAT('%', #{itemNm}, '%')
+		</if>
+		order by itemNum desc
+		limit #{startRow}, #{pageSize}
+    </select>
+    
+    
+<!--     item count -->
+    <select id="countItemList" resultMap="java.lang.Integer">
+    	select
+		count(*)
+		from item
+		<if test="itemNum!=null and itemNm!=null">
+			where
+			item_num like CONCAT('%', #{itemNum}, '%') and
+			item_nm like CONCAT('%', #{itemNm}, '%')
+		</if>
+    </select>
+    
+<!--     client list -->
+    <select id="ClientList" resultMap="com.itwillbs.ship.domain.ClntDTO">
+    	select
+		clnt_cd as clntCd,
+		clnt_nm as clntNm,
+		clnt_id as clntId
+		from client
+		<if test="clntCd!=null and clntNm!=null">
+			where
+			clnt_cd like CONCAT('%', #{clntCd}, '%') and
+			clnt_nm	like CONCAT('%', #{clntNm}, '%')
+		</if>
+		order by clnt_cd desc
+		limit #{startRow}, #{pageSize}
+    </select>
+    
+<!--     client count -->
+    <select id="countClientList" resultMap="java.lang.Integer">
+    	select
+		count(*)
+		from client
+		<if test="clntCd!=null and clntNm!=null">
+			where
+			clnt_cd like CONCAT('%', #{clntCd}, '%') and
+			clnt_nm	like CONCAT('%', #{clntNm}, '%')
+		</if>
+    </select>
+    
+    
+<!--      material list --> 
+<!--     <select id="MaterialList" resultMap="com.itwillbs.ship.domain.MaterialDTO"> -->
+<!--     	select -->
+<!-- 		in_mtrl_qty as inmtrlQty, -->
+<!-- 		out_mtrl_qty as outmtrlQty, -->
+<!-- 		cur_stock as curStrock -->
+<!-- 		from client -->
+<!-- 		<if test="inmtrlQty!=null and outmtrlQty!=null"> -->
+<!-- 			where -->
+<!-- 			in_mtrl_qty like CONCAT('%', #{inmtrlQty}, '%') and -->
+<!-- 			out_mtrl_qty	like CONCAT('%', #{outmtrlQty}, '%') -->
+<!-- 		</if> -->
+<!-- 		order by cur_stock desc -->
+<!-- 		limit #{startRow}, #{pageSize} -->
+<!--     </select> -->
+    
+<!--      material count -->
+<!--     <select id="countMaterialList" resultMap="java.lang.Integer"> -->
+<!--     	select -->
+<!-- 		count(*) -->
+<!-- 		from client -->
+<!-- 		<if test="clntCd!=null and clntNm!=null"> -->
+<!-- 			where -->
+<!-- 			clnt_cd like CONCAT('%', #{clntCd}, '%') and -->
+<!-- 			clnt_nm	like CONCAT('%', #{clntNm}, '%') -->
+<!-- 		</if> -->
+<!--     </select>     -->
+    
+
    
 </mapper>

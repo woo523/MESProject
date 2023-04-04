@@ -131,7 +131,7 @@
 		<table border="1" class="shipList">
 			<thead>
 				<tr>
-				<th>주문번호</th>
+				<th>출하번호</th>
 				<th>제품명</th>
 				<th>수량</th>
 				<th>출하일</th>
@@ -139,19 +139,31 @@
 				<th>송장번호</th>
 				<th>주문자 정보</th>
 				<th>출하상태</th>
+				<th>수정</th>
+				<th>삭제</th>
 				</tr>
 			</thead>
+			<c:when test="${empty orderList}">
+				<tr>
+				<td colspan="8"></td>
+				</tr>
+				<tr>
+				<td colspan="8">해당 주문 정보가 존재하지 않습니다.</td>
+				</tr>
+		</c:when>
 			<tbody>
 				<c:forEach var="shipDTO" items="${shipList}">
 					<tr>
-					<td>${orderDTO.ordNum}</td>
-					<td>${shipDTO.itemName}</td>
-					<td>${shipDTO.shipQty}</td>
-					<td>${shipDTO.shipDt}</td>
-					<td>${orderDTO.clntId}</td>
 					<td>${shipDTO.shipNum}</td>
-					<td>${shipDTO.insertId}</td>
+					<td>${shipDTO.itemName}</td>
+					<td>${shipDTO.amount}</td>
+					<td>${shipDTO.shipDt}</td>
+					<td>${shipDTO.clntNm}</td>
+					<td>${shipDTO.trackNum}</td>
+					<td>${shipDTO.clntId}</td>
 					<td>${shipDTO.shipCond}</td>
+					<td><button class="edit-row" onclick="editRow(this)">수정</button></td>
+					 <td><button class="delete-row" onclick="deleteRow(this)">삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>

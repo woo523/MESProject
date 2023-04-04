@@ -8,8 +8,11 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.ship.domain.ClntDTO;
+import com.itwillbs.ship.domain.MaterialDTO;
 import com.itwillbs.ship.domain.PageDTO;
 import com.itwillbs.ship.domain.ShipDTO;
+import com.itwillbs.work.domain.ItemDTO;
 
 @Repository
 public class ShipDAOImpl implements ShipDAO{
@@ -52,13 +55,49 @@ public class ShipDAOImpl implements ShipDAO{
 	@Override
 	public List<ShipDTO> getInfoList(Map<String, Object> search) {
 		System.out.println("ShipDAOImpl getInfoList()");
-		return sqlSession.selectOne(namespace+".getInfoList",search);
+		return sqlSession.selectList(namespace+".getInfoList",search);
 	}
 
 	@Override
 	public int countInfoList(Map<String, Object> search) {
 		System.out.println("ShipDAOImpl countInfoList()");
 		return sqlSession.selectOne(namespace+".countInfoList",search);
+	}
+
+	@Override
+	public List<ItemDTO> getItemList(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl getItemList()");
+		return sqlSession.selectList(namespace+".getItemList",search);
+	}
+
+	@Override
+	public int countItemList(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl countItemList()");
+		return sqlSession.selectOne(namespace+".countItemList",search);
+	}
+
+	@Override
+	public List<MaterialDTO> getMtrList(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl getMtrList()");
+		return sqlSession.selectList(namespace+".getMtrList",search);
+	}
+
+	@Override
+	public int countMtrList(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl countMtrList()");
+		return sqlSession.selectOne(namespace+".countMtrList",search);
+	}
+
+	@Override
+	public List<ClntDTO> getClntList(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl getClntList()");
+		return sqlSession.selectList(namespace+".getClntList",search);
+	}
+
+	@Override
+	public int countClntList(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl countClntList()");
+		return sqlSession.selectOne(namespace+".countClntList",search);
 	}
 
 

@@ -23,13 +23,13 @@
 	    $( ".datepicker1" ).datepicker1();
 	  });
 function openilist1(){
-    window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/ship/itemInfo","popup", "width=500, height=500,left=100, top=100");
 }
 function openilist2(){
-    window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/ship/userList","popup", "width=500, height=500,left=100, top=100");
 }
 function openilist3(){
-    window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/ship/clntInfo","popup", "width=500, height=500,left=100, top=100");
 }
 function openilist4(){
     window.open("${pageContext.request.contextPath }/ship/shipInfo","popup", "width=500, height=500,left=100, top=100");
@@ -127,6 +127,8 @@ function openilist4(){
 				<th>단위</th>
 				<th>수량</th>
 				<th>출하고객</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 			
 			<c:forEach var="shipDTO" items="${shipList}">
@@ -140,7 +142,9 @@ function openilist4(){
 							<td>${shipDTO.barcord}</td>
 							<td>${shipDTO.itemUnit}</td>
 							<td>${shipDTO.amount}</td>
-							<td>${orderDTO.clntId}</td>
+							<td>${ClntDTO.clntCd}</td>
+							<td><button class="edit-row" onclick="editRow(this)">수정</button></td>
+					 		<td><button class="delete-row" onclick="deleteRow(this)">삭제</button></td>
 						</tr>
 			</c:forEach>
 		</table>

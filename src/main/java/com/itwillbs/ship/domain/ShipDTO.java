@@ -16,7 +16,14 @@ public class ShipDTO {
 	private Timestamp updateDt;				// 변경일
 	private String shipCond;				// 출하상태
 	private String amount;					// 수량
+	private String trackNum;				// 송장번호
 	
+	public String getTrackNum() {
+		return trackNum;
+	}
+	public void setTrackNum(String trackNum) {
+		this.trackNum = trackNum;
+	}
 	public String getAmount() {
 		return amount;
 	}

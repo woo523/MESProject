@@ -63,7 +63,7 @@
 					<td>출하일자</td>
 				</tr>
 				<c:forEach var="shipInfo" items="${shipInfo }">
-					<tr id="sh" onclick="selectShip('${userList.shipNum }','${userList.shipQty }','${userList.shipDt }')">
+					<tr id="sh" onclick="selectShip('${shipInfo.shipNum }','${shipInfo.shipQty }','${shipInfo.shipDt }')">
 						<td>${shipInfo.shipNum }</td>
 						<td>${shipInfo.shipQty }</td>
 						<td>${shipInfo.shipDt }</td>

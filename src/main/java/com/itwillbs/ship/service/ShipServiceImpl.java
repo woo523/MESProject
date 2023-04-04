@@ -9,8 +9,11 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.ship.dao.ShipDAO;
+import com.itwillbs.ship.domain.ClntDTO;
+import com.itwillbs.ship.domain.MaterialDTO;
 import com.itwillbs.ship.domain.PageDTO;
 import com.itwillbs.ship.domain.ShipDTO;
+import com.itwillbs.work.domain.ItemDTO;
 
 @Service
 public class ShipServiceImpl implements ShipService{
@@ -58,6 +61,42 @@ public class ShipServiceImpl implements ShipService{
 	public int countInfoList(Map<String, Object> search) {
 		System.out.println("ShipServiceImpl countInfoList()");
 		return shipDAO.countInfoList(search);
+	}
+
+	@Override
+	public List<ItemDTO> getItemList(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl getItemList()");
+		return shipDAO.getItemList(search);
+	}
+
+	@Override
+	public int countItemList(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl countItemList()");
+		return shipDAO.countItemList(search);
+	}
+
+	@Override
+	public List<MaterialDTO> getMtrList(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl getMtrList()");
+		return shipDAO.getMtrList(search);
+	}
+
+	@Override
+	public int countMtrList(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl countMtrList()");
+		return shipDAO.countMtrList(search);
+	}
+
+	@Override
+	public List<ClntDTO> getClntList(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl getClntList()");
+		return shipDAO.getClntList(search);
+	}
+
+	@Override
+	public int countClntList(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl countClntList()");
+		return shipDAO.countClntList(search);
 	}
 
 	
