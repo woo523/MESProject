@@ -19,9 +19,6 @@ function openclist(){
 
 
 <body>
-<!-- <header> -->
-	<jsp:include page="../inc/header.jsp" />
-<!-- </header> -->
 
 	<h2>자재입고 등록</h2>
 	<br>
@@ -51,8 +48,6 @@ function openclist(){
 		<button type="reset">초기화</button>
 	</form>
 	
-<!-- <footer> -->
-	<jsp:include page="../inc/footer.jsp" />
-<!-- </footer> -->
+
 </body>
 </html>

@@ -109,7 +109,7 @@ text-align: center;
 	<form id="search">
 	<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="location.href='/material/inmtrlInsert'">추가</button>
+			<button type="button" onclick="openInsert(${inmaterialDTO.inmtrlId})" >추가</button>
 		</div>
 		<br>
 	<table id="search">
@@ -172,7 +172,7 @@ text-align: center;
 		  	<td>${inte.clientName}</td>
 		  	<td>${inte.inmtrlLot}</td>
 		  	<td>${inte.note}</td>
-		  	<td><a href="/material/inmtrlModify?inmtrlId=${inte.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
+		  	<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="openmodi(${inte.inmtrlId})">
 				<a href="/material/del?inmtrlId=${inte.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>		
 			</tr>
 			</c:forEach>
@@ -270,13 +270,22 @@ $('button.ui-datepicker-current').live('click', function() {
 // }
 
 function openilist(){
-    window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/itemList","popup1", "width=500, height=500,left=100, top=100");
 }
 
 function openclist(){
-    window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/clientList","popup2", "width=500, height=500,left=100, top=100");
 }
 
+var inmtrlId = a;
+
+function openmodi(a){ // 수정창
+    window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=500, height=500,left=500, top=200");
+}
+
+function openInsert(a){ // 추가창
+	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=500, height=500,left=500, top=200");
+}
 
 
 // 유효성 검사

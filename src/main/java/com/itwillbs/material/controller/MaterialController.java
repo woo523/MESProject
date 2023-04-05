@@ -402,7 +402,7 @@ public class MaterialController {
 		
 		materialService.updateInmtrl(inmaterialDTO);
 		
-		return "material/inmaterList";
+		return "redirect:/common/offwindow";
 	}
 	
 	// 자재입고 등록
@@ -429,7 +429,7 @@ public class MaterialController {
 		System.out.println(inmaterialDTO);
 		
 		
-		return "redirect:/material/inmaterList";
+		return "redirect:/common/offwindow";
 	}
 	
 	// 실사량

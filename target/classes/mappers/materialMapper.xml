@@ -19,6 +19,7 @@
     <result column="note" property="note"/>
     <result column="clnt_cd" property="clientCode"/>
     <result column="clnt_nm" property="clientName"/>
+    <result column="clnt_id" property="clientId"/>
     <result column="cur_stock" property="stockcur"/>
     <result column="whouse" property="stockwhouse"/>
     <result column="item_num" property="itemNum"/>
@@ -35,7 +36,7 @@
 			inmater.in_mtrl_num, 
 			inmater.in_mtrl_dt,  
 			inmater.in_mtrl_qty,			 
-			inmater.in_mtrl_lot, 
+			inmater.in_mtrl_lot,
 			inmater.note, 
 			clnt.clnt_cd,
 			clnt.clnt_nm,
@@ -195,7 +196,6 @@
 			in_mtrl_dt = #{inmtrlDt},
 			item_id = #{itemId},
 			clnt_id = #{clntId},
-			invnt_unit = #{itemUnit},
 			in_mtrl_qty = #{inmtrlQty},
 			in_mtrl_lot = #{inmtrlLot},
 			note = #{note}
@@ -212,6 +212,7 @@
 			inmater.note, 
 			clnt.clnt_cd,
 			clnt.clnt_nm,
+			clnt.clnt_id,
 			stock.cur_stock,
 			stock.whouse,
 			item.item_num, 
@@ -231,18 +232,18 @@
 
 	<select id="getInmtrl" resultType="com.itwillbs.material.domain.InmaterialDTO">
 		select 
-			in_mtrl_id,
-			item_id,
-			clnt_id,
-			in_mtrl_num,
-			in_mtrl_dt,
-			in_mtrl_qty,
-			in_mtrl_lot,
-			note,
-			insert_id,
-			insert_dt,
-			update_id,
-			update_dt
+			in_mtrl_id as inmtrlId,
+			item_id as itemId,
+			clnt_id as clntId,
+			in_mtrl_num as inmtrlNum,
+			in_mtrl_dt as inmtrlDt,
+			in_mtrl_qty as inmtrlQty,
+			in_mtrl_lot as inmtrlLot,
+			note as note,
+			insert_id as insertId,
+			insert_dt as insertDt,
+			update_id as updateId,
+			update_dt as updateDt
 		from in_material
 		where in_mtrl_id = #{inmtrlId}
 	</select>
