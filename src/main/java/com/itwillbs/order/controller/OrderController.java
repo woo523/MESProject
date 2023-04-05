@@ -401,14 +401,14 @@ public class OrderController {
 			search.put("pageSize", pageDTO.getPageSize());
 	 
 			
-			List<Map<String,Object>> orderList;
+			List<Map<String,Object>> orderSList;
 			if(ordId == null && clntCd == null && clntNm == null && sOdate == null && eOdate== null 
 					&& sDdate == null && eDdate == null && userNum == null && userNm == null) {
 			// 조회 안한 경우
-				orderList = orderService.getOrderMap(pageDTO); // page만 필요해서
+				orderSList = orderService.getOrderMap(pageDTO); // page만 필요해서
 			
 			}else { // 조회값 넣은 경우
-				orderList = orderService.getSearchOrderMap(search);
+				orderSList = orderService.getSearchOrderMap(search);
 				
 			}
 					
@@ -431,7 +431,7 @@ public class OrderController {
 			
 			System.out.println("endPage :"+pageDTO.getEndPage());
 			System.out.println("count :"+pageDTO.getCount());
-			model.addAttribute("orderList", orderList); 
+			model.addAttribute("orderSList", orderSList); 
 			model.addAttribute("pageDTO", pageDTO);
 			model.addAttribute("search", search);
 

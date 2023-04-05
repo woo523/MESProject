@@ -245,7 +245,7 @@ $(document).ready(function () {
 
 
 
-<div class="content_body"> <!-- 지우면안됨 -->
+<div class="content_body">
 	<!-- 내용시작 -->
 	
 	<h1>수주관리</h1>
@@ -253,10 +253,9 @@ $(document).ready(function () {
 	<form id="search">
 		<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="location.href='${pageContext.request.contextPath}/order/orderInsert'">추가</button>		
 		</div>
 				<br>
-			<table id="search">
+			<table id="status">
 				<tr>
 				<td>수주업체</td>
 				<td><input type="text" name="clntNm" id="clntNm" onclick="openClntList()">
@@ -264,19 +263,30 @@ $(document).ready(function () {
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
 				
 				<td>수주일자</td>
-				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eOdate" class="form-control" name="eOdate" readonly></td>
+				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly>	
+					<input type="hidden" id="eOdate" class="form-control" name="eOdate" readonly></td>
+
+				<td>품번</td>
+				<td><input type="text" name="itemNum" id="itemNum"  onclick="openItemList()">
+					<input type="hidden" name= "itemNm" id="itemNm"  onclick="openItemList()">	
+					<input type="hidden" name="invntUnit" id="invntUnit" value="" >
+					<input type="hidden" name="ordQty" id="ordQty" value="" ></td>
 				</tr>
+				
 				<tr>
 				<td>담당자</td>
 				<td><input type="text" name="userNm" id="userNm" onclick="openUserList()">
 					<input type="hidden" name="userId" id="userId"value="">
-					<input type="hidden" name="userNum" id="userNum" value=""></td>
-			
+					<input type="hidden" name="userNum" id="userNum" value="">
+					<input type="hidden" name="itemId" id="itemId"  onclick="openItemList()"></td>
+				
 				<td>납품예정일</td>
-				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eDdate" class="form-control" name="eDdate" readonly></td>
+				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly>
+					<input type="hidden" id="eDdate" class="form-control" name="eDdate" readonly></td>
+				<td>출하완료여부</td>
+				<td><input type="hidden" name="cmpltYn" id="cmpltYn" value=""></td>
 				</tr>
+				
 			</table>
 		</form>
 	</div>
@@ -292,7 +302,7 @@ $(document).ready(function () {
 			<th>담당자코드</th>
 			<th>담당자</th>
 		</tr>
-			<c:forEach var="odto" items="${orderList}">
+			<c:forEach var="odto" items="${orderSList}">
 			<tr onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">
 				<td>${odto.clntCd}</td>
 				<td>${odto.clntNm}</td>
@@ -306,7 +316,7 @@ $(document).ready(function () {
   
     <br>
     <div id="pagination">
-    <!-- 1페이지 이전 -->
+    1페이지 이전
 	<c:if test="${pageDTO.currentPage > 1}">
 	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
@@ -320,7 +330,7 @@ $(document).ready(function () {
 	<a id="num" href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${i}">${i}</a> 
 	</c:forEach>
 
-<!-- 1페이지 다음 -->	
+<!-- 1페이지 다음	 -->
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
 	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>
@@ -331,8 +341,6 @@ $(document).ready(function () {
 	</c:if>
 	</div>
 <br>
-<a href="${pageContext.request.contextPath }/order/orderInsert">추가</a></h1>
-
 
 </div>
 </body>
