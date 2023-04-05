@@ -162,9 +162,9 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public void updateInmtrl(InmaterialDTO inmaterialDTO, int inmtrlId) {
+	public void updateInmtrl(InmaterialDTO inmaterialDTO) {
 		System.out.println("OutmaterialServiceImpl updateInmtrl()");
-		materialDAO.updateInmtrl(inmaterialDTO, inmtrlId);
+		materialDAO.updateInmtrl(inmaterialDTO);
 	}
 
 	@Override
@@ -177,6 +177,18 @@ public class MaterialServiceImpl implements MaterialService{
 	public void updateStock(StockDTO stockDTO, int stockId) {
 		System.out.println("OutmaterialServiceImpl updateStock()");
 		materialDAO.updateStock(stockDTO, stockId);
+	}
+
+	@Override
+	public InmaterialDTO getInmtrl(int inmtrlId) {
+		System.out.println("OutmaterialServiceImpl getInmtrl()");
+		return materialDAO.getInmtrl(inmtrlId);
+	}
+
+	@Override
+	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+		System.out.println("OutmaterialServiceImpl getInmtrlMap()");
+		return materialDAO.getInmtrlMap(inmtrlId);
 	}
 
 

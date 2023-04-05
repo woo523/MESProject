@@ -15,51 +15,51 @@ function openclist(){
     window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
 }
 
-$('#insert').submit(function(){ // 유효성 검사
+// $('#insert').submit(function(){ // 유효성 검사
    
-	if($('.mtDate').val()==null||$('.mtDate').val()==""){
-    	alert("입고일을 입력하세요");
-		$('.mtDate').focus();
-		return false;
-    }
+// 	if($('.mtDate').val()==null||$('.mtDate').val()==""){
+//     	alert("입고일을 입력하세요");
+// 		$('.mtDate').focus();
+// 		return false;
+//     }
 
-	if($('.Qty').val()==null||$('.Qty').val()==""){
-		alert("출고 수량을 입력하세요");
-		$('.Qty').focus();
+// 	if($('.Qty').val()==null||$('.Qty').val()==""){
+// 		alert("출고 수량을 입력하세요");
+// 		$('.Qty').focus();
 	
-		return false;
-	}
+// 		return false;
+// 	}
 	
-	if($('.Qty').val()<=0){
-		alert("출고 수량은 양수로 입력해주세요");
-		$('.Qty').focus();
+// 	if($('.Qty').val()<=0){
+// 		alert("출고 수량은 양수로 입력해주세요");
+// 		$('.Qty').focus();
 	
-		return false;
-	}
+// 		return false;
+// 	}
 	
-	if($('.unit').val()==null||$('.unit').val()==""){
-		alert("단위를 입력하세요");
-		$('.unit').focus();
+// 	if($('.unit').val()==null||$('.unit').val()==""){
+// 		alert("단위를 입력하세요");
+// 		$('.unit').focus();
 	
-		return false;
-	}
+// 		return false;
+// 	}
 	
-	if($('.pcd').val()==null||$('.pcd').val()==""){
-		alert("제품 정보를 입력하세요");
-		$('.pcd').focus();
+// 	if($('.pcd').val()==null||$('.pcd').val()==""){
+// 		alert("제품 정보를 입력하세요");
+// 		$('.pcd').focus();
 	
-		return false;
-	}
+// 		return false;
+// 	}
 	
-	if($('.ccd').val()==null||$('.ccd').val()==""){
-		alert("거래처 정보를 입력하세요");
-		$('.ccd').focus();
+// 	if($('.ccd').val()==null||$('.ccd').val()==""){
+// 		alert("거래처 정보를 입력하세요");
+// 		$('.ccd').focus();
 	
-		return false;
-		}
-	}
+// 		return false;
+// 		}
+// 	}
 
-});
+// });
 </script>
 </head>
 

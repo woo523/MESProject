@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -378,20 +379,29 @@ public class MaterialController {
 		
 		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
 		
-		InmaterialDTO inmaterialDTO = materialService.getInmtrlList(inmtrlId);
+		InmaterialDTO inmaterialDTO = materialService.getInmtrl(inmtrlId);
+		
+		Map<String, Object> getInmtrl = materialService.getInmtrlMap(inmaterialDTO.getInmtrlId()); // 품명 가져오기 위해
+		
 		model.addAttribute("inmaterialDTO", inmaterialDTO);
+		model.addAttribute("getInmtrl", getInmtrl);
+		
 		System.out.println("폼 : " + inmtrlId);		
+		
 		return "material/inmtrlModify";
 	}
 	
 	// 입고 수정
 	@RequestMapping(value = "/material/inmtrlModifyPro", method = RequestMethod.POST)
-	public String inmtrlModifyPro(HttpServletRequest request, InmaterialDTO inmaterialDTO) {
+	public String inmtrlModifyPro(InmaterialDTO inmaterialDTO, HttpSession session) {
 		System.out.println("MaterialController inmtrlModifyPro()");
 		
-		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
-		materialService.updateInmtrl(inmaterialDTO, inmtrlId);
-		System.out.println("디비 : " + inmaterialDTO);
+		String id = (String)session.getAttribute("id");
+		inmaterialDTO.setUpdateId(id);
+		inmaterialDTO.setUpdateDt(new Timestamp(System.currentTimeMillis()));
+		
+		materialService.updateInmtrl(inmaterialDTO);
+		
 		return "material/inmaterList";
 	}
 	

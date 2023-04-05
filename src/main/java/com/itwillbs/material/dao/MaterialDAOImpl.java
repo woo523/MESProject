@@ -178,10 +178,9 @@ public class MaterialDAOImpl implements MaterialDAO{
 
 
 	@Override
-	public void updateInmtrl(InmaterialDTO inmaterialDTO, int inmtrlId) {
+	public void updateInmtrl(InmaterialDTO inmaterialDTO) {
 		System.out.println("materialDAOImpl updateInmtrl()");
 		
-		inmaterialDTO.setInmtrlId(inmtrlId);
 		sqlSession.update(namespace+".updateInmtrl", inmaterialDTO);
 	}
 
@@ -199,6 +198,20 @@ public class MaterialDAOImpl implements MaterialDAO{
 		
 		stockDTO.setStockId(stockId);
 		sqlSession.update(namespace+".updateStock", stockDTO);	
+	}
+
+
+	@Override
+	public InmaterialDTO getInmtrl(int inmtrlId) {
+		System.out.println("materialDAOImpl getInmtrl()");
+		return sqlSession.selectOne(namespace+".getInmtrl", inmtrlId);
+	}
+
+
+	@Override
+	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+		System.out.println("materialDAOImpl getInmtrlMap()");
+		return sqlSession.selectOne(namespace+".getInmtrlMap", inmtrlId);
 	}
 
 

@@ -57,9 +57,13 @@ public interface MaterialDAO {
 
 	public InmaterialDTO getInmtrlList(int inmtrlId);
 
-	public void updateInmtrl(InmaterialDTO inmaterialDTO, int inmtrlId);
+	public void updateInmtrl(InmaterialDTO inmaterialDTO);
 
 	public StockDTO getStockList(int stockId);
 
 	public void updateStock(StockDTO stockDTO, int stockId);
+
+	public InmaterialDTO getInmtrl(int inmtrlId);
+
+	public Map<String, Object> getInmtrlMap(int inmtrlId);
 }

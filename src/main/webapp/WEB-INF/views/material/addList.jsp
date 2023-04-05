@@ -29,7 +29,7 @@
 			</tr>
 			<tr>
 				<td>실사량</td>
-				<td><input type="number" name="amount"></td>
+				<td><input type="number" name="quantity"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="저장">
