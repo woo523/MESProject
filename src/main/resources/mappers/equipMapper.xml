@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.equipMapper">
+	
+
+    <resultMap type="map" id="EquipMap">
+    <result column="equp_id" property="equpId"/>
+    <result column="equp_cd" property="equpCode"/>
+    <result column="equp_nm" property="equpName"/>
+    <result column="equp_type" property="equpType"/>
+    <result column="po_nm" property="poNum"/>
+    <result column="po_dt" property="poDate"/>
+    <result column="po_amount" property="poAmount"/>
+    <result column="ues_yn" property="useYn"/>
+    <result column="equp_stat" property="equpStat"/>
+    </resultMap>
+	
+	<select id="getEquipMap" resultMap="EquipMap">
+		SELECT equp_id,
+			   equp_cd,
+			   equp_nm,
+			   equp_type ,
+			   po_nm,
+			   po_dt,
+			   po_amount,
+			   use_yn,
+			   equp_stat
+		FROM equipment
+	</select>
+	
+</mapper>

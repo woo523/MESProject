@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.storageMapper">
+	
+
+    <resultMap type="map" id="StorageMap">
+    <result column="stor_id" property="storId"/>
+    <result column="stor_cd" property="storCode"/>
+    <result column="stor_nm" property="storName"/>
+    <result column="stor_type" property="storType"/>
+    <result column="use_yn" property="useYn"/>
+    <result column="item_count" property="itemCount"/>
+    </resultMap>
+	
+	<select id="getStorageMap" resultMap="StorageMap">
+		SELECT stor_id,
+			   stor_cd,
+			   stor_nm,
+			   stor_type,
+			   use_yn,
+			   item_count
+		FROM storage
+	</select>
+	
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.requireMapper">
+	
+
+    <resultMap type="map" id="RequireMap">
+    <result column="req_id" property="reqId"/>
+    <result column="p_item_id" property="pItemId"/>
+    <result column="c_item_id" property="cItemId"/>
+    <result column="req_unit" property="reqUnit"/>
+    <result column="req_amnt" property="reqAmnt"/>
+    <result column="use_yn" property="useYn"/>
+  
+    </resultMap>
+	
+	<select id="getRequireMap" resultMap="RequireMap">
+		SELECT i.item_num
+		       i.item_nm
+		       e.item_num
+		       e.item_nm
+		       
+		FROM item i join item e
+		ON i.clnt_id = e.clnt_id
+	</select>
+	
+</mapper>
