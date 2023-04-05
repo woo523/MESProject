@@ -173,13 +173,14 @@ $(function() {
 			</div>
 				<br>
 			<table id="detail">
+				<tr><td> <input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly></td></tr> 
 				<tr>
 				<td>업체명</td>
 				<td><input type="text" name="clntNm" id="clntNm" onclick="openClntList()">
 					<input type="hidden" name="clntId" id="clntId" value="">
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
 				<td>수주일자</td>
-				<td><input type="text" id="orderDt" class="form-control" name="orderDt" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="orderDt" class="form-control" name="orderDt" placeholder="날짜를 선택해주세요" readonly>
 				<td></td>
 				</tr>
 				<tr>

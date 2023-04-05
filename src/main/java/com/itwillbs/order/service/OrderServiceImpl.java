@@ -1,5 +1,6 @@
 package com.itwillbs.order.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +78,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public void insertOrder(OrderDTO orderDTO) {
 		System.out.println("OrderServiceImpl 메서드틀 정의 구현()");
+		orderDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
 		orderDAO.insertOrder(orderDTO);
 	}
 
@@ -89,6 +91,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public void updateOrder(OrderDTO orderDTO) {
 		System.out.println("OrderServiceImpl updateOrder()");
+		orderDTO.setUpdateDt(new Timestamp(System.currentTimeMillis()));
 		orderDAO.updateOrder(orderDTO);
 	}
 
@@ -97,6 +100,12 @@ public class OrderServiceImpl implements OrderService{
 		System.out.println("OrderServiceImpl getDelete()");
 		orderDAO.getDelete(ordId);
 		
+	}
+
+	@Override
+	public Integer orderSCount() {
+		System.out.println("OrderServiceImpl orderSCount()");
+		return orderDAO.orderSCount();
 	}
 
 

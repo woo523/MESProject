@@ -104,6 +104,12 @@ public class OrderDAOImpl implements OrderDAO{
 		
 	}
 
+	@Override
+	public Integer orderSCount() {
+		System.out.println("OrderDAOImpl orderSCount() 화면단 정보를 db에 저장");
+		return sqlSession.selectOne(namespace+".orderSCount");
+	}
+
 
 
 

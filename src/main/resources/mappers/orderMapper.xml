@@ -22,6 +22,11 @@
 
 	</resultMap>
 	
+	
+	<select id="orderSCount" resultType="java.lang.Integer">
+		select count(*) 
+		from order_mng
+	</select>
 
 	
 	<select id="getOrder" resultType="com.itwillbs.order.domain.OrderDTO">
@@ -45,7 +50,7 @@
 		o.dlvry_dt as eDdate,
 		u.id,
 		u.name,
-		o.csmtr_ord_num
+		o.ord_num
 		from order_mng o join client c
 		on o.clnt_id = c.clnt_id
 		join user u
@@ -63,7 +68,7 @@
 		o.dlvry_dt as eDdate,
 		u.id,
 		u.name,
-		o.csmtr_ord_num
+		o.ord_num
 		from order_mng o join client c
 		on o.clnt_id = c.clnt_id
 		join user u
@@ -252,8 +257,8 @@
 
 	<insert id="insertOrder">
 		insert into order_mng
-		(clnt_id, order_dt,user_id,dlvry_dt,item_id,ord_qty)
-		values(#{clntId},#{orderDt},#{userId},#{dlvryDt},#{itemId},#{ordQty})
+		(clnt_id, order_dt,user_id,dlvry_dt,item_id,ord_qty,insert_id,insert_dt,ord_num)
+		values(#{clntId},#{orderDt},#{userId},#{dlvryDt},#{itemId},#{ordQty},#{insertId},#{insertDt},#{ordNum})
 	</insert>
 
 	
@@ -266,7 +271,9 @@
 	user_id = #{userId},
 	dlvry_dt = #{dlvryDt},
 	item_id = #{itemId},
-	ord_qty = #{ordQty}
+	ord_qty = #{ordQty},
+	update_id = #{updateId}
+	update_dt = #{updateDt}
 	where ord_id = #{ordId}
 	</update>
 	

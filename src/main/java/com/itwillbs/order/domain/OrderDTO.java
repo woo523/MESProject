@@ -14,8 +14,8 @@ public class OrderDTO {
 //	private Date eOdate; 		
 //	private Date sDdate; 		
 //	private Date eDdate; 		 
-	private Date orderDt; 		 
-	private Date dlvryDt; 		
+	private String orderDt; 		 
+	private String dlvryDt; 		
 	private Timestamp insertDt; 
 	private Timestamp updateDt;
 	private String ordNum; 
@@ -40,16 +40,17 @@ public class OrderDTO {
 	public void setClntCd(String clntCd) {
 		this.clntCd = clntCd;
 	}
-	public Date getOrderDt() {
+
+	public String getOrderDt() {
 		return orderDt;
 	}
-	public void setOrderDt(Date orderDt) {
+	public void setOrderDt(String orderDt) {
 		this.orderDt = orderDt;
 	}
-	public Date getDlvryDt() {
+	public String getDlvryDt() {
 		return dlvryDt;
 	}
-	public void setDlvryDt(Date dlvryDt) {
+	public void setDlvryDt(String dlvryDt) {
 		this.dlvryDt = dlvryDt;
 	}
 	public String getItemNum() {

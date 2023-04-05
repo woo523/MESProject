@@ -37,6 +37,8 @@ public interface OrderDAO {
 
 	public void getDelete(int ordId);
 
+	public Integer orderSCount();
+
 
 	
 }

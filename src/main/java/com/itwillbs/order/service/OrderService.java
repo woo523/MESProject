@@ -35,6 +35,9 @@ public interface OrderService {
 	public void updateOrder(OrderDTO orderDTO);
 
 	public void getDelete(int ordId);
+
+	public Integer orderSCount();
+
 	
 
 }

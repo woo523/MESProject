@@ -1,6 +1,7 @@
 package com.itwillbs.order.controller;
 
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +37,17 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/orderInsertPro", method = RequestMethod.GET)
-	public String orderInsertPro(OrderDTO orderDTO) {
-		System.out.println("insert화면에서 넘어옴orderDTO");
-		System.out.println("orderDTO"+orderDTO.getUserId());
-		System.out.println("orderDTO"+orderDTO.getUserNm());
-		System.out.println("orderDTO"+orderDTO.getClntNm());
+	public String orderInsertPro(OrderDTO orderDTO,HttpServletRequest request) {
+		System.out.println("OrderController orderInsertPro()");
+		
+		// 수주번호 규격코드
+		String orderDt = request.getParameter("orderDt");
+		String date = orderDt.replaceAll("-", "");
+		int count = orderService.orderSCount() + 1;
+		System.out.println("확인 count:"+count);
+		String ordNum = String.format("OT%s%05d", date, count);
+		
+		orderDTO.setOrdNum(ordNum);
 		
 		orderService.insertOrder(orderDTO);
 		
