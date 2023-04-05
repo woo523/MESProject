@@ -271,7 +271,9 @@
 	user_id = #{userId},
 	dlvry_dt = #{dlvryDt},
 	item_id = #{itemId},
-	ord_qty = #{ordQty}
+	ord_qty = #{ordQty},
+	update_id = #{updateId}
+	update_dt = #{updateDt}
 	where ord_id = #{ordId}
 	</update>
 	

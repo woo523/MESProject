@@ -340,7 +340,9 @@ public class OrderController {
 	public String updatePro(OrderDTO orderDTO,HttpServletRequest request) {
 		System.out.println("OrderController updatePro()");
 		
+		
 		orderService.updateOrder(orderDTO);
+		orderDTO.setOrdId(Integer.parseInt(request.getParameter("ordId")));
 
 		return "redirect:/order/orderMng";
 	}
