@@ -91,60 +91,60 @@
     
     
 <!--     item list -->
-    <select id="ItemList" resultMap="com.itwillbs.ship.domain.ItemDTO">
-    	select
-		item_num as itemNum,
-		item_nm as itemNm
-		from item
-		<if test="itemNum!=null and itemNm!=null">
-			where
-			item_num like CONCAT('%', #{itemNum}, '%') and
-			item_nm like CONCAT('%', #{itemNm}, '%')
-		</if>
-		order by itemNum desc
-		limit #{startRow}, #{pageSize}
-    </select>
+<!--     <select id="ItemList" resultMap="com.itwillbs.ship.domain.ItemDTO"> -->
+<!--     	select -->
+<!-- 		item_num as itemNum, -->
+<!-- 		item_nm as itemNm -->
+<!-- 		from item -->
+<!-- 		<if test="itemNum!=null and itemNm!=null"> -->
+<!-- 			where -->
+<!-- 			item_num like CONCAT('%', #{itemNum}, '%') and -->
+<!-- 			item_nm like CONCAT('%', #{itemNm}, '%') -->
+<!-- 		</if> -->
+<!-- 		order by itemNum desc -->
+<!-- 		limit #{startRow}, #{pageSize} -->
+<!--     </select> -->
     
     
 <!--     item count -->
-    <select id="countItemList" resultMap="java.lang.Integer">
-    	select
-		count(*)
-		from item
-		<if test="itemNum!=null and itemNm!=null">
-			where
-			item_num like CONCAT('%', #{itemNum}, '%') and
-			item_nm like CONCAT('%', #{itemNm}, '%')
-		</if>
-    </select>
+<!--     <select id="countItemList" resultMap="java.lang.Integer"> -->
+<!--     	select -->
+<!-- 		count(*) -->
+<!-- 		from item -->
+<!-- 		<if test="itemNum!=null and itemNm!=null"> -->
+<!-- 			where -->
+<!-- 			item_num like CONCAT('%', #{itemNum}, '%') and -->
+<!-- 			item_nm like CONCAT('%', #{itemNm}, '%') -->
+<!-- 		</if> -->
+<!--     </select> -->
     
 <!--     client list -->
-    <select id="ClientList" resultMap="com.itwillbs.ship.domain.ClntDTO">
-    	select
-		clnt_cd as clntCd,
-		clnt_nm as clntNm,
-		clnt_id as clntId
-		from client
-		<if test="clntCd!=null and clntNm!=null">
-			where
-			clnt_cd like CONCAT('%', #{clntCd}, '%') and
-			clnt_nm	like CONCAT('%', #{clntNm}, '%')
-		</if>
-		order by clnt_cd desc
-		limit #{startRow}, #{pageSize}
-    </select>
+<!--     <select id="ClientList" resultMap="com.itwillbs.ship.domain.ClntDTO"> -->
+<!--     	select -->
+<!-- 		clnt_cd as clntCd, -->
+<!-- 		clnt_nm as clntNm, -->
+<!-- 		clnt_id as clntId -->
+<!-- 		from client -->
+<!-- 		<if test="clntCd!=null and clntNm!=null"> -->
+<!-- 			where -->
+<!-- 			clnt_cd like CONCAT('%', #{clntCd}, '%') and -->
+<!-- 			clnt_nm	like CONCAT('%', #{clntNm}, '%') -->
+<!-- 		</if> -->
+<!-- 		order by clnt_cd desc -->
+<!-- 		limit #{startRow}, #{pageSize} -->
+<!--     </select> -->
     
 <!--     client count -->
-    <select id="countClientList" resultMap="java.lang.Integer">
-    	select
-		count(*)
-		from client
-		<if test="clntCd!=null and clntNm!=null">
-			where
-			clnt_cd like CONCAT('%', #{clntCd}, '%') and
-			clnt_nm	like CONCAT('%', #{clntNm}, '%')
-		</if>
-    </select>
+<!--     <select id="countClientList" resultMap="java.lang.Integer"> -->
+<!--     	select -->
+<!-- 		count(*) -->
+<!-- 		from client -->
+<!-- 		<if test="clntCd!=null and clntNm!=null"> -->
+<!-- 			where -->
+<!-- 			clnt_cd like CONCAT('%', #{clntCd}, '%') and -->
+<!-- 			clnt_nm	like CONCAT('%', #{clntNm}, '%') -->
+<!-- 		</if> -->
+<!--     </select> -->
     
     
 <!--      material list --> 
