@@ -96,8 +96,8 @@ public class PerformDAOImpl implements PerformDAO {
 		System.out.println("PerformDAOImpl getItemlist()");
 		System.out.println("itemnum"+search.get("itemNum"));
 		System.out.println("itemnm"+search.get("itemNm"));
-		if(search.get("itemNm")==null) {
-			search.put("itemNm", "");
+		if(search.get("itemName")==null) {
+			search.put("itemName", "");
 		}
 		if(search.get("itemNum")==null) {
 			search.put("itemNum", "");
