@@ -88,10 +88,11 @@
 		WHERE line_id = #{lineId}
 	</select>
 	
-	<!-- 작업지시 지시상태 -->
-	<select id="getWorkList" resultType="com.itwillbs.work.domain.InstructDTO">
-		SELECT *
-		FROM work_instr
+	<!-- 라인 공정명 불러오기 -->
+	<select id="getLinePlace" resultMap="lineMap">
+		<include refid="List" />
+		GROUP BY place
+		ORDER BY line_id DESC
 	</select>
 	
 	<!-- 라인 수정 -->

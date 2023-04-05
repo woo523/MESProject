@@ -27,7 +27,7 @@
 	<form id="lineSearch">
 		<div class="selectButtons">
 			<button type="submit">조회</button>
-			<button type="button" onclick="loginCheck()">등록</button>
+			<button type="button" onclick="insertCheck()">등록</button>
 		</div>
 		
 		<table class="searchBox">
@@ -87,8 +87,8 @@
 							</c:choose>
 							<td style="width: 350px">${lineDTO.note}</td>
 							<c:if test="${! empty sessionScope.id}">
-								<td><a href="/line/lineModify?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
-									<a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="deleteConfirm(${lineDTO.lineId})"></a></td>      
+								<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="modifyConfirm(${lineDTO.lineId})"></a>
+									<a href="/line/lineDelete?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="deleteConfirm(${lineDTO.lineId})"></a></td>      
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -162,13 +162,11 @@ $(document).ready(function() {
 	if(count != "") {
 		$('#printCnt').html("<span>총 " + ${searchCnt} + "건</span>");
 	}
-	console.log(${searchCnt});
 	
 });
 
-// 라인 등록 로그인 후 가능
-function loginCheck() {
-	
+function insertCheck() {
+	// 라인 등록 로그인 후 가능
 	// 세션값 받아오기
 	var id = '<%=(String)session.getAttribute("id")%>';
 	
@@ -178,10 +176,16 @@ function loginCheck() {
 		location.href='/login/login';
 	} else {
 		// 로그인 O, 등록 페이지로 이동
-		location.href='/line/lineInsert';
+		window.open("/line/lineInsert", "popup", "width=500, height=500, left=600, top=200");
 	}
 }
 
+// 라인 수정
+function modifyConfirm(lineId) {
+	window.open("/line/lineModify?lineId=" + lineId, "popup", "width=500, height=500, left=600, top=200");
+}
+
+// 라인 삭제
 // 작업지시에서 라인 사용 중이면 삭제 못 함
 function deleteConfirm(lineId) {
 	href="/line/lineDelete?lineId=${lineDTO.lineId}"

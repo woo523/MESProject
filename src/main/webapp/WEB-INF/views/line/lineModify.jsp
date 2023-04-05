@@ -6,15 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Line Modify</title>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-ui-1.9.2.custom.js"></script>  
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-migrate-1.4.1.min.js"></script>  
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.cookie.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.ui.datepicker-ko.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.mCustomScrollbar.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
+
 </head>
 <body>
-<!-- <header> -->
-	<jsp:include page="../inc/header.jsp" />
-<!-- </header> -->
-
 <div class="content_body">
 	<h2>라인 수정</h2> 
-	<br>
 	<form action="${pageContext.request.contextPath}/line/lineModifyPro" method="post" onsubmit="return checkForm()">
 		<input type="hidden" name="lineId" value="${lineDTO.lineId}">
 		<ul>
@@ -36,12 +42,9 @@
 							</c:if>
 						</select></li>
 			<li>작업장  <select name="linePlace" id="linePlace">
-							<c:forEach var="place" items="${instrList}">
-<%-- 								<option value="${place.work_sts}">${place.work_sts}</option> --%>
+							<c:forEach var="place" items="${lineList}">
+								<option value="${place.linePlace}">${place.linePlace}</option>
 							</c:forEach>
-							<option value="1">1</option>
-							<option value="작업장1">작업장1</option>
-							<option value="작업장2">작업장2</option>
 						</select></li>			
 			<li>일렬번호 <input type="text" name="sortOrder" value="${lineDTO.sortOrder}"></li>
 			<li>사용여부 <input type="radio" id="Y" name="useChoice" value="Y" class="sCheck">Y
@@ -52,17 +55,11 @@
 		<button type="reset">취소</button>
 	</form>
 </div>
-
-<!-- <footer> -->
-	<jsp:include page="../inc/footer.jsp" />
-<!-- </footer> -->
-
 </body>
 
 <script type="text/javascript">
 
 $(document).ready(function() {
-	
 	// 기존 radio 값 가져오기
 	// radio id 값이 동일하면 안됨
 	var use = "${lineDTO.useChoice}";
@@ -75,8 +72,7 @@ $(document).ready(function() {
 	console.log(place);
 	
 	$("#linePlace").val(place).prop("selected", true);
-	
-});
+});	
 
 // 수정 여부 확인 후 폼 전송
 function checkForm() {

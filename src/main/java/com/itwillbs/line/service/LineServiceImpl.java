@@ -77,10 +77,10 @@ public class LineServiceImpl implements LineService{
 	}
 
 	@Override
-	public List<InstructDTO> getWorkList() {
+	public List<LineDTO> getLinePlace() {
 		// 작업지시 지시상태 가져오기
 		
-		return lineDAO.getWorkList();
+		return lineDAO.getLinePlace();
 	}
 
 	@Override
