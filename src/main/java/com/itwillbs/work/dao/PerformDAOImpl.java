@@ -94,8 +94,17 @@ public class PerformDAOImpl implements PerformDAO {
 	@Override
 	public List<ItemDTO> getItemlist(Map<String,Object> search) { // 품목리스트 들고오기 (품번, 품명만..)
 		System.out.println("PerformDAOImpl getItemlist()");
-		
+		System.out.println("itemnum"+search.get("itemNum"));
+		System.out.println("itemnm"+search.get("itemNm"));
+		if(search.get("itemNm")==null) {
+			search.put("itemNm", "");
+		}
+		if(search.get("itemNum")==null) {
+			search.put("itemNum", "");
+		}
 		return sqlSession.selectList(namespace+".itemlist", search);
+		
+
 	}
 
 	@Override
