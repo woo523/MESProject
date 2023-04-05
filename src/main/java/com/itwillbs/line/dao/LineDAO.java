@@ -23,7 +23,7 @@ public interface LineDAO {
 	
 	public LineDTO getLineList(int lineId);
 	
-	public List<InstructDTO> getWorkList();
+	public List<LineDTO> getLinePlace();
 	
 	public void updateLine(LineDTO lineDTO, int lineId);
 	

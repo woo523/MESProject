@@ -77,10 +77,10 @@ public class LineDAOImpl implements LineDAO{
 	}
 
 	@Override
-	public List<InstructDTO> getWorkList() {
-		// 작업지시 지시상태 가져오기
+	public List<LineDTO> getLinePlace() {
+		// 라인 작업장 목록
 		
-		return sqlSession.selectList(namespace+".getWorkList");
+		return sqlSession.selectList(namespace+".getLinePlace");
 	}
 
 	@Override

@@ -7,10 +7,6 @@
 <title>instruct insert</title>
 </head>
 <body>
-<!-- <header> -->
-	<jsp:include page="../inc/header.jsp" />
-<!-- </header> -->
-
 <div class="content_body">
 	<h2>작업지시 등록</h2> 
 	<br>
@@ -39,28 +35,23 @@
 		<button type="reset">취소</button>
 	</form>
 </div>
-
-<!-- <footer> -->
-	<jsp:include page="../inc/footer.jsp" />
-<!-- </footer> -->
-
 </body>
 
 <script type="text/javascript">
 
 //수주 검색 팝업창
 function openOrd() {
-	window.open("${pageContext.request.contextPath}/work/orderList", "popup", "width=700, height=700, left=500, top=100");
+	window.open("${pageContext.request.contextPath}/work/orderList", "popup1", "width=700, height=700, left=500, top=100");
 }
 
 // 품목 검색 팝업창
 function openItem() {
-	window.open("${pageContext.request.contextPath}/work/itemList", "popup", "width=700, height=700, left=500, top=100");
+	window.open("${pageContext.request.contextPath}/work/itemList", "popup2", "width=700, height=700, left=500, top=100");
 }
 
 // 라인 검색 팝업창
 function openLine() {
-	window.open("${pageContext.request.contextPath}/work/lineList", "popup", "width=700, height=700, left=500, top=100");	
+	window.open("${pageContext.request.contextPath}/work/lineList", "popup3", "width=500, height=500, left=500, top=100");
 }
 
 //등록 여부 확인 후 폼 전송

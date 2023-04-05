@@ -81,7 +81,7 @@ public class LineController {
 		lineService.insertLine(lineDTO);
 		System.out.println(lineDTO);
 		
-		return "redirect:/line/line";
+		return "redirect:/common/offwindow";
 	}
 	
 	// 라인 수정
@@ -92,12 +92,12 @@ public class LineController {
 		int lineId = Integer.parseInt(request.getParameter("lineId"));
 		
 		LineDTO lineDTO = lineService.getLineList(lineId);
-		List<InstructDTO> instrList = lineService.getWorkList();
+		List<LineDTO> lineList = lineService.getLinePlace();
 		
 		model.addAttribute("lineDTO", lineDTO);
-		model.addAttribute("instrList", instrList);
+		model.addAttribute("lineList", lineList);
 		System.out.println("폼 : " + lineDTO);
-		System.out.println(instrList);
+		System.out.println(lineList);
 		
 		return "line/lineModify";
 	}
@@ -113,7 +113,7 @@ public class LineController {
 		
 		System.out.println("디비 : " + lineDTO);
 		
-		return "redirect:/line/line";
+		return "redirect:/common/offwindow";
 	}
 	
 	// 라인 삭제

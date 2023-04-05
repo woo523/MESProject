@@ -139,7 +139,7 @@ article {
 			<tr>	
 				<td>품번</td>
 				<td><input type="hidden" id="pid" name="pid">
-					<input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
+					<input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openItem()">
 					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly></td>
 				<td>지시상태</td>
 				<td colspan="8">
@@ -309,7 +309,7 @@ $('button.ui-datepicker-current').live('click', function() {
 })
 
 // 품명 검색 팝업창
-function openilist(){
+function openItem(){
     window.open("${pageContext.request.contextPath}/work/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
@@ -356,11 +356,11 @@ function loginCheck() {
 		location.href='/login/login';
 	} else {
 		// 로그인 O, 등록 페이지로 이동
-		location.href='/work/instructInsert';
+		window.open("/work/instructInsert", "popup", "width=500, height=500, left=600, top=200");
 	}
 }
 
-// 작업지시 삭제 컨펌
+// 작업지시 삭제
 function instrDelete(instrId) {
 	if(confirm("삭제하시겠습니까?")) {
 		location.href="/work/instrDelete?instrId=" + instrId;

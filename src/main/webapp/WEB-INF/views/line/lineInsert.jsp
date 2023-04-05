@@ -13,13 +13,8 @@
 </style>
 </head>
 <body>
-<!-- <header> -->
-	<jsp:include page="../inc/header.jsp" />
-<!-- </header> -->
-
 <div class="content_body">
 	<h2>라인 등록</h2> 
-	<br>
 	<form action="${pageContext.request.contextPath}/line/lineInsertPro" method="post" onsubmit="return checkForm()">
 		<ul>
 			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
@@ -45,11 +40,6 @@
 		<button type="reset">취소</button>
 	</form>
 </div>
-
-<!-- <footer> -->
-	<jsp:include page="../inc/footer.jsp" />
-<!-- </footer> -->
-
 </body>
 
 <script type="text/javascript">
