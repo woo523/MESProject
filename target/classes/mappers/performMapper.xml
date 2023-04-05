@@ -20,7 +20,7 @@
     <result column="work_sts" property="workSts"/>
     <result column="work_dt" property="workDate"/>
     <result column="work_qty" property="workQty"/>
-    <result column="csmtr_ord_num" property="ordNum"/>
+    <result column="ord_num" property="ordNum"/>
     <result column="clnt_nm" property="ClientName"/>
     <result column="pqty" property="pqty"/>
     <result column="Y" property="Y"/>
@@ -39,7 +39,7 @@
 	i.work_sts, 
 	i.work_dt, 
 	i.work_qty, 
-	i.csmtr_ord_num,
+	i.ord_num,
 	i.clnt_nm,
     sum(ifnull(p.prfrm_qty,0)) as "pqty",
     sum(if(p.gb_yn='Y',p.prfrm_qty,0)) as "Y",
@@ -62,7 +62,7 @@
 	i.work_sts, 
 	i.work_dt, 
 	i.work_qty, 
-	i.csmtr_ord_num,
+	i.ord_num,
 	i.clnt_nm,
     sum(ifnull(p.prfrm_qty,0)) as "pqty",
     sum(if(p.gb_yn='Y',p.prfrm_qty,0)) as "Y",
@@ -112,7 +112,7 @@
 	i.work_sts, 
 	i.work_dt, 
 	i.work_qty, 
-	i.csmtr_ord_num,
+	i.ord_num,
 	i.clnt_nm,
 	sum(ifnull(p.prfrm_qty,0)) as "pqty",
     sum(if(p.gb_yn='Y',p.prfrm_qty,0)) as "Y",
@@ -328,7 +328,7 @@
     <result column="N" property="gbN"/>
     <result column="db_rsns" property="dbReason"/>
     <result column="work_num" property="workNum"/>
-    <result column="csmtr_ord_num" property="ordNum"/>
+    <result column="ord_num" property="ordNum"/>
 	<result column="clnt_nm" property="ClientName"/>
 	<result column="name" property="name"/>
 
@@ -346,7 +346,7 @@
 	if(p.gb_yn='N',p.prfrm_qty,null) as "N", 
 	p.db_rsns, 
 	it.work_num, 
-	om.csmtr_ord_num, 
+	om.ord_num, 
 	c.clnt_nm,
 	u.name
 	from work_prfrm p join line l
