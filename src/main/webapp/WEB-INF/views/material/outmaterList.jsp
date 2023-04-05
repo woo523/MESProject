@@ -120,7 +120,7 @@ text-align: center;
 			</select></td>
 			<td>출고일자</td>
 				<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
-		   			<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
+		   		<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
 		</tr>
 		<tr>
 			<td>품번</td>
@@ -204,6 +204,9 @@ text-align: center;
 	</div> <!-- 페이징 -->
 </article>
 
+<c:if test="${empty sessionScope.id }">
+<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
+</c:if>
 
 <script type="text/javascript">
 

@@ -12,6 +12,7 @@ import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
+import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
 
@@ -158,6 +159,24 @@ public class MaterialServiceImpl implements MaterialService{
 	public InmaterialDTO getInmtrlList(int inmtrlId) {
 		System.out.println("OutmaterialServiceImpl getInmtrlList()");
 		return materialDAO.getInmtrlList(inmtrlId);
+	}
+
+	@Override
+	public void updateInmtrl(InmaterialDTO inmaterialDTO, int inmtrlId) {
+		System.out.println("OutmaterialServiceImpl updateInmtrl()");
+		materialDAO.updateInmtrl(inmaterialDTO, inmtrlId);
+	}
+
+	@Override
+	public StockDTO getStockList(int stockId) {
+		System.out.println("OutmaterialServiceImpl getStockList()");
+		return materialDAO.getStockList(stockId);
+	}
+
+	@Override
+	public void updateStock(StockDTO stockDTO, int stockId) {
+		System.out.println("OutmaterialServiceImpl updateStock()");
+		materialDAO.updateStock(stockDTO, stockId);
 	}
 
 

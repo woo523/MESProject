@@ -13,6 +13,7 @@ import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
+import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
 @Repository
@@ -173,6 +174,31 @@ public class MaterialDAOImpl implements MaterialDAO{
 	public InmaterialDTO getInmtrlList(int inmtrlId) {
 		System.out.println("materialDAOImpl getInmtrlList()");
 		return sqlSession.selectOne(namespace+".getInmtrlList",inmtrlId);
+	}
+
+
+	@Override
+	public void updateInmtrl(InmaterialDTO inmaterialDTO, int inmtrlId) {
+		System.out.println("materialDAOImpl updateInmtrl()");
+		
+		inmaterialDTO.setInmtrlId(inmtrlId);
+		sqlSession.update(namespace+".updateInmtrl", inmaterialDTO);
+	}
+
+
+	@Override
+	public StockDTO getStockList(int stockId) {
+		System.out.println("materialDAOImpl getStockList()");
+		return sqlSession.selectOne(namespace+".getStockList", stockId);
+	}
+
+
+	@Override
+	public void updateStock(StockDTO stockDTO, int stockId) {
+		System.out.println("materialDAOImpl updateStock()");
+		
+		stockDTO.setStockId(stockId);
+		sqlSession.update(namespace+".updateStock", stockDTO);	
 	}
 
 

@@ -121,6 +121,10 @@ function openadd(){
 }
 </script>
 
+<c:if test="${empty sessionScope.id }">
+<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
+</c:if>
+
 <body>
 <!-- <header> -->
 	<jsp:include page="../inc/header.jsp" />
@@ -140,9 +144,9 @@ function openadd(){
 				<td>자재유형</td>
 				<td><select name="mtrltype">
 						<option value="" selected>전체</option>
-						<option value="1">자재 1</option>
-						<option value="2">자재 2</option>
-						<option value="3">자재 3</option>
+						<option value="원자재">원자재</option>
+						<option value="완제품">완제품</option>
+						<option value="부자재">부자재</option>
 					</select></td>
 				<td>품번</td>
 				<input type="hidden" id="pid">
