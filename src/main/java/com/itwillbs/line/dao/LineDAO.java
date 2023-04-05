@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 public interface LineDAO {
 	
@@ -21,6 +22,8 @@ public interface LineDAO {
 	public void insertLine(LineDTO lineDTO);
 	
 	public LineDTO getLineList(int lineId);
+	
+	public List<InstructDTO> getWorkList();
 	
 	public void updateLine(LineDTO lineDTO, int lineId);
 	

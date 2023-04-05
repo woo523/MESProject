@@ -92,8 +92,12 @@ public class LineController {
 		int lineId = Integer.parseInt(request.getParameter("lineId"));
 		
 		LineDTO lineDTO = lineService.getLineList(lineId);
+		List<InstructDTO> instrList = lineService.getWorkList();
+		
 		model.addAttribute("lineDTO", lineDTO);
+		model.addAttribute("instrList", instrList);
 		System.out.println("폼 : " + lineDTO);
+		System.out.println(instrList);
 		
 		return "line/lineModify";
 	}
@@ -106,6 +110,7 @@ public class LineController {
 		int lineId = Integer.parseInt(request.getParameter("lineId"));
 		
 		lineService.updateLine(lineDTO, lineId);
+		
 		System.out.println("디비 : " + lineDTO);
 		
 		return "redirect:/line/line";

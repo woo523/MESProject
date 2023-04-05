@@ -75,7 +75,7 @@ public class InstructController {
 		return "work/instructList";
 	}
 	
-	// 작업지시 현황
+	// 작업지시 현황 - 작업지시 검색
 	@RequestMapping(value = "/work/instructState", method = RequestMethod.GET)
 	public String instructState(HttpServletRequest request, Model model, PageDTO pageDTO) {
 		System.out.println("InstructController instructState()");
@@ -97,8 +97,6 @@ public class InstructController {
 		instrSearch.put("workSts2", workSts2);
 		instrSearch.put("workSts3", workSts3);
 		
-		
-		
 		List<Map<String, Object>> instrList;
 		
 		if(lineName == null && startDate == null && endDate == null && itemNum == null && workSts1==null && workSts2==null && workSts3==null) {
@@ -118,6 +116,10 @@ public class InstructController {
 			model.addAttribute("instrSearchCount", instrSearchCount);
 			
 		}
+		
+		// 라인 이름 불러오기
+		List<LineDTO> lineList = lineService.lineList();
+		model.addAttribute("lineList", lineList);
 		
 		model.addAttribute("instrList", instrList);
 		model.addAttribute("instrSearch", instrSearch);

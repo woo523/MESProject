@@ -12,6 +12,7 @@ import com.itwillbs.common.PageDTO;
 import com.itwillbs.common.PageUtil;
 import com.itwillbs.line.dao.LineDAO;
 import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 @Service
 public class LineServiceImpl implements LineService{
@@ -73,6 +74,13 @@ public class LineServiceImpl implements LineService{
 		System.out.println("LineServiceImpl getLineList");
 		
 		return lineDAO.getLineList(lineId);
+	}
+
+	@Override
+	public List<InstructDTO> getWorkList() {
+		// 작업지시 지시상태 가져오기
+		
+		return lineDAO.getWorkList();
 	}
 
 	@Override

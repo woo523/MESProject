@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 @Repository
 public class LineDAOImpl implements LineDAO{
@@ -73,6 +74,13 @@ public class LineDAOImpl implements LineDAO{
 		System.out.println("LineDAOImpl getLineList");
 		
 		return sqlSession.selectOne(namespace+".getLineList", lineId);
+	}
+
+	@Override
+	public List<InstructDTO> getWorkList() {
+		// 작업지시 지시상태 가져오기
+		
+		return sqlSession.selectList(namespace+".getWorkList");
 	}
 
 	@Override
