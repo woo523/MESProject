@@ -9,6 +9,7 @@
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
+
 table {
       width: 1125px;  
 
@@ -50,10 +51,7 @@ table#search {
 	text-align: right;
  
 }
-#pagination{
-      width: 1125px;  
-text-align: center;
-}
+
 
 #num:hover{
 	background-color : #e1e1e1;
@@ -83,6 +81,40 @@ button{
 	font-size: 12pt;
 	font-family: 'NanumSquare', sans-serif;
 }
+
+
+/* 페이징 */
+
+
+#pagination {
+
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+  width:1125px;
+}
+
 
 
 </style>
@@ -218,11 +250,11 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 		</select></td>
 	<td>실적일자</td>
 	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td><td>~</td>
-	<td><input type="text" id="eDate" class="form-control" name="edate" readonly></td>
+	<td><input type="text" id="eDate" class="form-control" name="edate" readonly ></td>
 	<td>품번</td>
 		<input type="hidden" id="pid">
-	<td><input type="text" name="pcd" id="pcd"  onclick="openilist()" placeholder="품번"></td>
-	<td><input type="text" id="pnm"  onclick="openilist()" placeholder="품명"></td></tr>
+	<td><input type="text" name="pcd" id="pcd"  onclick="openilist()" placeholder="품번" ></td>
+	<td><input type="text" id="pnm"  onclick="openilist()" placeholder="품명" ></td></tr>
 
 	<tr><td>지시번호</td>
 	<td colspan="8">
@@ -276,6 +308,8 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 
     </table>
     <br>
+    <br>
+    <div class="center">
     <div id="pagination">
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
@@ -288,7 +322,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	</c:if>
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a id="num" href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${i}">${i}</a> 
+	<a id="num" href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${i}"<c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a> 
 	</c:forEach>
 
 <!-- 1페이지 다음 -->	
@@ -301,7 +335,9 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	<a href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
 	</div>
+	</div>
 	<br><br><br>
+	
 	<h2>생산실적 현황</h2>
 	<br>
 
@@ -311,6 +347,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	<tr id="con"><td colspan="4"> 투입량을 확인하려면 해당 실적을 클릭해주세요 </td></tr>
     </table>
     </div>
+
 
 
 

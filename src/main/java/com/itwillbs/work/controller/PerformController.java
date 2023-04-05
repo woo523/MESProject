@@ -1,6 +1,8 @@
 package com.itwillbs.work.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -250,13 +253,25 @@ public class PerformController {
 	
 		
 	@RequestMapping(value = "/work/pfInsert", method = RequestMethod.GET)
-	public String pfInsert(HttpServletRequest request, Model model) { // 실적 등록 창
+	public String pfInsert(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException { // 실적 등록 창
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
 		
 		Map<String, Object> getInstr = performService.getInstrMap(instrId);
 		
+		if(getInstr.get("workSts").equals("마감")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script type='text/javascript'>");
+			out.println("alert('마감된 지시는 실적을 등록할 수 없습니다.');");
+			out.println("window.close();");
+			out.println("</script>");
+			out.close();
+			return null;
+		}else {
+		
 		model.addAttribute("getInstr", getInstr);
 		return "work/pfInsert";
+		}
 	}
 	
 
@@ -408,13 +423,26 @@ public class PerformController {
 	
 	
 	@RequestMapping(value = "/work/popInsert", method = RequestMethod.GET)
-	public String popInsert(HttpServletRequest request, Model model) { // 팝화면 실적 등록창
+	public String popInsert(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException { // 팝화면 실적 등록창
+
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
 		
+
 		Map<String, Object> inst = performService.getInstrMap(instrId);
 		
+		if(inst.get("workSts").equals("마감")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script type='text/javascript'>");
+			out.println("alert('마감된 지시는 실적을 등록할 수 없습니다.');");
+			out.println("history.back()");
+			out.println("</script>");
+			out.close();
+			return null;
+		}else {
+		
 		model.addAttribute("inst", inst);
-		return "work/pop_insert";
+		return "work/pop_insert";}
 	}
 	
 	@RequestMapping(value = "/work/PopinsertPro", method = RequestMethod.GET)
