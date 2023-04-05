@@ -154,7 +154,11 @@ public class PerformDAOImpl implements PerformDAO {
 		sqlSession.update(namespace+".turnstart", instrId);
 	}
 
-	
+	@Override
+	public void updateInstr(int instrId) { // 실적 다 삭제하면 상태 지시로 변경
+		System.out.println("PerformDAOImpl updateInstr()");
+		sqlSession.update(namespace+".turninstr", instrId);
+	}
 
 	
 	

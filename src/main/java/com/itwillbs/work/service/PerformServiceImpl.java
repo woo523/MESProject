@@ -85,9 +85,9 @@ public class PerformServiceImpl implements PerformService {
 		performDAO.delPf(performId);
 		
 		if(performDAO.checkY(instrId)==false) { // 양품이 지시수량보다 적으면
-			performDAO.updateStart(instrId); // 시작으로 변경
-			if(performDAO.countPerformLi(null)==0) {
-				
+			performDAO.updateStart(instrId); // 시작상태로 변경
+			if(performDAO.getPfLiMap(String.valueOf(instrId)).size()==0) { // 실적이 하나도 없으면
+				performDAO.updateInstr(instrId); // 지시상태로 변경
 			}
 		}
 	
