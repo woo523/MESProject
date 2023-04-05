@@ -209,6 +209,9 @@ text-align: center;
 		</div>
 	</div> <!-- 페이징 -->
 
+<c:if test="${empty sessionScope.id }">
+<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
+</c:if>
 
 <script type="text/javascript">
 

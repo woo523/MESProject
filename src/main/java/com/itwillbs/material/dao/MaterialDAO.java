@@ -7,6 +7,7 @@ import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
+import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
 
@@ -55,4 +56,10 @@ public interface MaterialDAO {
 	public void insertOutmtrl(OutmaterialDTO outmaterialDTO);
 
 	public InmaterialDTO getInmtrlList(int inmtrlId);
+
+	public void updateInmtrl(InmaterialDTO inmaterialDTO, int inmtrlId);
+
+	public StockDTO getStockList(int stockId);
+
+	public void updateStock(StockDTO stockDTO, int stockId);
 }

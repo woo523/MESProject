@@ -1,6 +1,5 @@
 package com.itwillbs.material.controller;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -14,14 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
 import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
 import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.material.service.MaterialService;
-import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
 
@@ -42,7 +39,7 @@ public class MaterialController {
 		String ccd = request.getParameter("ccd");
 
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5 ; // sql문에 들어가는 항목
+		int pageSize = 10 ; // sql문에 들어가는 항목
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -230,7 +227,7 @@ public class MaterialController {
 		String ccd = request.getParameter("ccd");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5 ; // sql문에 들어가는 항목
+		int pageSize = 10 ; // sql문에 들어가는 항목
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -389,9 +386,12 @@ public class MaterialController {
 	
 	// 입고 수정
 	@RequestMapping(value = "/material/inmtrlModifyPro", method = RequestMethod.POST)
-	public String inmtrlModifyPro(HttpServletRequest request) {
+	public String inmtrlModifyPro(HttpServletRequest request, InmaterialDTO inmaterialDTO) {
 		System.out.println("MaterialController inmtrlModifyPro()");
 		
+		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
+		materialService.updateInmtrl(inmaterialDTO, inmtrlId);
+		System.out.println("디비 : " + inmaterialDTO);
 		return "material/inmaterList";
 	}
 	
@@ -424,18 +424,26 @@ public class MaterialController {
 	
 	// 실사량
 	@RequestMapping(value = "/material/addList", method = RequestMethod.GET)
-	public String addList(HttpServletRequest request, Model model) {
+	public String addList(HttpServletRequest request,  Model model) {
 		System.out.println("MaterialController addList()");
-
+//		String whouse = request.getParameter("whouse");
+		int stockId = Integer.parseInt(request.getParameter("stockId"));
+		
+		StockDTO stockDTO = materialService.getStockList(stockId);
+		model.addAttribute("stockDTO", stockDTO);
+		System.out.println("폼 : " + stockId);
 		
 		return "material/addList";
 	}
 	
 	// 실사량
 	@RequestMapping(value = "/material/addListPro", method = RequestMethod.POST)
-	public String addListPro() {
+	public String addListPro(HttpServletRequest request, StockDTO stockDTO) {
 		System.out.println("MaterialController addListPro()");
 		
+		int stockId = Integer.parseInt(request.getParameter("stockId"));
+		materialService.updateStock(stockDTO, stockId);
+		System.out.println("디비 : " + stockDTO);
 		
 		return "redirect:/material/addList";
 	}
