@@ -481,8 +481,10 @@ public class PerformController {
 	}
 	
 	@RequestMapping(value = "/work/poplogin", method = RequestMethod.GET) // 팝화면 로그인
-	public String poplogin() {
-		
+	public String poplogin(HttpSession session) {
+		if((String)session.getAttribute("id")!=null) {
+			return "redirect:/work/popPfRe";
+		}
 		return "work/poplogin";
 	}
 	
