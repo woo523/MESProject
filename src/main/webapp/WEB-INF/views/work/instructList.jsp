@@ -193,7 +193,17 @@ article {
 							<td>${instrDTO.clntDTO.clientName}</td>
 							<td>${instrDTO.orderMngDTO.orderNum}</td>
 							<td>${instrDTO.workDate}</td>
-							<td>${instrDTO.workSts}</td>
+							<c:choose>
+								<c:when test="${instrDTO.workSts eq '시작' }">
+									<td style="color: green;">${instrDTO.workSts}</td>
+								</c:when>
+								<c:when test="${instrDTO.workSts eq '마감' }">
+									<td style="color: red;">${instrDTO.workSts}</td>
+								</c:when>
+								<c:otherwise>
+									<td>${instrDTO.workSts}</td>
+								</c:otherwise>
+							</c:choose>
 							<td>${instrDTO.itemDTO.itemNum}</td>
 							<td>${instrDTO.itemDTO.itemName}</td>
 							<td>${instrDTO.itemDTO.invntUnit}</td>
@@ -205,7 +215,7 @@ article {
 							<td>${instrDTO.userDTO.name}</td>
 							<c:if test="${! empty sessionScope.id}">
 								<td><a href="/work/instrModify?instrId=${instrDTO.instrId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
-									<a href="/work/instrDelete?instrId=${instrDTO.instrId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete()"></a></td>
+									<a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -348,6 +358,16 @@ function loginCheck() {
 		// 로그인 O, 등록 페이지로 이동
 		location.href='/work/instructInsert';
 	}
+}
+
+// 작업지시 삭제 컨펌
+function instrDelete(instrId) {
+	if(confirm("삭제하시겠습니까?")) {
+		location.href="/work/instrDelete?instrId=" + instrId;
+	} else {
+		return false;
+	}
+	
 }
 
 

@@ -36,6 +36,9 @@
 							</c:if>
 						</select></li>
 			<li>작업장  <select name="linePlace" id="linePlace">
+							<c:forEach var="place" items="${instrList}">
+<%-- 								<option value="${place.work_sts}">${place.work_sts}</option> --%>
+							</c:forEach>
 							<option value="1">1</option>
 							<option value="작업장1">작업장1</option>
 							<option value="작업장2">작업장2</option>

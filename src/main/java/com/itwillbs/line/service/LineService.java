@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 public interface LineService {
 	// 라인 조회
@@ -23,6 +24,8 @@ public interface LineService {
 	public void insertLine(LineDTO lineDTO);
 	
 	public LineDTO getLineList(int lineId);
+	
+	public List<InstructDTO> getWorkList();
 	
 	public void updateLine(LineDTO lineDTO, int lineId);
 	

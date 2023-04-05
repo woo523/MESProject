@@ -77,11 +77,18 @@
 							<td>${lineDTO.proCode}</td>
 							<td>${lineDTO.linePlace}</td>
 							<td>${lineDTO.sortOrder}</td>
-							<td>${lineDTO.useChoice}</td>
+							<c:choose>
+								<c:when test="${lineDTO.useChoice eq 'Y' }">
+									<td style="color: blue">${lineDTO.useChoice}</td>
+								</c:when>
+								<c:otherwise>
+									<td style="color: red">${lineDTO.useChoice}</td>
+								</c:otherwise>
+							</c:choose>
 							<td style="width: 350px">${lineDTO.note}</td>
 							<c:if test="${! empty sessionScope.id}">
 								<td><a href="/line/lineModify?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
-									<a href="/line/lineDelete?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>      
+									<a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="deleteConfirm(${lineDTO.lineId})"></a></td>      
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -173,6 +180,11 @@ function loginCheck() {
 		// 로그인 O, 등록 페이지로 이동
 		location.href='/line/lineInsert';
 	}
+}
+
+// 작업지시에서 라인 사용 중이면 삭제 못 함
+function deleteConfirm(lineId) {
+	href="/line/lineDelete?lineId=${lineDTO.lineId}"
 }
 
 

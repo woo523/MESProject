@@ -114,9 +114,9 @@ article input {
 				<td>라인</td>
 				<td><select name="lineName">
 						<option value="" selected>전체</option>
-						<option value="1">라인 1</option>
-						<option value="2">라인 2</option>
-						<option value="3">라인 3</option>
+						<c:forEach var="line" items="${lineList}">
+							<option value="${line.lineName}">${line.lineName}</option>
+						</c:forEach>
 					</select></td>
 				<td>지시일자</td>
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
@@ -125,7 +125,8 @@ article input {
 		   	</tr>
 		   	<tr>
 				<td>품번</td>
-				<td><input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
+				<td><input type="hidden" id="pid" name="pid">
+					<input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
 					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly></td>
 				<td>지시상태</td>
 				<td colspan="8">
@@ -173,11 +174,21 @@ article input {
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="instrDTO" items="${instrList}">
-						<tr id="instrList" onclick="getInstrStateList(${instrDTO.instr_id}, '${instrDTO.workNum}')">
+						<tr id="instrList" onclick="getInstrStateList(${instrDTO.instrId}, '${instrDTO.workNum}')">
 							<td>${instrDTO.workNum}</td>
 							<td>${instrDTO.clntDTO.clientName}</td>
 							<td>${instrDTO.orderMngDTO.orderNum}</td>
-							<td>${instrDTO.workDate}</td>
+							<c:choose>
+								<c:when test="${instrDTO.workSts eq '시작' }">
+									<td style="color: green;">${instrDTO.workSts}</td>
+								</c:when>
+								<c:when test="${instrDTO.workSts eq '마감' }">
+									<td style="color: red;">${instrDTO.workSts}</td>
+								</c:when>
+								<c:otherwise>
+									<td>${instrDTO.workSts}</td>
+								</c:otherwise>
+							</c:choose>
 							<td>${instrDTO.workSts}</td>
 							<td>${instrDTO.itemDTO.itemNum}</td>
 							<td>${instrDTO.itemDTO.itemName}</td>

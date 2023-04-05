@@ -88,6 +88,12 @@
 		WHERE line_id = #{lineId}
 	</select>
 	
+	<!-- 작업지시 지시상태 -->
+	<select id="getWorkList" resultType="com.itwillbs.work.domain.InstructDTO">
+		SELECT *
+		FROM work_instr
+	</select>
+	
 	<!-- 라인 수정 -->
 	<update id="updateLine">
 		UPDATE line
