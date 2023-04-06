@@ -72,17 +72,16 @@
 	</select>
 	
 	<sql id="List">
-		SELECT work.instr_id as instrId, work.work_num as workNum, clnt.clnt_nm as clientName, omng.ord_num as orderNum, 
-		   work.work_dt as workDate, work.work_sts as workSts,
-		   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
-		   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
-		   work.work_qty as workQty, work.insert_dt as insertDate, user.name
-		FROM work_instr work JOIN order_mng omng ON work.ord_id = omng.ord_id
-		JOIN order_info oinfo ON work.ord_info_id = oinfo.ord_info_id
-		JOIN item item ON item.item_id = oinfo.item_id
-		JOIN client clnt ON clnt.clnt_id = omng.clnt_id
-		JOIN line line ON work.line_id = line.line_id
-		JOIN user user ON work.insert_id = user.id
+		SELECT work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num as orderNum, 
+			   work.work_dt as workDate, work.work_sts as workSts,
+          	   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
+          	   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
+          	   work.work_qty as workQty, work.insert_dt as insertDate, work.insert_id as insertId
+		FROM work_instr work JOIN order_mng oder ON work.ord_id = oder.ord_id
+		         JOIN item item ON item.item_id = work.item_id
+		         JOIN client clnt ON oder.clnt_id = clnt.clnt_id
+		         JOIN line line ON work.line_id = line.line_id
+				 JOIN user user ON work.insert_id = user.id
 	</sql>
 	
 	<sql id="Search">
