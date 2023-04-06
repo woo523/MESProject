@@ -29,6 +29,7 @@ public class LineServiceImpl implements LineService{
 
 	@Override
 	public List<Map<String, Object>> lineList(PageDTO pageDTO, Model model) {
+		// 라인 전체 목록
 		System.out.println("LineServiceImpl lineList()");
 		
 		int totalCnt = lineDAO.lineTotalCount();
@@ -63,6 +64,7 @@ public class LineServiceImpl implements LineService{
 
 	@Override
 	public void insertLine(LineDTO lineDTO) {
+		// 라인 등록
 		System.out.println("LineServiceImpl insertLine");
 		
 		lineDAO.insertLine(lineDTO);
@@ -78,7 +80,7 @@ public class LineServiceImpl implements LineService{
 
 	@Override
 	public List<LineDTO> getLinePlace() {
-		// 작업지시 지시상태 가져오기
+		// 라인 작업장 목록
 		
 		return lineDAO.getLinePlace();
 	}
@@ -97,5 +99,5 @@ public class LineServiceImpl implements LineService{
 		
 		lineDAO.deleteLine(lineId);
 	}
-
+	
 }

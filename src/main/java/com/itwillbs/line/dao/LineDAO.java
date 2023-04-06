@@ -25,6 +25,8 @@ public interface LineDAO {
 	
 	public List<LineDTO> getLinePlace();
 	
+	public Map<String, Object> getInstrList(int lineId);
+	
 	public void updateLine(LineDTO lineDTO, int lineId);
 	
 	public void deleteLine(int lineId);

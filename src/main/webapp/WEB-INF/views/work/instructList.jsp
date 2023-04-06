@@ -79,7 +79,7 @@ article input {
 }
 	
 article {
-	width: 1170px;
+	width: 1280px;
 	margin: 0px auto;
 }
 	
@@ -356,7 +356,7 @@ function loginCheck() {
 		location.href='/login/login';
 	} else {
 		// 로그인 O, 등록 페이지로 이동
-		window.open("/work/instructInsert", "popup", "width=500, height=500, left=600, top=200");
+		window.open("/work/instructInsert", "popup", "width=700, height=700, left=600, top=200");
 	}
 }
 

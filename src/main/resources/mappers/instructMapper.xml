@@ -13,12 +13,14 @@
 	</resultMap>
 	
 	<resultMap type="map" id="itemMap">
+		<result property="itemId" column="itemId"/>
 		<result property="itemNum" column="itemNum" />
 		<result property="itemName" column="itemName" />
 		<result property="invntUnit" column="itemUnit" />
 	</resultMap>
 	
 	<resultMap type="map" id="clntMap">
+		<result property="clientId" column="clientId"/>
 		<result property="clientName" column="clientName" />
 	</resultMap>
 	
@@ -43,6 +45,16 @@
 		<collection property="clntDTO" resultMap="clntMap" />
 		<collection property="orderMngDTO" resultMap="ordMngMap" />
 		<collection property="userDTO" resultMap="userMap" />
+	</resultMap>
+	
+	<resultMap type="map" id="orderMap">
+		<result property="ordId" column="ord_id"/>
+		<result property="ordNum" column="ord_num"/>
+		<result property="orderDate" column="order_dt"/>
+		<result property="dlvryDate" column="dlvry_dt"/>
+		<result property="ordQty" column="ord_qty"/>
+		<collection property="itemDTO" resultMap="itemMap" />
+		<collection property="clntDTO" resultMap="clntMap" />
 	</resultMap>
 	
 	<!-- instructList 메인 전체 select 구문 -->
@@ -76,7 +88,7 @@
 			   work.work_dt as workDate, work.work_sts as workSts,
           	   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
           	   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
-          	   work.work_qty as workQty, work.insert_dt as insertDate, work.insert_id as insertId
+          	   work.work_qty as workQty, work.insert_dt as insertDate, user.name
 		FROM work_instr work JOIN order_mng oder ON work.ord_id = oder.ord_id
 		         JOIN item item ON item.item_id = work.item_id
 		         JOIN client clnt ON oder.clnt_id = clnt.clnt_id
@@ -120,6 +132,7 @@
 		JOIN line line ON work.line_id = line.line_id
 	</sql>
 	
+	<!-- 작업지시 등록 라인 조회 -->
 	<select id="getLineList" resultMap="lineMap">
 		SELECT line_id AS lineId,
 			   line_nm AS lineName,
@@ -129,6 +142,47 @@
 		FROM line
 		WHERE line_nm LIKE CONCAT('%', #{lineName}, '%')
 	</select>
+	
+	<!-- 작업지시 등록 수주 조회 -->
+	<select id="getOrdList" resultMap="orderMap">
+		SELECT ord.ord_id, ord.ord_num, ord.order_dt, ord.dlvry_dt,
+			   i.item_id as itemId, i.item_num as itemNum, i.item_nm as itemName, ord.ord_qty,
+		       c.clnt_nm as clientName
+		FROM order_mng ord JOIN item i
+		ON ord.item_id = i.item_id
+		JOIN client c
+		ON ord.clnt_id = c.clnt_id
+	</select>
+	
+	<sql id="getOrd">
+		WHERE ord.ord_num IS NOT NULL
+		<if test="startDate != '' and endDate != ''">
+			AND order_dt BETWEEN #{startDate} AND #{endDate}
+		</if>
+		<if test="startDate == '' and endDate == ''">
+		</if>
+		<if test="startDate != ''">
+			AND order_dt &gt;=#{startDate}
+		</if>
+		<if test="endDate != ''">
+			AND order_dt &lt;=#{endDate}
+		</if>
+		<choose>
+			<when test="clientName == '' or clientName == null"></when>
+			<otherwise>
+				AND c.clnt_nm LIKE CONCAT('%', #{clientName}, '%')
+			</otherwise>
+		</choose>
+		<if test="dlvryDate != ''">
+			AND dlvry.dt = #{dlvryDate}
+		</if>
+		<choose>
+			<when test="itemNum == '' or itemNum == null"></when>
+			<otherwise>
+				AND i.item_num LIKE CONCAT('%', #{itemNum}, '%')
+			</otherwise>
+		</choose>
+	</sql>
 	
 	<!-- 작업지시 등록 -->
 	<insert id="instrInsert">

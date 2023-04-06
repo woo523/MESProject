@@ -84,6 +84,13 @@ public class LineDAOImpl implements LineDAO{
 	}
 
 	@Override
+	public Map<String, Object> getInstrList(int lineId) {
+		// 라인번호에 해당하는 작업지시 목록
+		
+		return sqlSession.selectOne(namespace+".getInstrList", lineId);
+	}
+
+	@Override
 	public void updateLine(LineDTO lineDTO, int lineId) {
 		System.out.println("LineDAOImpl updateLine");
 		

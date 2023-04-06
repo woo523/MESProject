@@ -5,10 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Line insert</title>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-ui-1.9.2.custom.js"></script>  
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-migrate-1.4.1.min.js"></script>  
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.cookie.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.ui.datepicker-ko.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery.mCustomScrollbar.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
+
 <style type="text/css">
-	.content_body textarea {
-		resize: none;
-	}
+.content_body textarea {
+	resize: none;
+}
 
 </style>
 </head>
@@ -26,12 +37,12 @@
 						</select></li>
 			<li>작업장   <select name="linePlace">
 							<option value="" selected>전체</option>
-							<option value="1">작업장1</option>
-							<option value="2">작업장2</option>
+							<option value="작업장1">작업장1</option>
+							<option value="작업장2">작업장2</option>
 						</select></li>			
 			<li>일렬번호 <input type="text" name="sortOrder"> </li>
 			<li>사용여부 <input type="radio" name="useChoice" value="Y" class="sCheck">Y
-						 <input type="radio" name="useChoice" value="N" class="sCheck">N</li>
+						 <input type="radio" name="useChoice" value="N" class="sCheck" checked="checked" onclick="return false;">N</li>
 			<li>비고 <textarea rows="5" cols="30" name="note" maxlength="25"
 							   placeholder="글자수는 최대 25자 입니다"></textarea></li>
 		</ul>
@@ -43,6 +54,11 @@
 </body>
 
 <script type="text/javascript">
+
+$(document).ready(function () {
+	$("input[value='Y']").attr('disabled', true);
+})
+
 // 등록 여부 확인 후 폼 전송
 function checkForm() {
 	if(confirm("등록하시겠습니까?")) {

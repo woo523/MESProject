@@ -95,6 +95,22 @@
 		ORDER BY line_id DESC
 	</select>
 	
+	<select id="getInstrList" resultType="com.itwillbs.work.domain.InstructDTO">
+		SELECT 	instr_id as instrId,
+				line_id as lineId,
+				ord_id as ordId,
+				ord_info_id as ordInfoId,
+				item_id as itemId,
+				work_num as workNum,
+				work_sts as workSts,
+				work_dt as workDate,
+				work_qty as workQty,
+				insert_id as insertId,
+				insert_dt as insertDate
+		FROM work_instr
+		WHERE line_id = #{lineId}
+	</select>
+	
 	<!-- 라인 수정 -->
 	<update id="updateLine">
 		UPDATE line

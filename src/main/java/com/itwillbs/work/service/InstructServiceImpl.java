@@ -75,6 +75,20 @@ public class InstructServiceImpl implements InstructService{
 	}
 
 	@Override
+	public List<Map<String, Object>> getOrdList() {
+		// 작업지시 등록 수주 조회
+		return instructDAO.getOrdList();
+	}
+
+	@Override
+	public List<Map<String, Object>> getOrdList(Map<String, Object> ordSearch) {
+		// 작업지시 등록 수주 조회
+		System.out.println("InstructServiceImpl getOrdList");
+		
+		return instructDAO.getOrdList(ordSearch);
+	}
+
+	@Override
 	public void instrDelete(int instrId) {
 		System.out.println("InstructServiceImpl instrDelete");
 		

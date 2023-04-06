@@ -61,7 +61,7 @@
 }
 	
 article {
-	width: 1170px;
+	width: 1280px;
 	margin: 0px auto;
 }
 

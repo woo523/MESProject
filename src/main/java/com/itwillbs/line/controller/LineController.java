@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.line.service.LineService;
-import com.itwillbs.work.domain.InstructDTO;
 
 @Controller
 public class LineController {
@@ -54,6 +53,7 @@ public class LineController {
 			model.addAttribute("searchCnt", searchCnt);
 		}
 		
+		System.out.println("라인 : " + lineList);
 		model.addAttribute("lineList", lineList);
 		model.addAttribute("lineSearch", lineSearch);
 		
@@ -97,7 +97,6 @@ public class LineController {
 		model.addAttribute("lineDTO", lineDTO);
 		model.addAttribute("lineList", lineList);
 		System.out.println("폼 : " + lineDTO);
-		System.out.println(lineList);
 		
 		return "line/lineModify";
 	}

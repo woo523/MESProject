@@ -21,6 +21,10 @@ public interface InstructDAO {
 	
 	public List<Map<String, Object>> getLineList(String lineName);
 	
+	public List<Map<String, Object>> getOrdList();
+	
+	public List<Map<String, Object>> getOrdList(Map<String, Object> ordSearch);
+	
 	public void instrDelete(int instrId);
 	
 }

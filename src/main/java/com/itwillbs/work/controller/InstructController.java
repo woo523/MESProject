@@ -69,6 +69,7 @@ public class InstructController {
 		List<LineDTO> lineList = lineService.lineList();
 		model.addAttribute("lineList", lineList);
 		
+		System.out.println(instrList);
 		model.addAttribute("instrList", instrList);
 		model.addAttribute("instrSearch", instrSearch);
 		
@@ -155,13 +156,36 @@ public class InstructController {
 		
 		instructService.insertInstr(instructDTO);
 		
-		return "redirect:/work/instructList";
+		return "redirect:/common/offwindow";
 	}
 	
-	// 작업지시 수주 조회
+	// 작업지시 등록 수주 조회
 	@RequestMapping(value = "/work/orderList", method = RequestMethod.GET)
 	public String orderList(HttpServletRequest request, Model model) {
 		
+		String ordStartDate = request.getParameter("ordStartDate");
+		String ordEndDate = request.getParameter("ordEndDate");
+		String ordClient = request.getParameter("ordClient");
+		String dlvryDate = request.getParameter("dlvryDate");
+		String ordItem = request.getParameter("ordItem");
+		
+		Map<String, Object> ordSearch = new HashMap<String, Object>();
+		ordSearch.put("ordStartDate", ordStartDate);
+		ordSearch.put("ordEndDate", ordEndDate);
+		ordSearch.put("ordClient", ordClient);
+		ordSearch.put("dlvryDate", dlvryDate);
+		ordSearch.put("ordItem", ordItem);
+		
+		List<Map<String, Object>> getOrdList;
+		
+		if(ordStartDate == null && ordEndDate == null && ordClient == null && dlvryDate == null && ordItem == null) {
+			getOrdList = instructService.getOrdList();
+		} else {
+			getOrdList = instructService.getOrdList(ordSearch);
+		}
+		
+		model.addAttribute("getOrdList", getOrdList);
+		System.out.println(getOrdList);
 		
 		return "work/orderList";
 	}
