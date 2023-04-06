@@ -160,6 +160,17 @@ public class PerformDAOImpl implements PerformDAO {
 		sqlSession.update(namespace+".turninstr", instrId);
 	}
 
+	@Override
+	public void updateStorage(PerformDTO performDTO) { // 실적 등록하면 창고 item_count 업데이트
+		System.out.println("PerformDAOImpl updateStorage()");
+		sqlSession.update(namespace+".updateStorage", performDTO);
+	}
+	
+	@Override
+	public void updateStock(PerformDTO performDTO) { // 실적 등록하면 재고 cur_stock 업데이트
+		System.out.println("PerformDAOImpl updateStock()");
+		sqlSession.update(namespace+".updateStock", performDTO);
+	}
 	
 	
 	

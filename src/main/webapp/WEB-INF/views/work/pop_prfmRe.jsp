@@ -51,7 +51,7 @@ td:hover{
 	cursor: pointer;
 }
 .popcontainer{
-	width: 1450px;
+	width: 1600px;
 
 	margin : 0px auto;
 }
@@ -98,7 +98,7 @@ a{
 }
 
 table{
-	width:1430px;
+	width:1550px;
 	border-collapse: collapse;
 }
 
@@ -125,7 +125,7 @@ $(document).ready(function(){
         var timer = setInterval(function(){
         var now = new Date();
         var year = now.getFullYear();
-        var month = now.getMonth();
+        var month = now.getMonth()+1;
         var day = now.getDate();
         
         var hr=now.getHours();//시간
@@ -170,7 +170,7 @@ $(document).ready(function(){
 <br>
 
 
-<span id="sub" class="sub"> 실적 등록 </span>
+<span id="sub" class="sub"> 실적 등록</span>
 
 <br><br>
 <div id="touch">실적을 등록할 작업지시를 <span id="t">터치</span>해주세요</div>

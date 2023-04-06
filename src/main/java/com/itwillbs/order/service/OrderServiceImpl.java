@@ -108,6 +108,24 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.orderSCount();
 	}
 
+	@Override
+	public List<Map<String, Object>> getStsOrderMap(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl getStsOrderMap()");
+		return orderDAO.getStsOrderMap(search);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStsMap(PageDTO pageDTO) {
+		System.out.println("OrderServiceImpl getStsMap()");
+		return orderDAO.getStsMap(pageDTO);
+	}
+
+	@Override
+	public Integer countStsOrder(Map<String, Object> search) {
+		System.out.println("OrderServiceImpl countStsOrder()");
+		return orderDAO.countStsOrder(search);
+	}
+
 
 
 

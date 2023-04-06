@@ -335,7 +335,7 @@ public class PerformController {
 	}
 	
 	@RequestMapping(value = "/work/del", method = RequestMethod.GET)
-	public String del(HttpServletRequest request, Model model) { // 실적 삭제창
+	public String del(HttpServletRequest request) { // 실적 삭제창
 		int performId = Integer.parseInt(request.getParameter("performId"));
 		performService.delPf(performId);
 		
@@ -509,6 +509,35 @@ public class PerformController {
 			return "common/msg";
 		}
 	}
+	
+	
+	@RequestMapping(value = "/work/popmodi", method = RequestMethod.GET) // 팝화면 수정창
+	public String popmodi(Model model, HttpServletRequest request) {
+		
+		int performId = Integer.parseInt(request.getParameter("performId"));
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		
+
+		Map<String, Object> inst = performService.getInstrMap(instrId);
+		PerformDTO pfDTO = performService.getPf(performId);
+		
+	
+		model.addAttribute("pfDTO", pfDTO);
+		model.addAttribute("inst", inst);
+		
+		return "work/pop_modi";
+		
+	}
+	
+	
+	@RequestMapping(value = "/work/popdel", method = RequestMethod.GET)
+	public String popdel(HttpServletRequest request) { // 실적 삭제창
+		int performId = Integer.parseInt(request.getParameter("performId"));
+		performService.delPf(performId);
+		
+		return "redirect:/work/popPfRe";
+	}
+	
 	
 	
 }

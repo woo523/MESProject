@@ -419,8 +419,9 @@ public class MaterialController {
 		System.out.println("MaterialController inmtrlInsertPro()");
 		String date = inmaterialDTO.getInmtrlDt(); // 등록 날짜
 		String date2 = date.replaceAll("-", ""); // "-" 빼기
+		String date3 = date2.substring(2);
 		int count = materialService.countMtrlLi(null)+1; // 입고 리스트 갯수+1
-		String inmtrlNum = String.format("IN%s%05d", date2,count); // 규격코드 만들기
+		String inmtrlNum = String.format("IN%s%05d", date3,count); // 규격코드 만들기
 		System.out.println("규격코드:"+inmtrlNum);
 		inmaterialDTO.setInmtrlNum(inmtrlNum);
 		inmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
@@ -484,8 +485,10 @@ public class MaterialController {
 		System.out.println("MaterialController outmtrlInsertPro()");
 		String date = outmaterialDTO.getOutmtrlDt(); // 등록 날짜
 		String date2 = date.replaceAll("-", ""); // "-" 빼기
+		String date3 = date2.substring(2);
 		int count = materialService.countOutLi(null)+1; // 입고 리스트 갯수+1
-		String outmtrlNum = String.format("IN%s%05d", date2,count); // 규격코드 만들기
+		String outmtrlNum = String.format("IN%s%05d", date3,count); // 규격코드 만들기
+
 		System.out.println("규격코드:"+outmtrlNum);
 		outmaterialDTO.setOutmtrlNum(outmtrlNum);
 		outmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));

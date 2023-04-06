@@ -49,4 +49,9 @@ public interface PerformDAO {
 	public void updateStart (int instrId);
 	
 	public void updateInstr(int instrId);
+	
+	public void updateStorage(PerformDTO performDTO);
+	
+	public void updateStock(PerformDTO performDTO);
+	
 }

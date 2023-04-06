@@ -106,7 +106,7 @@ $(document).ready(function(){
         var timer = setInterval(function(){
         var now = new Date();
         var year = now.getFullYear();
-        var month = now.getMonth();
+        var month = now.getMonth()+1;
         var day = now.getDate();
         
         var hr=now.getHours();//시간
@@ -132,6 +132,29 @@ $(document).ready(function(){
 
 });
 
+
+
+function modi(a,b) {
+	
+	if(confirm("해당 실적을 수정하시겠습니까?")){
+		location.href="${pageContext.request.contextPath}/work/popmodi?performId="+a+"&instrId="+b;
+	}else{
+		alert("취소되었습니다.");
+	}}
+	
+	
+function delPf(a) {
+	
+	if(confirm("삭제하시겠습니까?")){
+		alert("해당 실적이 삭제되었습니다.");
+		location.href="${pageContext.request.contextPath}/work/popdel?performId="+a;
+	}else{
+		alert("취소되었습니다.");
+	}}
+
+
+
+
 </script>
 </head>
 <body>
@@ -147,7 +170,7 @@ $(document).ready(function(){
 	</div>
 	<br>
 
-<span id="sub" class="sub"> 실적 등록 </span>
+<span id="sub" class="sub"> 실적 등록</span>
 
 <br>
 <br>
@@ -183,14 +206,16 @@ $(document).ready(function(){
     <br>
     <br>
     <table>
-    <tr id="th"><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th></tr>
+    <tr id="th"><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th><th></th></tr>
 	<c:choose>
     <c:when test="${empty pflist}">
     <tr><td colspan="5"> 등록된 실적이 없습니다.</td></tr>
     </c:when>
     <c:otherwise>
     <c:forEach var="pdto" items="${pflist }">
-    <tr><td>${pdto.performDate}</td><td>${pdto.gbYn}</td><td>${pdto.performQty}</td><td>${pdto.dbReason}</td><td>${pdto.name}</td></tr>
+    <tr><td>${pdto.performDate}</td><td>${pdto.gbYn}</td><td>${pdto.performQty}</td><td>${pdto.dbReason}</td><td>${pdto.name}</td>
+    <td><img src="${pageContext.request.contextPath}/resources/image/whitemodify.png" width="35px" onclick="modi(${pdto.performId},${inst.instrId})">
+    <img src="${pageContext.request.contextPath}/resources/image/whitedel.png" width="34px" height="34px" onclick="delPf(${pdto.performId})"></td></tr>
    </c:forEach>
    </c:otherwise>
    </c:choose>

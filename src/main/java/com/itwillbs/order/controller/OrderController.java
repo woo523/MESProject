@@ -1,7 +1,6 @@
 package com.itwillbs.order.controller;
 
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +42,10 @@ public class OrderController {
 		// 수주번호 규격코드
 		String orderDt = request.getParameter("orderDt");
 		String date = orderDt.replaceAll("-", "");
+		String date1 = date.substring(2);
 		int count = orderService.orderSCount() + 1;
 		System.out.println("확인 count:"+count);
-		String ordNum = String.format("OT%s%05d", date, count);
+		String ordNum = String.format("OT%s%05d", date1, count);
 		
 		orderDTO.setOrdNum(ordNum);
 		
@@ -327,6 +327,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/update", method = RequestMethod.GET)
 	public String update(HttpServletRequest request, Model model) {
 		System.out.println("OrderController update()");
+		
 		int ordId=Integer.parseInt(request.getParameter("ordId"));
 		
 		OrderDTO orderDTO=orderService.getOrder(ordId);
@@ -340,9 +341,10 @@ public class OrderController {
 	public String updatePro(OrderDTO orderDTO,HttpServletRequest request) {
 		System.out.println("OrderController updatePro()");
 		
-		
+		System.out.println("orderDTO 값" +orderDTO);
 		orderService.updateOrder(orderDTO);
-		orderDTO.setOrdId(Integer.parseInt(request.getParameter("ordId")));
+		int ordId=Integer.parseInt(request.getParameter("ordId"));
+		orderDTO=orderService.getOrder(ordId);
 
 		return "redirect:/order/orderMng";
 	}
@@ -351,7 +353,7 @@ public class OrderController {
 		System.out.println("OrderController delete()");
 		int ordId=Integer.parseInt(request.getParameter("ordId"));
 		orderService.getDelete(ordId);
-		return "order/orderMng";
+		return "redirect:/order/orderMng";
 	}
 	
 	
@@ -363,16 +365,27 @@ public class OrderController {
 
 			// 조회값들
 			String ordId = request.getParameter("ordId");
+			String ordNum = request.getParameter("ordNum");
+			
 			String clntId = request.getParameter("clntId");
 			String clntCd = request.getParameter("clntCd");
 			String clntNm = request.getParameter("clntNm");
+			
 			String sOdate = request.getParameter("sOdate");
-			String eOdate = request.getParameter("eOdate");
 			String sDdate = request.getParameter("sDdate");
-			String eDdate = request.getParameter("eDdate");
+			
 			String userNum = request.getParameter("userNum");
 			String userNm = request.getParameter("userNm");
 			String userId = request.getParameter("userId");
+			
+			String itemNum = request.getParameter("itemNum");
+			
+			String itemNm = request.getParameter("itemNm");
+			String invntUnit = request.getParameter("invntUnit");
+			String ordQty = request.getParameter("ordQty");
+			String cmpltYn = request.getParameter("cmpltYn");
+			
+			
 	
 			// 한 화면에 보여줄 글 개수 설정
 			int pageSize = 3; // sql문에 들어가는 항목
@@ -395,34 +408,46 @@ public class OrderController {
 
 			Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
 			search.put("ordId", ordId);
+			search.put("ordNum", ordNum);
+			
 			search.put("clntCd", clntCd);
 			search.put("clntNm", clntNm);
 			search.put("clntId", clntId);
+			
 			search.put("sOdate", sOdate);
-			search.put("eOdate", eOdate);
 			search.put("sDdate", sDdate);
-			search.put("eDdate", eDdate);
+			
 			search.put("userNum", userNum);
 			search.put("userNm", userNm);
 			search.put("userId", userId);
+
+			search.put("itemNum", itemNum);
+			search.put("itemNm", itemNm);
+			search.put("invntUnit", invntUnit);
+			search.put("ordQty", ordQty);
+			search.put("cmpltYn", cmpltYn);
+			
+			
 			
 			search.put("startRow", pageDTO.getStartRow());
 			search.put("pageSize", pageDTO.getPageSize());
 	 
 			
-			List<Map<String,Object>> orderSList;
-			if(ordId == null && clntCd == null && clntNm == null && sOdate == null && eOdate== null 
-					&& sDdate == null && eDdate == null && userNum == null && userNm == null) {
+			List<Map<String,Object>> orderStsList;
+			if(ordId == null && ordNum == null && clntNm == null && sOdate == null
+					&& userNm == null && itemNum == null && itemNm == null && invntUnit == null
+					&& sDdate == null && ordQty == null && cmpltYn == null)
+			{
 			// 조회 안한 경우
-				orderSList = orderService.getOrderMap(pageDTO); // page만 필요해서
+				orderStsList = orderService.getStsMap(pageDTO); // page만 필요해서
 			
 			}else { // 조회값 넣은 경우
-				orderSList = orderService.getSearchOrderMap(search);
+				orderStsList = orderService.getStsOrderMap(search);
 				
 			}
 					
 			//페이징 처리
-			int count = orderService.countOrder(search);
+			int count = orderService.countStsOrder(search);
 
 			int pageBlock = 10;
 			int startPage=(currentPage-1)/pageBlock*pageBlock+1;
@@ -440,7 +465,7 @@ public class OrderController {
 			
 			System.out.println("endPage :"+pageDTO.getEndPage());
 			System.out.println("count :"+pageDTO.getCount());
-			model.addAttribute("orderSList", orderSList); 
+			model.addAttribute("orderStsList", orderStsList); 
 			model.addAttribute("pageDTO", pageDTO);
 			model.addAttribute("search", search);
 
