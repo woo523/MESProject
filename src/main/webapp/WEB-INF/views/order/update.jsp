@@ -166,6 +166,7 @@ $(function() {
 			
 	<table id="update">
 	<tr><td> <input type="hidden" name="updateId" id="updateId" value="${sessionScope.id}" readonly></td></tr> 
+	<tr><td> <input type="hidden" name="ordId" id="ordId" value="${orderDTO.ordId }" readonly></td></tr> 
 	<tr><td>업체명</td>
 	<td><input type="text" id="clntNm" name="clntNm" value="${orderDTO.clntNm }"  onclick="openClntList()">
 		<input type="hidden" id="clntId" name="clntId" value="${orderDTO.clntId }">

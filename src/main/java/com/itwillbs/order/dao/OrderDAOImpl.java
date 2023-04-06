@@ -31,7 +31,6 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public List<Map<String, Object>> getSearchOrderMap(Map<String, Object> search) { 
 		System.out.println("OrderDAOImpl getSearchOrderMap()"); 
-
 	    return sqlSession.selectList(namespace+".getSearchOrderMap",search);
 	}
 
@@ -85,7 +84,7 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public OrderDTO getOrder(int ordId) {
+	public OrderDTO getOrder(int ordId) { // 주문 아이디 가져오기
 		System.out.println("OrderDAOImpl getOrder() ");
 		return sqlSession.selectOne(namespace+".getOrder", ordId);
 	}
@@ -99,7 +98,7 @@ public class OrderDAOImpl implements OrderDAO{
 
 	@Override
 	public void getDelete(int ordId) {
-		System.out.println("OrderDAOImpl updateOrder() 화면단 정보를 db에 저장");
+		System.out.println("OrderDAOImpl getDelete() 화면단 정보를 db에 저장");
 		sqlSession.delete(namespace+".getDelete", ordId);
 		
 	}
@@ -108,6 +107,24 @@ public class OrderDAOImpl implements OrderDAO{
 	public Integer orderSCount() {
 		System.out.println("OrderDAOImpl orderSCount() 화면단 정보를 db에 저장");
 		return sqlSession.selectOne(namespace+".orderSCount");
+	}
+
+	@Override
+	public List<Map<String, Object>> getStsOrderMap(Map<String, Object> search) {
+		System.out.println("OrderDAOImpl getStsOrderMap()"); 
+	    return sqlSession.selectList(namespace+".getStsOrderMap",search);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStsMap(PageDTO pageDTO) {
+		System.out.println("OrderDAOImpl getStsMap()");
+		return sqlSession.selectList(namespace+".getStsMap", pageDTO);
+	}
+
+	@Override
+	public Integer countStsOrder(Map<String, Object> search) {
+		System.out.println("OrderDAOImpl countStsOrder()"); 
+		return sqlSession.selectOne(namespace+".countStsOrder",search);
 	}
 
 
