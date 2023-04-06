@@ -479,6 +479,26 @@
 	where instr_id = #{instrId}
 	</update>
 	
+	<update id="updateStorage">
+	update storage
+	set item_count = item_count + #{performQty}
+	where
+	<if test="gbYn eq 'Y'.toString()"> <!-- 양품이면 2번창고(제품) -->
+	stor_id = 2
+	</if>
+	<if test="gbYn eq 'N'.toString()"> <!-- 불량이면 3번창고(불량) -->
+	stor_id = 3
+	</if>
+	</update>
+	
+	<update id="updateStock">
+	update stock
+	set cur_stock = cur_stock + #{performQty}
+	where
+	item_id = #{itemId}
+	</update>
+	
+	
 
 
    

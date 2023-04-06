@@ -75,6 +75,11 @@ public class PerformServiceImpl implements PerformService {
 			performDAO.updateStart(performDTO.getInstrId()); // 시작으로 변경
 		}
 		
+		performDAO.updateStorage(performDTO); // 창고 재고 업뎃
+		
+		if(performDTO.getGbYn().equals("Y")){
+		performDAO.updateStock(performDTO); }// 재고 현재고 업뎃
+		
 	}
 
 	@Override

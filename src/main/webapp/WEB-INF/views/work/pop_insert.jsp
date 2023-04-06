@@ -165,7 +165,7 @@ $(document).ready(function(){
         var timer = setInterval(function(){
         var now = new Date();
         var year = now.getFullYear();
-        var month = now.getMonth();
+        var month = now.getMonth()+1;
         var day = now.getDate();
         
         var hr=now.getHours();//시간
