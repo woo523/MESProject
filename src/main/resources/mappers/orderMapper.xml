@@ -22,13 +22,13 @@
 
 	</resultMap>
 	
-	
+<!-- 	규격코드 만들때 전체 갯수 가져오기 -->
 	<select id="orderSCount" resultType="java.lang.Integer">
 		select count(*) 
 		from order_mng
 	</select>
 
-	
+<!-- 	orderMng 주문아이디 가져오기	 -->
 	<select id="getOrder" resultType="com.itwillbs.order.domain.OrderDTO">
 	select o.ord_id,c.clnt_nm, o.order_dt, u.name as userNm , o.dlvry_dt, i.item_num, i.item_nm, i.invnt_unit, o.ord_qty
 	from client c join order_mng o
@@ -39,8 +39,10 @@
 	on o.item_id = i.item_id
 	where o.ord_id = #{ordId}
 	</select>
+
 	
 	
+<!-- 	orderMng 조회 안할경우 페이지만 가져오기 -->
 	<select id="getOrderMap" resultMap="orderMap">
 		select
 		o.ord_id,
@@ -49,7 +51,7 @@
 		o.order_dt as sOdate,
 		o.dlvry_dt as eDdate,
 		u.id,
-		u.name,
+		u.name as userNm,
 		o.ord_num
 		from order_mng o join client c
 		on o.clnt_id = c.clnt_id
@@ -58,7 +60,8 @@
 		order by sOdate desc
 		limit #{startRow},#{pageSize}
 	</select>
-
+	
+<!-- 	orderMng 조회한 페이지 가져오기 -->
 	<select id="getSearchOrderMap" resultMap="orderMap">
 		select
 		o.ord_id,
@@ -67,104 +70,141 @@
 		o.order_dt as sOdate,
 		o.dlvry_dt as eDdate,
 		u.id,
-		u.name,
+		u.name as userNm,
 		o.ord_num
 		from order_mng o join client c
 		on o.clnt_id = c.clnt_id
 		join user u
 		on o.user_id = u.user_id
 
-
-
 		where clnt_nm like CONCAT('%', #{clntNm}, '%')
 
-
-		<if test="sOdate!='' and eOdate!=''">
-			and
-			o.order_dt between #{sOdate} and #{eOdate}
-		</if>
+		<if test="sOdate!='' and eOdate!=''"> and o.order_dt between #{sOdate} and #{eOdate}</if>
 		<if test="sOdate=='' and eOdate==''"></if>
+		<if test="sOdate!=''"> and o.order_dt &gt;= #{sOdate}</if>
+		<if test="eOdate!=''"> and o.order_dt &lt;= #{eOdate}</if>
 
-		<if test="sOdate!=''">
-			and
-			o.order_dt &gt;= #{sOdate}
-		</if>
-		<if test="eOdate!=''">
-			and
-			o.order_dt &lt;= #{eOdate}
-		</if>
-
-
-		<if test="sDdate!='' and eDdate!=''">
-			and
-			o.dlvry_dt between #{sDdate} and #{eDdate}
-		</if>
+		<if test="sDdate!='' and eDdate!=''"> and o.dlvry_dt between #{sDdate} and #{eDdate}</if>
 		<if test="sDdate=='' and eDdate==''"></if>
-		<if test="sDdate!=''">
-			and
-			o.dlvry_dt &gt;= #{sDdate}
-		</if>
-		<if test="eDdate!=''">
-			and
-			o.dlvry_dt &lt;= #{eDdate}
-		</if>
+		<if test="sDdate!=''"> and o.dlvry_dt &gt;= #{sDdate}</if>
+		<if test="eDdate!=''"> and o.dlvry_dt &lt;= #{eDdate}</if>
 
 		and
 		name like CONCAT('%', #{userNm}, '%')
-
 
 		order by sOdate desc
 		limit #{startRow}, #{pageSize}
 	</select>
 
-	<select id="countOrder" resultType="java.lang.Integer"> <!-- 작업지시리스트 개수 -->
+<!-- 	orderMng 페이징 처리할때 갯수 가져오기 -->
+	<select id="countOrder" resultType="java.lang.Integer">
 		select
 		count(*)
 		from order_mng o join client c
 		on o.clnt_id = c.clnt_id
 		join user u
 		on o.user_id = u.user_id
-		<if
-			test="(clntCd != null and clntNm != null and sOdate != null
-		 and eOdate!= null and sDdate != null and eDdate != null and Num != null 
+		<if test="(clntCd != null and clntNm != null and sOdate != null
+		 and eOdate!= null and sDdate != null and eDdate != null and userNum != null 
 			and userNm != null)">
 
-			where clnt_nm like CONCAT('%', #{clntNm}, '%')
-			<if test="sOdate!='' and eOdate!=''">
-				and
-				o.order_dt between #{sOdate} and #{eOdate}
-			</if>
-			<if test="sOdate=='' and eOdate==''"></if>
+		where clnt_nm like CONCAT('%', #{clntNm}, '%')
+		
+		<if test="sOdate!='' and eOdate!=''"> and o.order_dt between #{sOdate} and #{eOdate}</if>
+		<if test="sOdate=='' and eOdate==''"></if>
+		<if test="sOdate!=''"> and o.order_dt &gt;= #{sOdate}</if>
+		<if test="eOdate!=''"> and o.order_dt &lt;= #{eOdate}</if>
 
-			<if test="sOdate!=''">
-				and
-				o.order_dt &gt;= #{sOdate}
-			</if>
-			<if test="eOdate!=''">
-				and
-				o.order_dt &lt;= #{eOdate}
-			</if>
+		<if test="sDdate!='' and eDdate!=''"> and o.dlvry_dt between #{sDdate} and #{eDdate}</if>
+		<if test="sDdate=='' and eDdate==''"></if>
+		<if test="sDdate!=''"> and o.dlvry_dt &gt;= #{sDdate}</if>
+		<if test="eDdate!=''"> and o.dlvry_dt &lt;= #{eDdate}</if>
 
-
-			<if test="sDdate!='' and eDdate!=''">
-				and
-				o.dlvry_dt between #{sDdate} and #{eDdate}
-			</if>
-			<if test="sDdate=='' and eDdate==''"></if>
-			<if test="sDdate!=''">
-				and
-				o.dlvry_dt &gt;= #{sDdate}
-			</if>
-			<if test="eDdate!=''">
-				and
-				o.dlvry_dt &lt;= #{eDdate}
-			</if>
-
-			and
-			name like CONCAT('%', #{userNm}, '%')
+		and
+		name like CONCAT('%', #{userNm}, '%')
 		</if>
 	</select>
+	
+<!-- 	orderSts 조회 안할경우 페이지만 가져오기 -->
+	<select id="getStsMap" resultMap="orderMap">
+	select o.ord_id, o.ord_num, c.clnt_nm,o.order_dt as sOdate, u.name as userNm, i.item_num, i.item_nm,i.invnt_unit,
+	   o.dlvry_dt as sDdate, o.ord_qty, o.cmplt_yn
+	from client c join order_mng o
+	on o.clnt_id = c.clnt_id
+	join item i
+	on o.item_id = i.item_id
+	join user u
+	on o.user_id= u.user_id
+	order by sOdate desc
+	limit #{startRow},#{pageSize}
+	</select>
+	
+<!-- 	orderSts 조회한 페이지 가져오기 -->
+	<select id="getStsOrderMap" resultMap="orderMap">
+	select o.ord_id, o.ord_num, c.clnt_nm,o.order_dt as sOdate, u.name as userNm, i.item_num, i.item_nm,i.invnt_unit,
+	   o.dlvry_dt as sDdate, o.ord_qty, o.cmplt_yn
+	from client c join order_mng o
+	on o.clnt_id = c.clnt_id
+	join item i
+	on o.item_id = i.item_id
+	join user u
+	on o.user_id= u.user_id
+	
+	
+		where clnt_nm like CONCAT('%', #{clntNm}, '%')
 
+		<if test="sOdate!=''"> and o.order_dt = #{sOdate}</if>
+		<if test="sDdate!=''"> and o.dlvry_dt = #{sDdate}</if>
+		
+		and
+		item_num like CONCAT('%', #{itemNum}, '%')
+	
+		and
+		item_nm like CONCAT('%', #{itemNm}, '%')
+
+		and
+		name like CONCAT('%', #{userNm}, '%')
+		
+		order by sOdate desc
+		limit #{startRow}, #{pageSize}
+	</select>
+
+<!-- 	orderSts 조회할때 갯수와 조회값 가져오기 -->
+	<select id="countStsOrder" resultType="java.lang.Integer">
+		select
+		count(*)
+		from client c join order_mng o
+		on o.clnt_id = c.clnt_id
+		join item i
+		on o.item_id = i.item_id
+		join user u
+		on o.user_id= u.user_id
+		<if test="(ordNum != null and clntNm != null and sOdate != null and
+		 userNm != null and itemNum != null and itemNm != null and invntUnit != null and sDdate != null
+		  and ordQty != null and cmpltYn  != null)">
+
+		where clnt_nm like CONCAT('%', #{clntNm}, '%')
+
+		<if test="sOdate!=''"> and o.order_dt = #{sOdate}</if>
+		<if test="sDdate!=''"> and o.dlvry_dt = #{sDdate}</if>
+		
+		and
+		item_num like CONCAT('%', #{itemNum}, '%')
+
+		and
+		item_nm like CONCAT('%', #{itemNm}, '%')
+		
+		and
+		name like CONCAT('%', #{userNm}, '%')
+		
+		
+		</if>
+	</select>
+	
+	
+	
+	
+	
 	<select id="getItemList"
 		resultType="com.itwillbs.order.domain.ItemDTO">
 		select
@@ -254,29 +294,29 @@
 		</if>
 	</select>
 
-
+<!-- 	수주관리 주문 추가하기 -->
 	<insert id="insertOrder">
 		insert into order_mng
 		(clnt_id, order_dt,user_id,dlvry_dt,item_id,ord_qty,insert_id,insert_dt,ord_num)
 		values(#{clntId},#{orderDt},#{userId},#{dlvryDt},#{itemId},#{ordQty},#{insertId},#{insertDt},#{ordNum})
 	</insert>
 
-	
+<!-- 	수주관리 주문 수정하기 -->
 	<update id="updateOrder">
 	update order_mng 
 	set 
-	ord_id= #{ordId},
 	clnt_id = #{clntId},
 	order_dt = #{orderDt},
 	user_id = #{userId},
 	dlvry_dt = #{dlvryDt},
 	item_id = #{itemId},
 	ord_qty = #{ordQty},
-	update_id = #{updateId}
+	update_id = #{updateId},
 	update_dt = #{updateDt}
 	where ord_id = #{ordId}
 	</update>
 	
+<!-- 	수주관리 주문 삭제 -->
 	<delete id="getDelete">
 	delete from order_mng
 	where ord_id = #{ordID}

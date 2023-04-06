@@ -38,6 +38,12 @@ public interface OrderService {
 
 	public Integer orderSCount();
 
+	public List<Map<String, Object>> getStsOrderMap(Map<String, Object> search);
+
+	public List<Map<String, Object>> getStsMap(PageDTO pageDTO);
+
+	public Integer countStsOrder(Map<String, Object> search);
+
 	
 
 }

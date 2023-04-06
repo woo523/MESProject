@@ -137,25 +137,7 @@ $(function() {
 	});
 });
 
-$(function() {
-	$("#eOdate").datepicker({
-		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-           ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,buttonText: "선택" //버튼 호버 텍스트              
-           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-           ,closeText: '닫기' // 닫기 버튼 패널
-//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-	});
-});
+
 $(function() {
 	$("#sDdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
@@ -180,25 +162,7 @@ $(function() {
 	});
 });
 
-$(function() {
-	$("#eDdate").datepicker({
-		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-           ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,buttonText: "선택" //버튼 호버 텍스트              
-           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-           ,closeText: '닫기' // 닫기 버튼 패널
-//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-	});
-});
+
   
 $(document).ready(function () {
 	// class = "brown" 클릭했을 때 "클릭"
@@ -239,10 +203,27 @@ $(document).ready(function () {
 	});
 });
 
+
+
+function YnCheck(obj) {
+	var checked=obj.checked;
+	if(checked){
+		obj.value="Y";
+	}else{
+		obj.value="N";
+	}
+};
+
+alert("성공" + YnCheck(obj));
+
+
+
 </script>
 <!-- 스크립트 끝. -->
 
-
+<%-- <c:if test="${empty sessionScope.id }"> --%>
+<%-- <c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect> --%>
+<%-- </c:if> --%>
 
 
 <div class="content_body">
@@ -263,8 +244,7 @@ $(document).ready(function () {
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
 				
 				<td>수주일자</td>
-				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly>	
-					<input type="hidden" id="eOdate" class="form-control" name="eOdate" readonly></td>
+				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly>	</td>
 
 				<td>품번</td>
 				<td><input type="text" name="itemNum" id="itemNum"  onclick="openItemList()">
@@ -281,10 +261,13 @@ $(document).ready(function () {
 					<input type="hidden" name="itemId" id="itemId"  onclick="openItemList()"></td>
 				
 				<td>납품예정일</td>
-				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly>
-					<input type="hidden" id="eDdate" class="form-control" name="eDdate" readonly></td>
+				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>
 				<td>출하완료여부</td>
-				<td><input type="hidden" name="cmpltYn" id="cmpltYn" value=""></td>
+				<td><select name="cmpltYn" id="cmpltYn" > <!-- 조회함, N Y값을 들고와야함 -->
+					<option value="">완료여부</option>
+					<option value="Y">Y</option>
+					<option value="N">N</option>
+				</select>
 				</tr>
 				
 			</table>
@@ -293,51 +276,79 @@ $(document).ready(function () {
 <br>
 <br>
 	<h1>목록</h1>
+	<form>
+
 	<table border="1" id="main">
+		<div id="btn">
+<!-- 			<button type="submit" id="cancle" name="cancle">수주취소</button> -->
+<!-- 			<button type="submit" id="submit">수주변경</button> -->
+			<button type="submit" id="submit" onclick="location.href='${pageContext.request.contextPath}/order/orderInsert">수주마감</button>
+		</div>
 		<tr id="th">
-			<th>수주업체코드</th>
+			<th></th>
+			<th>수주번호</th>
 			<th>수주업체</th>
 			<th>수주일자</th>
-			<th>납품예정일</th>
-			<th>담당자코드</th>
 			<th>담당자</th>
+			<th>품번</th>
+			<th>품명</th>
+			<th>단위</th>
+			<th>납품예정일</th>
+			<th>수주량</th>
+			<th>완료여부</th>
 		</tr>
-			<c:forEach var="odto" items="${orderSList}">
-			<tr onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">
-				<td>${odto.clntCd}</td>
-				<td>${odto.clntNm}</td>
-				<td>${odto.sOdate}</td>
-				<td>${odto.eDdate}</td>
-				<td>${odto.userNum}</td>
-				<td>${odto.userNm}</td>
+		
+			<c:forEach var="odto" items="${orderStsList}">
+			<tr>			
+				<td><input name="checkYn" id="checkYn" onchange="YnCheck(this);" type="checkbox"></td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.ordNum}</td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.clntNm}</td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.sOdate}</td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.userNm}</td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.itemNum}</td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.itemNm}</td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.invntUnit}</td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.sDdate}</td>
+				<td onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">${odto.ordQty}</td>
+				<td>${odto.cmpltYn}</td>
 				</tr>
 			</c:forEach>
   </table>
-  
+  	</form>
     <br>
     <div id="pagination">
-    1페이지 이전
+<!--     1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
-	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage-1}"><</a>
+	<a href="${pageContext.request.contextPath }/order/orderSts?ordNum=${search.ordNum}&clntNm=${search.clntNm}&sOdate=${search.sOdate}&userNm=${search.userNm }
+	&itemNum=${search.itemNum }&itemNm=${search.itemNm }&invntUnit=${search.invntUnit }&sDdate=${search.sDdate}&ordQty=${search.ordQty }&cmpltYn=${search.cmpltYn }
+	&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
 
 <!-- 10페이지 이전 -->
 	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	<a href="${pageContext.request.contextPath }/order/orderSts?ordNum=${search.ordNum}&clntNm=${search.clntNm}&sOdate=${search.sOdate}&userNm=${search.userNm }
+	&itemNum=${search.itemNum }&itemNm=${search.itemNm }&invntUnit=${search.invntUnit }&sDdate=${search.sDdate}&ordQty=${search.ordQty }&cmpltYn=${search.cmpltYn }
+	&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 	</c:if>
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a id="num" href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${i}">${i}</a> 
+	<a href="${pageContext.request.contextPath }/order/orderSts?ordNum=${search.ordNum}&clntNm=${search.clntNm}&sOdate=${search.sOdate}&userNm=${search.userNm }
+	&itemNum=${search.itemNum }&itemNm=${search.itemNm }&invntUnit=${search.invntUnit }&sDdate=${search.sDdate}&ordQty=${search.ordQty }&cmpltYn=${search.cmpltYn }
+	&pageNum=${i}">${i}</a> 
 	</c:forEach>
 
 <!-- 1페이지 다음	 -->
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage+1}">></a>
+	<a href="${pageContext.request.contextPath }/order/orderSts?ordNum=${search.ordNum}&clntNm=${search.clntNm}&sOdate=${search.sOdate}&userNm=${search.userNm }
+	&itemNum=${search.itemNum }&itemNm=${search.itemNm }&invntUnit=${search.invntUnit }&sDdate=${search.sDdate}&ordQty=${search.ordQty }&cmpltYn=${search.cmpltYn }
+	&pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>
 
 <!-- 10페이지 다음 -->
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	<a href="${pageContext.request.contextPath }/order/orderSts?ordNum=${search.ordNum}&clntNm=${search.clntNm}&sOdate=${search.sOdate}&userNm=${search.userNm }
+	&itemNum=${search.itemNum }&itemNm=${search.itemNm }&invntUnit=${search.invntUnit }&sDdate=${search.sDdate}&ordQty=${search.ordQty }&cmpltYn=${search.cmpltYn }
+	&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
 	</div>
 <br>
@@ -345,4 +356,4 @@ $(document).ready(function () {
 </div>
 </body>
 <!-- 푸터 -->
-<%-- <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 --> --%>
+<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
