@@ -161,15 +161,27 @@ public class PerformDAOImpl implements PerformDAO {
 	}
 
 	@Override
-	public void updateStorage(PerformDTO performDTO) { // 실적 등록하면 창고 item_count 업데이트
+	public void updateStorage(PerformDTO performDTO) { // 입력한 실적을 창고 item_count 더하기
 		System.out.println("PerformDAOImpl updateStorage()");
 		sqlSession.update(namespace+".updateStorage", performDTO);
 	}
 	
 	@Override
-	public void updateStock(PerformDTO performDTO) { // 실적 등록하면 재고 cur_stock 업데이트
+	public void updateStock(PerformDTO performDTO) { // 입력한 실적을 재고 cur_stock 더하기
 		System.out.println("PerformDAOImpl updateStock()");
 		sqlSession.update(namespace+".updateStock", performDTO);
+	}
+
+	@Override
+	public void delStorage(PerformDTO preDTO) { // 실적 수정하면 저번에 입력했던 실적을 창고 item_count에서 뺴기
+		System.out.println("PerformDAOImpl delStorage()");
+		sqlSession.update(namespace+".delStorage", preDTO);
+	}
+
+	@Override
+	public void delStock(PerformDTO preDTO) { // 실적 수정하면 저번에 입력했던 실적을 재고 cur_stock에서 뺴기
+		System.out.println("PerformDAOImpl delStock()"); 
+		sqlSession.update(namespace+".delStock", preDTO);
 	}
 	
 	

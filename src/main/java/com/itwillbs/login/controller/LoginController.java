@@ -42,6 +42,7 @@ public class LoginController {
 			// 아이디,비밀번호 일치
 			System.out.println("LoginController.loginPro.아이디 비밀번호 일치");
 			session.setAttribute("id", memberDTO.getId());
+			session.setAttribute("name", memberDTO2.getName());
 			// 주소 변경되면서 메인페이지로 이동
 			return "redirect:/member/list";
 		} else {

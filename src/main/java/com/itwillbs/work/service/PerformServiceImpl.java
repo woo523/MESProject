@@ -1,6 +1,7 @@
 package com.itwillbs.work.service;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -115,6 +116,12 @@ public class PerformServiceImpl implements PerformService {
 			performDAO.updateStart(performDTO.getInstrId()); // 상태는 시작
 		}
 		
+		performDAO.updateStorage(performDTO); // 창고 재고 업뎃
+		
+		if(performDTO.getGbYn().equals("Y")){
+		performDAO.updateStock(performDTO); }// 재고 현재고 업뎃
+		
+		
 	}
 
 	@Override
@@ -145,6 +152,23 @@ public class PerformServiceImpl implements PerformService {
 	public List<Map<String, Object>> ReqList(String performId) {
 		System.out.println("PerformServiceImpl ReqList()");
 		return performDAO.ReqList(performId);
+	}
+
+	@Override
+	public void close(int instrId) {
+		System.out.println("PerformServiceImpl close()");
+		performDAO.updateClose(instrId);
+	}
+
+	@Override
+	public void delqty(PerformDTO preDTO) {
+		System.out.println("PerformServiceImpl delqty()");
+		performDAO.delStorage(preDTO); // 창고 재고삭제 (양품, 불량 다)
+		
+		if(preDTO.getGbYn().equals("Y")) { // 양품 재고테이블 삭제
+			performDAO.delStock(preDTO);
+		}
+		
 	}
 
 

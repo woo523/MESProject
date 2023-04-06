@@ -153,6 +153,9 @@ function fun1() {
 <tr><td>품명</td><td><input type="text"  value="${getInstr.itemName}" readonly></td></tr>
 <tr><td>실적일</td><td><input type="date" id="Date" class="pfDate" name="performDate" value="${pfDTO.performDate}"></td></tr>
 <tr><td>실적수량</td><td><input type="number" class="Qty" name="performQty" value="${pfDTO.performQty}"></td></tr>
+<input type="hidden" name="preqty" value="${pfDTO.performQty}">
+<input type="hidden" name="preYn" value="${pfDTO.gbYn}">
+<input type="hidden" name="preitemId" value="${pfDTO.itemId}">
 <tr><td>양불여부</td><td><input type="radio" name="gbYn" id="Y" value="Y"> Y(양품)
 		<input type="radio" name="gbYn" id="N" value="N"> N(불량)</td></tr>
 		

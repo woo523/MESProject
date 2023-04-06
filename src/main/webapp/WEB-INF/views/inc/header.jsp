@@ -37,7 +37,7 @@
 				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/login'">로그인</div>
 			</c:when>
 			<c:otherwise>
-				<div id="login">로그인 아이디:${id }</div>
+				<div >${name }(${id })</div>
 				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/logout'">로그아웃</div>
 			</c:otherwise>
 		</c:choose>

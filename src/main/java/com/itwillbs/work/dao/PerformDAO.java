@@ -54,4 +54,9 @@ public interface PerformDAO {
 	
 	public void updateStock(PerformDTO performDTO);
 	
+	public void delStorage(PerformDTO preDTO);
+	
+	public void delStock(PerformDTO preDTO);
+	
+	
 }

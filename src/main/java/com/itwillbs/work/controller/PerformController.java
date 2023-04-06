@@ -322,13 +322,22 @@ public class PerformController {
 	}
 	
 	@RequestMapping(value = "/work/PmodiPro", method = RequestMethod.POST)
-	public String PmodiPro (PerformDTO performDTO, HttpSession session){ // 실적 수정 실행
+	public String PmodiPro (PerformDTO performDTO, HttpSession session, HttpServletRequest request){ // 실적 수정 실행
+		PerformDTO preDTO = new PerformDTO();
+		int preqty = Integer.parseInt(request.getParameter("preqty"));
+		String preYn = request.getParameter("preYn");
+		int preitemId = Integer.parseInt(request.getParameter("preitemId"));
+		preDTO.setPerformQty(preqty);
+		preDTO.setGbYn(preYn);
+		preDTO.setItemId(preitemId);
 
+		
 		String id = (String)session.getAttribute("id");
 		performDTO.setUpdateId(id); // 수정한 사람 id
 		performDTO.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+		performDTO.setItemId(preitemId);
 		
-		
+		performService.delqty(preDTO);
 		performService.updatePf(performDTO);
 		
 		return "redirect:/common/offwindow";
@@ -537,6 +546,15 @@ public class PerformController {
 		
 		return "redirect:/work/popPfRe";
 	}
+	
+	@RequestMapping(value = "/work/close", method = RequestMethod.GET)
+	public String close(HttpServletRequest request) { // 실적 삭제창
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		performService.close(instrId);
+		
+		return "redirect:/work/performRegist";
+	}
+	
 	
 	
 	

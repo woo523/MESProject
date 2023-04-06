@@ -170,16 +170,15 @@ function getPerformList(a,b){ // 해당 작업지시번호에 맞는 생산실�
 } 
 
 function PerformListPrint(array){ // 해당 생산실적 출력
-
-	var output ="<br>★ 선택한 작업지시 번호는 "+array[0].workNum+"입니다. <br>";
-	output=output+"<div id='btn'><button id='add' onclick='pfRegi("+array[0].instrId+")'>실적 등록</button></div><br>";
+	var output ="<br>- 작업지시 번호 : "+array[0].workNum+" -<br>";
+	output=output+"<div id='btn'><button onclick='closeR("+array[0].instrId+")'>수동 마감</button>&nbsp;&nbsp;<button id='add' onclick='pfRegi("+array[0].instrId+")'>실적 등록</button></div><br>";
 	if(array[0].itemNum==null){
 		output=output+"<총 0건><br>";
-		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
-		output=output+"<tr id='con'><td colspan='6'> 해당 자료가 없습니다. 실적을 등록해주세요. </td> </tr>";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th><th></th></tr>";
+		output=output+"<tr id='con'><td colspan='7'> 해당 자료가 없습니다. 실적을 등록해주세요. </td> </tr>";
 	}else{
 		output=output+"<총 "+ array.length +"건><br>";
-		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th><th></th></tr>";
 	for (var i=0; i<array.length; i++) {
 	
 		output=output+"<tr id='con'>";
@@ -189,8 +188,11 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 		output=output+"<td>"+array[i].gbYn+"</td>";	
 		output=output+"<td>"+array[i].performQty+"</td>";	
 		output=output+"<td>"+array[i].dbReason+"</td>";
-		output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
-		output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+array[i].performId+")'></td>";
+		output=output+"<td>"+array[i].name+"</td>";
+		if(${sessionScope.id}==array[i].insertId){
+			output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
+			output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+array[i].performId+")'></td>";
+		}		
 		output=output+"</tr>";
 		
 		}
@@ -210,9 +212,21 @@ function pfRegi(a){ // 실적 등록창
 	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=500,left=500, top=200");
 }
 
+function closeR(a){ // 수동 마감
+
+		if(confirm("해당 지시를 수동 마감하시겠습니까?")){
+		alert("해당 지시가 마감되었습니다.");
+		location.href="${pageContext.request.contextPath}/work/close?instrId="+a;
+	}else{
+		alert("취소되었습니다.");
+	}
+}
+
+function fun1() {
+	alert("왜");
+}
 
 function delPf(a) {
-	
 	if(confirm("삭제하시겠습니까?")){
 		alert("해당 실적이 삭제되었습니다.");
 		location.href="${pageContext.request.contextPath}/work/del?performId="+a;
