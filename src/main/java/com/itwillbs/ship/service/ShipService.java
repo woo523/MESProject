@@ -11,31 +11,41 @@ import com.itwillbs.work.domain.ItemDTO;
 
 public interface ShipService {
 
-	List<ShipDTO> getShipList(PageDTO pageDTO);
+	public List<ShipDTO> getShipList(PageDTO pageDTO);
 
-	int getShipCount(PageDTO pageDTO);
+	public Integer getShipCount(PageDTO pageDTO);
 
-	List<ShipDTO> getshipList(Map<String, Object> search);
+	public List<ShipDTO> getshipList(Map<String, Object> search);
 
-	List<Map<String, Object>> getShipMap(PageDTO pageDTO);
+	public List<Map<String, Object>> getShipMap(PageDTO pageDTO);
 
-	List<Map<String, Object>> getShipMap(Map<String, Object> search);
+	public List<Map<String, Object>> getShipMap(Map<String, Object> search);
 
-	List<ShipDTO> getInfoList(Map<String, Object> search);
+	public List<ShipDTO> getInfoList(Map<String, Object> search);
 
-	int countInfoList(Map<String, Object> search);
+	public Integer countInfoList(Map<String, Object> search);
 
-	List<ItemDTO> getItemList(Map<String, Object> search);
+	public List<ItemDTO> getItemList(Map<String, Object> search);
 
-	int countItemList(Map<String, Object> search);
+	public Integer countItemList(Map<String, Object> search);
 
-	List<MaterialDTO> getMtrList(Map<String, Object> search);
+	public List<MaterialDTO> getMtrList(Map<String, Object> search);
 
-	int countMtrList(Map<String, Object> search);
+	public Integer countMtrList(Map<String, Object> search);
 
-	List<ClntDTO> getClntList(Map<String, Object> search);
+	public List<ClntDTO> getClntList(Map<String, Object> search);
 
-	int countClntList(Map<String, Object> search);
+	public Integer countClntList(Map<String, Object> search);
+
+	public Integer shipSCount();
+
+	public void insertOrder(ShipDTO shipDTO);
+
+	public List<Map<String, Object>> getListMap(PageDTO pageDTO);
+
+	public List<Map<String, Object>> getListShipMap(Map<String, Object> search);
+
+	public int countListShip(Map<String, Object> search);
 	
 
 

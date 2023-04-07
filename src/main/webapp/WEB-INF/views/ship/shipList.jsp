@@ -348,8 +348,6 @@ text-align: center;
 				<th>송장번호</th>
 				<th>주문자 정보</th>
 				<th>출하상태</th>
-				<th>수정</th>
-				<th>삭제</th>
 				</tr>
 			</thead>
 			<c:when test="${empty orderList}">
@@ -371,9 +369,7 @@ text-align: center;
 					<td>${shipDTO.trackNum}</td>
 					<td>${shipDTO.clntId}</td>
 					<td>${shipDTO.shipCond}</td>
-					<td><button class="edit-row" onclick="editRow(this)">수정</button></td>
-					 <td><button class="delete-row" onclick="deleteRow(this)">삭제</button></td>
-					</tr>
+				</tr>
 				</c:forEach>
 			</tbody>
 	</table>

@@ -1,6 +1,5 @@
 package com.itwillbs.ship.controller;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 
 import java.util.List;
@@ -13,9 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.itwillbs.ship.domain.ShipDTO;
+import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.ship.domain.ClntDTO;
 import com.itwillbs.ship.domain.MaterialDTO;
 import com.itwillbs.ship.domain.PageDTO;
@@ -28,12 +26,57 @@ public class ShipController {
 	@Inject
 	private ShipService shipService;
 	
+	
+	@RequestMapping(value = "/ship/shipInsert", method = RequestMethod.GET)
+	public String orderInsert() {
+			return "ship/shipInsert";
+	}
+	
+	@RequestMapping(value = "/ship/shipInsertPro", method = RequestMethod.GET)
+	public String shipInsertPro(ShipDTO shipDTO,HttpServletRequest request) {
+		System.out.println("ShipController shipInsertPro()");
+		
+		// 수주번호 규격코드
+		String shipDt = request.getParameter("shipDt");
+		String date = shipDt.replaceAll("-", "");
+		String date1 = date.substring(2);
+		int count = shipService.shipSCount() + 1;
+		System.out.println("확인 count:"+count);
+		String shipNum = String.format("OT%s%05d", date1, count);
+		
+		shipDTO.setShipNum(shipNum);
+		
+		shipService.insertOrder(shipDTO);
+		
+		return "redirect:/ship/shipAdmin";
+	}
+	
+	
 	// 출하현황
 	@RequestMapping(value="/ship/shipList", method = RequestMethod.GET)
-	public String shipList(HttpServletRequest request,Model model) {
+	public String shipList(HttpServletRequest request,Model model, PageDTO pageDTO) {
 		System.out.println("ShipController shipList()");
-		//검색어 가져오기
-		String search=request.getParameter("search");
+		
+		// 조회값들
+		String shipId = request.getParameter("shipId");
+		String shipNum = request.getParameter("shipNum");
+		
+		String clntId = request.getParameter("clntId");
+		String clntCd = request.getParameter("clntCd");
+		String clntNm = request.getParameter("clntNm");
+		
+		String Dlvdate = request.getParameter("Dlvdate");
+		String Shdate = request.getParameter("Shdate");
+		
+		String userNum = request.getParameter("userNum");
+		String userNm = request.getParameter("userNm");
+		String userId = request.getParameter("userId");
+		
+		String itemNum = request.getParameter("itemNum");
+		String itemNm = request.getParameter("itemNm");
+		String invntUnit = request.getParameter("invntUnit");
+		String shipQty = request.getParameter("shipQty");
+		String shipCond = request.getParameter("shipCond");
 		
 		// 한 화면에 보여줄 글 개수 설정
 			int pageSize=5;
@@ -45,38 +88,78 @@ public class ShipController {
 		}
 		// 페이지번호를 => 정수형 변경
 		int currentPage=Integer.parseInt(pageNum);
-		
-		PageDTO pageDTO=new PageDTO();
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-		//검색어
-		pageDTO.setSearch(search);
-				
-		List<ShipDTO> shipList=shipService.getShipList(pageDTO);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
+		
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);
+		
+		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+		
+		search.put("shipId", shipId);
+		search.put("shipNum", shipNum);
+		
+		search.put("clntCd", clntCd);
+		search.put("clntNm", clntNm);
+		search.put("clntId", clntId);
+		
+		search.put("Dlvdate", Dlvdate);
+		search.put("Shdate", Shdate);
+		
+		search.put("userNum", userNum);
+		search.put("userNm", userNm);
+		search.put("userId", userId);
+		
+		search.put("itemNum", itemNum);
+		search.put("itemNm", itemNm);
+		search.put("invntUnit", invntUnit);
+		search.put("shipQty", shipQty);
+		search.put("shipCond", shipCond);
+		
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
+		
+		List<Map<String,Object>> shipList;
+		if(shipId == null && shipNum == null && clntNm == null && Dlvdate == null
+				&& userNm == null && itemNum == null && itemNm == null && invntUnit == null
+				&& Shdate == null && shipQty == null && shipCond == null)
+		{
+		// 조회 안한 경우
+			shipList = shipService.getListMap(pageDTO); // page만 필요해서
+		
+		}else { // 조회값 넣은 경우
+			shipList = shipService.getListShipMap(search);
+			
+		}
 		
 		//페이징 처리
-		//검색어
-		int count = shipService.getShipCount(pageDTO);
-		int pageBlock=10;
+		int count = shipService.countListShip(search);
+		
+		int pageBlock = 10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 		int endPage=startPage+pageBlock-1;
 		int pageCount=count/pageSize+(count%pageSize==0?0:1);
 		if(endPage > pageCount){
-			endPage = pageCount;
-		}
+		 	endPage = pageCount;
+		 }
 		
 		pageDTO.setCount(count);
 		pageDTO.setPageBlock(pageBlock);
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-				
-		model.addAttribute("shipList", shipList);
-		model.addAttribute("pageDTO", pageDTO);
 		
-		// 주소줄 변경없이 이동
-		return "ship/shipList";
+		System.out.println("endPage :"+pageDTO.getEndPage());
+		System.out.println("count :"+pageDTO.getCount());
+		model.addAttribute("shipList", shipList); 
+		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("search", search);
+		
+		
+		return "ship/shipList";		
 	}
 	
 //	출하관리
@@ -129,19 +212,42 @@ public class ShipController {
 		search.put("startRow", pageDTO.getStartRow());
 		search.put("pageSize", pageDTO.getPageSize());
 		
-		List<ShipDTO> shipAdmin = shipService.getshipList(search);
 		
-		
-		List<Map<String,Object>> shipList;
+		List<Map<String,Object>> shipAdmin1;
 		if(insertId == null && insertDt ==null && shipNum==null && shipDt==null && itemNum==null && itemName==null && barcord==null && itemUnit==null && amount==null && clntId==null) {
 			// 조회 안한 경우
-			shipList = shipService.getShipMap(pageDTO); // page만 필요해서
+			shipAdmin1 = shipService.getShipMap(pageDTO); // page만 필요해서
 		
 		}else { 
 			// 조회값 넣은 경우
-			shipList = shipService.getShipMap(search);
+			shipAdmin1 = shipService.getShipMap(search);
 		}
+		
+		//페이징 처리
+		int count = shipService.countListShip(search);
+		
+		int pageBlock = 10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if(endPage > pageCount){
+		 	endPage = pageCount;
+		 }
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println("endPage :"+pageDTO.getEndPage());
+		System.out.println("count :"+pageDTO.getCount());
+		model.addAttribute("shipAdmin1", shipAdmin1); 
+		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("search", search);
+		
 		return "ship/shipAdmin";
+		
 	}
 	
 	// 제품정보

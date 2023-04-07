@@ -282,22 +282,28 @@ $(document).ready(function () {
 			<table class="searchBox">
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" name="userNm" id="userNm" onclick="openUserList2()">
+				<td><input type="text" name="userNm" id="userNm" onclick="openilist2()">
 					<input type="hidden" name="userId" id="userId"value="">
 					<input type="hidden" name="userNum" id="userNum" value=""></td>
 				<td>수주량</td>
-				<td><input type="text" name="ordQty" id="ordQty" onclick="openUserList4()">
+				<td><input type="text" name="ordQty" id="ordQty" onclick="openilist5()">
 				<td>출하량</td>
-				<td><input type="text" name="shipQty" id="shipQty" onclick="openUserList5()">
+				<td><input type="text" name="shipQty" id="shipQty" onclick="openilist4()">
 				</tr>
 				<tr>
 				<td>출하업체</td>
-				<td><input type="text" name="clntNm" id="clntNm" onclick="openUserList3()">
+				<td><input type="text" name="clntNm" id="clntNm" onclick="openilist3()">
 					<input type="hidden" name="clntId" id="clntId" value="">
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
+				</tr>
+				<tr>
+				<td>납품예정일</td>
+				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td>
+										
 				<td>출하일자</td>
-				<td><input type="text" id="sDdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eDdate" class="form-control" name="eOdate" readonly></td>
+				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="Shdate" class="form-control" name="Shdate" readonly></td>
 				
 				</tr>
 			</table>

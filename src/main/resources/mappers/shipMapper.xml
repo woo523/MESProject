@@ -165,7 +165,7 @@
     	
     	<if test="(shipNum != null and clntNm != null and Dlvdate != null and
 		 userNm != null and itemNum != null and itemNm != null and invntUnit != null and Shdate != null
-		  and shipQty != null)">
+		  and shipQty != null and shipCond != null)">
     
     	where clnt_nm like CONCAT('%', #{clntNm}, '%')
     	
