@@ -173,7 +173,6 @@
 	instr_id as instrId,
 	line_id as lineId,
 	ord_id as ordId,
-	ord_info_id as ordInfoId,
 	item_id as itemId,
 	work_num as workNum,
 	work_sts as workSts,
