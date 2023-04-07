@@ -12,8 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.itwillbs.ship.domain.ShipDTO;
-import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.ship.domain.ClntDTO;
 import com.itwillbs.ship.domain.MaterialDTO;
 import com.itwillbs.ship.domain.PageDTO;
@@ -28,7 +28,7 @@ public class ShipController {
 	
 	
 	@RequestMapping(value = "/ship/shipInsert", method = RequestMethod.GET)
-	public String orderInsert() {
+	public String shipInsert() {
 			return "ship/shipInsert";
 	}
 	
@@ -46,7 +46,7 @@ public class ShipController {
 		
 		shipDTO.setShipNum(shipNum);
 		
-		shipService.insertOrder(shipDTO);
+		shipService.insertShip(shipDTO);
 		
 		return "redirect:/ship/shipAdmin";
 	}
@@ -254,7 +254,7 @@ public class ShipController {
 	@RequestMapping(value = "/ship/itemInfo", method = RequestMethod.GET)
 	public String itemInfo(Model model, HttpServletRequest request, PageDTO pageDTO) { 
 		String itemNum = request.getParameter("itemNum");
-		String itemName = request.getParameter("itemName");
+		String itemNm = request.getParameter("itemNm");
 		String invntUnit = request.getParameter("invntUnit");
 		
 		// 한 화면에 보여줄 글 개수 설정
@@ -278,7 +278,7 @@ public class ShipController {
 
 		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
 		search.put("itemNum", itemNum);
-		search.put("itemName", itemName);
+		search.put("itemNm", itemNm);
 		search.put("invntUnit", invntUnit);
 		search.put("startRow", pageDTO.getStartRow());
 		search.put("pageSize", pageDTO.getPageSize());
@@ -486,6 +486,38 @@ public class ShipController {
 		return "ship/clntInfo";
 	}
 	
+	@RequestMapping(value = "/ship/shupdate", method = RequestMethod.GET)
+	public String shupdate(HttpServletRequest request, Model model) {
+		System.out.println("ShipController shupdate()");
+		
+		int shipId=Integer.parseInt(request.getParameter("shipId"));
+		
+		ShipDTO shipDTO=shipService.getShip(shipId);
+		
+		model.addAttribute("shipDTO", shipDTO);
+		
+		return "order/shupdate";
+	}
+	
+	@RequestMapping(value = "/ship/shupdatePro", method = RequestMethod.POST)
+	public String shupdatePro(ShipDTO shipDTO,HttpServletRequest request) {
+		System.out.println("ShipController shupdatePro()");
+		
+		System.out.println("shipDTO 값" +shipDTO);
+		shipService.updateShip(shipDTO);
+		int shipId=Integer.parseInt(request.getParameter("shipId"));
+		shipDTO=shipService.getShip(shipId);
+
+		return "redirect:/ship/shipAdmin";
+	}
+	
+	@RequestMapping(value = "/ship/shdelete", method = RequestMethod.GET)
+	public String shdelete(HttpServletRequest request, Model model) {
+		System.out.println("ShipController delete()");
+		int shipId=Integer.parseInt(request.getParameter("shipId"));
+		shipService.deleteShip(shipId);
+		return "redirect:/ship/shipAdmin";
+	}
 	
 	
 }

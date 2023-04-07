@@ -244,7 +244,7 @@
     
     
     	<select id="getClntList"
-		resultType="com.itwillbs.ship.domain.clntDTO">
+		resultType="com.itwillbs.ship.domain.ClntDTO">
 		select
 		clnt_cd as clntCd,
 		clnt_nm as clntNm,

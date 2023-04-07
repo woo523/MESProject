@@ -28,7 +28,7 @@ public class ShipServiceImpl implements ShipService{
 	}
 
 	@Override
-	public int getShipCount(PageDTO pageDTO) {
+	public Integer getShipCount(PageDTO pageDTO) {
 		System.out.println("ShipServiceImpl getShipCount()");
 		return shipDAO.getShipCount(pageDTO);
 	}
@@ -58,7 +58,7 @@ public class ShipServiceImpl implements ShipService{
 	}
 
 	@Override
-	public int countInfoList(Map<String, Object> search) {
+	public Integer countInfoList(Map<String, Object> search) {
 		System.out.println("ShipServiceImpl countInfoList()");
 		return shipDAO.countInfoList(search);
 	}
@@ -70,7 +70,7 @@ public class ShipServiceImpl implements ShipService{
 	}
 
 	@Override
-	public int countItemList(Map<String, Object> search) {
+	public Integer countItemList(Map<String, Object> search) {
 		System.out.println("ShipServiceImpl countItemList()");
 		return shipDAO.countItemList(search);
 	}
@@ -82,7 +82,7 @@ public class ShipServiceImpl implements ShipService{
 	}
 
 	@Override
-	public int countMtrList(Map<String, Object> search) {
+	public Integer countMtrList(Map<String, Object> search) {
 		System.out.println("ShipServiceImpl countMtrList()");
 		return shipDAO.countMtrList(search);
 	}
@@ -94,9 +94,60 @@ public class ShipServiceImpl implements ShipService{
 	}
 
 	@Override
-	public int countClntList(Map<String, Object> search) {
+	public Integer countClntList(Map<String, Object> search) {
 		System.out.println("ShipServiceImpl countClntList()");
 		return shipDAO.countClntList(search);
+	}
+
+	@Override
+	public Integer shipSCount() {
+		System.out.println("ShipServiceImpl shipSCount()");
+		return shipDAO.shipSCount();
+	}
+
+	@Override
+	public void insertShip(ShipDTO shipDTO) {
+		System.out.println("ShipServiceImpl 메서드틀 정의 구현()");
+		shipDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
+		shipDAO.insertShip(shipDTO);
+		
+	}
+
+	@Override
+	public List<Map<String, Object>> getListMap(PageDTO pageDTO) {
+		System.out.println("ShipServiceImpl getListMap()");
+		return shipDAO.getListMap(pageDTO);
+	}
+
+	@Override
+	public List<Map<String, Object>> getListShipMap(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl getListShipMap()");
+		return shipDAO.getListShipMap(search);
+	}
+
+	@Override
+	public int countListShip(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl countListShip()");
+		return shipDAO.countListShip(search);
+	}
+
+	@Override
+	public void updateShip(ShipDTO shipDTO) {
+		System.out.println("ShipServiceImpl updateShip()");
+		shipDTO.setUpdateDt(new Timestamp(System.currentTimeMillis()));
+		shipDAO.updateShip(shipDTO);
+	}
+
+	@Override
+	public ShipDTO getShip(int shipId) {
+		System.out.println("ShipServiceImpl getShip()");
+		return shipDAO.getShip(shipId);
+	}
+
+	@Override
+	public void deleteShip(int shipId) {
+		System.out.println("ShipServiceImpl deleteShip()");
+		shipDAO.deleteShip(shipId);
 	}
 
 	

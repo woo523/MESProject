@@ -100,6 +100,55 @@ public class ShipDAOImpl implements ShipDAO{
 		return sqlSession.selectOne(namespace+".countClntList",search);
 	}
 
+	@Override
+	public Integer shipSCount() {
+		System.out.println("ShipDAOImpl shipSCount() 화면단 정보를 db에 저장");
+		return sqlSession.selectOne(namespace+".shipSCount");
+	}
+
+	@Override
+	public void insertShip(ShipDTO shipDTO) {
+		System.out.println("ShipDAOImpl insertShip() 화면단 정보를 db에 저장");
+		sqlSession.insert(namespace+".insertShip", shipDTO);
+		
+	}
+
+	@Override
+	public List<Map<String, Object>> getListMap(PageDTO pageDTO) {
+		System.out.println("ShipDAOImpl getListMap()");
+		return sqlSession.selectList(namespace+".getListMap", pageDTO);
+	}
+
+	@Override
+	public List<Map<String, Object>> getListShipMap(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl getListShipMap()"); 
+	    return sqlSession.selectList(namespace+".getListShipMap",search);
+	}
+
+	@Override
+	public int countListShip(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl countListShip()"); 
+		return sqlSession.selectOne(namespace+".countListShip",search);
+	}
+
+	@Override
+	public void updateShip(ShipDTO shipDTO) {
+		System.out.println("ShipDAOImpl updateShip() 화면단 정보를 db에 저장");
+		sqlSession.update(namespace+".updateShip", shipDTO);
+	}
+
+	@Override
+	public ShipDTO getShip(int shipId) {
+		System.out.println("ShipDAOImpl getShip() ");
+		return sqlSession.selectOne(namespace+".getShip", shipId);
+	}
+
+	@Override
+	public void deleteShip(int shipId) {
+		System.out.println("ShipDAOImpl deleteShip() 화면단 정보를 db에 저장");
+		sqlSession.delete(namespace+".deleteShip", shipId);
+	}
+
 
 
 	

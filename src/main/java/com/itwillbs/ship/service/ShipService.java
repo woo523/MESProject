@@ -39,13 +39,19 @@ public interface ShipService {
 
 	public Integer shipSCount();
 
-	public void insertOrder(ShipDTO shipDTO);
+	public void insertShip(ShipDTO shipDTO);
 
 	public List<Map<String, Object>> getListMap(PageDTO pageDTO);
 
 	public List<Map<String, Object>> getListShipMap(Map<String, Object> search);
 
 	public int countListShip(Map<String, Object> search);
+
+	public void updateShip(ShipDTO shipDTO);
+
+	public ShipDTO getShip(int shipId);
+
+	public void deleteShip(int shipId);
 	
 
 
