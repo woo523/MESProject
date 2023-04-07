@@ -51,12 +51,12 @@
 }
 
 .content_body .instrList td {
-	padding: 10px;
+	padding: 10px 0px 10px 0px;
 	text-align: center;
 }
 
 .content_body .instrStateList td {
-	padding: 10px;
+	padding: 10px 0px 10px 0px;
 	text-align: center;
 }
 	
@@ -174,9 +174,10 @@ article input {
 				<c:otherwise>
 					<c:forEach var="instrDTO" items="${instrList}">
 						<tr id="instrList" onclick="getInstrStateList(${instrDTO.instrId}, '${instrDTO.workNum}')">
-							<td>${instrDTO.workNum}</td>
-							<td>${instrDTO.clntDTO.clientName}</td>
-							<td>${instrDTO.orderMngDTO.ordNum}</td>
+							<td style="width: 170px;">${instrDTO.workNum}</td>
+							<td style="width: 120px;">${instrDTO.clntDTO.clientName}</td>
+							<td style="width: 160px;">${instrDTO.orderMngDTO.ordNum}</td>
+							<td>${instrDTO.workDate}</td>
 							<c:choose>
 								<c:when test="${instrDTO.workSts eq '시작' }">
 									<td style="color: green;">${instrDTO.workSts}</td>
@@ -188,7 +189,6 @@ article input {
 									<td>${instrDTO.workSts}</td>
 								</c:otherwise>
 							</c:choose>
-							<td>${instrDTO.workSts}</td>
 							<td>${instrDTO.itemDTO.itemNum}</td>
 							<td>${instrDTO.itemDTO.itemName}</td>
 							<td>${instrDTO.itemDTO.invntUnit}</td>
