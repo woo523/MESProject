@@ -1,8 +1,17 @@
 package com.itwillbs.ship.domain;
 
 public class ItemDTO {
+	private String itemId;
+	public String getItemId() {
+		return itemId;
+	}
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}
+
+
 	private String itemNum;		// 품번
-	private String itemName;	// 품명
+	private String itemNm;	// 품명
 	private String invntUnit;	// 재고단위
 	
 	public String getItemNum() {
@@ -12,10 +21,10 @@ public class ItemDTO {
 		this.itemNum = itemNum;
 	}
 	public String getItemName() {
-		return itemName;
+		return itemNm;
 	}
 	public void setItemName(String itemName) {
-		this.itemName = itemName;
+		this.itemNm = itemName;
 	}
 	public String getInvntUnit() {
 		return invntUnit;
@@ -23,11 +32,13 @@ public class ItemDTO {
 	public void setInvntUnit(String invntUnit) {
 		this.invntUnit = invntUnit;
 	}
-	
-	
 	@Override
 	public String toString() {
-		return "itemDTO [itemNum=" + itemNum + ", itemName=" + itemName + ", invntUnit=" + invntUnit + "]";
+		return "ItemDTO [itemId=" + itemId + ", itemNum=" + itemNum + ", itemNm=" + itemNm + ", invntUnit="
+				+ invntUnit + "]";
 	}
+	
+	
+
 	
 }

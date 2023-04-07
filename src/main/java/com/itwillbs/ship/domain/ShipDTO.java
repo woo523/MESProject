@@ -23,9 +23,34 @@ public class ShipDTO {
 	private String itemUnit;
 	private String clntId;
 	private String userNum;
-	
-	
-	
+	private int ordQty;
+	private String dlvryDt; 		
+	private String orderDt; 		
+	private String ordNum; 	
+	public String getOrderDt() {
+		return orderDt;
+	}
+	public void setOrderDt(String orderDt) {
+		this.orderDt = orderDt;
+	}
+	public String getOrdNum() {
+		return ordNum;
+	}
+	public void setOrdNum(String ordNum) {
+		this.ordNum = ordNum;
+	}
+	public String getDlvryDt() {
+		return dlvryDt;
+	}
+	public void setDlvryDt(String dlvryDt) {
+		this.dlvryDt = dlvryDt;
+	}
+	public int getOrdQty() {
+		return ordQty;
+	}
+	public void setOrdQty(int ordQty) {
+		this.ordQty = ordQty;
+	}
 	public String getUserNum() {
 		return userNum;
 	}
