@@ -96,9 +96,9 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public void getDelete(int ordId) {
-		System.out.println("OrderServiceImpl getDelete()");
-		orderDAO.getDelete(ordId);
+	public void deleteOrder(int ordId) {
+		System.out.println("OrderServiceImpl deleteOrder()");
+		orderDAO.deleteOrder(ordId);
 		
 	}
 
@@ -125,6 +125,16 @@ public class OrderServiceImpl implements OrderService{
 		System.out.println("OrderServiceImpl countStsOrder()");
 		return orderDAO.countStsOrder(search);
 	}
+
+	@Override
+	public void updateCmplt(OrderDTO orderDTO) {
+		System.out.println("OrderServiceImpl updateCmplt()");
+		orderDAO.updateCmplt(orderDTO);
+		
+	}
+
+
+
 
 
 

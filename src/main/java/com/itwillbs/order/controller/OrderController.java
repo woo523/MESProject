@@ -55,7 +55,7 @@ public class OrderController {
 	}
 	
 
-	@RequestMapping(value = "/order/orderMng", method = RequestMethod.GET)
+	@RequestMapping(value = "order/orderMng", method = RequestMethod.GET)
 	public String orderMng(Model model, HttpServletRequest request, PageDTO pageDTO) {
 
 			// 조회값들
@@ -115,7 +115,6 @@ public class OrderController {
 			
 			}else { // 조회값 넣은 경우
 				orderList = orderService.getSearchOrderMap(search);
-				
 			}
 					
 			//페이징 처리
@@ -336,6 +335,7 @@ public class OrderController {
 		
 		return "order/update";
 	}
+
 	
 	@RequestMapping(value = "/order/updatePro", method = RequestMethod.POST)
 	public String updatePro(OrderDTO orderDTO,HttpServletRequest request) {
@@ -348,17 +348,52 @@ public class OrderController {
 
 		return "redirect:/order/orderMng";
 	}
-	@RequestMapping(value = "/order/delete", method = RequestMethod.GET)
-	public String delete(HttpServletRequest request, Model model) {
-		System.out.println("OrderController delete()");
-		int ordId=Integer.parseInt(request.getParameter("ordId"));
-		orderService.getDelete(ordId);
-		return "redirect:/order/orderMng";
+	
+	@RequestMapping(value = "/order/updateCmplt", method = RequestMethod.GET)
+	public String updateCmplt(HttpServletRequest request, Model model) {
+		System.out.println("OrderController updateCmplt()");
+		
+		String ordId[]=request.getParameterValues("ordId");
+		OrderDTO orderDTO = new OrderDTO();
+		
+		for (int i = 0; i < ordId.length; i++) {
+			String string = ordId[i];
+		
+			System.out.println("ordId"+string);
+			orderDTO.setOrdId(Integer.parseInt(string));
+			orderService.updateCmplt(orderDTO);
+		}
+		
+		
+		return "redirect:/order/orderSts";
+	}
+
+	
+	@RequestMapping(value = "/order/deleteCmplt", method = RequestMethod.GET)
+	public String deleteCmplt(HttpServletRequest request, Model model) {
+		System.out.println("OrderController deleteCmplt()");
+		String ordId[]=request.getParameterValues("ordId");
+		OrderDTO orderDTO = new OrderDTO();
+		
+		for (int i = 0; i < ordId.length; i++) {
+			String string = ordId[i];
+		
+			System.out.println("ordId"+string);
+			orderDTO.setOrdId(Integer.parseInt(string));
+			orderService.updateCmplt(orderDTO);
+		}
+		return "/order/orderSts";
 	}
 	
-	
-	
-	
+	@RequestMapping(value = "/order/delete", method = RequestMethod.GET)
+	public String delete(HttpServletRequest request, Model model) {
+		int ordId = Integer.parseInt(request.getParameter("ordId"));
+		System.out.println("확인용"+ordId);
+		orderService.deleteOrder(ordId);
+		
+		return "order/orderMng";
+	}
+
 	
 	@RequestMapping(value = "/order/orderSts", method = RequestMethod.GET)
 	public String orderSts(Model model, HttpServletRequest request, PageDTO pageDTO) {
@@ -472,5 +507,17 @@ public class OrderController {
 
 		return "order/orderSts";
 	}
+//	@RequestMapping(value = "/order/delete" ,method = RequestMethod.POST)
+//	public String ajax(HttpServletRequest request) throws Exception {
+//		System.out.println("OrderController ajax()");
+//		
+//		String[] ajaxMsg = request.getParameterValues("valueArr");
+//		int size = ajaxMsg.length;
+//		for(int i=0; i<size; i++) {
+////			orderService.deleteOrder(ajaxMsg[i]);
+//		}
+//		return "redirect:/order/orderSts";
+//	}
+//	
 }
 

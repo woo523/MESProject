@@ -34,8 +34,10 @@ public interface OrderService {
 
 	public void updateOrder(OrderDTO orderDTO);
 
-	public void getDelete(int ordId);
-
+	public void deleteOrder(int ordId);
+//	
+//	public void deleteCmplt(String ordId);
+	
 	public Integer orderSCount();
 
 	public List<Map<String, Object>> getStsOrderMap(Map<String, Object> search);
@@ -43,6 +45,9 @@ public interface OrderService {
 	public List<Map<String, Object>> getStsMap(PageDTO pageDTO);
 
 	public Integer countStsOrder(Map<String, Object> search);
+
+	public void updateCmplt(OrderDTO orderDTO);
+
 
 	
 

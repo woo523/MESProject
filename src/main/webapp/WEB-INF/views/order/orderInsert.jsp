@@ -173,10 +173,10 @@ $(function() {
 			</div>
 				<br>
 			<table id="detail">
-				<tr><td> <input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly></td></tr> 
 				<tr>
 				<td>업체명</td>
-				<td><input type="text" name="clntNm" id="clntNm" onclick="openClntList()">
+				<td><input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly>
+					<input type="text" name="clntNm" id="clntNm" onclick="openClntList()">
 					<input type="hidden" name="clntId" id="clntId" value="">
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
 				<td>수주일자</td>
@@ -200,6 +200,7 @@ $(function() {
 <br>
 <br>
 	<h1>수주정보</h1>
+	<br>
 	<div class="orderinfo">
 			<table id="info">
 				<tr>

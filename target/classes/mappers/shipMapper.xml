@@ -4,147 +4,302 @@
 <mapper namespace="com.itwillbs.mappers.shipMapper">
 
   <!--   출하 요청 리스트 -->
-  <resultMap type="map" id="shipADMap">
-  		<result property="shipId" column="ship_id"/>
-  		<result property="ordId" column="ord_id"/>
-  		<result property="ordInfoId" column="ord_info_id"/>
-  		<result property="shipQty" column="ship_qty"/>
-  		<result property="shipDt" column="ship_dt"/>
-  		<result property="shipNum" column="ship_num"/>
-  		<result property="barcord" column="barcord"/>
-  		<result property="insertId" column="insert_id"/>
-  		<result property="insertDt" column="insert_dt"/>
-  		<result property="updateId" column="update_id"/>
-  		<result property="updateDt" column="update_dt"/>
-  		<result property="shipCond" column="update_dt"/>
-  
+  <resultMap type="map" id="shipMap">
+ 		<result column="ord_id" property="ordId" />
+  		<result column="ship_id" property="shipId" />
+  		<result column="insert_id" property="insertId" />
+  		<result column="insert_dt" property="insertDt" />
+  		<result column="ship_num" property="shipNum" />
+  		<result column="dlvry_dt" property="dlvryDt" />
+  		<result column="ship_dt" property="shipDt" />
+  		<result column="item_num" property="itemNum" />
+  		<result column="item_nm" property="itemNm" />
+  		<result column="item_id" property="itemId" />
+  		<result column="barcord" property="barcord" />
+  		<result column="invnt_unit" property="itemUnit"/> 
+  		<result column="amount" property="amount" />
+  		<result column="clnt_id" property="clntId" />
+  		<result column="id" property="userNum" />
+  		<result column="ship_qty" property="shipQty" />
   </resultMap>
 
-    
-<!--     출하 리스트 첫 화면 -->
-    <select id="getShipAdLiMap" resultMap="shipADMap">
-    	
+    <select id="shipSCount" resultType="java.lang.Integer">
+    	select count(*)
+    	from ship_mng
     </select>
     
     
-<!--     검색 출하 리스트 search -->
-    <select id="getSearchShipAdLiMap" resultMap="shipADMap">
-    	
+    <!-- 	shipAdmin 출하아이디 가져오기	 -->
+    <select id="getShip" resultType="com.itwillbs.ship.domain.ShipDTO">
+    	select sh.ship_id, c.clnt_nm,sh.ship_dt,u.name as userNm, sh.dlvry_dt, i.item_num,i.item_nm,i.invnt_unit,sh.ship_qty
+    	from client c join ship_mng sh
+    	on. sh.clnt_id = c.clnt_id
+    	join user u
+    	in sh.user_id = u.user_id
+    	join item i
+    	on sh.item_id = i.item_id
+    	where sh.ship_id = #{shipId}
+     </select>
+    
+    <!-- 	shipAdmin 조회 안할경우 페이지만 가져오기 -->
+    <select id="getShipMap" resultMap="shipMap">
+    	select sh.ship_id, c.clnt_cd,c.clnt_nm,sh.dlvry_dt as Dlvdate, sh.ship_dt as Shdate,
+    				u.id,u.name as userNm, sh.ship_num
+    	from ship_mng sh join client c
+    	on sh.clnt_id = c.clnt_id
+    	join user u
+    	on sh.user_id = u.user_id
+    	order by Dlvdate desc
+    	limit #{startRow},#{pageSize}
+    </select>
+    
+    <!-- 	shipAdmin 조회한 페이지 가져오기 -->
+    <select id="getSearchShipMap" resultMap="shipMap">
+    	select sh.ship_id,c.clnt_cd,c.clnt_nm,sh.dlvry_dt as Dlvdate, sh.ship_dt as Shdate,
+    	u.id, u.name as userNm,sh.ship_num
+    	from ship_mng sh join client c
+    	on sh.clnt_id = c.clnt_id
+    	join user u
+    	on sh.user_id = u.user_id
+    
+    	<if test="Dlvdate!='' and eDlvdate!=''"> and o.order_dt between #{Dlvdate} and #{eDlvdate}</if>
+		<if test="Dlvdate=='' and eDlvdate==''"></if>
+		<if test="Dlvdate!=''"> and sh.dlvry_dt &gt;= #{Dlvdate}</if>
+		<if test="Dlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
+
+		<if test="sshdate!='' and Shdate!=''"> and o.dlvry_dt between #{sshdate} and #{Shdate}</if>
+		<if test="sshdate=='' and Shdate==''"></if>
+		<if test="sshdate!=''"> and sh.ship_dt &gt;= #{sshdate}</if>
+		<if test="sshdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
+
+		and
+		name like CONCAT('%', #{userNm}, '%')
+
+		order by Dlvdate desc
+		limit #{startRow}, #{pageSize}
+    </select>
+    
+    <!-- 	shipAdmin 페이징 처리할때 갯수 가져오기 -->
+    <select id="countShip" resultType="java.lang.Integer">
+    select count (*)
+    from ship_mng sh join client c
+    on sh.clnt_id = c.clnt_id
+    join user u
+    on sh.user_id = u.user_id
+    <if test="(clntCd != null and clntNm != null and Dlvdate != null
+		 and eDlvdate!= null and sshdate != null and Shdate != null and userNum != null 
+			and userNm != null)">
+    
+    where clnt_nm like CONCAT('%', #{clntNm}, '%')
+    
+    <if test="Dlvdate!='' and eDlvdate!=''"> and o.order_dt between #{Dlvdate} and #{eDlvdate}</if>
+		<if test="Dlvdate=='' and eDlvdate==''"></if>
+		<if test="Dlvdate!=''"> and sh.dlvry_dt &gt;= #{Dlvdate}</if>
+		<if test="Dlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
+
+		<if test="sshdate!='' and Shdate!=''"> and o.dlvry_dt between #{sshdate} and #{Shdate}</if>
+		<if test="sshdate=='' and Shdate==''"></if>
+		<if test="sshdate!=''"> and sh.ship_dt &gt;= #{sshdate}</if>
+		<if test="sshdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
+
+		and
+		name like CONCAT('%', #{userNm}, '%')
+		</if>
+    
     </select>
     
     
-<!--     출하 리스트 count -->
-    <select id="countShipAdLi" resultMap="shipADMap">
+    
+    <!-- 	shipList 조회 안할경우 페이지만 가져오기 -->
+    	<select id="getListMap" resultMap="shipMap">
+    		select sh.ship_id, sh.ship_num, c.clnt_nm,sh.dlvry_dt as Dlvdate, u.name as userNm, i.item_num,
+    					i.item_nm,i.invnt_unit, sh.ship_dt as Shdate,sh.ship_qty
+    		from client c join ship_mng sh
+    		on sh.clnt_id = c.clnt_id
+    		join item i
+    		on sh.item_id = i.item_id
+    		join user u
+    		on sh.user_id = u.user_id
+    		order by Dlvdate desc
+    		limit #{startRow},#{pageSize}
+    	</select>
     	
+    	<!-- 	shipList 조회한 페이지 가져오기 -->
+    	<select id="getListShipMap" resultMap="shipMap">
+    		select sh.ship_id,sh.ship_num,c.clnt_nm,sh.dlvry_dt as Dlvdate, u.name as userNm,i.item_num,
+    					i.item_nm,i.invnt_unit, sh.ship_dt as Shdate,sh.ship_qty
+    		from client c join ship_mng sh
+    		on sh.clnt_id = c.clnt_id
+    		join item i
+    		on sh.item_id = i.item_id
+    		join user u
+    		on sh.user_id = u.user_id
+    		
+    		where clnt_nm like CONCAT('%', #{clntNm}, '%')
+    		
+    		<if test="Dlvdate!=''"> and o.order_dt = #{Dlvdate}</if>
+			<if test="Shdate!=''"> and o.dlvry_dt = #{Shdate}</if>
+    	
+    		and
+			item_num like CONCAT('%', #{itemNum}, '%')
+	
+			and
+			item_nm like CONCAT('%', #{itemNm}, '%')
+
+			and
+			name like CONCAT('%', #{userNm}, '%')
+		
+			order by Dlvdate desc
+			limit #{startRow}, #{pageSize}
+    	</select>
+    
+    <!-- 	shipList 조회할때 갯수와 조회값 가져오기 -->
+    <select id="countListShip" resultType="java.lang.Integer">
+    	select count(*)
+    	from client c join ship_mng sh
+    	on sh.clnt_id = c.clnt_id
+    	join item i
+    	on sh.item_id = i.item_id
+    	join user u
+    	on sh.user_id = u.user_id
+    	
+    	<if test="(shipNum != null and clntNm != null and Dlvdate != null and
+		 userNm != null and itemNum != null and itemNm != null and invntUnit != null and Shdate != null
+		  and shipQty != null and shipCond != null)">
+    
+    	where clnt_nm like CONCAT('%', #{clntNm}, '%')
+    	
+    	and
+		item_num like CONCAT('%', #{itemNum}, '%')
+
+		and
+		item_nm like CONCAT('%', #{itemNm}, '%')
+		
+		and
+		name like CONCAT('%', #{userNm}, '%')
+    
+    	</if>    
     </select>
     
+    <select id="getItemList"
+		resultType="com.itwillbs.ship.domain.ItemDTO">
+		select
+		item_id as itemId,
+		item_num as itemNum,
+		item_nm as itemNm,
+		invnt_unit as invntUnit
+		from item
+		<if test="itemNum!=null and itemNm!=null">
+			where
+			item_num like CONCAT('%', #{itemNum}, '%') and
+			item_nm like CONCAT('%', #{itemNm}, '%')
+		</if>
+		order by itemNum desc
+		limit #{startRow}, #{pageSize}
+
+	</select>
+	
+	
+	<select id="countItemList" resultType="java.lang.Integer">
+		select
+		count(*)
+		from item
+		<if test="itemNum!=null and itemNm!=null">
+			where
+			item_num like CONCAT('%', #{itemNum}, '%') and
+			item_nm like CONCAT('%', #{itemNm}, '%')
+		</if>
+	</select>
+	
+		
+	<select id="getUserList"
+		resultType="com.itwillbs.ship.domain.UserDTO">
+		select
+		user_id as userId,
+		id as userNum,
+		name as userNm
+		from user
+		<if test="userNum!=null and userNm!=null">
+			where
+			id like CONCAT('%', #{userNum}, '%') and
+			name like
+			CONCAT('%', #{userNm}, '%')
+		</if>
+		order by id desc
+		limit #{startRow}, #{pageSize}
+	</select>
     
     
-<!--     출하 요청 등록, 수정, 삭제 (add, edit, delete) --> 
-<!--     <select id="addeditdel" resultMap="shipADMap"> -->
-    	
-<!--     </select> -->
+    <select id="countUserList" resultType="java.lang.Integer">
+		select
+		count(*)
+		from user
+		<if test="userNum!=null and userNm!=null">
+			where
+			id like CONCAT('%', #{userNum}, '%') and
+			name like
+			CONCAT('%', #{userNm}, '%')
+		</if>
+	</select>
     
     
+    	<select id="getClntList"
+		resultType="com.itwillbs.ship.domain.ClntDTO">
+		select
+		clnt_cd as clntCd,
+		clnt_nm as clntNm,
+		clnt_id as clntId
+		from client
+		<if test="clntCd!=null and clntNm!=null">
+			where
+			clnt_cd like CONCAT('%', #{clntCd}, '%') and
+			clnt_nm
+			like CONCAT('%', #{clntNm}, '%')
+		</if>
+		order by clnt_cd desc
+		limit #{startRow}, #{pageSize}
+	</select>
     
-        <!--   출하 현황 리스트 -->
-      <resultMap type="map" id="shipLIMap">
-  		<result property="shipNum" column="ship_id"/>
-  		<result property="itemName" column="ord_id"/>
-  		<result property="amount" column="ord_info_id"/>
-  		<result property="shipDt" column="ship_qty"/>
-  		<result property="clntNm" column="ship_dt"/>
-  		<result property="trackNum" column="ship_num"/>
-  		<result property="clntId" column="barcord"/>
-  		<result property="shipCond" column="insert_id"/>
- 	 </resultMap>
     
+    <select id="countClntList" resultType="java.lang.Integer">
+		select
+		count(*)
+		from client
+		<if test="clntCd!=null and clntNm!=null">
+			where
+			clnt_cd like CONCAT('%', #{clntCd}, '%') and
+			clnt_nm
+			like CONCAT('%', #{clntNm}, '%')
+		</if>
+	</select>
     
 
-    
-<!--     출하현황 리스트 첫 화면 -->
-    <select id="getShipLiMap" resultMap="shipLIMap">
-    	
-    </select>
-    
-    
-<!--     검색 출하현황 리스트 search -->
-    <select id="getSearchShipLiMap" resultMap="shipLIMap">
-    	
-    </select>
-    
-    
-<!--     출하현황 리스트 count -->
-    <select id="countShipLi" resultMap="shipLIMap">
-    	
-    </select>
-    
-    
-    
-<!--     출하 현황 수정, 삭제 (edit, delete) -->
-<!--     <select id="addeditdel" resultMap="shipLIMap"> -->
-    	
-<!--     </select> -->
-    
-    
-    
-    
-    
-<!--     item list -->
-<!--     <select id="ItemList" resultMap="com.itwillbs.ship.domain.ItemDTO"> -->
-<!--     	select -->
-<!-- 		item_num as itemNum, -->
-<!-- 		item_nm as itemNm -->
-<!-- 		from item -->
-<!-- 		<if test="itemNum!=null and itemNm!=null"> -->
-<!-- 			where -->
-<!-- 			item_num like CONCAT('%', #{itemNum}, '%') and -->
-<!-- 			item_nm like CONCAT('%', #{itemNm}, '%') -->
-<!-- 		</if> -->
-<!-- 		order by itemNum desc -->
-<!-- 		limit #{startRow}, #{pageSize} -->
-<!--     </select> -->
-    
-    
-<!--     item count -->
-<!--     <select id="countItemList" resultMap="java.lang.Integer"> -->
-<!--     	select -->
-<!-- 		count(*) -->
-<!-- 		from item -->
-<!-- 		<if test="itemNum!=null and itemNm!=null"> -->
-<!-- 			where -->
-<!-- 			item_num like CONCAT('%', #{itemNum}, '%') and -->
-<!-- 			item_nm like CONCAT('%', #{itemNm}, '%') -->
-<!-- 		</if> -->
-<!--     </select> -->
-    
-<!--     client list -->
-<!--     <select id="ClientList" resultMap="com.itwillbs.ship.domain.ClntDTO"> -->
-<!--     	select -->
-<!-- 		clnt_cd as clntCd, -->
-<!-- 		clnt_nm as clntNm, -->
-<!-- 		clnt_id as clntId -->
-<!-- 		from client -->
-<!-- 		<if test="clntCd!=null and clntNm!=null"> -->
-<!-- 			where -->
-<!-- 			clnt_cd like CONCAT('%', #{clntCd}, '%') and -->
-<!-- 			clnt_nm	like CONCAT('%', #{clntNm}, '%') -->
-<!-- 		</if> -->
-<!-- 		order by clnt_cd desc -->
-<!-- 		limit #{startRow}, #{pageSize} -->
-<!--     </select> -->
-    
-<!--     client count -->
-<!--     <select id="countClientList" resultMap="java.lang.Integer"> -->
-<!--     	select -->
-<!-- 		count(*) -->
-<!-- 		from client -->
-<!-- 		<if test="clntCd!=null and clntNm!=null"> -->
-<!-- 			where -->
-<!-- 			clnt_cd like CONCAT('%', #{clntCd}, '%') and -->
-<!-- 			clnt_nm	like CONCAT('%', #{clntNm}, '%') -->
-<!-- 		</if> -->
-<!--     </select> -->
+<!-- 	출하관리 납품 추가하기 -->
+	<insert id="insertShip">
+		insert into ship_mng
+		(clnt_id,dlvry_dt,user_id,ship_dt,item_id,ship_qty,insert_id,insert_dt,ship_num)
+		values(#{clntId},#{dlvryDt},#{userId},#{shipDt},#{itemId},#{shipQty},#{insertId},#{insertDt},#{shipNum})
+	</insert>
+
+<!-- 	출하관리 납품 수정하기 -->
+	<update id="updateShip">
+		update ship_mng
+		set clnt_id = #{clntId}, dlvry_dt = #{dlvryDt}, user_id = #{userId}, ship_dt = #{shipDt},
+				item_id = #{itemId}, ship_qty = #{shipQty}, update_id = #{updateId}, update_dt = #{updateDt}
+				where ship_id = #{shipId}
+	</update>
+	
+<!-- 	출하관리 납품 삭제 -->
+	<delete id="deleteShip">
+		delete from ship_mng
+		where ship_id = #{shipId}
+	</delete>
+
+
+
+
+
+
     
     
 <!--      material list --> 

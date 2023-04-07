@@ -106,12 +106,6 @@ function openUserList(b){
 function openClntList(b){
         window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
     }
-// function openContent(){
-//         window.open("${pageContext.request.contextPath}/order/content?ordId=","${odto.ordId}","popup", "width=500, height=500,left=100, top=100");
-//     }
-
-// "'${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'"
-
 
 $(function() {
 	$("#sOdate").datepicker({
@@ -200,44 +194,7 @@ $(function() {
 	});
 });
   
-$(document).ready(function () {
-	// class = "brown" 클릭했을 때 "클릭"
-	$('.search').click(function () {
-	
-	// 자바스크립트 배열(json) <= DB에서 가져옴
-	var arr = [
-			   {"subject":"제목1","date":"2023-01-01"},
-			   {"subject":"제목2","date":"2023-01-02"},
-			   {"subject":"제목3","date":"2023-01-03"}
-			  ];
-	
-	// 초기화
-	$('table').html('');
-	
-	$.ajax({
-		url:'${pageContext.request.contextPath}/board/listjson', 			// json형태로 들고옴 (페이지에 가서)
-		dataType:'json',			// json형태로 받아옴 (json형태)
-		success:function(arr){ 		// json형태로 만든 arr를 가져옴
-		
-					// 반복해서 출력 .each()
-					// arr 배열을 반복하겠다 반복할때의 기능은 어떻게 할건지?
-					$.each(arr,function(index, item){
-					// 클릭을 하면 0,1,2번 배열을 반복함
-//	 				alert(index);
-//	 				alert(item.subject);
-//	 				alert(item.date);
 
-					// 변수이기에 +로 연결시켜줘야 함
-					// 기존내용 없애고 그자리에 새로 넣기, 마지막 게 나옴 ,하나에 덮어서 써진다
-//	 				$('table').html('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
-					
-					// 추가하겠다는 함수 다시 사용 (html -> append로 바꾸기)
-					$('table').append('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
-				});
-			}
-		});
-	});
-});
 
 </script>
 <!-- 스크립트 끝. -->
@@ -266,8 +223,8 @@ $(document).ready(function () {
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
 				
 				<td>수주일자</td>
-				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eOdate" class="form-control" name="eOdate" readonly></td>
+				<td><input type="text" id="sOdate" class="form-control" name="sOdate" placeholder="날짜를 선택해주세요" readonly>
+					<input type="text" id="eOdate" class="form-control" name="eOdate" readonly></td>
 				</tr>
 				<tr>
 				<td>담당자</td>
@@ -276,8 +233,8 @@ $(document).ready(function () {
 					<input type="hidden" name="userNum" id="userNum" value=""></td>
 			
 				<td>납품예정일</td>
-				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eDdate" class="form-control" name="eDdate" readonly></td>
+				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly>
+					<input type="text" id="eDdate" class="form-control" name="eDdate" readonly></td>
 				</tr>
 			</table>
 		</form>

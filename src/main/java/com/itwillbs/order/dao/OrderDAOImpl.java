@@ -97,9 +97,9 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public void getDelete(int ordId) {
-		System.out.println("OrderDAOImpl getDelete() 화면단 정보를 db에 저장");
-		sqlSession.delete(namespace+".getDelete", ordId);
+	public void deleteOrder(int ordId) {
+		System.out.println("OrderDAOImpl deleteOrder() 화면단 정보를 db에 저장");
+		sqlSession.delete(namespace+".deleteOrder", ordId);
 		
 	}
 
@@ -125,6 +125,12 @@ public class OrderDAOImpl implements OrderDAO{
 	public Integer countStsOrder(Map<String, Object> search) {
 		System.out.println("OrderDAOImpl countStsOrder()"); 
 		return sqlSession.selectOne(namespace+".countStsOrder",search);
+	}
+
+	@Override
+	public void updateCmplt(OrderDTO orderDTO) {
+		System.out.println("OrderDAOImpl updateCmplt() 화면단 정보를 db에 저장");
+		sqlSession.update(namespace+".updateCmplt", orderDTO);
 	}
 
 

@@ -35,7 +35,7 @@ public interface OrderDAO {
 
 	public void updateOrder(OrderDTO orderDTO);
 
-	public void getDelete(int ordId);
+	public void deleteOrder(int ordId);
 
 	public Integer orderSCount();
 
@@ -44,6 +44,9 @@ public interface OrderDAO {
 	public List<Map<String, Object>> getStsMap(PageDTO pageDTO);
 
 	public Integer countStsOrder(Map<String, Object> search);
+
+	public void updateCmplt(OrderDTO orderDTO);
+
 
 
 	

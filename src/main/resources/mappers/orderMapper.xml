@@ -30,7 +30,7 @@
 
 <!-- 	orderMng 주문아이디 가져오기	 -->
 	<select id="getOrder" resultType="com.itwillbs.order.domain.OrderDTO">
-	select o.ord_id,c.clnt_nm, o.order_dt, u.name as userNm , o.dlvry_dt, i.item_num, i.item_nm, i.invnt_unit, o.ord_qty
+	select o.ord_id,c.clnt_nm, o.order_dt, u.name as userNm , o.dlvry_dt, i.item_num, i.item_nm, i.invnt_unit, o.ord_qty,o.cmplt_yn
 	from client c join order_mng o
 	on o.clnt_id = c.clnt_id
 	join user u
@@ -52,7 +52,7 @@
 		o.dlvry_dt as eDdate,
 		u.id,
 		u.name as userNm,
-		o.ord_num
+		o.ord_num as ordNum
 		from order_mng o join client c
 		on o.clnt_id = c.clnt_id
 		join user u
@@ -71,7 +71,7 @@
 		o.dlvry_dt as eDdate,
 		u.id,
 		u.name as userNm,
-		o.ord_num
+		o.ord_num as ordNum
 		from order_mng o join client c
 		on o.clnt_id = c.clnt_id
 		join user u
@@ -127,8 +127,8 @@
 	
 <!-- 	orderSts 조회 안할경우 페이지만 가져오기 -->
 	<select id="getStsMap" resultMap="orderMap">
-	select o.ord_id, o.ord_num, c.clnt_nm,o.order_dt as sOdate, u.name as userNm, i.item_num, i.item_nm,i.invnt_unit,
-	   o.dlvry_dt as sDdate, o.ord_qty, o.cmplt_yn
+	select o.ord_id, o.ord_num as ordNum, c.clnt_nm,o.order_dt as sOdate, u.name as userNm, i.item_num, i.item_nm,i.invnt_unit,
+	   o.dlvry_dt as sDdate, o.ord_qty, o.cmplt_yn as cmpltYn
 	from client c join order_mng o
 	on o.clnt_id = c.clnt_id
 	join item i
@@ -141,8 +141,8 @@
 	
 <!-- 	orderSts 조회한 페이지 가져오기 -->
 	<select id="getStsOrderMap" resultMap="orderMap">
-	select o.ord_id, o.ord_num, c.clnt_nm,o.order_dt as sOdate, u.name as userNm, i.item_num, i.item_nm,i.invnt_unit,
-	   o.dlvry_dt as sDdate, o.ord_qty, o.cmplt_yn
+	select o.ord_id, o.ord_num as ordNum, c.clnt_nm,o.order_dt as sOdate, u.name as userNm, i.item_num, i.item_nm,i.invnt_unit,
+	   o.dlvry_dt as sDdate, o.ord_qty, o.cmplt_yn as cmpltYn
 	from client c join order_mng o
 	on o.clnt_id = c.clnt_id
 	join item i
@@ -181,7 +181,7 @@
 		on o.user_id= u.user_id
 		<if test="(ordNum != null and clntNm != null and sOdate != null and
 		 userNm != null and itemNum != null and itemNm != null and invntUnit != null and sDdate != null
-		  and ordQty != null and cmpltYn  != null)">
+		  and ordQty != null and cmpltYn != null)">
 
 		where clnt_nm like CONCAT('%', #{clntNm}, '%')
 
@@ -316,8 +316,15 @@
 	where ord_id = #{ordId}
 	</update>
 	
+	<update id="updateCmplt">
+	update order_mng 
+	set 
+	cmplt_yn = "Y"
+	where ord_id = #{ordId}
+	</update>
+	
 <!-- 	수주관리 주문 삭제 -->
-	<delete id="getDelete">
+	<delete id="deleteOrder">
 	delete from order_mng
 	where ord_id = #{ordID}
 	</delete>
