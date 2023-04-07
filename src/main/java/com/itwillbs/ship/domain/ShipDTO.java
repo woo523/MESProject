@@ -17,7 +17,51 @@ public class ShipDTO {
 	private String shipCond;				// 출하상태
 	private String amount;					// 수량
 	private String trackNum;				// 송장번호
+	private String itemNum;
+	private String itemNm;
+	private String itemId;
+	private String itemUnit;
+	private String clntId;
+	private String userNum;
 	
+	
+	
+	public String getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(String userNum) {
+		this.userNum = userNum;
+	}
+	public String getItemNum() {
+		return itemNum;
+	}
+	public void setItemNum(String itemNum) {
+		this.itemNum = itemNum;
+	}
+	public String getItemNm() {
+		return itemNm;
+	}
+	public void setItemNm(String itemNm) {
+		this.itemNm = itemNm;
+	}
+	public String getItemId() {
+		return itemId;
+	}
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}
+	public String getItemUnit() {
+		return itemUnit;
+	}
+	public void setItemUnit(String itemUnit) {
+		this.itemUnit = itemUnit;
+	}
+	public String getClntId() {
+		return clntId;
+	}
+	public void setClntId(String clntId) {
+		this.clntId = clntId;
+	}
 	public String getTrackNum() {
 		return trackNum;
 	}

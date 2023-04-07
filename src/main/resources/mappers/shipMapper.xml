@@ -5,38 +5,143 @@
 
   <!--   출하 요청 리스트 -->
   <resultMap type="map" id="shipADMap">
-  		<result property="shipId" column="ship_id"/>
-  		<result property="ordId" column="ord_id"/>
-  		<result property="ordInfoId" column="ord_info_id"/>
-  		<result property="shipQty" column="ship_qty"/>
-  		<result property="shipDt" column="ship_dt"/>
-  		<result property="shipNum" column="ship_num"/>
-  		<result property="barcord" column="barcord"/>
-  		<result property="insertId" column="insert_id"/>
-  		<result property="insertDt" column="insert_dt"/>
-  		<result property="updateId" column="update_id"/>
-  		<result property="updateDt" column="update_dt"/>
-  		<result property="shipCond" column="update_dt"/>
-  
+ 		<result column="ord_id" property="ordId" />
+  		<result column="ship_id" property="shipId" />
+  		<result column="insert_id" property="insertId" />
+  		<result column="insert_dt" property="insertDt" />
+  		<result column="ship_num" property="shipNum" />
+  		<result column="dlvry_dt" property="dlvryDt" />
+  		<result column="ship_dt" property="shipDt" />
+  		<result column="item_num" property="itemNum" />
+  		<result column="item_nm" property="itemNm" />
+  		<result column="item_id" property="itemId" />
+  		<result column="barcord" property="barcord" />
+  		<result column="invnt_unit" property="itemUnit"/> 
+  		<result column="amount" property="amount" />
+  		<result column="clnt_id" property="clntId" />
+  		<result column="id" property="userNum" />
+  		<result column="ship_qty" property="shipQty" />
   </resultMap>
 
     
 <!--     출하 리스트 첫 화면 -->
-    <select id="getShipAdLiMap" resultMap="shipADMap">
-    	
+    <select id="getShipAd" resultType="com.itwillbs.ship.domain.ShipDTO">
+    	select
+    			sh.ship_id, u.insert_id, u.insert_dt, sh.ship_num, ord.dlvrtDt, sh.ship_dt, i.item_num,
+    			i.item_nm, i.item_id, sh.barcord, i.invnt_unit, sh.amount, ord.clnt_id, u.id, sh.ship_qty
+    	from order_mng o join ship_mng sh
+    	on sh.ord_id = o.ord_id
+    	join user u
+    	on sh.user_id = u.user_id
+    	join item i
+    	on sh.item_id = i.item_id
+    	where sh.ship_id = #{shipId}
     </select>
     
     
 <!--     검색 출하 리스트 search -->
-    <select id="getSearchShipAdLiMap" resultMap="shipADMap">
+    <select id="getSearchShipAdMap" resultMap="shipAdMap">
+    	select
+    			u.insert_id, u.insert_dt,
+    			sh.ship_num, sh.ship_dt as SOdate, sh.dlvry_dt as SDdate,
+    			i.item_num, i.item_nm, i.invnt_unit,
+    			sh.barcord, sh.amount, sh.clnt_id
+    	from ship_mng sh join order_mng o
+    	on sh.ord_id = o.ord_id
+    	join user u
+    	on sh.user_id = u.user_id
+    	where ord_id like CONCAT('%', #{ordId}, '%')
     	
-    </select>
+    	
+    	<if test="SOdate!='' and EOdate!=''">
+			and
+			sh.ship_dt between #{SOdate} and #{EOdate}
+		</if>
+		<if test="SOdate=='' and EOdate==''"></if>
+
+		<if test="SOdate!=''">
+			and
+			sh.ship_dt &gt;= #{SOdate}
+		</if>
+		<if test="EOdate!=''">
+			and
+			sh.ship_dt &lt;= #{EOdate}
+		</if>
+
+
+		<if test="SDdate!='' and EDdate!=''">
+			and
+			sh.dlvry_dt between #{SDdate} and #{EDdate}
+		</if>
+		<if test="SDdate=='' and EDdate==''"></if>
+		<if test="SDdate!=''">
+			and
+			sh.dlvry_dt &gt;= #{s=SDdate}
+		</if>
+		<if test="EDdate!=''">
+			and
+			sh.dlvry_dt &lt;= #{EDdate}
+		</if>
+
+		and
+		name like CONCAT('%', #{userNm}, '%')
+
+
+		order by SOdate desc
+		limit #{startRow}, #{pageSize}
+    	
+     </select>
     
     
 <!--     출하 리스트 count -->
-    <select id="countShipAdLi" resultMap="shipADMap">
-    	
-    </select>
+    <select id="countShipAd" resultType="java.lang.Integer">
+    	select
+    			count(*)
+    	from
+    			ship_mng sh join order_mng o
+    			on sh.ord_id = o.ord_id
+    			join user u
+    			on sh.user_id = u.user_id
+    	<if
+			test="ordId != null and ship_id != null and SOdate != null
+		 and EOdate!= null and SDdate != null and EDdate != null and Num != null 
+			and userNm != null)">
+			
+			where clnt_nm like CONCAT('%', #{clntNm}, '%')
+			<if test="SOdate!='' and EOdate!=''">
+				and
+				sh.ship_dt between #{SOdate} and #{EOdate}
+			</if>
+			<if test="SOdate=='' and EOdate==''"></if>
+
+			<if test="SOdate!=''">
+				and
+				sh.ship_dt &gt;= #{SOdate}
+			</if>
+			<if test="EOdate!=''">
+				and
+				sh.ship_dt &lt;= #{EOdate}
+			</if>
+
+
+			<if test="SDdate!='' and EDdate!=''">
+				and
+				sh.dlvry_dt between #{SDdate} and #{EDdate}
+			</if>
+			<if test="SDdate=='' and EDdate==''"></if>
+			<if test="SDdate!=''">
+				and
+				sh.dlvry_dt &gt;= #{SDdate}
+			</if>
+			<if test="EDdate!=''">
+				and
+				sh.dlvry_dt &lt;= #{EDdate}
+			</if>
+
+			and
+			name like CONCAT('%', #{userNm}, '%')
+		</if>	
+   </select>
     
     
     
@@ -48,34 +153,67 @@
     
     
         <!--   출하 현황 리스트 -->
-      <resultMap type="map" id="shipLIMap">
-  		<result property="shipNum" column="ship_id"/>
-  		<result property="itemName" column="ord_id"/>
-  		<result property="amount" column="ord_info_id"/>
-  		<result property="shipDt" column="ship_qty"/>
-  		<result property="clntNm" column="ship_dt"/>
-  		<result property="trackNum" column="ship_num"/>
-  		<result property="clntId" column="barcord"/>
-  		<result property="shipCond" column="insert_id"/>
+     <resultMap type="map" id="shipLIMap">
+  		<result column="ship_num" property="shipNum" />
+		<result column="item_nm" property="itemName" />
+		<result column="amount" property="amount" />
+		<result column="ship_dt" property="shipDt" />
+		<result column="clnt_nm" property="clntNm" />
+		<result column="track_num" property="trackNum" />
+		<result column="clnt_id" property="clntId" />
+		<result column="ship_cd" property="shipCond" />
  	 </resultMap>
     
     
 
     
 <!--     출하현황 리스트 첫 화면 -->
-    <select id="getShipLiMap" resultMap="shipLIMap">
+    <select id="getShipLi" resultType="com.itwillbs.ship.domain.ShipDTO">
+    	select
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    	from
+    	
     	
     </select>
     
     
 <!--     검색 출하현황 리스트 search -->
     <select id="getSearchShipLiMap" resultMap="shipLIMap">
+    	select
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    	from
     	
-    </select>
+    	
+     </select>
     
     
 <!--     출하현황 리스트 count -->
-    <select id="countShipLi" resultMap="shipLIMap">
+    <select id="countShipLi" resultType="java.lang.Integer">
+    	select
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    	from
+    	
     	
     </select>
     
