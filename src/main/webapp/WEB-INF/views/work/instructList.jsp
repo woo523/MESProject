@@ -105,6 +105,23 @@ article {
 		background-position: 98%;
 		border: 1px solid;
 	}
+	
+	.searchBox .lineName {
+		display: block;
+		height: 20px;
+		overflow: auto;
+	}
+	
+	.searchBox .lineName::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+		background-color: black;
+	}
+	
+	.searchBox .lineName::-webkit-scrollbar-thumb {
+		background: #000;
+	}
+	
 	</style>
 </head>
 
@@ -125,7 +142,7 @@ article {
 		<table class="searchBox">
 			<tr>
 				<td>라인</td>
-				<td><select name="lineName">
+				<td><select name="lineName" class="lineName">
 						<option value="" selected>전체</option>
 						<c:forEach var="line" items="${lineList}">
 							<option value="${line.lineName}">${line.lineName}</option>
