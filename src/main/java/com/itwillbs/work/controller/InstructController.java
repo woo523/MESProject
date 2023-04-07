@@ -143,14 +143,14 @@ public class InstructController {
 		
 		// 작업지시 규격코드
 		String instrDate = request.getParameter("instrDate");
-		String date = instrDate.replaceAll("-", "");
+		String date = (instrDate.replaceAll("-", "")).substring(2);
 		int count = instructService.instrCount() + 1;
 		String instrNum = String.format("ORD%s%05d", date, count);
 		
 		instructDTO.setWorkNum(instrNum);
 		instructDTO.setWorkDate(request.getParameter("instrDate"));
 		instructDTO.setInsertId(request.getParameter("insertId"));
-		instructDTO.setItemId(Integer.parseInt(request.getParameter("pid")));
+		instructDTO.setOrdId(Integer.parseInt(request.getParameter("ordId")));
 		instructDTO.setLineId(Integer.parseInt(request.getParameter("lineId")));
 		instructDTO.setWorkQty(Integer.parseInt(request.getParameter("instrCnt")));
 		
@@ -163,22 +163,22 @@ public class InstructController {
 	@RequestMapping(value = "/work/orderList", method = RequestMethod.GET)
 	public String orderList(HttpServletRequest request, Model model) {
 		
-		String ordStartDate = request.getParameter("ordStartDate");
-		String ordEndDate = request.getParameter("ordEndDate");
-		String ordClient = request.getParameter("ordClient");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String clientName = request.getParameter("clientName");
 		String dlvryDate = request.getParameter("dlvryDate");
-		String ordItem = request.getParameter("ordItem");
+		String itemNum = request.getParameter("itemNum");
 		
 		Map<String, Object> ordSearch = new HashMap<String, Object>();
-		ordSearch.put("ordStartDate", ordStartDate);
-		ordSearch.put("ordEndDate", ordEndDate);
-		ordSearch.put("ordClient", ordClient);
+		ordSearch.put("startDate", startDate);
+		ordSearch.put("endDate", endDate);
+		ordSearch.put("clientName", clientName);
 		ordSearch.put("dlvryDate", dlvryDate);
-		ordSearch.put("ordItem", ordItem);
+		ordSearch.put("itemNum", itemNum);
 		
 		List<Map<String, Object>> getOrdList;
 		
-		if(ordStartDate == null && ordEndDate == null && ordClient == null && dlvryDate == null && ordItem == null) {
+		if(startDate == null && endDate == null && clientName == null && dlvryDate == null && itemNum == null) {
 			getOrdList = instructService.getOrdList();
 		} else {
 			getOrdList = instructService.getOrdList(ordSearch);
@@ -195,16 +195,46 @@ public class InstructController {
 	public String lineList(HttpServletRequest request, Model model) {
 		
 		String lineName = request.getParameter("lineName");
-		
 		List<Map<String, Object>> getLineList = instructService.getLineList(lineName);
-		System.out.println(getLineList);
+		
 		model.addAttribute("getLineList", getLineList);
 		
 		return "work/lineList";
 	}
 	
+	// 작업지시 수정
+	@RequestMapping(value = "/work/instructModify", method = RequestMethod.GET)
+	public String instructModify(HttpServletRequest request, Model model) {
+		
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		
+		// 작업지시번호에 해당하는 작업지시 목록
+		InstructDTO instrDTO = instructService.instrIdList(instrId);
+		List<Map<String, Object>> getInstrList = instructService.getInstrList(instrId);
+		
+		model.addAttribute("instrDTO", instrDTO);
+		model.addAttribute("getInstrList", getInstrList);
+		
+		return "work/instructModify";
+	}
+	
+	// 작업지시 수정
+	@RequestMapping(value = "/work/instructModifyPro", method = RequestMethod.POST)
+	public String instructModifyPro(HttpServletRequest request, InstructDTO instructDTO) {
+		System.out.println("InstructController instructModifyPro()");
+		
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		
+		instructDTO.setOrdId(Integer.parseInt(request.getParameter("ordId")));
+		instructDTO.setWorkQty(Integer.parseInt(request.getParameter("instrCnt")));
+		
+		instructService.instrUpdate(instructDTO, instrId);
+		
+		return "redirect:/common/offwindow";
+	}
+	
 	// 작업지시 삭제
-	@RequestMapping(value = "/work/instrDelete", method = RequestMethod.GET)
+	@RequestMapping(value = "/work/instructDelete", method = RequestMethod.GET)
 	public String workDelete(HttpServletRequest request, Model model) {
 		
 		int instrId = Integer.parseInt(request.getParameter("instrId"));

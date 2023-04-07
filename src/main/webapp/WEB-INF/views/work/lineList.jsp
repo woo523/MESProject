@@ -33,28 +33,25 @@ text-align: center;
 	<table>
 		<tr>
 			<th>라인명</th>
-			<th>공정</th>
 			<th>작업장</th>
 			<th>사용여부</th>
 		</tr>
 		<c:forEach var="lineList" items="${getLineList}">
 			<tr id="con"
-				onclick="selectline('${lineList.lineName}','${lineList.proCode}','${lineList.linePlace}','${lineList.useChoice}','${lineList.lineId}')">
+				onclick="selectline('${lineList.lineName}','${lineList.linePlace}','${lineList.useChoice}','${lineList.lineId}')">
 				<td>${lineList.lineName}</td>
-				<td>${lineList.proCode}</td>
 				<td>${lineList.linePlace}</td>
 				<td>${lineList.useChoice}</td>
 				<td><input type="hidden" value="${lineList.lineId}"></td>
 			</tr>
 
 			<script type="text/javascript">
-				function selectline(a, b, c, d, e) { // 부모창으로 값 넘기기
+				function selectline(a, b, c, d) { // 부모창으로 값 넘기기
 					
 					opener.document.getElementById("lineName").value = a
-					opener.document.getElementById("proCode").value = b
-					opener.document.getElementById("linePlace").value = c
-					opener.document.getElementById("useChoice").value = d
-					opener.document.getElementById("lineId").value = e
+					opener.document.getElementById("linePlace").value = b
+					opener.document.getElementById("useChoice").value = c
+					opener.document.getElementById("lineId").value = d
 					window.close();
 				
 				}

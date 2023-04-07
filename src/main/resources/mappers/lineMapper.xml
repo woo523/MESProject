@@ -7,7 +7,6 @@
 		<result property="lineId" column="lineId" />
 		<result property="lineCode" column="lineCode" />
 		<result property="lineName" column="lineName" />
-		<result property="proCode" column="proCode" />
 		<result property="linePlace" column="linePlace" />
 		<result property="sortOrder" column="sortOrder" />
 		<result property="useChoice" column="useChoice" />
@@ -68,7 +67,6 @@
 		SELECT line_id as lineId,
 	   		   line_cd as lineCode,
 			   line_nm as lineName,
-			   pro_cd as proCode,
 			   place as linePlace,
 			   sort_ord as sortOrder,
 			   use_yn as useChoice,
@@ -78,8 +76,8 @@
 	
 	<!-- 라인 등록 -->
 	<insert id="insertLine">
-		INSERT INTO line (line_id, line_cd, line_nm, pro_cd, place, sort_ord, use_yn, note)
-		VALUES (#{lineId}, #{lineCode}, #{lineName}, #{proCode}, #{linePlace}, #{sortOrder}, #{useChoice}, #{note})
+		INSERT INTO line (line_id, line_cd, line_nm, place, sort_ord, use_yn, note)
+		VALUES (#{lineId}, #{lineCode}, #{lineName}, #{linePlace}, #{sortOrder}, #{useChoice}, #{note})
 	</insert>
 	
 	<!-- lineId에 맞는 라인 목록 -->
@@ -116,7 +114,6 @@
 		UPDATE line
 		SET line_cd = #{lineCode},
 			line_nm = #{lineName},
-			pro_cd = #{proCode},
 			place = #{linePlace},
 			sort_ord = #{sortOrder},
 			use_yn = #{useChoice},

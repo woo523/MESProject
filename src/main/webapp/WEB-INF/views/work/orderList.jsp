@@ -42,40 +42,38 @@
 				<td><input type="text" id="sDate" class="form-control" name="startDate" readonly>
 					<input type="text" id="eDate" name="endDate"></td>
 				<td>수주업체</td>
-				<td><input type="text" name="ordClient"></td>
+				<td><input type="text" name="clientName"></td>
 			</tr>
 			<tr>
 				<td>납품예정일</td>
-				<td><input type="text" id="dDate"> </td>
+				<td><input type="text" id="dDate" name="dlvryDate"> </td>
 				<td>품번</td>
-				<td><input type="text" id="itemNum"></td>
+				<td><input type="text" id="itemNum" name="itemNum"></td>
 			</tr>
 		</table>
 	</form>
 	<table>
 		<tr>
-			<td>수주</td>
 			<td>수주번호</td>
 			<td>수주일자</td>
 			<td>납품예정일</td>
-			<td>품목</td>
 			<td>품번</td>
 			<td>품명</td>
 			<td>수주수량</td>
 			<td>수주업체</td>
 		</tr>
 		<c:forEach var="ordList" items="${getOrdList}">
-			
+			<input type="hidden" value="${ordList.ordId}">
+			<input type="hidden" value="${ordList.itemDTO.itemId}">  
 			<tr id="con"
-				onclick="selectline('${ordList.ordId}','${ordList.ordNum}','${ordList.orderDate}','${ordList.dlvryDate}','${ordList.itemDTO.itemId}','${ordList.itemDTO.itemNum}','${ordList.itemDTO.itemName}','${ordList.ordQty}','${ordList.clntDTO.clientName}')">
-				<td>${ordList.ordId}</td>
-				<td>${ordList.ordNum}</td>
-				<td>${ordList.orderDate}</td>
-				<td>${ordList.dlvryDate}</td>
-				<td>${ordList.itemDTO.itemId}</td>
+				onclick="selectline('${ordList.orderMngDTO.ordId}','${ordList.orderMngDTO.ordNum}','${ordList.orderMngDTO.orderDate}','${ordList.orderMngDTO.dlvryDate}','${ordList.itemDTO.itemId}',
+									'${ordList.itemDTO.itemNum}','${ordList.itemDTO.itemName}','${ordList.orderMngDTO.ordQty}','${ordList.clntDTO.clientName}')">
+				<td>${ordList.orderMngDTO.ordNum}</td>
+				<td>${ordList.orderMngDTO.orderDate}</td>
+				<td>${ordList.orderMngDTO.dlvryDate}</td>
 				<td>${ordList.itemDTO.itemNum}</td>
 				<td>${ordList.itemDTO.itemName}</td>
-				<td>${ordList.ordQty}</td>
+				<td>${ordList.orderMngDTO.ordQty}</td>
 				<td>${ordList.clntDTO.clientName}</td>
 			</tr>
 			<script type="text/javascript">

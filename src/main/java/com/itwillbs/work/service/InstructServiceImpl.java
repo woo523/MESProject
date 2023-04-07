@@ -22,6 +22,7 @@ public class InstructServiceImpl implements InstructService{
 
 	@Override
 	public List<Map<String, Object>> instrList(PageDTO pageDTO, Model model) {
+		// 작업지시 전체 목록
 		System.out.println("InstructServiceImpl instrList 전체");
 		
 		int totalCnt = instructDAO.instrCount();
@@ -33,6 +34,7 @@ public class InstructServiceImpl implements InstructService{
 
 	@Override
 	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch, PageDTO pageDTO, Model model) {
+		// 작업지시 검색 목록
 		System.out.println("InstructServiceImpl instrList 검색");
 		
 		int totalCnt = instructDAO.instrCount(instrSearch);
@@ -44,6 +46,7 @@ public class InstructServiceImpl implements InstructService{
 
 	@Override
 	public Integer instrCount() {
+		// 작업지시 전체 개수
 		System.out.println("InstructServiceImpl instrCount");
 		
 		return instructDAO.instrCount();
@@ -51,6 +54,7 @@ public class InstructServiceImpl implements InstructService{
 
 	@Override
 	public Integer instrCount(Map<String, Object> instrSearch) {
+		// 작업지시 검색 개수
 		System.out.println("InstructServiceImpl instrCount");
 		
 		return instructDAO.instrCount(instrSearch);
@@ -82,14 +86,37 @@ public class InstructServiceImpl implements InstructService{
 
 	@Override
 	public List<Map<String, Object>> getOrdList(Map<String, Object> ordSearch) {
-		// 작업지시 등록 수주 조회
+		// 작업지시 등록 수주 검색 조회
 		System.out.println("InstructServiceImpl getOrdList");
 		
 		return instructDAO.getOrdList(ordSearch);
 	}
 
 	@Override
+	public InstructDTO instrIdList(int instrId) {
+		// 작업지시 번호에 해당하는 작업지시
+		return instructDAO.instrIdList(instrId);
+	}
+
+	@Override
+	public List<Map<String, Object>> getInstrList(int instrId) {
+		// 작업지시 번호에 해당하는 작업지시
+		System.out.println("InstructServiceImpl getInstrList");
+		
+		return instructDAO.getInstrList(instrId);
+	}
+
+	@Override
+	public void instrUpdate(InstructDTO instructDTO, int instrId) {
+		// 작업지시 수정
+		System.out.println("InstructServiceImpl instrUpdate");
+		
+		instructDAO.instrUpdate(instructDTO, instrId);
+	}
+
+	@Override
 	public void instrDelete(int instrId) {
+		// 작업지시 삭제
 		System.out.println("InstructServiceImpl instrDelete");
 		
 		instructDAO.instrDelete(instrId);

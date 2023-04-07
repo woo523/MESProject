@@ -22,9 +22,17 @@ public interface InstructService {
 	
 	public List<Map<String, Object>> getLineList(String lineName);
 	
+	// 수주 조회
 	public List<Map<String, Object>> getOrdList();
 	
+	// 수주 검색 조회
 	public List<Map<String, Object>> getOrdList(Map<String, Object> ordSearch);
+	
+	public InstructDTO instrIdList(int instrId);
+	
+	public List<Map<String, Object>> getInstrList(int instrId);
+	
+	public void instrUpdate(InstructDTO instructDTO, int instrId);
 	
 	public void instrDelete(int instrId);
 	

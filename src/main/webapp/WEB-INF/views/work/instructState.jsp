@@ -152,7 +152,7 @@ article input {
 				<th rowspan="2">지시일자</th>
 				<th rowspan="2">지시상태</th>
 				<th colspan="3">품목정보</th>
-				<th colspan="3">공정정보</th>
+				<th colspan="2">공정정보</th>
 				<th rowspan="2">지시수량</th>
 				<th rowspan="2">등록일</th>
 				<th rowspan="2">등록자</th>
@@ -163,13 +163,12 @@ article input {
 				<th>단위</th>
 				<th>라인</th>
 				<th>라인명</th>
-				<th>공정</th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty instrList}">
 					<tr><td colspan="14"></td></tr>
 					<tr>
-						<td colspan="14">해당 데이터가 존재하지 않습니다.</td>
+						<td colspan="14">해당 실적이 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -177,7 +176,7 @@ article input {
 						<tr id="instrList" onclick="getInstrStateList(${instrDTO.instrId}, '${instrDTO.workNum}')">
 							<td>${instrDTO.workNum}</td>
 							<td>${instrDTO.clntDTO.clientName}</td>
-							<td>${instrDTO.orderMngDTO.orderNum}</td>
+							<td>${instrDTO.orderMngDTO.ordNum}</td>
 							<c:choose>
 								<c:when test="${instrDTO.workSts eq '시작' }">
 									<td style="color: green;">${instrDTO.workSts}</td>
@@ -195,7 +194,6 @@ article input {
 							<td>${instrDTO.itemDTO.invntUnit}</td>
 							<td>${instrDTO.lineDTO.lineCode}</td>
 							<td>${instrDTO.lineDTO.lineName}</td>
-							<td>${instrDTO.lineDTO.proCode}</td>
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${instrDTO.userDTO.name}</td>

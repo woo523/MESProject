@@ -80,14 +80,37 @@ public class InstructDAOImpl implements InstructDAO {
 
 	@Override
 	public List<Map<String, Object>> getOrdList(Map<String, Object> ordSearch) {
-		// 작업지시 등록 수주 조회
+		// 작업지시 등록 수주 검색 조회
 		System.out.println("InstructDAOImpl getOrdList");
 		
 		return sqlSession.selectList(namespace+".getOrdListSearch", ordSearch);
 	}
 
 	@Override
+	public InstructDTO instrIdList(int instrId) {
+		// 작업지시 번호에 해당하는 작업지시
+		return sqlSession.selectOne(namespace+".instrIdList", instrId);
+	}
+
+	@Override
+	public List<Map<String, Object>> getInstrList(int instrId) {
+		// 작업지시 번호에 해당하는 작업지시
+		System.out.println("InstructDAOImple getInstrList");
+		return sqlSession.selectList(namespace+".getInstrList", instrId);
+	}
+
+	@Override
+	public void instrUpdate(InstructDTO instructDTO, int instrId) {
+		// 작업지시 수정
+		System.out.println("InstructDAOImpl instrUpdate");
+		instructDTO.setInstrId(instrId);
+		
+		sqlSession.update(namespace+".instrUpdate", instructDTO);
+	}
+
+	@Override
 	public void instrDelete(int instrId) {
+		// 작업지시 삭제
 		System.out.println("InstructDAOImpl instrDelete");
 		
 		sqlSession.delete(namespace+".instrDelete", instrId);

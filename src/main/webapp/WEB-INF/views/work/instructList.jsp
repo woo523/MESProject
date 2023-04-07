@@ -52,7 +52,7 @@
 }
 
 .content_body .instrList td {
-	padding: 10px;
+	padding: 10px 0px 10px 0px;
 	text-align: center;
 }
 
@@ -165,7 +165,7 @@ article {
 				<th rowspan="2">지시일자</th>
 				<th rowspan="2">지시상태</th>
 				<th colspan="3">품목정보</th>
-				<th colspan="3">공정정보</th>
+				<th colspan="2">공정정보</th>
 				<th rowspan="2">지시수량</th>
 				<th rowspan="2">등록일</th>
 				<th rowspan="2">등록자</th>
@@ -177,7 +177,6 @@ article {
 				<th>단위</th>
 				<th>라인</th>
 				<th>라인명</th>
-				<th>공정</th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty instrList}">
@@ -189,9 +188,9 @@ article {
 				<c:otherwise>
 					<c:forEach var="instrDTO" items="${instrList}">
 						<tr id="instrList">
-							<td>${instrDTO.workNum}</td>
-							<td>${instrDTO.clntDTO.clientName}</td>
-							<td>${instrDTO.orderMngDTO.orderNum}</td>
+							<td style="width: 170px;">${instrDTO.workNum}</td>
+							<td style="width: 120px;">${instrDTO.clntDTO.clientName}</td>
+							<td style="width: 160px;">${instrDTO.orderMngDTO.ordNum}</td>
 							<td>${instrDTO.workDate}</td>
 							<c:choose>
 								<c:when test="${instrDTO.workSts eq '시작' }">
@@ -209,14 +208,19 @@ article {
 							<td>${instrDTO.itemDTO.invntUnit}</td>
 							<td>${instrDTO.lineDTO.lineCode}</td>
 							<td>${instrDTO.lineDTO.lineName}</td>
-							<td>${instrDTO.lineDTO.proCode}</td>
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${instrDTO.userDTO.name}</td>
-							<c:if test="${! empty sessionScope.id}">
-								<td><a href="/work/instrModify?instrId=${instrDTO.instrId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px'></a>
-									<a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
-							</c:if>
+							<c:choose>
+								<c:when test="${! empty sessionScope.id && instrDTO.workSts eq '지시'}">
+									<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="instrModify(${instrDTO.instrId})"></a>
+										<a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
+								</c:when>
+								<c:when test="${! empty sessionScope.id && instrDTO.workSts eq '마감'}">
+									<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
+								</c:when>
+								<c:otherwise></c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
@@ -356,14 +360,19 @@ function loginCheck() {
 		location.href='/login/login';
 	} else {
 		// 로그인 O, 등록 페이지로 이동
-		window.open("/work/instructInsert", "popup", "width=700, height=700, left=600, top=200");
+		window.open("/work/instructInsert", "popupInsert", "width=700, height=700, left=600, top=200");
 	}
+}
+
+// 작업지시 수정
+function instrModify(instrId) {
+	window.open("/work/instructModify?instrId=" + instrId, "popupModify", "width=700, height=700, left=600, top=200");
 }
 
 // 작업지시 삭제
 function instrDelete(instrId) {
 	if(confirm("삭제하시겠습니까?")) {
-		location.href="/work/instrDelete?instrId=" + instrId;
+		location.href="/work/instructDelete?instrId=" + instrId;
 	} else {
 		return false;
 	}

@@ -25,6 +25,12 @@ public interface InstructDAO {
 	
 	public List<Map<String, Object>> getOrdList(Map<String, Object> ordSearch);
 	
+	public InstructDTO instrIdList(int instrId);
+	
+	public List<Map<String, Object>> getInstrList(int instrId);
+	
+	public void instrUpdate(InstructDTO instructDTO, int instrId);
+	
 	public void instrDelete(int instrId);
 	
 }

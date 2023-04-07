@@ -29,18 +29,14 @@
 	<form action="${pageContext.request.contextPath}/line/lineInsertPro" method="post" onsubmit="return checkForm()">
 		<ul>
 			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
-			<li>라인명 <input type="text" name="lineName" ></li>
-			<li>공정 	<select name="proCode">
+			<li>라인명 <input type="text" name="lineName" class="lineName"></li>
+			<li>작업장   <select name="linePlace" class="linePlace">
 							<option value="" selected>전체</option>
-							<option value="사출">사출</option>
-							<option value="포장">포장</option>
-						</select></li>
-			<li>작업장   <select name="linePlace">
-							<option value="" selected>전체</option>
+							<option value="외주">외주</option>
 							<option value="작업장1">작업장1</option>
 							<option value="작업장2">작업장2</option>
 						</select></li>			
-			<li>일렬번호 <input type="text" name="sortOrder"> </li>
+			<li>일렬번호 <input type="text" name="sortOrder" class="sortOrder"></li>
 			<li>사용여부 <input type="radio" name="useChoice" value="Y" class="sCheck">Y
 						 <input type="radio" name="useChoice" value="N" class="sCheck" checked="checked" onclick="return false;">N</li>
 			<li>비고 <textarea rows="5" cols="30" name="note" maxlength="25"
@@ -57,15 +53,36 @@
 
 $(document).ready(function () {
 	$("input[value='Y']").attr('disabled', true);
-})
+});
 
 // 등록 여부 확인 후 폼 전송
 function checkForm() {
-	if(confirm("등록하시겠습니까?")) {
-		return true;
-	} else {
+	
+	// 라인 유효성 검사
+	if($('.lineName').val() == "") {
+		alert("라인명을 입력해주세요.");
+		$('.lineName').focus();
+		
 		return false;
 	}
+	
+	if($('.linePlace').val() == "") {
+		alert("작업장을 선택해주세요.");
+		$('.linePlace').focus();
+		
+		return false;
+	}
+	
+	if($('.sortOrder').val() == "") {
+		alert("일련번호를 입력해주세요.");
+		$('.sortOrder').focus();
+		
+		return false;
+	}
+	
+	let submit = confirm("등록하시겠습니까?");
+	return submit ? true : false;
+
 }
 </script>
 

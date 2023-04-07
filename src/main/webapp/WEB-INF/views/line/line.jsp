@@ -10,6 +10,10 @@
 <link href="/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
+	article {
+		width: 1280px;
+		margin: 0px auto;
+	}
 	.content_body #lineList:hover {
 		background-color: #e1e1e1;
 	}
@@ -55,7 +59,6 @@
 			<tr>
 				<th>라인코드</th>
 				<th>라인명</th>
-				<th>공정</th>
 				<th>작업장</th>
 				<th>정렬순서</th>
 				<th>사용여부</th>
@@ -64,9 +67,9 @@
 			</tr>
 			<c:choose>
 				<c:when test="${empty lineList}">
-					<tr><td colspan="8"></td></tr>
+					<tr><td colspan="7"></td></tr>
 					<tr>
-						<td colspan="8">해당 라인 정보가 존재하지 않습니다.</td>
+						<td colspan="7">해당 라인 정보가 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -74,7 +77,6 @@
 						<tr id="lineList">
 							<td>${lineDTO.lineCode}</td>
 							<td>${lineDTO.lineName}</td>
-							<td>${lineDTO.proCode}</td>
 							<td>${lineDTO.linePlace}</td>
 							<td>${lineDTO.sortOrder}</td>
 							<c:choose>
@@ -85,8 +87,8 @@
 									<td style="color: red">${lineDTO.useChoice}</td>
 								</c:otherwise>
 							</c:choose>
-							<td style="width: 350px">${lineDTO.note}</td>
-							<c:if test="${! empty sessionScope.id}">
+							<td style="width: 300px">${lineDTO.note}</td>
+							<c:if test="${! empty sessionScope.id && lineDTO.useChoice eq 'N'}">
 								<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="modifyConfirm(${lineDTO.lineId})"></a>
 									<a href="/line/lineDelete?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="deleteConfirm(${lineDTO.lineId})"></a></td>      
 							</c:if>
@@ -96,33 +98,36 @@
 			</c:choose>
 		</table>
 	</form>
+	
+	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
+					<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+				<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
+					<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
+	
 </article>
 
-<div class="center">
- 	<div class="pagination">			
-		<c:choose>
-			<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
-				<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
-			</c:when>
-			<c:otherwise>
-				<a class="none">◀</a>
-			</c:otherwise>
-		</c:choose>
-		
-		<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
-			<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
-		</c:forEach>
-		
-		<c:choose>
-			<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
-				<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
-			</c:when>
-			<c:otherwise>
-				<a class="none">▶</a>
-			</c:otherwise>
-		</c:choose>
-	</div>
-</div>
+
 	
 </div>
 

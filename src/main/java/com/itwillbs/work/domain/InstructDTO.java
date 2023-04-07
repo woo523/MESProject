@@ -10,7 +10,6 @@ public class InstructDTO {
 	private int instrId;	// 작업지시 기본키
 	private int lineId;		// 라인정보 기본키
 	private int ordId;		// 수주관리 기본키
-	private int ordInfoId;	// 수주정보 기본키
 	private int itemId;		// 품목관리 기본키
 	private String workNum;	// 작업지시번호
 	private String workSts;	// 지시상태
@@ -41,12 +40,6 @@ public class InstructDTO {
 	}
 	public void setOrdId(int ordId) {
 		this.ordId = ordId;
-	}
-	public int getOrdInfoId() {
-		return ordInfoId;
-	}
-	public void setOrdInfoId(int ordInfoId) {
-		this.ordInfoId = ordInfoId;
 	}
 	public int getItemId() {
 		return itemId;
