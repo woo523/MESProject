@@ -50,9 +50,6 @@ public class AuthDAOImpl implements AuthDAO {
 		sqlSession.selectList(namespace + ".updatenonauth", map);
 	}
 	
-	
-	
-	
 	@Override
 	public List<AuthDTO> getMenuauth(MemberDTO memberDTO) {
 		System.out.println("AuthDAOImpl getMenuauth()");
@@ -67,6 +64,10 @@ public class AuthDAOImpl implements AuthDAO {
 	}
 	
 	
+	@Override
+	public void delauth(MemberDTO memberDTO) {
+		System.out.println("AuthDAOImpl delauth()");
+		sqlSession.delete(namespace + ".delauth", memberDTO);
+	}
 	
-
 }

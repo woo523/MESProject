@@ -1,5 +1,6 @@
 package com.itwillbs.auth.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +26,16 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public void inauth(Map<String, Object> map) {
+	public void inauth(int userId) { // 권한 기본적으로 전부 N로 부여하기
 		System.out.println("AuthServiceImpl inauth()");	
-		authDAO.inauth(map);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		for(int i=1;i<=18;i++) {
+			map.put("menuCd", i);
+			authDAO.inauth(map);
+		}
+		
 	}
 
 	@Override
@@ -54,6 +62,12 @@ public class AuthServiceImpl implements AuthService {
 	public void updatenonauth(Map<String, Object> map) {
 		System.out.println("AuthServiceImpl updatenonauth()");
 		authDAO.updatenonauth(map);
+	}
+
+	@Override
+	public void delauth(MemberDTO memberDTO) {
+		System.out.println("AuthServiceImpl delauth()");
+		authDAO.delauth(memberDTO);
 	}
 
 }

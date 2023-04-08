@@ -21,4 +21,6 @@ public interface AuthDAO {
 	
 	public void updatenonauth(Map<String, Object> map);
 	
+	public void delauth(MemberDTO memberDTO);
+	
 }

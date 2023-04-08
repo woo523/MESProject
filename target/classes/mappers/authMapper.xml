@@ -56,5 +56,11 @@ user_id = #{userId}
 and view_yn = "y"
 </select>
 
+<delete id="delauth">
+delete 
+from auth
+where
+user_id = #{userId}
+</delete>
 
 </mapper>

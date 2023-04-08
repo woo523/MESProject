@@ -58,21 +58,6 @@ public class AuthController {
 		return "auth/auth";
 	}
 	
-	@RequestMapping(value = "/auth", method = RequestMethod.GET)
-	public String authgo(HttpServletRequest request) {
-		
-		int userId = Integer.parseInt(request.getParameter("userId"));
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
-		for(int i=1;i<=18;i++) {
-			map.put("menuCd", i);
-			authService.inauth(map);
-		}
-		
-		return "redirect:/auth/user";
-	}
-	
 	
 	@RequestMapping(value = "/auth/update", method = RequestMethod.GET)
 	public String update(@RequestParam List<Integer> menuCd, @RequestParam String userId) {

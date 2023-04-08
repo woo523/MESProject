@@ -12,7 +12,7 @@ public interface AuthService {
 	
 	public List<MenuDTO> getMenu();
 	
-	public void inauth(Map<String, Object> map);
+	public void inauth(int userId);
 	
 	public void updateauth(Map<String, Object> map);
 	
@@ -22,4 +22,5 @@ public interface AuthService {
 	
 	public void updatenonauth(Map<String, Object> map);
 	
+	public void delauth(MemberDTO memberDTO);
 }
