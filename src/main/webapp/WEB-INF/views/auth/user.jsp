@@ -92,10 +92,10 @@ h2{
 <div class="content_body">
 <!-- 세션값 없으면 로그인화면으로 돌아가게 하는 것. -->
 <c:if test="${empty sessionScope.id }">
-	<c:redirect url="/login/login"></c:redirect>
+	<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
 </c:if>
 
-<h1>‖ 권한 설정 ‖</h1> <br><br>
+<h1>‖ 권한 관리 ‖</h1> <br><br>
 
 
 	<table border="1" id="main">
@@ -111,9 +111,9 @@ h2{
 					<tr id="con">
 						<td>${dto.id }</td>
 						<td>${dto.name }</td>
-						<td>${dto.departmentsNm }</td><!-- DTO에 추가한 이름으로 뿌려주기 -->
+						<td>${dto.departmentsNm }</td>
 						<td>${dto.positionNm }</td>
-						<td><button type="button" class="sm_btn" onclick="">권한 설정하기</button></td>
+						<td><button type="button" class="sm_btn" onclick="location.href='${pageContext.request.contextPath }/auth/auth?userId=${dto.id }'">권한 설정하기</button></td>
 					</tr>
 				</c:forEach> 	
 
@@ -125,28 +125,28 @@ h2{
 <div id="pagination">
 	<!-- 10페이지 이전 -->
 	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	<a href="${pageContext.request.contextPath }/auth/user&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 	</c:if>
 	
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
-	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.currentPage-1}"><</a>
+	<a href="${pageContext.request.contextPath }/auth/user?pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
 
 
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a> 
+	<a href="${pageContext.request.contextPath }/auth/user?pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a> 
 	</c:forEach>
 
 <!-- 1페이지 다음 -->	
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.currentPage+1}">></a>
+	<a href="${pageContext.request.contextPath }/auth/user?pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>
 
 <!-- 10페이지 다음 -->
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/work/itemList?itemNum=${search.itemNum}&itemName=${search.itemName}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	<a href="${pageContext.request.contextPath }/auth/user?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
 	
 </div>
