@@ -4,6 +4,7 @@ package com.itwillbs.work.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.itwillbs.mdm.domain.RequireDTO;
 import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.domain.ItemDTO;
 import com.itwillbs.work.domain.PageDTO;
@@ -58,5 +59,6 @@ public interface PerformDAO {
 	
 	public void delStock(PerformDTO preDTO);
 	
+	public List<RequireDTO> getReAmnt(int itemId);
 	
 }

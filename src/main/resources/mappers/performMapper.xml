@@ -445,6 +445,15 @@
 	where p.prfrm_id = #{performId}
     </select>
     
+    <select id="getReAmnt" resultType="com.itwillbs.mdm.domain.RequireDTO">
+    select 
+    r.p_item_id as pItemId,
+	r.c_item_id as cItemId,
+    r.req_amnt as reqAmnt
+    from requirement r join item i
+    on r.c_item_id = i.item_id
+    where r.p_item_id = #{itemId};
+    </select>
 
 	<select id="checkY"  resultType="boolean">
     select
@@ -488,6 +497,9 @@
 	<if test="gbYn eq 'N'.toString()"> <!-- 불량이면 3번창고(불량) -->
 	stor_id = 3
 	</if>
+	<if test="gbYn eq 'J'.toString()"> <!-- (소요품)자재면 1번창고(자재) -->
+	stor_id = 1
+	</if>
 	</update>
 	
 	<update id="updateStock">
@@ -507,6 +519,9 @@
 	</if>
 	<if test="gbYn eq 'N'.toString()"> <!-- 불량이면 3번창고(불량) -->
 	stor_id = 3
+	</if>
+	<if test="gbYn eq 'J'.toString()"> <!-- (소요품)자재면 1번창고(자재) -->
+	stor_id = 1
 	</if>
 	</update>
 	

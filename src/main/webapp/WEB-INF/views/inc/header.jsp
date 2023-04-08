@@ -55,10 +55,10 @@
                     <ul class="big_menu">
                         <li>시스템관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
-                            <li><a href="/member/list">사용자 관리</a></li>
-                            <li><a href="#">권한 관리</a></li>
-                            <li><a href="/comCode/list">공통 코드 관리</a></li>
-                            <li><a href="/menu/create">시스템 메뉴 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/member/list">사용자 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/auth/user">권한 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/comCode/list">공통 코드 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/menu/create">시스템 메뉴 관리</a></li>
                         </ul>
                     </ul>
                     <ul class="big_menu">

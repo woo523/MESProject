@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.itwillbs.mdm.domain.RequireDTO;
 import com.itwillbs.work.dao.PerformDAO;
 import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.domain.ItemDTO;
@@ -81,6 +82,21 @@ public class PerformServiceImpl implements PerformService {
 		if(performDTO.getGbYn().equals("Y")){
 		performDAO.updateStock(performDTO); }// 재고 현재고 업뎃
 		
+		List<RequireDTO> reAmnt = performDAO.getReAmnt(insDTO.getItemId()); // 해당 품목의 소요품 및 소요량 리스트 가져오기
+		for(int i=0;i<reAmnt.size();i++) {
+			RequireDTO reDTO = reAmnt.get(i); 
+			int cItemId = reDTO.getcItemId(); // 소요품 id
+			int reqAmnt = Integer.parseInt(reDTO.getReqAmnt())*performDTO.getPerformQty(); // 소요량
+			
+			PerformDTO reqDTO = new PerformDTO(); // delStock()delStock() 재활용 하려고.. 어거지로 담음
+			reqDTO.setPerformQty(reqAmnt);
+			reqDTO.setItemId(cItemId);
+			reqDTO.setGbYn("J");
+			performDAO.delStock(reqDTO); // 재고에서 소요량 빼기
+			performDAO.delStorage(reqDTO); // 재고창고에서 소요량 뺴기
+			
+		}
+		
 	}
 
 	@Override
@@ -88,6 +104,27 @@ public class PerformServiceImpl implements PerformService {
 		System.out.println("PerformServiceImpl delPf()");
 		PerformDTO performDTO = performDAO.getPf(performId);
 		int instrId = performDTO.getInstrId();
+
+		
+		performDAO.delStorage(performDTO); // 창고 재고 뺴기
+		if(performDTO.getGbYn().equals("Y")) {
+			performDAO.delStock(performDTO); // 양품이면 재고테이블 현재고 뺴기
+		}
+
+		List<RequireDTO> reAmnt = performDAO.getReAmnt(performDTO.getItemId()); // 해당 품목의 소요품 및 소요량 리스트 가져오기
+		for(int i=0;i<reAmnt.size();i++) {
+			RequireDTO reDTO = reAmnt.get(i); 
+			int cItemId = reDTO.getcItemId(); // 소요품 id
+			int reqAmnt = Integer.parseInt(reDTO.getReqAmnt())*performDTO.getPerformQty(); // 소요량
+			
+			PerformDTO reqDTO = new PerformDTO(); // updateStock()updateStock() 재활용 하려고.. 어거지로 담음
+			reqDTO.setPerformQty(reqAmnt);
+			reqDTO.setItemId(cItemId);
+			reqDTO.setGbYn("J");
+			performDAO.updateStock(reqDTO); // 재고에서 소요량 더하기
+			performDAO.updateStorage(reqDTO); // 재고창고에서 소요량 더하기	
+		}
+		
 		performDAO.delPf(performId);
 		
 		if(performDAO.checkY(instrId)==false) { // 양품이 지시수량보다 적으면
@@ -96,7 +133,6 @@ public class PerformServiceImpl implements PerformService {
 				performDAO.updateInstr(instrId); // 지시상태로 변경
 			}
 		}
-	
 	}
 
 	@Override
@@ -121,6 +157,20 @@ public class PerformServiceImpl implements PerformService {
 		if(performDTO.getGbYn().equals("Y")){
 		performDAO.updateStock(performDTO); }// 재고 현재고 업뎃
 		
+		List<RequireDTO> reAmnt = performDAO.getReAmnt(performDTO.getItemId()); // 해당 품목의 소요품 및 소요량 리스트 가져오기
+		for(int i=0;i<reAmnt.size();i++) {
+			RequireDTO reDTO = reAmnt.get(i); 
+			int cItemId = reDTO.getcItemId(); // 소요품 id
+			int reqAmnt = Integer.parseInt(reDTO.getReqAmnt())*performDTO.getPerformQty(); // 소요량
+			
+			PerformDTO reqDTO = new PerformDTO(); // delStock()delStock() 재활용 하려고.. 어거지로 담음
+			reqDTO.setPerformQty(reqAmnt);
+			reqDTO.setItemId(cItemId);
+			reqDTO.setGbYn("J");
+			performDAO.delStock(reqDTO); // 재고에서 소요량 빼기
+			performDAO.delStorage(reqDTO); // 자재창고에서 소요량 뺴기
+			
+		}
 		
 	}
 
@@ -168,6 +218,22 @@ public class PerformServiceImpl implements PerformService {
 		if(preDTO.getGbYn().equals("Y")) { // 양품 재고테이블 삭제
 			performDAO.delStock(preDTO);
 		}
+		
+		List<RequireDTO> reAmnt = performDAO.getReAmnt(preDTO.getItemId()); // 해당 품목의 소요품 및 소요량 리스트 가져오기
+		for(int i=0;i<reAmnt.size();i++) {
+			RequireDTO reDTO = reAmnt.get(i); 
+			int cItemId = reDTO.getcItemId(); // 소요품 id
+			int reqAmnt = Integer.parseInt(reDTO.getReqAmnt())*preDTO.getPerformQty(); // 소요량
+			
+			PerformDTO reqDTO = new PerformDTO(); // updateStock()updateStock() 재활용 하려고.. 어거지로 담음
+			reqDTO.setPerformQty(reqAmnt);
+			reqDTO.setItemId(cItemId);
+			reqDTO.setGbYn("J");
+			performDAO.updateStock(reqDTO); // 재고에서 소요량 더하기
+			performDAO.updateStorage(reqDTO); // 자재창고에서 소요량 더하기	
+		}
+		
+		
 		
 	}
 

@@ -170,7 +170,7 @@ $(document).ready(function(){
 <br>
 
 
-<span id="sub" class="sub"> 실적 등록</span>
+<a href="${pageContext.request.contextPath }/work/popPfRe"><span id="sub" class="sub"> 실적 등록</span></a>
 
 <br><br>
 <div id="touch">실적을 등록할 작업지시를 <span id="t">터치</span>해주세요</div>

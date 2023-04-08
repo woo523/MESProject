@@ -538,17 +538,39 @@ public class PerformController {
 		
 	}
 	
+	@RequestMapping(value = "/work/popmodiPro", method = RequestMethod.POST)
+	public String popmodiPro (PerformDTO performDTO, HttpSession session, HttpServletRequest request){ // 팝화면 실적 수정 실행
+		PerformDTO preDTO = new PerformDTO(); // 수정전 실적 정보 담기
+		int preqty = Integer.parseInt(request.getParameter("preqty"));
+		String preYn = request.getParameter("preYn");
+		int preitemId = Integer.parseInt(request.getParameter("preitemId"));
+		preDTO.setPerformQty(preqty); // 수정전 실적량
+		preDTO.setGbYn(preYn); // 수정전 양불여부
+		preDTO.setItemId(preitemId); // 품목id
+
+		
+		String id = (String)session.getAttribute("id");
+		performDTO.setUpdateId(id); // 수정한 사람 id
+		performDTO.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+		performDTO.setItemId(preitemId);
+		
+		performService.delqty(preDTO); // 수정전 재고 삭제
+		performService.updatePf(performDTO); // 업뎃
+		
+		return "redirect:/work/popPfRe";
+	}
 	
-	@RequestMapping(value = "/work/popdel", method = RequestMethod.GET)
-	public String popdel(HttpServletRequest request) { // 실적 삭제창
+	
+	@RequestMapping(value = "/work/popdel", method = RequestMethod.GET) // 실적 삭제창
+	public String popdel(HttpServletRequest request) { 
 		int performId = Integer.parseInt(request.getParameter("performId"));
 		performService.delPf(performId);
 		
 		return "redirect:/work/popPfRe";
 	}
 	
-	@RequestMapping(value = "/work/close", method = RequestMethod.GET)
-	public String close(HttpServletRequest request) { // 실적 삭제창
+	@RequestMapping(value = "/work/close", method = RequestMethod.GET) // 수동마감
+	public String close(HttpServletRequest request) { 
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
 		performService.close(instrId);
 		

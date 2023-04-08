@@ -311,15 +311,17 @@ function PerformListPrint(array){ // 해당 생산실적 출력
     <br>
     <div class="center">
     <div id="pagination">
+    
+<!-- 10페이지 이전 -->
+	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
+	<a href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${pageDTO.startPage-PageDTO.endPage-1}"><<</a>
+	</c:if>
+	
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
 	<a href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
 
-<!-- 10페이지 이전 -->
-	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
-	</c:if>
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
 	<a id="num" href="${pageContext.request.contextPath }/work/performList?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&worknum=${search.worknum }&pageNum=${i}"<c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a> 

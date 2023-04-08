@@ -1,6 +1,6 @@
 package com.itwillbs.work.dao;
 
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.mdm.domain.RequireDTO;
 import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.domain.ItemDTO;
 import com.itwillbs.work.domain.PageDTO;
@@ -183,6 +184,15 @@ public class PerformDAOImpl implements PerformDAO {
 		System.out.println("PerformDAOImpl delStock()"); 
 		sqlSession.update(namespace+".delStock", preDTO);
 	}
+	
+	@Override
+	public List<RequireDTO> getReAmnt(int itemId) { // 해당 아이템 소요량 리스트
+		System.out.println("PerformDAOImpl getReAmnt()");
+		
+		return sqlSession.selectList(namespace+".getReAmnt",itemId);
+	}
+	
+	
 	
 	
 	

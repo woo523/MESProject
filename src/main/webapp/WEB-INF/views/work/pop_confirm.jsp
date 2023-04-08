@@ -170,7 +170,7 @@ function delPf(a) {
 	</div>
 	<br>
 
-<span id="sub" class="sub"> 실적 등록</span>
+<a href="${pageContext.request.contextPath }/work/popPfRe"><span id="sub" class="sub"> 실적 등록</span></a>
 
 <br>
 <br>
@@ -214,8 +214,17 @@ function delPf(a) {
     <c:otherwise>
     <c:forEach var="pdto" items="${pflist }">
     <tr><td>${pdto.performDate}</td><td>${pdto.gbYn}</td><td>${pdto.performQty}</td><td>${pdto.dbReason}</td><td>${pdto.name}</td>
-    <td><img src="${pageContext.request.contextPath}/resources/image/whitemodify.png" width="35px" onclick="modi(${pdto.performId},${inst.instrId})">
-    <img src="${pageContext.request.contextPath}/resources/image/whitedel.png" width="34px" height="34px" onclick="delPf(${pdto.performId})"></td></tr>
+
+    <c:choose>
+     <c:when test="${sessionScope.id eq pdto.insertId}">
+    <td><img src="${pageContext.request.contextPath}/resources/image/whitemodify.png" width="35px" onclick="modi(${pdto.performId},${inst.instrId})" style="cursor:pointer;">
+    <img src="${pageContext.request.contextPath}/resources/image/whitedel.png" width="34px" height="34px" onclick="delPf(${pdto.performId})" style="cursor:pointer;"></td>
+    </c:when>
+    <c:otherwise>
+    <td></td>
+    </c:otherwise>
+    </c:choose>
+    </tr>
    </c:forEach>
    </c:otherwise>
    </c:choose>
