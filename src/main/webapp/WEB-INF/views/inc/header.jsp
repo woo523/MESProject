@@ -154,10 +154,18 @@ $(document).ready(function(){
 
 	// 왼쪽메뉴 드롭다운
 	$(".sub_menu ul.small_menu").hide();
-	$(".sub_menu ul.big_menu").click(function () {
-
-		$("ul", this).fadeIn();
-		$(this).addClass("active");
+	$(".sub_menu>ul.big_menu>li").click(function () {
+		var obj =  $(this).parent(".big_menu");
+		
+		if($(obj).hasClass("active")){
+			$("ul", obj).hide();
+			$(obj).removeClass("active");
+		}else{
+			$("ul", obj).fadeIn();
+			$(obj).addClass("active");
+		}
+		
+		 
 	});
 	
 });
