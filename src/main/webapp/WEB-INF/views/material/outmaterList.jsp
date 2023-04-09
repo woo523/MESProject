@@ -107,7 +107,7 @@ text-align: center;
 	<form id="search">	
 	<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="location.href='/material/outmtrlInsert'">추가</button>
+			<button type="button" onclick="openInsert(${outmaterialDTO.outmtrlId})" >추가</button>
 		</div>
 	<br>	
 	<table id="search">
@@ -167,8 +167,8 @@ text-align: center;
 		  	<td>${outte.clientCode}</td>
 		  	<td>${outte.clientName}</td>
 		  	<td>${outte.note}</td>	
-	  		<td><a href="/material/outmtrlModify?outmtrlId=${OutmaterialDTO.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px''></a>
-				<a href="/material/outDel?outmtrlId=${outte.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px''></a></td>		
+	  		<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="openmodi(${outte.outmtrlId})">
+				<a href="/material/outDel?outmtrlId=${outte.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>		
 	</tr>
 	</c:forEach>
 	</c:otherwise>
@@ -262,11 +262,21 @@ $('button.ui-datepicker-current').live('click', function() {
 // var in_mtrl_id = a;
 
 function openilist(){
-    window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/itemList","popup1", "width=500, height=500,left=100, top=100");
 }
 
 function openclist(){
-    window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/clientList","popup2", "width=500, height=500,left=100, top=100");
+}
+
+var outmtrlId = a;
+
+function openInsert(a){ // 추가창
+	window.open("${pageContext.request.contextPath}/material/outmtrlInsert?outmtrlId="+a,"popup3", "width=500, height=500,left=500, top=200");
+}
+
+function openmodi(a){ // 수정창
+    window.open("${pageContext.request.contextPath}/material/outmtrlModify?outmtrlId="+a,"popup4", "width=500, height=500,left=500, top=200");
 }
 
 </script>

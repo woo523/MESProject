@@ -191,6 +191,24 @@ public class MaterialServiceImpl implements MaterialService{
 		return materialDAO.getInmtrlMap(inmtrlId);
 	}
 
+	@Override
+	public OutmaterialDTO getOutmtrl(int outmtrlId) {
+		System.out.println("OutmaterialServiceImpl getOutmtrl()");
+		return materialDAO.getOutmtrl(outmtrlId);
+	}
+
+	@Override
+	public Map<String, Object> getOutmtrlMap(int outmtrlId) {
+		System.out.println("OutmaterialServiceImpl getOutmtrlMap()");
+		return materialDAO.getOutmtrlMap(outmtrlId);
+	}
+
+	@Override
+	public void updateOutmtrl(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl updateOutmtrl()");
+		materialDAO.updateOutmtrl(outmaterialDTO);
+	}
+
 
 
 

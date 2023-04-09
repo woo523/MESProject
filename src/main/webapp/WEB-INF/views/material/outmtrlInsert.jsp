@@ -65,9 +65,6 @@ function openclist(){
 
 
 <body>
-<!-- <header> -->
-	<jsp:include page="../inc/header.jsp" />
-<!-- </header> -->
 
 	<h2>자재출고 등록</h2>
 	<br>
@@ -87,7 +84,7 @@ function openclist(){
 						 <input type="hidden" name="clntId" id="cid">
 						 <input type="hidden" name="whouse" id="whouse">
 						<input type="hidden" name="curStock" id="stockcur">
-			<li>단위  <input type="text" name="unit" class="unit"></li>
+			<li>단위  <input type="text" name="unit"></li>
 			<li>출고수량  <input type="number" class="Qty" name="outmtrlQty"></li>
 			<li>비고  <input type="text" name="note"> </li>
 		</ul>
@@ -96,8 +93,6 @@ function openclist(){
 		<button type="reset">초기화</button>
 	</form>
 	
-<!-- <footer> -->
-	<jsp:include page="../inc/footer.jsp" />
-<!-- </footer> -->
+
 </body>
 </html>

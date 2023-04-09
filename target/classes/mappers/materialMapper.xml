@@ -140,20 +140,6 @@
    	delete from in_material	
    	where in_mtrl_id = #{inmtrlId}
    	</delete>
-   	
-<!-- 실사량   	 -->
-<!--    	<select id="getStock" resultType="com.itwillbs.work.domain.StockDTO"> -->
-<!--    	select -->
-<!--    	stock_id,  -->
-<!-- 	item_id, -->
-<!-- 	whouse, -->
-<!-- 	cur_stock, -->
-<!-- 	insert_id, -->
-<!-- 	insert_dt -->
-<!--    	from stock -->
-<!--    	</select> -->
-
-
 
  
 	<!-- 자재입고 등록 -->
@@ -251,9 +237,6 @@
 
 
 
-
-
-
         
 	<!-- 자재출고에 출고리스트 부분 -->
     <resultMap type="map" id="OutmaterMap">
@@ -266,11 +249,13 @@
 	    <result column="note" property="note"/>
 	    <result column="clnt_cd" property="clientCode"/>
 	    <result column="clnt_nm" property="clientName"/>
+	    <result column="clnt_id" property="clientId"/>
 	    <result column="cur_stock" property="stockcur"/>
 	    <result column="whouse" property="stockwhouse"/>
 	    <result column="item_num" property="itemNum"/>
 	    <result column="item_nm" property="itemName"/>
 	    <result column="invnt_unit" property="itemUnit"/>
+	    <result column="item_id" property="itemId"/>  
     
       </resultMap>
 
@@ -405,6 +390,63 @@
    limit #{startRow}, #{pageSize} 
    </select>      
 
+
+	<!-- 자재출고 수정 -->
+	<update id="updateOutmtrl">
+		update out_material
+		set out_mtrl_num = #{outmtrlNum},
+			out_mtrl_dt = #{outmtrlDt},
+			item_id = #{itemId},
+			clnt_id = #{clntId},
+			out_mtrl_qty = #{outmtrlQty},
+			note = #{note}
+		where out_mtrl_id = #{outmtrlId}
+	</update>
+
+	<select id="getOutmtrlMap" resultMap="OutmaterMap">
+		select 
+			outmater.out_mtrl_id,
+			outmater.out_mtrl_num, 
+			outmater.out_mtrl_dt,  
+			outmater.out_mtrl_qty,			  
+			outmater.note, 
+			clnt.clnt_cd,
+			clnt.clnt_nm,
+			clnt.clnt_id,
+			stock.cur_stock,
+			stock.whouse,
+			item.item_num, 
+	    	item.item_nm,
+	    	item.invnt_unit,
+	    	item.item_id
+		from  
+			out_material outmater join client clnt
+			on outmater.clnt_id = clnt.clnt_id
+			join item item
+			on outmater.item_id = item.item_id
+			left join stock stock
+			on item.item_id = stock.item_id
+			where out_mtrl_id = #{outmtrlId}
+	</select>
+
+
+	<select id="getOutmtrl" resultType="com.itwillbs.material.domain.OutmaterialDTO">
+		select 
+			out_mtrl_id as outmtrlId,
+			item_id as itemId,
+			clnt_id as clntId,
+			out_mtrl_num as outmtrlNum,
+			out_mtrl_dt as outmtrlDt,
+			out_mtrl_qty as outmtrlQty,
+			note as note,
+			insert_id as insertId,
+			insert_dt as insertDt,
+			update_id as updateId,
+			update_dt as updateDt
+		from out_material
+		where out_mtrl_id = #{outmtrlId}
+	</select>
+	
 
   <select id="countItemlist" resultType="java.lang.Integer">
    select

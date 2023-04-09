@@ -497,6 +497,39 @@ public class MaterialController {
 		System.out.println(outmaterialDTO);
 		
 		
-		return "redirect:/material/outmaterList";
+		return "redirect:/common/offwindow";
+	}
+	
+	// 입고 수정
+	@RequestMapping(value = "/material/outmtrlModify", method = RequestMethod.GET)
+	public String outmtrlModify(HttpServletRequest request, Model model) {
+		System.out.println("MaterialController outmtrlModify()");
+		
+		int outmtrlId = Integer.parseInt(request.getParameter("outmtrlId"));
+		
+		OutmaterialDTO outmaterialDTO = materialService.getOutmtrl(outmtrlId);
+		
+		Map<String, Object> getOutmtrl = materialService.getOutmtrlMap(outmaterialDTO.getOutmtrlId()); // 품명 가져오기 위해
+		
+		model.addAttribute("outmaterialDTO", outmaterialDTO);
+		model.addAttribute("getOutmtrl", getOutmtrl);
+		
+		System.out.println("폼 : " + outmtrlId);		
+		
+		return "material/outmtrlModify";
+	}
+	
+	// 입고 수정
+	@RequestMapping(value = "/material/outmtrlModifyPro", method = RequestMethod.POST)
+	public String outmtrlModifyPro(OutmaterialDTO outmaterialDTO, HttpSession session) {
+		System.out.println("MaterialController outmtrlModifyPro()");
+		
+		String id = (String)session.getAttribute("id");
+		outmaterialDTO.setUpdateId(id);
+		outmaterialDTO.setUpdateDt(new Timestamp(System.currentTimeMillis()));
+		
+		materialService.updateOutmtrl(outmaterialDTO);
+		
+		return "redirect:/common/offwindow";
 	}
 }	

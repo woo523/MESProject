@@ -69,6 +69,12 @@ public interface MaterialService {
 	public InmaterialDTO getInmtrl(int inmtrlId);
 
 	public Map<String, Object> getInmtrlMap(int inmtrlId);
+
+	public OutmaterialDTO getOutmtrl(int outmtrlId);
+
+	public Map<String, Object> getOutmtrlMap(int outmtrlId);
+
+	public void updateOutmtrl(OutmaterialDTO outmaterialDTO);
 	
 
 }

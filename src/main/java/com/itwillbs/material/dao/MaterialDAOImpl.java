@@ -215,4 +215,25 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 
+	@Override
+	public OutmaterialDTO getOutmtrl(int outmtrlId) {
+		System.out.println("materialDAOImpl getOutmtrl()");
+		return sqlSession.selectOne(namespace+".getOutmtrl", outmtrlId);
+	}
+
+
+	@Override
+	public Map<String, Object> getOutmtrlMap(int outmtrlId) {
+		System.out.println("materialDAOImpl getOutmtrlMap()");
+		return sqlSession.selectOne(namespace+".getOutmtrlMap", outmtrlId);
+	}
+
+
+	@Override
+	public void updateOutmtrl(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl updateOutmtrl()");		
+		sqlSession.update(namespace+".updateOutmtrl", outmaterialDTO);
+	}
+
+
 }
