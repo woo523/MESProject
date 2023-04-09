@@ -31,7 +31,7 @@
 
 
 	<select id="getInmaterLiMap" resultMap="InmaterMap"> <!-- 처음에 조회되는 자재입고 리스트 -->
-	select 
+		select 
 			inmater.in_mtrl_id,
 			inmater.in_mtrl_num, 
 			inmater.in_mtrl_dt,  
