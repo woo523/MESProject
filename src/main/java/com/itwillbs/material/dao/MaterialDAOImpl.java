@@ -1,6 +1,6 @@
 package com.itwillbs.material.dao;
 
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
+import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
+import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.work.domain.ItemDTO;
 
 @Repository
@@ -38,11 +40,18 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap() {
+	public List<Map<String, Object>> getInmaterLiMap(PageDTO pageDTO) {
 		System.out.println("InmaterialDAOImpl getInmaterLiMap()");
-		return sqlSession.selectList(namespace+".getInmaterLiMap");
+		
+		return sqlSession.selectList(namespace+".getInmaterLiMap", pageDTO);
 	}
 
+	@Override
+	public Integer countMtrlLi(Map<String, Object> search) {
+		System.out.println("InmaterialDAOImpl countMtrlLi()");
+		
+		return sqlSession.selectOne(namespace+".countMtrlLi", search);
+	}
 	
 	@Override
 	public List<Map<String, Object>> outmaterList() {
@@ -59,10 +68,17 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap() {
+	public List<Map<String, Object>> getOutmaterLiMap(PageDTO pageDTO) {
 		System.out.println("OutmaterialDAOImpl getOutmaterLiMap()");
 		
-		return sqlSession.selectList(namespace+".getOutmaterLiMap");
+		return sqlSession.selectList(namespace+".getOutmaterLiMap", pageDTO);
+	}
+	
+	@Override
+	public Integer countOutLi(Map<String, Object> search) {
+		System.out.println("InmaterialDAOImpl countOutLi()");
+		
+		return sqlSession.selectOne(namespace+".countOutLi", search);
 	}
 
 	@Override
@@ -92,15 +108,15 @@ public class MaterialDAOImpl implements MaterialDAO{
 
 	@Override
 	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search) {
-		System.out.println("intmaterialDAOImpl mtrlStateList()");
+		System.out.println("intmaterialDAOImpl mtrlStateList(검색)");
 		return sqlSession.selectList(namespace+".mtrlStateSearch", search);
 	}
 
 
 	@Override
-	public List<Map<String, Object>> mtrlStateList() {
+	public List<Map<String, Object>> mtrlStateList(PageDTO pageDTO) {
 		System.out.println("intmaterialDAOImpl mtrlStateList()");
-		return sqlSession.selectList(namespace + ".mtrlStateList");
+		return sqlSession.selectList(namespace + ".mtrlStateList", pageDTO);
 	}
 
 
@@ -110,5 +126,93 @@ public class MaterialDAOImpl implements MaterialDAO{
 		
 		return sqlSession.selectList(namespace + ".materialState");
 	}
+
+
+	@Override
+	public Integer countStateLi(Map<String, Object> search) {
+		System.out.println("materialDAOImpl countStateLi()");
+		return sqlSession.selectOne(namespace+".countStateLi", search);
+	}
+
+
+//	@Override
+//	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+//		System.out.println("materialDAOImpl getInmtrlMap()");
+//		return sqlSession.selectOne(namespace+".getInmtrlMap",inmtrlId);
+//	}
+
+
+	@Override
+	public void insertInmtrl(InmaterialDTO inmaterialDTO) {
+		System.out.println("materialDAOImpl insertInmtrl()");
+		sqlSession.insert(namespace+".insertInmtrl", inmaterialDTO);
+	}
+
+
+	@Override
+	public void deleteInmtrl(int inmtrlId) {
+		System.out.println("materialDAOImpl deleteInmtrl()");
+		sqlSession.delete(namespace+".deleteInmtrl", inmtrlId);
+	}
+
+
+	@Override
+	public void deleteOutmtrl(int outmtrlId) {
+		System.out.println("materialDAOImpl deleteOutmtrl()");
+		sqlSession.delete(namespace+".deleteOutmtrl", outmtrlId);
+	}
+
+
+	@Override
+	public void insertOutmtrl(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl insertOutmtrl()");
+		sqlSession.insert(namespace+".insertOutmtrl", outmaterialDTO);
+	}
+
+
+	@Override
+	public InmaterialDTO getInmtrlList(int inmtrlId) {
+		System.out.println("materialDAOImpl getInmtrlList()");
+		return sqlSession.selectOne(namespace+".getInmtrlList",inmtrlId);
+	}
+
+
+	@Override
+	public void updateInmtrl(InmaterialDTO inmaterialDTO) {
+		System.out.println("materialDAOImpl updateInmtrl()");
+		
+		sqlSession.update(namespace+".updateInmtrl", inmaterialDTO);
+	}
+
+
+	@Override
+	public StockDTO getStockList(int stockId) {
+		System.out.println("materialDAOImpl getStockList()");
+		return sqlSession.selectOne(namespace+".getStockList", stockId);
+	}
+
+
+	@Override
+	public void updateStock(StockDTO stockDTO, int stockId) {
+		System.out.println("materialDAOImpl updateStock()");
+		
+		stockDTO.setStockId(stockId);
+		sqlSession.update(namespace+".updateStock", stockDTO);	
+	}
+
+
+	@Override
+	public InmaterialDTO getInmtrl(int inmtrlId) {
+		System.out.println("materialDAOImpl getInmtrl()");
+		return sqlSession.selectOne(namespace+".getInmtrl", inmtrlId);
+	}
+
+
+	@Override
+	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+		System.out.println("materialDAOImpl getInmtrlMap()");
+		return sqlSession.selectOne(namespace+".getInmtrlMap", inmtrlId);
+	}
+
 
 }

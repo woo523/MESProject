@@ -199,7 +199,7 @@
 					<th>부서</th>
 					<td>
 						<select name="departments"  id="departments">	<!-- name,id 동일하게 -->
-							<c:forEach items="${departmentComCdList }" var="codeDto">	<!--items="${컨트롤러에서 모델에 담은 이름. var =codeDTO로 쓰기.(큰의미는없음) }  -->
+							<c:forEach items="${departmentComCdList }" var="codeDto">	<!--items="{컨트롤러에서 모델에 담은 이름. var =codeDTO로 쓰기.(큰의미는없음) }  -->
 								<option value="${codeDto.cd }">${codeDto.cdNm }</option>	<!-- 그대로 가져다 쓰기 -->
 							</c:forEach>
 						</select>	

@@ -1,6 +1,8 @@
 package com.itwillbs.login.controller;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itwillbs.auth.domain.AuthDTO;
+import com.itwillbs.auth.service.AuthService;
 import com.itwillbs.login.service.LoginService;
 import com.itwillbs.member.domain.MemberDTO;
 
@@ -22,6 +26,9 @@ public class LoginController {
 
 	@Inject
 	private LoginService loginService; // 4버전.자동으로 객체생성 한 것.
+	
+	@Inject
+	private AuthService authService;
 
 	@RequestMapping(value = "/login/login", method = RequestMethod.GET)
 	public String login() {
@@ -42,6 +49,13 @@ public class LoginController {
 			// 아이디,비밀번호 일치
 			System.out.println("LoginController.loginPro.아이디 비밀번호 일치");
 			session.setAttribute("id", memberDTO.getId());
+			session.setAttribute("name", memberDTO2.getName());
+			
+			List<AuthDTO> authlist = authService.getauth(memberDTO2);
+			for(int i=0;i<authlist.size();i++) {
+				AuthDTO auth = authlist.get(i);
+				session.setAttribute("menu"+auth.getMenuCd(), auth.getMenuCd());
+			}
 			// 주소 변경되면서 메인페이지로 이동
 			return "redirect:/member/list";
 		} else {

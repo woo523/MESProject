@@ -6,10 +6,10 @@ public class LineDTO {
 	private int lineId;		// 라인
 	private String lineCode;	// 라인코드
 	private String lineName;	// 라인명
-	private String proCode;		// 공정코드
 	private String linePlace;	// 작업장
 	private int sortOrder;		// 정렬순서
 	private String useChoice;	// 사용여부
+	private String note;		// 비고
 	private String insertId;	// 등록자
 	private Timestamp insertDate;	// 등록일
 	
@@ -32,12 +32,6 @@ public class LineDTO {
 	public void setLineName(String lineName) {
 		this.lineName = lineName;
 	}
-	public String getProCode() {
-		return proCode;
-	}
-	public void setProCode(String proCode) {
-		this.proCode = proCode;
-	}
 	public String getLinePlace() {
 		return linePlace;
 	}
@@ -56,6 +50,12 @@ public class LineDTO {
 	public void setUseChoice(String useChoice) {
 		this.useChoice = useChoice;
 	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
 	public String getInsertId() {
 		return insertId;
 	}
@@ -69,12 +69,5 @@ public class LineDTO {
 		this.insertDate = insertDate;
 	}
 	
-	
-	@Override
-	public String toString() {
-		return "LineDTO [lineId=" + lineId + ", lineCode=" + lineCode + ", lineName=" + lineName + ", proCode="
-				+ proCode + ", linePlace=" + linePlace + ", sortOrder=" + sortOrder + ", useChoice=" + useChoice
-				+ ", insertId=" + insertId + ", insertDate=" + insertDate + "]";
-	}
 
 }

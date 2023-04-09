@@ -7,7 +7,7 @@ public class OutmaterialDTO {
 	private int itemId;		// 품목관리 기본키
 	private int clntId;		// 거래처정보 기본키
 	private String outmtrlNum;	// 출고번호
-	private Timestamp outmtrlDt;	// 출고일자
+	private String outmtrlDt;	// 출고일자
 	private int outmtrlQty;	// 출고수량
 	private String note;	// 비고
 	private String insertId;	// 등록자
@@ -39,10 +39,10 @@ public class OutmaterialDTO {
 	public void setOutmtrlNum(String outmtrlNum) {
 		this.outmtrlNum = outmtrlNum;
 	}
-	public Timestamp getOutmtrlDt() {
+	public String getOutmtrlDt() {
 		return outmtrlDt;
 	}
-	public void setOutmtrlDt(Timestamp outmtrlDt) {
+	public void setOutmtrlDt(String outmtrlDt) {
 		this.outmtrlDt = outmtrlDt;
 	}
 	public int getOutmtrlQty() {

@@ -1,86 +1,199 @@
 package com.itwillbs.order.domain;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class OrderDTO {
-	private int ord_id; 		 // auto_increament 수주관리 기본키
-	private int clnt_id; 		 // FK 거래처정보 기본키
-	private int user_id;  		 // FK 사용자관리 기본키
-	private Date order_dt; 		 // 수주일자  
-	private Date dlvry_dt; 		 // 납품예정일
-	private int csmtr_ord_num; 	 // 고객수주번호
-	private String ord_num; 	 // 수주번호
-	private String insert_id; 	 // 등록자
-	private Timestamp insert_dt; // 등록일
-	private String update_id; 	 // 변경자 
-	private Timestamp update_dt; // 변경일
+	private int ordId; 		
+	private int clntId; 		 
+	private int userId;  
+	private int ordInfo;
+	private int itemId;
+	private int ordQty;
+//	private Date sOdate; 		 
+//	private Date eOdate; 		
+//	private Date sDdate; 		
+//	private Date eDdate; 		 
+	private String orderDt; 		 
+	private String dlvryDt; 		
+	private Timestamp insertDt; 
+	private Timestamp updateDt;
+	private String ordNum; 
+	private String insertId; 	 
+	private String updateId; 	 
+	private String cmpltYn;
+	private String note;
+	private String clntNm;
+	private String userNm;
+	private String userNum;
+	private String itemNum;
+	private String itemNm;
+	private String invntUnit;
+	private String clntCd;
 	
-	public int getOrd_id() {
-		return ord_id;
-	}
-	public void setOrd_id(int ord_id) {
-		this.ord_id = ord_id;
-	}
-	public int getClnt_id() {
-		return clnt_id;
-	}
-	public void setClnt_id(int clnt_id) {
-		this.clnt_id = clnt_id;
-	}
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-	public Date getOrder_dt() {
-		return order_dt;
-	}
-	public void setOrder_dt(Date order_dt) {
-		this.order_dt = order_dt;
-	}
-	public Date getDlvry_dt() {
-		return dlvry_dt;
-	}
-	public void setDlvry_dt(Date dlvry_dt) {
-		this.dlvry_dt = dlvry_dt;
-	}
-	public int getCsmtr_ord_num() {
-		return csmtr_ord_num;
-	}
-	public void setCsmtr_ord_num(int csmtr_ord_num) {
-		this.csmtr_ord_num = csmtr_ord_num;
-	}
-	public String getOrd_num() {
-		return ord_num;
-	}
-	public void setOrd_num(String ord_num) {
-		this.ord_num = ord_num;
-	}
-	public String getInsert_id() {
-		return insert_id;
-	}
-	public void setInsert_id(String insert_id) {
-		this.insert_id = insert_id;
-	}
-	public Timestamp getInsert_dt() {
-		return insert_dt;
-	}
-	public void setInsert_dt(Timestamp insert_dt) {
-		this.insert_dt = insert_dt;
-	}
-	public String getUpdate_id() {
-		return update_id;
-	}
-	public void setUpdate_id(String update_id) {
-		this.update_id = update_id;
-	}
-	public Timestamp getUpdate_dt() {
-		return update_dt;
-	}
-	public void setUpdate_dt(Timestamp update_dt) {
-		this.update_dt = update_dt;
-	}
 	
+	
+	
+	public String getClntCd() {
+		return clntCd;
+	}
+	public void setClntCd(String clntCd) {
+		this.clntCd = clntCd;
+	}
+
+	public String getOrderDt() {
+		return orderDt;
+	}
+	public void setOrderDt(String orderDt) {
+		this.orderDt = orderDt;
+	}
+	public String getDlvryDt() {
+		return dlvryDt;
+	}
+	public void setDlvryDt(String dlvryDt) {
+		this.dlvryDt = dlvryDt;
+	}
+	public String getItemNum() {
+		return itemNum;
+	}
+	public void setItemNum(String itemNum) {
+		this.itemNum = itemNum;
+	}
+	public int getOrdId() {
+		return ordId;
+	}
+	public void setOrdId(int ordId) {
+		this.ordId = ordId;
+	}
+	public int getClntId() {
+		return clntId;
+	}
+	public void setClntId(int clntId) {
+		this.clntId = clntId;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+//	public Date getsOdate() {
+//		return sOdate;
+//	}
+//	public void setsOdate(Date sOdate) {
+//		this.sOdate = sOdate;
+//	}
+//	public Date geteOdate() {
+//		return eOdate;
+//	}
+//	public void seteOdate(Date eOdate) {
+//		this.eOdate = eOdate;
+//	}
+//	public Date getsDdate() {
+//		return sDdate;
+//	}
+//	public void setsDdate(Date sDdate) {
+//		this.sDdate = sDdate;
+//	}
+//	public Date geteDdate() {
+//		return eDdate;
+//	}
+//	public void seteDdate(Date eDdate) {
+//		this.eDdate = eDdate;
+//	}
+	public String getOrdNum() {
+		return ordNum;
+	}
+	public void setOrdNum(String ordNum) {
+		this.ordNum = ordNum;
+	}
+	public String getInsertId() {
+		return insertId;
+	}
+	public void setInsertId(String insertId) {
+		this.insertId = insertId;
+	}
+	public Timestamp getInsertDt() {
+		return insertDt;
+	}
+	public void setInsertDt(Timestamp insertDt) {
+		this.insertDt = insertDt;
+	}
+	public String getUpdateId() {
+		return updateId;
+	}
+	public void setUpdateId(String updateId) {
+		this.updateId = updateId;
+	}
+	public Timestamp getUpdateDt() {
+		return updateDt;
+	}
+	public void setUpdateDt(Timestamp updateDt) {
+		this.updateDt = updateDt;
+	}
+	public int getOrdInfo() {
+		return ordInfo;
+	}
+	public void setOrdInfo(int ordInfo) {
+		this.ordInfo = ordInfo;
+	}
+	public int getItemId() {
+		return itemId;
+	}
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	public int getOrdQty() {
+		return ordQty;
+	}
+	public void setOrdQty(int ordQty) {
+		this.ordQty = ordQty;
+	}
+	public String getCmpltYn() {
+		return cmpltYn;
+	}
+	public void setCmpltYn(String cmpltYn) {
+		this.cmpltYn = cmpltYn;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	public String getClntNm() {
+		return clntNm;
+	}
+	public void setClntNm(String clntNm) {
+		this.clntNm = clntNm;
+	}
+	public String getUserNm() {
+		return userNm;
+	}
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
+	public String getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(String userNum) {
+		this.userNum = userNum;
+	}
+	public String getItemNm() {
+		return itemNm;
+	}
+	public void setItemNm(String itemNm) {
+		this.itemNm = itemNm;
+	}
+	public String getInvntUnit() {
+		return invntUnit;
+	}
+	public void setInvntUnit(String invntUnit) {
+		this.invntUnit = invntUnit;
+	}
+
+	 
+	
+	
+
 }

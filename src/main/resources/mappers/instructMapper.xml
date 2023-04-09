@@ -4,19 +4,39 @@
 <mapper namespace="com.itwillbs.mappers.instructMapper">
 	
 	<resultMap type="map" id="lineMap">
+		<result property="lineId" column="lineId"/>
 		<result property="lineCode" column="lineCode" />
 		<result property="lineName" column="lineName" />
-		<result property="proCode" column="proCode" />
+		<result property="linePlace" column="linePlace" />
+		<result property="useChoice" column="useChoice" />
 	</resultMap>
 	
 	<resultMap type="map" id="itemMap">
+		<result property="itemId" column="itemId"/>
 		<result property="itemNum" column="itemNum" />
 		<result property="itemName" column="itemName" />
 		<result property="invntUnit" column="itemUnit" />
 	</resultMap>
 	
+	<resultMap type="map" id="clntMap">
+		<result property="clientId" column="clientId"/>
+		<result property="clientName" column="clientName" />
+	</resultMap>
+	
+	<resultMap type="map" id="ordMngMap">
+		<result property="ordId" column="ord_id"/>
+		<result property="ordNum" column="ord_num"/>
+		<result property="orderDate" column="order_dt"/>
+		<result property="dlvryDate" column="dlvry_dt"/>
+		<result property="ordQty" column="ord_qty"/>
+	</resultMap>
+	
+	<resultMap type="map" id="userMap">
+		<result property="name" column="name" />
+	</resultMap>
+	
  	<resultMap type="map" id="instrMap">
- 		<result property="instr_id" column="instr_id"/>
+ 		<result property="instrId" column="instrId"/>
 		<result property="workNum" column="workNum"/>
 		<result property="workDate" column="workDate"/>
 		<result property="workSts" column="workSts"/>
@@ -25,58 +45,71 @@
 		<result property="insertId" column="insertId"/>
 		<collection property="lineDTO" resultMap="lineMap" />
 		<collection property="itemDTO" resultMap="itemMap" />
+		<collection property="clntDTO" resultMap="clntMap" />
+		<collection property="orderMngDTO" resultMap="ordMngMap" />
+		<collection property="userDTO" resultMap="userMap" />
+	</resultMap>
+	
+	<resultMap type="map" id="orderMap">
+		<collection property="orderMngDTO" resultMap="ordMngMap" />
+		<collection property="itemDTO" resultMap="itemMap" />
+		<collection property="clntDTO" resultMap="clntMap" />
 	</resultMap>
 	
 	<!-- instructList 메인 전체 select 구문 -->
 	<select id="instrList" resultMap="instrMap">
 		<include refid="List" />
+		ORDER BY insertDate DESC
+		LIMIT #{startRow} , #{pageSize}
 	</select>
 	
 	<!-- instructList 조회 select 구문 -->
 	<select id="instrSearch" resultMap="instrMap">
 		<include refid="List" />
 		<include refid="Search" />
-		<![CDATA[
-			ORDER BY work.instr_id
-		]]>
+		ORDER BY insertDate DESC
+		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
+	<!-- 작업지시 전체 목록 개수 -->
 	<select id="instrCount" resultType="java.lang.Integer">
-		<include refid="Count" />
+		SELECT COUNT(*) FROM work_instr
 	</select>
 	
+	<!-- 작업지시 조회 목록 개수 -->
 	<select id="instrSearchCount" resultType="java.lang.Integer">
 		<include refid="SearchCount" />
 		<include refid="Search" />
 	</select>
 	
 	<sql id="List">
-		SELECT work.instr_id, work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num as orderNum, 
+		SELECT work.instr_id as instrId, work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num, 
 			   work.work_dt as workDate, work.work_sts as workSts,
           	   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
-          	   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
-          	   work.work_qty as workQty, work.insert_dt as insertDate, work.insert_id as insertId
+          	   line.line_cd as lineCode, line.line_nm as lineName, 
+          	   work.work_qty as workQty, work.insert_dt as insertDate, user.name
 		FROM work_instr work JOIN order_mng oder ON work.ord_id = oder.ord_id
-        JOIN item item ON work.item_id = item.item_id
-        JOIN client clnt ON item.clnt_id = clnt.clnt_id
+        JOIN item item ON item.item_id = work.item_id
+        JOIN client clnt ON oder.clnt_id = clnt.clnt_id
         JOIN line line ON work.line_id = line.line_id
+	 	JOIN user user ON work.insert_id = user.id
 	</sql>
 	
 	<sql id="Search">
-		WHERE line.line_cd like CONCAT('%', #{lineName}, '%')
+		WHERE line.line_cd LIKE CONCAT('%', #{lineName}, '%')
 		<if test="startDate != '' and endDate != ''">
 			AND work_dt BETWEEN	#{startDate} and #{endDate}
 		</if>
 		<if test="startDate == '' and endDate == ''">
 		</if>
 		<if test="startDate != ''">
-			AND work_dt &gt;=#{startDate}
+			AND work_dt &gt;= #{startDate}
 		</if>
 		<if test="endDate != ''">
-			AND work_dt &lt;=#{endDate}
+			AND work_dt &lt;= #{endDate}
 		</if>
 		<choose>
-			<when test="(workSts1=='' and woskSts2=='' and workSts3=='') or (workSts1==null and workSts2==null and workSts3==null)">
+			<when test="(workSts1=='' and workSts2=='' and workSts3=='') or (workSts1==null and workSts2==null and workSts3==null)">
 			</when>
 			<otherwise>
 				AND (work_sts = #{workSts1} or work_sts = #{workSts2} or work_sts = #{workSts3})
@@ -85,20 +118,127 @@
 		AND item.item_num LIKE CONCAT('%' , #{itemNum}, '%')
 	</sql>
 	
-	<sql id="Count">
-		SELECT COUNT(*) FROM work_instr
-	</sql>
-	
 	<sql id="SearchCount">
-		SELECT COUNT(*)as count, work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num as orderNum, 
+		SELECT COUNT(*)as count, work.instr_id as instrId, work.work_num as workNum, clnt.clnt_nm as clientName, oder.ord_num, 
 			   work.work_dt as workDate, work.work_sts as workSts,
           	   item.item_num as itemNum, item.item_nm as itemName, item.invnt_unit as itemUnit, 
-          	   line.line_cd as lineCode, line.line_nm as lineName, line.pro_cd as proCode, 
-          	   work.work_qty as workQty, work.insert_dt as insertDate, work.insert_id as insertId
+          	   line.line_cd as lineCode, line.line_nm as lineName, 
+          	   work.work_qty as workQty, work.insert_dt as insertDate
 		FROM work_instr work JOIN order_mng oder ON work.ord_id = oder.ord_id
-        JOIN item item ON work.item_id = item.item_id
-        JOIN client clnt ON item.clnt_id = clnt.clnt_id
+        JOIN item item ON item.item_id = work.item_id
+        JOIN client clnt ON oder.clnt_id = clnt.clnt_id
         JOIN line line ON work.line_id = line.line_id
 	</sql>
+	
+	<!-- 작업지시 등록 라인 조회 -->
+	<select id="getLineList" resultMap="lineMap">
+		SELECT line_id AS lineId,
+			   line_nm AS lineName,
+			   place AS linePlace,
+			   use_yn AS useChoice
+		FROM line
+		WHERE line_nm LIKE CONCAT('%', #{lineName}, '%')
+	</select>
+	
+	<!-- 작업지시 번호에 해당하는 작업지시 목록 -->
+	<select id="instrIdList" resultType="com.itwillbs.work.domain.InstructDTO">
+		SELECT 	instr_id as instrId,
+				line_id as lineId,
+				ord_id as ordId,
+				item_id as itemId,
+				work_num as workNum,
+				work_sts as workSts,
+				work_dt as workDate,
+				work_qty as workQty,
+				insert_id as insertId,
+				insert_dt as insertDate
+		FROM work_instr
+		WHERE instr_id = #{instrId}
+	</select>
+	
+	<select id="getInstrList" resultMap="instrMap">
+		SELECT work.instr_id as instrId, work.work_num as workNum, work.insert_id as insertId, work.work_dt as workDate,
+			   ord.ord_id, ord.ord_qty, ord.ord_num, 
+			   work.work_sts as workSts, work.work_qty as workQty,
+			   item.item_id as itemId, item.item_num as itemNum, item.item_nm as itemName,
+			   line.line_id as lineId, line.line_nm as lineName, line.place as linePlace, line.use_yn as useChoice, clnt.clnt_nm as clientName
+		FROM work_instr work JOIN order_mng ord ON work.ord_id = ord.ord_id
+		JOIN item item ON item.item_id = work.item_id
+		JOIN line line ON work.line_id = line.line_id
+		JOIN client clnt ON ord.clnt_id = clnt.clnt_id
+		WHERE work.instr_id = #{instrId}
+	</select>
+	
+	<!-- 작업지시 등록 수주 조회 -->
+	<select id="getOrdList" resultMap="orderMap">
+		SELECT ord.ord_id, ord.ord_num, ord.order_dt, ord.dlvry_dt,
+			   i.item_id as itemId, i.item_num as itemNum, i.item_nm as itemName, ord.ord_qty,
+		       c.clnt_nm as clientName
+		FROM order_mng ord JOIN item i
+		ON ord.item_id = i.item_id
+		JOIN client c
+		ON ord.clnt_id = c.clnt_id
+	</select>
+	
+	<!-- 작업지시 등록 수주 검색 조회 -->
+	<select id="getOrdListSearch" resultMap="orderMap">
+		SELECT ord.ord_id, ord.ord_num, ord.order_dt, ord.dlvry_dt,
+			   i.item_id as itemId, i.item_num as itemNum, i.item_nm as itemName, ord.ord_qty,
+		       c.clnt_nm as clientName
+		FROM order_mng ord JOIN item i
+		ON ord.item_id = i.item_id
+		JOIN client c
+		ON ord.clnt_id = c.clnt_id
+		WHERE ord.ord_num IS NOT NULL
+		<if test="startDate != '' and endDate != ''">
+			AND order_dt BETWEEN #{startDate} AND #{endDate}
+		</if>
+		<if test="startDate == '' and endDate == ''">
+		</if>
+		<if test="startDate != ''">
+			AND order_dt &gt;= #{startDate}
+		</if>
+		<if test="endDate != ''">
+			AND order_dt &lt;= #{endDate}
+		</if>
+		<choose>
+			<when test="clientName == '' or clientName == null"></when>
+			<otherwise>
+				AND c.clnt_nm LIKE CONCAT('%', #{clientName}, '%')
+			</otherwise>
+		</choose>
+		<if test="dlvryDate != ''">
+			AND ord.dlvry_dt = #{dlvryDate}
+		</if>
+		<if test="dlvryDate == ''"></if>
+		<choose>
+			<when test="itemNum == '' or itemNum == null"></when>
+			<otherwise>
+				AND i.item_num LIKE CONCAT('%', #{itemNum}, '%')
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 작업지시 등록 -->
+	<insert id="instrInsert">
+		INSERT INTO work_instr (instr_id, work_num, insert_id, ord_id, work_sts, item_id, line_id, work_qty, work_dt, insert_dt)
+		VALUES (#{instrId}, #{workNum}, #{insertId}, #{ordId}, #{workSts}, #{itemId}, #{lineId}, #{workQty}, #{workDate}, #{insertDate})
+	</insert>
+	
+	<!-- 작업지시 수정 -->
+	<update id="instrUpdate">
+		UPDATE work_instr
+		SET ord_id = #{ordId},
+			item_id = #{itemId},
+			line_id = #{lineId},
+			work_qty = #{workQty}
+		WHERE instr_id = #{instrId}
+	</update>
+	
+	<!-- 작업지시 삭제 -->
+	<delete id="instrDelete">
+		DELETE FROM work_instr
+		WHERE instr_id = #{instrId}
+	</delete>
 
 </mapper>

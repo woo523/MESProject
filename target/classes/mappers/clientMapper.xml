@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.clientMapper">
+	
+
+    <resultMap type="map" id="ClientMap">
+    <result column="clnt_cd" property="clntCode"/>
+    <result column="clnt_nm" property="clntName"/>
+    <result column="clnt_type" property="clntType"/>
+    <result column="bsns_num" property="bsnsNum"/>
+    <result column="industry" property="industry"/>
+    <result column="event" property="event"/>
+    <result column="daepyo" property="daepyo"/>
+    <result column="manager" property="manager"/>
+    <result column="zipcode" property="zipCode"/>
+    <result column="addr" property="address"/>
+    <result column="addr_dtl" property="addrDtl"/>
+    <result column="tell" property="tell"/>
+    <result column="phone" property="phone"/>
+    <result column="fax" property="fax"/>
+    <result column="email" property="email"/>
+    <result column="use_yn" property="useYn"/>
+    <result column="note" property="note"/>
+    </resultMap>
+	
+	<select id="getClientMap" resultMap="ClientMap">
+		SELECT clnt_cd,
+			   clnt_nm,
+			   clnt_type,
+			   bsns_num,
+			   industry,
+			   event,
+			   daepyo,
+			   manager,
+			   zipcode,
+			   addr,
+			   addr_dtl,
+			   tell,
+			   phone,
+			   fax,
+			   email,
+			   use_yn,
+			   note
+		FROM client
+	</select>
+	
+	<select id="clientList" resultType="com.itwillbs.mdm.domain.ClientDTO">
+			select clnt_nm
+			from client
+	</select>
+	
+<!-- 	<select id="getClientList" resultType="com.itwillbs.item.domain.ClientDTO"> -->
+<!--         select * from client -->
+<!--     </select> -->
+	
+</mapper>

@@ -8,11 +8,11 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.order.domain.ItemDTO;
 import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.order.domain.PageDTO;
 import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
-import com.itwillbs.work.domain.ItemDTO;
 
 
 @Repository
@@ -23,16 +23,14 @@ public class OrderDAOImpl implements OrderDAO{
 	private static final String namespace ="com.itwillbs.mappers.orderMapper";
 
 	@Override
-	public List<Map<String, Object>> getOrderMap(PageDTO pageDTO) { // ��泥� 議고��
+	public List<Map<String, Object>> getOrderMap(PageDTO pageDTO) { 
 		System.out.println("OrderDAOImpl getOrderMap()");
-		
 		return sqlSession.selectList(namespace+".getOrderMap", pageDTO);
 	}
 
 	@Override
-	public List<Map<String, Object>> getOrderMap(Map<String, Object> search) { // 寃��� 議고��
-		System.out.println("OrderDAOImpl getOrderMap(寃���)"); 
-
+	public List<Map<String, Object>> getSearchOrderMap(Map<String, Object> search) { 
+		System.out.println("OrderDAOImpl getSearchOrderMap()"); 
 	    return sqlSession.selectList(namespace+".getSearchOrderMap",search);
 	}
 
@@ -77,6 +75,62 @@ public class OrderDAOImpl implements OrderDAO{
 	public Integer countClntList(Map<String, Object> search) {
 		System.out.println("OrderDAOImpl countClntList()");
 		return sqlSession.selectOne(namespace+".countClntList", search);
+	}
+
+	@Override
+	public void insertOrder(OrderDTO orderDTO) {
+		System.out.println("OrderDAOImpl insertOrder() 화면단 정보를 db에 저장");
+		sqlSession.insert(namespace+".insertOrder", orderDTO);
+	}
+
+	@Override
+	public OrderDTO getOrder(int ordId) { // 주문 아이디 가져오기
+		System.out.println("OrderDAOImpl getOrder() ");
+		return sqlSession.selectOne(namespace+".getOrder", ordId);
+	}
+
+	@Override
+	public void updateOrder(OrderDTO orderDTO) {
+		System.out.println("OrderDAOImpl updateOrder() 화면단 정보를 db에 저장");
+		sqlSession.update(namespace+".updateOrder", orderDTO);
+		
+	}
+
+	@Override
+	public void deleteOrder(int ordId) {
+		System.out.println("OrderDAOImpl deleteOrder() 화면단 정보를 db에 저장");
+		sqlSession.delete(namespace+".deleteOrder", ordId);
+		
+	}
+
+	@Override
+	public Integer orderSCount() {
+		System.out.println("OrderDAOImpl orderSCount() 화면단 정보를 db에 저장");
+		return sqlSession.selectOne(namespace+".orderSCount");
+	}
+
+	@Override
+	public List<Map<String, Object>> getStsOrderMap(Map<String, Object> search) {
+		System.out.println("OrderDAOImpl getStsOrderMap()"); 
+	    return sqlSession.selectList(namespace+".getStsOrderMap",search);
+	}
+
+	@Override
+	public List<Map<String, Object>> getStsMap(PageDTO pageDTO) {
+		System.out.println("OrderDAOImpl getStsMap()");
+		return sqlSession.selectList(namespace+".getStsMap", pageDTO);
+	}
+
+	@Override
+	public Integer countStsOrder(Map<String, Object> search) {
+		System.out.println("OrderDAOImpl countStsOrder()"); 
+		return sqlSession.selectOne(namespace+".countStsOrder",search);
+	}
+
+	@Override
+	public void updateCmplt(OrderDTO orderDTO) {
+		System.out.println("OrderDAOImpl updateCmplt() 화면단 정보를 db에 저장");
+		sqlSession.update(namespace+".updateCmplt", orderDTO);
 	}
 
 

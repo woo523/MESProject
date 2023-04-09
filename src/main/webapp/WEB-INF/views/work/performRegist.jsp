@@ -50,10 +50,7 @@ table#search {
 	text-align: right;
  
 }
-#pagination{
-      width: 1125px;  
-text-align: center;
-}
+
 
 #num:hover{
 	background-color : #e1e1e1;
@@ -80,13 +77,60 @@ text-align: center;
 }
 
 
+#si{
+	font-weight: bolder;
+}
+#ma{
+	color:red;
+}
+
+
 div.side{ 
- height : 780px;
+/*  height : 780px; */
  }  
 
 div.content{ 
- height : 780px; 
+/*  height : 780px;  */
  } 
+ 
+button{
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
+
+/* 페이징 */
+
+
+#pagination {
+
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+  width:1125px;
+}
+
 </style>
 </head>
 <body>
@@ -96,7 +140,7 @@ div.content{
 
 
 function openilist(){
-        window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
+        window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
     }
 
 
@@ -126,16 +170,15 @@ function getPerformList(a,b){ // 해당 작업지시번호에 맞는 생산실�
 } 
 
 function PerformListPrint(array){ // 해당 생산실적 출력
-
-	var output ="<br>★ 선택한 작업지시 번호는 "+array[0].workNum+"입니다. <br>";
-	output=output+"<div id='btn'><button id='add' onclick='pfRegi("+array[0].instrId+")'>실적 등록</button></div><br>";
+	var output ="<br>- 작업지시 번호 : "+array[0].workNum+" -<br>";
+	output=output+"<div id='btn'><button onclick='closeR("+array[0].instrId+")'>수동 마감</button>&nbsp;&nbsp;<button id='add' onclick='pfRegi("+array[0].instrId+")'>실적 등록</button></div><br>";
 	if(array[0].itemNum==null){
 		output=output+"<총 0건><br>";
-		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
-		output=output+"<tr id='con'><td colspan='6'> 해당 자료가 없습니다 </td> </tr>";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th><th></th></tr>";
+		output=output+"<tr id='con'><td colspan='7'> 해당 자료가 없습니다. 실적을 등록해주세요. </td> </tr>";
 	}else{
 		output=output+"<총 "+ array.length +"건><br>";
-		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th></th></tr>";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th><th></th></tr>";
 	for (var i=0; i<array.length; i++) {
 	
 		output=output+"<tr id='con'>";
@@ -145,8 +188,11 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 		output=output+"<td>"+array[i].gbYn+"</td>";	
 		output=output+"<td>"+array[i].performQty+"</td>";	
 		output=output+"<td>"+array[i].dbReason+"</td>";
-		output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
-		output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+array[i].performId+")'></td>";
+		output=output+"<td>"+array[i].name+"</td>";
+		if(${sessionScope.id}==array[i].insertId){
+			output=output+"<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick='openmodi("+array[i].performId+")'>";
+			output=output+"<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick='delPf("+array[i].performId+")'></td>";
+		}		
 		output=output+"</tr>";
 		
 		}
@@ -159,16 +205,28 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 } //PerformListPrint(array)
 
 function openmodi(a){ // 실적 수정창
-        window.open("${pageContext.request.contextPath}/work/pfmodi?performId="+a,"popup", "width=500, height=500,left=100, top=100");
+        window.open("${pageContext.request.contextPath}/work/pfmodi?performId="+a,"popup", "width=500, height=500,left=500, top=200");
     }
 
 function pfRegi(a){ // 실적 등록창
-	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=500,left=100, top=100");
+	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=500,left=500, top=200");
 }
 
+function closeR(a){ // 수동 마감
+
+		if(confirm("해당 지시를 수동 마감하시겠습니까?")){
+		alert("해당 지시가 마감되었습니다.");
+		location.href="${pageContext.request.contextPath}/work/close?instrId="+a;
+	}else{
+		alert("취소되었습니다.");
+	}
+}
+
+function fun1() {
+	alert("왜");
+}
 
 function delPf(a) {
-	
 	if(confirm("삭제하시겠습니까?")){
 		alert("해당 실적이 삭제되었습니다.");
 		location.href="${pageContext.request.contextPath}/work/del?performId="+a;
@@ -227,7 +285,9 @@ $(function() {
 </script>
 <!-- 스크립트 끝. -->
 
-
+<c:if test="${empty sessionScope.id }">
+<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
+</c:if>
 
 
 <div class="content_body"> <!-- 지우면안됨 -->
@@ -247,9 +307,10 @@ $(function() {
 		</c:forEach>
 		</select></td>
 	<td>지시일자</td>
-	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td>
+	<td><input type="text" id="sDate" class="form-control" name="sdate" placeholder="날짜를 선택해주세요" readonly></td><td>~</td>
 	<td><input type="text" id="eDate" class="form-control" name="edate" readonly></td>
 	<td>품번</td>
+		<input type="hidden" id="pid">
 	<td><input type="text" name="pcd" id="pcd" onclick="openilist()" placeholder="품번"></td>
 	<td><input type="text" id="pnm" onclick="openilist()" placeholder="품명"></td></tr>
 	<tr><td>지시상태</td>
@@ -265,6 +326,7 @@ $(function() {
 	<br><br><br>
 	<h2>작업지시</h2>
 	<br>
+	총 ${pageDTO.count } 건
 	<table border="1" id="main">
 	
 	<tr id="th"><th>작업지시번호</th><th>라인</th><th>라인명</th><th>품번</th><th>품명</th><th>지시상태</th><th>지시일자</th><th>지시수량</th><th>수주번호</th><th>업체</th></tr>
@@ -277,7 +339,12 @@ $(function() {
 	  	<td>${idto.lineName}</td>
 	  	<td>${idto.itemNum}</td>
 	  	<td>${idto.itemName}</td>
-	 	<td>${idto.workSts}</td>
+	  	<c:if test="${idto.workSts eq '지시'}">
+	 	<td>${idto.workSts}</td></c:if>
+	 	<c:if test="${idto.workSts eq '시작'}">
+	 	<td id="si">${idto.workSts}</td></c:if>
+	 	<c:if test="${idto.workSts eq '마감'}">
+	 	<td id="ma">${idto.workSts}</td></c:if>
 	  	<td>${idto.workDate}</td>
 	  	<td>${idto.workQty}</td>
 	  	<td>${idto.ordNum}</td>
@@ -286,6 +353,7 @@ $(function() {
 
     </table>
     <br>
+    <div class="center">
     <div id="pagination">
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
@@ -298,7 +366,7 @@ $(function() {
 	</c:if>
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a id="num" href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${i}">${i}</a> 
+	<a id="num" href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a> 
 	</c:forEach>
 
 <!-- 1페이지 다음 -->	
@@ -310,6 +378,7 @@ $(function() {
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
 	<a href="${pageContext.request.contextPath }/work/performRegist?line=${search.line}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ists1=${search.ists1 }&ists2=${search.ists2 }&ists3=${search.ists3 }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
+	</div>
 	</div>
 
 	<br><br><br>

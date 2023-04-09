@@ -14,7 +14,8 @@
  
   	<!-- 1명사용자 조회 -->
 	<select id="getMember" resultType="com.itwillbs.member.domain.MemberDTO">
-		select T.id,
+		select 	T.user_id as userId,
+				T.id,
 				T.pass,
 				T.name,
 				T.departments,
@@ -49,7 +50,8 @@
 	
 	<!-- 사용자목록 전체조회 -->
 	<select id="getMemberList" resultType="com.itwillbs.member.domain.MemberDTO">
-		select T.id,
+		select 	T.user_id as userId,
+				T.id,
 				T.pass,
 				T.name,
 				T.departments,
@@ -64,7 +66,7 @@
 				T.update_id,
 				T.update_dt
 		from user T
-		order by T.user_id desc 
+		order by T.position 
         limit #{startRow} , #{pageSize}
 	</select>
 	

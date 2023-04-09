@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.itemMapper">
+	
+
+    <resultMap type="map" id="ItemMap">
+    <result column="item_id" property="itemId"/>
+    <result column="clnt_id" property="clntId"/>
+    <result column="item_num" property="itemNum"/>
+    <result column="item_nm" property="itemName"/>
+    <result column="mtrl_type" property="mtrlType"/>
+    <result column="mtrl_sort" property="mtrlSort"/>
+    <result column="invnt_unit" property="invntUnit"/>
+    <result column="invnt_qlt" property="invntQlt"/>
+    <result column="standard" property="standard"/>
+    <result column="use_yn" property="useYn"/>
+    <result column="sale_price" property="salePrice"/>
+    <result column="buy_price" property="buyPrice"/>
+    <result column="note" property="note"/>
+    <result column="clnt_nm" property="clntName"/>
+    
+    </resultMap>
+	
+	<select id="itemList" resultMap="ItemMap">
+		SELECT i.item_id,
+			   c.clnt_id,
+			   c.clnt_nm,
+			   i.item_num,
+			   i.item_nm ,
+			   i.mtrl_type,
+			   i.mtrl_sort,
+			   i.invnt_unit,
+			   i.invnt_qlt,
+			   i.standard,
+			   i.use_yn,
+			   i.sale_price,
+			   i.buy_price,
+			   i.note
+		FROM item i join client c
+		ON c.clnt_id = i.clnt_id
+		limit #{startRow}, #{pageSize}
+	</select>
+	
+	 <select id="SearchItemMap" resultMap="ItemMap">
+		SELECT i.item_id,
+			   c.clnt_id,
+			   c.clnt_nm,
+			   i.item_num,
+			   i.item_nm ,
+			   i.mtrl_type,
+			   i.mtrl_sort,
+			   i.invnt_unit,
+			   i.invnt_qlt,
+			   i.standard,
+			   i.use_yn,
+			   i.sale_price,
+			   i.buy_price,
+			   i.note
+		FROM item i join client c
+		ON c.clnt_id = i.clnt_id
+		WHERE i.item_num LIKE CONCAT('%', #{itemNum}, '%') 
+		AND i.item_nm LIKE CONCAT('%', #{itemName}, '%')
+	<choose>
+			<when test="mtrlType == '원자재'.toString()">
+				AND i.mtrl_type LIKE CONCAT('%', #{mtrlType}, '%')
+			</when>
+			<when test="mtrlType == '부자재'.toString()">
+				AND i.mtrl_type LIKE CONCAT('%', #{mtrlType}, '%')
+			</when>
+			<when test="mtrlType == '완제품'.toString()">
+				AND i.mtrl_type LIKE CONCAT('%', #{mtrlType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="mtrlSort == '사내'.toString()">
+				AND i.mtrl_sort LIKE CONCAT('%', #{mtrlSort}, '%')
+			</when>
+			<when test="mtrlSort == '사외'.toString()">
+				AND i.mtrl_sort LIKE CONCAT('%', #{mtrlSort}, '%')
+			</when>
+	</choose>	
+	<choose>
+			<when test="useYn == 'Y'.toString()">
+				AND i.use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+			<when test="useYn == 'N'.toString()">
+				AND i.use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+	</choose>	
+	ORDER BY i.item_id ASC
+	LIMIT #{startRow}, #{pageSize}	
+    </select>
+	
+	<select id="insertItem">
+		insert into item (item_num, item_nm, mtrl_type, mtrl_sort, invnt_unit, invnt_qlt, standard, use_yn, sale_price, buy_price, note)
+		values (#{itemNum},#{itemName},#{mtrlType},#{mtrlSort},#{invntUnit},#{invntQlt},#{standard},#{useYn},#{salePrice},#{buyPrice},#{note})
+	</select>
+	
+	<select id="itemPage" resultMap="ItemMap">
+		SELECT i.item_id,
+			   c.clnt_id,
+			   c.clnt_nm,
+			   i.item_num,
+			   i.item_nm ,
+			   i.mtrl_type,
+			   i.mtrl_sort,
+			   i.invnt_unit,
+			   i.invnt_qlt,
+			   i.standard,
+			   i.use_yn,
+			   i.sale_price,
+			   i.buy_price,
+			   i.note
+		FROM item i join client c
+		ON c.clnt_id = i.clnt_id
+		ORDER BY i.item_id ASC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+		
+	<select id="itemCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM item
+	</select>
+	
+	<select id="searchCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM item
+		WHERE item_num LIKE CONCAT('%', #{itemNum}, '%') 
+		AND item_nm LIKE CONCAT('%', #{itemName}, '%')
+	<choose>
+			<when test="mtrlType == '원자재'.toString()">
+				AND mtrl_type LIKE CONCAT('%', #{mtrlType}, '%')
+			</when>
+			<when test="mtrlType == '부자재'.toString()">
+				AND mtrl_type LIKE CONCAT('%', #{mtrlType}, '%')
+			</when>
+			<when test="mtrlType == '완제품'.toString()">
+				AND mtrl_type LIKE CONCAT('%', #{mtrlType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="mtrlSort == '사내'.toString()">
+				AND mtrl_sort LIKE CONCAT('%', #{mtrlSort}, '%')
+			</when>
+			<when test="mtrlSort == '사외'.toString()">
+				AND mtrl_sort LIKE CONCAT('%', #{mtrlSort}, '%')
+			</when>
+	</choose>	
+	<choose>
+			<when test="useYn == 'Y'.toString()">
+				AND mtrl_type LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+			<when test="useYn == 'N'.toString()">
+				AND mtrl_type LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+	</choose>		
+	</select>
+	
+	 <select id="getitemlist" resultType="com.itwillbs.mdm.domain.ItemDTO">
+        select * from item
+        where item_id = #{itemId}   	
+    </select>
+	
+	<update id="updateItem">
+    	update item set clnt_id = 3,
+    					item_num = #{itemNum},
+    					item_nm = #{itemName},
+    					mtrl_type = #{mtrlType},
+    					mtrl_sort = #{mtrlSort},
+    					invnt_unit = #{invntUnit},
+    					invnt_qlt = #{invntQlt},
+    					standard = #{standard},
+    					use_yn = #{useYn},
+    					sale_price = #{salePrice},
+    					buy_price = #{buyPrice},
+    					note = #{note}
+    	where item_id = #{itemId}   
+    </update>
+	
+	<delete id="deleteItem">
+    	delete from item
+    	where item_id = #{itemId}
+    </delete>
+</mapper>

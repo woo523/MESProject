@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwillbs.auth.service.AuthService;
 import com.itwillbs.comcode.service.ComCodeService;
 import com.itwillbs.member.domain.MemberDTO;
 import com.itwillbs.member.service.MemberService;
@@ -24,6 +25,9 @@ public class MemberController {
 	
 	@Inject
 	private ComCodeService comCodeService; //공통코드
+	
+	@Inject
+	private AuthService authService;
 
 	// 목록화면 이동
 	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
@@ -81,7 +85,9 @@ public class MemberController {
 		System.out.println(memberDTO.getName());
 
 		memberService.insertMember(memberDTO);
-
+		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
+		authService.inauth(memberDTO2.getUserId()); // 메뉴 권한 N으로 기본적으로 부여
+		
 		return "redirect:/member/list";
 	}
 
@@ -106,9 +112,13 @@ public class MemberController {
 		// 디비 삭제 처리 => 처리 => 디비 자바 메서드 호출
 		System.out.println(memberDTO.getId());
 		System.out.println(memberDTO.getPass());
-
+		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
+		authService.delauth(memberDTO2); // 권한 다 삭제
+		
 		// 삭제작업
 		memberService.deleteMember(memberDTO);
+		
+		
 		// 세션 초기화
 		return "redirect:/member/list";
 	}

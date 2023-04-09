@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 파일이름 대신에 namespace 이름을 불러서 사용 -->
+<mapper namespace="com.itwillbs.mappers.authMapper">
+
+<select id="getMenu" resultType="com.itwillbs.auth.domain.MenuDTO">
+select 
+upper_menu_cd as upperMenuCd,
+menu_cd as menuCd,
+menu_nm as menuNm
+from menu
+</select>
+
+<insert id="inauth">
+insert into auth
+(user_id, menu_cd, insert_id, insert_dt)
+values
+(#{userId}, #{menuCd}, "0001", now())
+
+</insert>
+
+<update id="updateauth">
+update auth
+set view_yn ="Y"
+where user_id = #{userId}
+and menu_cd = #{menuCd}
+</update>
+
+
+
+
+<update id="updatenonauth">
+update auth
+set view_yn ="N"
+where user_id = #{userId}
+and menu_cd = #{menuCd}
+</update>
+
+<select id="getMenuauth" resultType="com.itwillbs.auth.domain.AuthDTO">
+select 
+menu_cd as menuCd
+from auth
+where
+user_id = #{userId}
+and view_yn ="y"
+</select>
+
+
+<select id="getauth" resultType="com.itwillbs.auth.domain.AuthDTO">
+select 
+menu_cd as menuCd
+from auth
+where
+user_id = #{userId}
+and view_yn = "y"
+</select>
+
+<delete id="delauth">
+delete 
+from auth
+where
+user_id = #{userId}
+</delete>
+
+</mapper>

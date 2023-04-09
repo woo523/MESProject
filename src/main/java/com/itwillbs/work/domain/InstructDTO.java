@@ -3,16 +3,17 @@ package com.itwillbs.work.domain;
 import java.sql.Timestamp;
 
 import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.work.domain.ItemDTO;
+import com.itwillbs.order.domain.clntDTO;
 
 public class InstructDTO {
 	private int instrId;	// 작업지시 기본키
 	private int lineId;		// 라인정보 기본키
 	private int ordId;		// 수주관리 기본키
-	private int ordInfoId;	// 수주정보 기본키
 	private int itemId;		// 품목관리 기본키
 	private String workNum;	// 작업지시번호
 	private String workSts;	// 지시상태
-	private Timestamp workDate;	// 지시일자
+	private String workDate;	// 지시일자
 	private int workQty;	// 지시수량
 	private String insertId;	// 등록자
 	private Timestamp insertDate;	// 등록일
@@ -20,6 +21,7 @@ public class InstructDTO {
 	// InstructDTO : DTO = 1 : n 관계
 	private LineDTO lineDTO;
 	private ItemDTO itemDTO;
+	private clntDTO clntDTO;
 
 	public int getInstrId() {
 		return instrId;
@@ -39,12 +41,6 @@ public class InstructDTO {
 	public void setOrdId(int ordId) {
 		this.ordId = ordId;
 	}
-	public int getOrdInfoId() {
-		return ordInfoId;
-	}
-	public void setOrdInfoId(int ordInfoId) {
-		this.ordInfoId = ordInfoId;
-	}
 	public int getItemId() {
 		return itemId;
 	}
@@ -63,10 +59,10 @@ public class InstructDTO {
 	public void setWorkSts(String workSts) {
 		this.workSts = workSts;
 	}
-	public Timestamp getWorkDate() {
+	public String getWorkDate() {
 		return workDate;
 	}
-	public void setWorkDate(Timestamp workDate) {
+	public void setWorkDate(String workDate) {
 		this.workDate = workDate;
 	}
 	public int getWorkQty() {
@@ -100,6 +96,12 @@ public class InstructDTO {
 	}
 	public void setItemDTO(ItemDTO itemDTO) {
 		this.itemDTO = itemDTO;
+	}
+	public clntDTO getClntDTO() {
+		return clntDTO;
+	}
+	public void setClntDTO(clntDTO clntDTO) {
+		this.clntDTO = clntDTO;
 	}
 
 }

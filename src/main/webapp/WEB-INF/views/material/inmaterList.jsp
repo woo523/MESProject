@@ -6,14 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 
 <style type="text/css">
-table {
-    width: 1125px;
-  }
+
+ table {
+      width: 1125px;  
+
+   } 
   
 th,td{
 border-bottom: 1px solid black;
@@ -22,6 +23,14 @@ padding: 10px;
 
 #th {
 	font-weight: bold;
+}
+
+.search_bar tr, td{
+ border:0px;
+}
+
+table#search {
+ border:1px solid;
 }
 
 #con {
@@ -34,6 +43,7 @@ padding: 10px;
 }
 
 #btn{
+	width: 1125px; 
 	text-align:right;
 }
 
@@ -95,12 +105,14 @@ text-align: center;
 	<!-- 내용시작 -->
 <article>	
 <h1>자재 입고 관리</h1>
-	<form id="inmtrl">
-	<div class="selectButtons">
+<div class="search_bar">
+	<form id="search">
+	<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="insertBtn()">추가</button>
+			<button type="button" onclick="openInsert(${inmaterialDTO.inmtrlId})" >추가</button>
 		</div>
-	<table class="searchBox">
+		<br>
+	<table id="search">
 		<tr>
 			<td>입고창고</td>
 				<td><select name="whouse">
@@ -115,38 +127,40 @@ text-align: center;
 		</tr>
 		<tr>
 			<td>품번</td>
+			<input type="hidden" id="pid">
 			<td><input type="text" name="pcd" id="pcd" placeholder="품번코드" onclick="openilist()">
 				<input type="text" name="pnm" id="pnm" placeholder="품번명" readonly></td>
 			<td>업체</td>
+			<input type="hidden" id="cid">
 			<td><input type="text" name="ccd" id="ccd" placeholder="업체코드" onclick="openclist()">
 				<input type="text" name="cnm" id="cnm" placeholder="업체명" readonly></td>
 		</tr>
 		</table>
-
+		</form>
+</div>
 
 	<br><br><br>
 	<h1>자재 입고 목록</h1>
 	<br>
-	
-	<div class="listButtons">
-			<c:choose>
-				<c:when test="${! empty interList}">
-					<span>총 ${interSearchCount}건</span>
-				</c:when>
-			</c:choose>
-			<button type="button">취소</button>
-			<button type="button">저장</button>
-		</div>
-	
+	<h2>총 ${pageDTO.count } 건</h2>
+	<br>
 	<table border="1" class="inList">	
-	<tr id="th">
+	<tr>
 		<th>입고번호</th><th>입고일자</th><th>품번</th><th>품명</th><th>단위</th>
 		<th>입고창고</th><th>현재고</th><th>입고수량</th><th>업체코드</th>
-		<th>업체명</th><th>입고LOT</th><th>비고</th>
-		
+		<th>업체명</th><th>입고LOT</th><th>비고</th><th></th>
+		<c:choose>
+				<c:when test="${empty inmaterList}">
+					<tr><td colspan="14"></td></tr>
+					<tr>
+						<td colspan="14">해당 데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
 	<c:forEach var="inte" items="${inmaterList}">
-		<tr id="con" onclick="inmaterList(${inte.inmaterId})">
+		<tr id="con" onclick="inmaterList(${inte.inmaterId}, ${inte.itemId })">
 			<td>${inte.inmtrlNum}</td>
+<%-- 			 <input type="text" name="inmtrlId" id="inmtrlId" value="${inte.inmtrlId}"> --%>
 			<td>${inte.inmtrlDt}</td>
 		  	<td>${inte.itemNum}</td>
 		  	<td>${inte.itemName}</td>
@@ -158,38 +172,46 @@ text-align: center;
 		  	<td>${inte.clientName}</td>
 		  	<td>${inte.inmtrlLot}</td>
 		  	<td>${inte.note}</td>
-		</c:forEach>
+		  	<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="openmodi(${inte.inmtrlId})">
+				<a href="/material/del?inmtrlId=${inte.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>		
 			</tr>
+			</c:forEach>
+			</c:otherwise>
+			</c:choose>
 		</table>
-	</form>
+	
 </article>
 
-   <br>
-    <div id="pagination">
-    <!-- 1페이지 이전 -->
-	<c:if test="${pageDTO.currentPage > 1}">
-	<a href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.currentPage-1}"><</a>
-	</c:if>
 
-<!-- 10페이지 이전 -->
-	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
-	</c:if>
-	
-	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a id="num" href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${i}">${i}</a> 
-	</c:forEach>
+	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock }">
+					<a href="/material/inmaterList?whouse=${search.whouse}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+				<a href="/material/inmaterList?whouse=${search.whouse}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount  }">
+					<a href="/material/inmaterList?whouse=${search.whouse}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div> <!-- 페이징 -->
 
-<!-- 1페이지 다음 -->	
-	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.currentPage+1}">></a>
-	</c:if>
-
-<!-- 10페이지 다음 -->
- 	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/material/inmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
-	</c:if>
-	</div>
+<c:if test="${empty sessionScope.id }">
+<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
+</c:if>
 
 <script type="text/javascript">
 
@@ -242,17 +264,29 @@ $('button.ui-datepicker-current').live('click', function() {
 	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
 })
 
+// function inmaterList(a){
+// 	console.log("inmaterList 호출");
+// 	var inmaterId = a;
+// }
+
 function openilist(){
-    window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/itemList","popup1", "width=500, height=500,left=100, top=100");
 }
 
 function openclist(){
-    window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/material/clientList","popup2", "width=500, height=500,left=100, top=100");
 }
 
+var inmtrlId = a;
+
 function openmodi(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/immodi?inmtrlId","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=500, height=500,left=500, top=200");
 }
+
+function openInsert(a){ // 추가창
+	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=500, height=500,left=500, top=200");
+}
+
 
 // 유효성 검사
 $(document).ready(function() {

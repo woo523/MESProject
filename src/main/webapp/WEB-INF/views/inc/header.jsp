@@ -31,14 +31,14 @@
 <body>
 	<div class="container">
 		<div class="topBar">
-		
 		<c:choose>
 			<c:when test="${id==null }">
 				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/login'">로그인</div>
 			</c:when>
 			<c:otherwise>
-				<div id="login">로그인 아이디:${id }</div>
+				<div >${name }(${id })</div>
 				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/logout'">로그아웃</div>
+				
 			</c:otherwise>
 		</c:choose>
 		
@@ -52,50 +52,95 @@
 		<div class="side">
 			<div class="left_sub_menu">
                 <div class="sub_menu">
-                    <ul class="big_menu">
+                    <c:if test="${not empty menu1 || not empty menu2 || not empty menu3}">
+                    <ul class="big_menu">            	
                         <li>시스템관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
-                            <li><a href="/member/list">사용자 관리</a></li>
-                            <li><a href="#">권한 관리</a></li>
-                            <li><a href="/comCode/list">공통 코드 관리</a></li>
-                            <li><a href="#">시스템 메뉴 관리</a></li>
+                        	<c:if test="${not empty menu1}">
+                            <li><a href="${pageContext.request.contextPath}/member/list">사용자 관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu2}">
+                            <li><a href="${pageContext.request.contextPath}/auth/user">권한 관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu3}">
+                            <li><a href="${pageContext.request.contextPath}/comCode/list">공통 코드 관리</a></li>
+							</c:if>
                         </ul>
                     </ul>
+                    </c:if>
+                    <c:if test="${not empty menu4 || not empty menu5 || not empty menu6 || not empty menu7}">
                     <ul class="big_menu">
                         <li>기준정보 관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
+                        	<c:if test="${not empty menu4}">
                             <li><a href="#">품목정보 관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu5}">
                             <li><a href="#">소요량 관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu6}">
                             <li><a href="${pageContext.request.contextPath}/line/line">라인정보 관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu7}">
                             <li><a href="#">거래처정보 관리</a></li>
+                            </c:if>
                         </ul>
                     </ul>
+                    </c:if>
+                    <c:if test="${not empty menu8 || not empty menu9 || not empty menu10 || not empty menu11}">
                     <ul class="big_menu">
                         <li>영업 관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
+                        	<c:if test="${not empty menu8}">
                             <li><a href="${pageContext.request.contextPath }/order/orderMng">수주관리</a></li>
-                            <li><a href="#">수주현황</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu9}">
+                            <li><a href="${pageContext.request.contextPath }/order/orderSts">수주현황</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu10}">
                             <li><a href="#">출하관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu11}">
                             <li><a href="#">출하현황</a></li>
+                            </c:if>
                         </ul>
    					</ul>
+   					</c:if>
+   					<c:if test="${not empty menu12 || not empty menu13 || not empty menu14 || not empty menu15}">
                     <ul class="big_menu">
                         <li>생산 관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
+                        	<c:if test="${not empty menu12}">
                             <li><a href="${pageContext.request.contextPath}/work/instructList">작업지시 정보관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu13}">
                             <li><a href="${pageContext.request.contextPath}/work/instructState">작업지시 현황</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu14}">
                             <li><a href="${pageContext.request.contextPath }/work/performRegist">실적등록</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu15}">
                             <li><a href="${pageContext.request.contextPath }/work/performList">생산실적 현황</a></li>
+                            </c:if>
                         </ul>
                     </ul>
+                    </c:if>
+                    <c:if test="${not empty menu16 || not empty menu17 || not empty menu18}">
                      <ul class="big_menu">
                         <li>자재 관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
+                       	    <c:if test="${not empty menu16}">
                             <li><a href="${pageContext.request.contextPath }/material/inmaterList">자재입고 관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu17}">
                             <li><a href="${pageContext.request.contextPath }/material/outmaterList">자재출고 관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu18}">
                             <li><a href="${pageContext.request.contextPath }/material/materialState">자재재고 현황</a></li>
+                            </c:if>
                         </ul>   
                     	</ul>    
+                    </c:if>
                 </div>
             </div>
 		</div>

@@ -5,15 +5,106 @@ import java.sql.Timestamp;
 public class ShipDTO {
 	private int shipId;						// 출하관리 기본키
 	private int ordId;						// 수주관리 기본키
-	private int ordInfoId;				// 수주정보 기본키
+	private int ordInfoId;					// 수주정보 기본키
 	private int shipQty;					// 출하량
-	private Timestamp shipDt;		// 출하일자
-	private String shipNum;			// 출하번호
-	private String barcord;				// 바코드
+	private Timestamp shipDt;				// 출하일자
+	private String shipNum;					// 출하번호
+	private String barcord;					// 바코드
 	private String insertId;				// 등록자
-	private Timestamp insertDt;		// 등록일
-	private String updateId;			// 변경자
-	private Timestamp updateDt;	// 변경일
+	private Timestamp insertDt;				// 등록일
+	private String updateId;				// 변경자
+	private Timestamp updateDt;				// 변경일
+	private String shipCond;				// 출하상태
+	private String amount;					// 수량
+	private String trackNum;				// 송장번호
+	private String itemNum;
+	private String itemNm;
+	private String itemId;
+	private String itemUnit;
+	private String clntId;
+	private String userNum;
+	private int ordQty;
+	private String dlvryDt; 		
+	private String orderDt; 		
+	private String ordNum; 	
+	public String getOrderDt() {
+		return orderDt;
+	}
+	public void setOrderDt(String orderDt) {
+		this.orderDt = orderDt;
+	}
+	public String getOrdNum() {
+		return ordNum;
+	}
+	public void setOrdNum(String ordNum) {
+		this.ordNum = ordNum;
+	}
+	public String getDlvryDt() {
+		return dlvryDt;
+	}
+	public void setDlvryDt(String dlvryDt) {
+		this.dlvryDt = dlvryDt;
+	}
+	public int getOrdQty() {
+		return ordQty;
+	}
+	public void setOrdQty(int ordQty) {
+		this.ordQty = ordQty;
+	}
+	public String getUserNum() {
+		return userNum;
+	}
+	public void setUserNum(String userNum) {
+		this.userNum = userNum;
+	}
+	public String getItemNum() {
+		return itemNum;
+	}
+	public void setItemNum(String itemNum) {
+		this.itemNum = itemNum;
+	}
+	public String getItemNm() {
+		return itemNm;
+	}
+	public void setItemNm(String itemNm) {
+		this.itemNm = itemNm;
+	}
+	public String getItemId() {
+		return itemId;
+	}
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}
+	public String getItemUnit() {
+		return itemUnit;
+	}
+	public void setItemUnit(String itemUnit) {
+		this.itemUnit = itemUnit;
+	}
+	public String getClntId() {
+		return clntId;
+	}
+	public void setClntId(String clntId) {
+		this.clntId = clntId;
+	}
+	public String getTrackNum() {
+		return trackNum;
+	}
+	public void setTrackNum(String trackNum) {
+		this.trackNum = trackNum;
+	}
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	public String getShipCond() {
+		return shipCond;
+	}
+	public void setShipCond(String shipCond) {
+		this.shipCond = shipCond;
+	}
 	public int getShipId() {
 		return shipId;
 	}

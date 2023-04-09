@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 
@@ -24,6 +23,14 @@ padding: 10px;
 	font-weight: bold;
 }
 
+.search_bar tr, td{
+ border:0px;
+}
+
+table#search {
+ border:1px solid;
+}
+
 #con {
 	text-align: center;
 }
@@ -34,6 +41,7 @@ padding: 10px;
 }
 
 #btn{
+	width: 1125px;
 	text-align:right;
 }
 
@@ -95,13 +103,14 @@ text-align: center;
 	<!-- 내용시작 -->
 <article>
 	<h1>자재 출고 관리</h1>
-	<form id="outmtrl">	
-	<div class="selectButtons">
+	<div class="search_bar">
+	<form id="search">	
+	<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="insertBtn()">추가</button>
+			<button type="button" onclick="location.href='/material/outmtrlInsert'">추가</button>
 		</div>
-		
-	<table class="searchBox">
+	<br>	
+	<table id="search">
 		<tr><td>출고창고</td>
 				<td><select name="whouse">
 					<option value="" selected>전체</option>
@@ -111,40 +120,42 @@ text-align: center;
 			</select></td>
 			<td>출고일자</td>
 				<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
-		   			<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
+		   		<input type="text" id="eDate" class="form-control" name="endDate" readonly /></td>
 		</tr>
 		<tr>
 			<td>품번</td>
+			<input type="hidden" id="pid">
 				<td><input type="text" name="pcd" id="pcd"  placeholder="품번코드" onclick="openilist()">
 					<input type="text" name="pnm" id="pnm" placeholder="품번명" readonly></td>
-				<td>업체</td>
-				<td><input type="text" name="ccd" id="ccd" placeholder="업체코드" onclick="openclist()">
-					<input type="text" name="cnm" id="cnm" placeholder="업체명" readonly></td>
+			<td>업체</td>
+			<input type="hidden" id="cid">
+			<td><input type="text" name="ccd" id="ccd" placeholder="업체코드" onclick="openclist()">
+				<input type="text" name="cnm" id="cnm" placeholder="업체명" readonly></td>
 		</tr>
 		</table>
+		</form>
+</div>
 
 	<br><br><br>
 	<h1>자재 출고 목록</h1>
 	<br>
-	
-		<div class="listButtons">
-			<c:choose>
-				<c:when test="${! empty outterList}">
-					<span>총 ${outterSearchCount}건</span>
-				</c:when>
-			</c:choose>
-			<button type="button">취소</button>
-			<button type="button">저장</button>
-		</div>
-	
+	<h2>총 ${pageDTO.count } 건</h2>
+	<br>
 	<table border="1" class="outList">	
-	<tr id="th">
+	<tr>
 		<th>출고번호</th><th>출고일자</th><th>품번</th><th>품명</th><th>단위</th>
 		<th>출고창고</th><th>현재고</th><th>출고수량</th><th>업체코드</th>
-		<th>업체명</th><th>비고</th>
-		
+		<th>업체명</th><th>비고</th><th></th>
+		<c:choose>
+				<c:when test="${empty outmaterList}">
+					<tr><td colspan="14"></td></tr>
+					<tr>
+						<td colspan="14">해당 데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
 		<c:forEach var="outte" items="${outmaterList}">
-	<tr id="con" onclick="outmaterList(${outte.outmaterId})">
+	<tr id="con" onclick="outmaterList(${outte.outmaterId}, ${outte.itemId })">
 			<td>${outte.outmtrlNum}</td>
 			<td>${outte.outmtrlDt}</td>
 		  	<td>${outte.itemNum}</td>
@@ -155,42 +166,47 @@ text-align: center;
 		  	<td>${outte.outmtrlQty}</td>
 		  	<td>${outte.clientCode}</td>
 		  	<td>${outte.clientName}</td>
-		  	<td>${outte.note}</td>
-		</c:forEach>
+		  	<td>${outte.note}</td>	
+	  		<td><a href="/material/outmtrlModify?outmtrlId=${OutmaterialDTO.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px''></a>
+				<a href="/material/outDel?outmtrlId=${outte.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px''></a></td>		
 	</tr>
+	</c:forEach>
+	</c:otherwise>
+</c:choose>
 </table>
-	</form>
+
+
+	
+	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock }">
+					<a href="/material/outmaterList?whouse=${search.whouse}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+				<a href="/material/outmaterList?whouse=${search.whouse}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount  }">
+					<a href="/material/outmaterList?whouse=${search.whouse}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div> <!-- 페이징 -->
 </article>
 
-	
-   <br>
-    <div id="pagination">
-    <!-- 1페이지 이전 -->
-	<c:if test="${pageDTO.currentPage > 1}">
-	<a href="${pageContext.request.contextPath }/material/outmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.currentPage-1}"><</a>
-	</c:if>
-
-<!-- 10페이지 이전 -->
-	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/material/outmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
-	</c:if>
-	
-	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a id="num" href="${pageContext.request.contextPath }/material/outmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${i}">${i}</a> 
-	</c:forEach>
-
-<!-- 1페이지 다음 -->	
-	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/material/outmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.currentPage+1}">></a>
-	</c:if>
-
-<!-- 10페이지 다음 -->
- 	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/material/outmaterList?whouse=${search.whouse}&sdate=${search.sdate}&edate=${search.edate }&pcd=${search.pcd }&ccd=${search.ccd }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
-	</c:if>
-	</div>
-
-
+<c:if test="${empty sessionScope.id }">
+<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
+</c:if>
 
 <script type="text/javascript">
 
@@ -243,6 +259,8 @@ $('button.ui-datepicker-current').live('click', function() {
 	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
 })
 
+// var in_mtrl_id = a;
+
 function openilist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
 }
@@ -250,6 +268,7 @@ function openilist(){
 function openclist(){
     window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
 }
+
 </script>
 
 

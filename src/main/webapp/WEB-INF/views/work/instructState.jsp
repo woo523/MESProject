@@ -51,17 +51,17 @@
 }
 
 .content_body .instrList td {
-	padding: 10px;
+	padding: 10px 0px 10px 0px;
 	text-align: center;
 }
 
 .content_body .instrStateList td {
-	padding: 10px;
+	padding: 10px 0px 10px 0px;
 	text-align: center;
 }
 	
 article {
-	width: 1125px;
+	width: 1280px;
 	margin: 0px auto;
 }
 
@@ -114,9 +114,9 @@ article input {
 				<td>라인</td>
 				<td><select name="lineName">
 						<option value="" selected>전체</option>
-						<option value="1">라인 1</option>
-						<option value="2">라인 2</option>
-						<option value="3">라인 3</option>
+						<c:forEach var="line" items="${lineList}">
+							<option value="${line.lineName}">${line.lineName}</option>
+						</c:forEach>
 					</select></td>
 				<td>지시일자</td>
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
@@ -125,7 +125,8 @@ article input {
 		   	</tr>
 		   	<tr>
 				<td>품번</td>
-				<td><input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
+				<td><input type="hidden" id="pid" name="pid">
+					<input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
 					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly></td>
 				<td>지시상태</td>
 				<td colspan="8">
@@ -151,7 +152,7 @@ article input {
 				<th rowspan="2">지시일자</th>
 				<th rowspan="2">지시상태</th>
 				<th colspan="3">품목정보</th>
-				<th colspan="3">공정정보</th>
+				<th colspan="2">공정정보</th>
 				<th rowspan="2">지시수량</th>
 				<th rowspan="2">등록일</th>
 				<th rowspan="2">등록자</th>
@@ -162,38 +163,73 @@ article input {
 				<th>단위</th>
 				<th>라인</th>
 				<th>라인명</th>
-				<th>공정</th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty instrList}">
 					<tr><td colspan="14"></td></tr>
 					<tr>
-						<td colspan="14">해당 데이터가 존재하지 않습니다.</td>
+						<td colspan="14">해당 실적이 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="instrDTO" items="${instrList}">
-						<tr id="instrList" onclick="getInstrStateList(${instrDTO.instr_id}, '${instrDTO.workNum}')">
-							<td>${instrDTO.workNum}</td>
-							<td>업체명</td>
-							<td>수주번호</td>
+						<tr id="instrList" onclick="getInstrStateList(${instrDTO.instrId}, '${instrDTO.workNum}')">
+							<td style="width: 170px;">${instrDTO.workNum}</td>
+							<td style="width: 120px;">${instrDTO.clntDTO.clientName}</td>
+							<td style="width: 160px;">${instrDTO.orderMngDTO.ordNum}</td>
 							<td>${instrDTO.workDate}</td>
-							<td>${instrDTO.workSts}</td>
+							<c:choose>
+								<c:when test="${instrDTO.workSts eq '시작' }">
+									<td style="color: green;">${instrDTO.workSts}</td>
+								</c:when>
+								<c:when test="${instrDTO.workSts eq '마감' }">
+									<td style="color: red;">${instrDTO.workSts}</td>
+								</c:when>
+								<c:otherwise>
+									<td>${instrDTO.workSts}</td>
+								</c:otherwise>
+							</c:choose>
 							<td>${instrDTO.itemDTO.itemNum}</td>
 							<td>${instrDTO.itemDTO.itemName}</td>
 							<td>${instrDTO.itemDTO.invntUnit}</td>
 							<td>${instrDTO.lineDTO.lineCode}</td>
 							<td>${instrDTO.lineDTO.lineName}</td>
-							<td>${instrDTO.lineDTO.proCode}</td>
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
-							<td>${instrDTO.insertId}</td>
+							<td>${instrDTO.userDTO.name}</td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
 	</form>
+	
+	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock }">
+					<a href="/work/instructState?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+				<a href="/work/instructState?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount  }">
+					<a href="/work/instructState?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div> <!-- 페이징 -->
+	
 	<div>
 		<h2>작업지시현황</h2>
 		

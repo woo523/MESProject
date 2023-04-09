@@ -11,10 +11,6 @@
 
 <style type="text/css">
 
-.content_body .selectButtons, .listButtons {
-	text-align: right;
-}
-
 .content_body button {
 	display: inline-block;
 	width: 70px;
@@ -44,7 +40,16 @@ padding: 10px;
 	cursor:pointer;
 }
 
+.search_bar tr, td{
+ border:0px;
+}
+
+table#search {
+ border:1px solid;
+}
+
 #btn{
+	width: 1125px;
 	text-align:right;
 }
 
@@ -87,18 +92,6 @@ text-align: center;
 	padding: 10px;
 	text-align: center;
 }	
-.selectButtons tr, td{
- border:0px;
-}
-	article input {
-	height: 20px;
-}
-
-.content_body .inList {
-	width: 100%;
-	margin: 10px 0px 40px 0px;
-	border-collapse: collapse;
-}
 
 .content_body .inList th{
 	border-top: 1px solid black;
@@ -123,7 +116,14 @@ function openlist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
+function openadd(){
+    window.open("${pageContext.request.contextPath }/material/addList","popup", "width=500, height=500,left=100, top=100");
+}
 </script>
+
+<c:if test="${empty sessionScope.id }">
+<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
+</c:if>
 
 <body>
 <!-- <header> -->
@@ -133,37 +133,34 @@ function openlist(){
 <div class="content_body">
 <article>
 	<h2>자재재고현황</h2>
-	<form id="inmtrl">
-		<div class="selectButtons">
+		<div class="search_bar">
+		<form id="search">
+		<div id="btn">
 			<button type="submit" id="submit">조회</button>
 		</div>
-		
-		<table class="searchBox">
+		<br>
+		<table id="search">
 			<tr>
 				<td>자재유형</td>
 				<td><select name="mtrltype">
 						<option value="" selected>전체</option>
-						<option value="1">자재 1</option>
-						<option value="2">자재 2</option>
-						<option value="3">자재 3</option>
+						<option value="원자재">원자재</option>
+						<option value="완제품">완제품</option>
+						<option value="부자재">부자재</option>
 					</select></td>
 				<td>품번</td>
+				<input type="hidden" id="pid">
 					<td><input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openlist()">
 						<input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
 			</tr>
 	</table>
-	
+</form>
+</div>
+<br><br><br>	
 	<h2>자재재고</h2>
-		<div class="listButtons">
-			<c:choose>
-				<c:when test="${! empty inmaterList}">
-					<span>총 ${inmtrlSearchCount}건</span>
-				</c:when>
-			</c:choose>
-			<button type="button">취소</button>
-			<button type="button">저장</button>
-		</div>
-		
+	<br>	
+	<h2>총 ${pageDTO.count } 건</h2>
+	<br>
 	<table border="1" class="inList">	
 	<tr id="th">
 		<th>품번</th>
@@ -190,15 +187,40 @@ function openlist(){
 		  	<td>${inte.itemUnit}</td>
 		  	<td>${inte.stockwhouse}</td>
 		  	<td>${inte.stockcur}</td>
-		  	<td></td>
+		  	<td><img src='${pageContext.request.contextPath}/resources/image/add.png' width='17px' onclick='openadd()'></td>
 		</tr>
 		</c:forEach>
 	</c:otherwise>
 	</c:choose>
 </table>
-</form>
 </article>
 </div>
+
+	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock }">
+					<a href="/material/materialState?mtrltype=${search.mtrltype}&pcd=${search.pcd}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+				<a href="/material/materialState?mtrltype=${search.mtrltype}&pcd=${search.pcd}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount }">
+					<a href="/material/materialState?mtrltype=${search.mtrltype}&pcd=${search.pcd }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div> <!-- 페이징 -->
 
 </body>
 </html>

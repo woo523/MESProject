@@ -6,9 +6,13 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import com.itwillbs.common.PageDTO;
+import com.itwillbs.common.PageUtil;
 import com.itwillbs.line.dao.LineDAO;
 import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 @Service
 public class LineServiceImpl implements LineService{
@@ -24,10 +28,24 @@ public class LineServiceImpl implements LineService{
 	}
 
 	@Override
-	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch) {
+	public List<Map<String, Object>> lineList(PageDTO pageDTO, Model model) {
+		// 라인 전체 목록
+		System.out.println("LineServiceImpl lineList()");
+		
+		int totalCnt = lineDAO.lineTotalCount();
+		PageUtil.getPaging(pageDTO, model, totalCnt);
+		
+		return lineDAO.lineList(pageDTO);
+	}
+
+	@Override
+	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch, PageDTO pageDTO, Model model) {
 		System.out.println("LineServiceImpl lineSearch()");
 		
-		return lineDAO.lineSearch(lineSearch);
+		int totalCnt = lineDAO.lineSearchCount(lineSearch);
+		PageUtil.getPaging(pageDTO, model, totalCnt);
+		
+		return lineDAO.lineSearch(lineSearch, pageDTO);
 	}
 
 	@Override
@@ -44,4 +62,42 @@ public class LineServiceImpl implements LineService{
 		return lineDAO.lineSearchCount(lineSearch);
 	}
 
+	@Override
+	public void insertLine(LineDTO lineDTO) {
+		// 라인 등록
+		System.out.println("LineServiceImpl insertLine");
+		
+		lineDAO.insertLine(lineDTO);
+	}
+
+	@Override
+	public LineDTO getLineList(int lineId) {
+		// lindId에 해당하는 라인 목록 가져오기
+		System.out.println("LineServiceImpl getLineList");
+		
+		return lineDAO.getLineList(lineId);
+	}
+
+	@Override
+	public List<LineDTO> getLinePlace() {
+		// 라인 작업장 목록
+		
+		return lineDAO.getLinePlace();
+	}
+
+	@Override
+	public void updateLine(LineDTO lineDTO, int lineId) {
+		// lineId에 해당하는 라인 수정
+		System.out.println("LineServiceImpl updateLine");
+		
+		lineDAO.updateLine(lineDTO, lineId);
+	}
+
+	@Override
+	public void deleteLine(int lineId) {
+		System.out.println("LineServiceImpl deleteLine");
+		
+		lineDAO.deleteLine(lineId);
+	}
+	
 }

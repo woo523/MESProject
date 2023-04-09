@@ -11,6 +11,7 @@
     
 	<!--     column= "디비열이름" property="멤버변수이름" -->
 	<id column="id" property=""/>
+	<result column="in_mtrl_id" property="inmtrlId"/>
     <result column="in_mtrl_num" property="inmtrlNum"/>
     <result column="in_mtrl_dt" property="inmtrlDt"/>
     <result column="in_mtrl_qty" property="inmtrlQty"/>
@@ -18,20 +19,24 @@
     <result column="note" property="note"/>
     <result column="clnt_cd" property="clientCode"/>
     <result column="clnt_nm" property="clientName"/>
+    <result column="clnt_id" property="clientId"/>
     <result column="cur_stock" property="stockcur"/>
     <result column="whouse" property="stockwhouse"/>
     <result column="item_num" property="itemNum"/>
     <result column="item_nm" property="itemName"/>
-    <result column="invnt_unit" property="itemUnit"/>   
+    <result column="invnt_unit" property="itemUnit"/>  
+    <result column="item_id" property="itemId"/>  
+     
     </resultMap>
 
 
 	<select id="getInmaterLiMap" resultMap="InmaterMap"> <!-- 처음에 조회되는 자재입고 리스트 -->
 	select 
+			inmater.in_mtrl_id,
 			inmater.in_mtrl_num, 
 			inmater.in_mtrl_dt,  
 			inmater.in_mtrl_qty,			 
-			inmater.in_mtrl_lot, 
+			inmater.in_mtrl_lot,
 			inmater.note, 
 			clnt.clnt_cd,
 			clnt.clnt_nm,
@@ -39,14 +44,17 @@
 			stock.whouse,
 			item.item_num, 
 	    	item.item_nm,
-	    	item.invnt_unit
+	    	item.invnt_unit,
+	    	item.item_id
 		from  
 			in_material inmater join client clnt
 			on inmater.clnt_id = clnt.clnt_id
 			join item item
 			on inmater.item_id = item.item_id
-			join stock stock
+			left join stock stock
 			on item.item_id = stock.item_id	
+			order by inmater.in_mtrl_id desc
+			limit #{startRow}, #{pageSize}
 	</select>
  
    
@@ -69,7 +77,7 @@
 			on inmater.clnt_id = clnt.clnt_id
 			join item item
 			on inmater.item_id = item.item_id
-			join stock stock
+			left join stock stock
 			on item.item_id = stock.item_id				
 	where whouse like CONCAT('%', #{whouse}, '%') 
 	<if test="startDate!='' and endDate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
@@ -90,24 +98,168 @@
 	item_num like CONCAT('%', #{pcd}, '%') 
 	and
 	clnt_cd like CONCAT('%', #{ccd}, '%')
+	order by inmater.in_mtrl_id desc
+	limit #{startRow}, #{pageSize}
     </select>
-   
-   
-     <select id="getInmaterList" resultType="com.itwillbs.material.domain.InmaterialDTO">
-        select * from in_material
-        limit #{startRow} , #{pageSize}  	
-    </select>
-    
-    <select id="getInmaterCount" resultType="java.lang.Integer">
-        select count(*) from in_material
-    </select>
+
+
+	<select id="countMtrlLi" resultType="java.lang.Integer">        
+    select
+    count(*)
+	from    
+		in_material inmater join client clnt
+		on inmater.clnt_id = clnt.clnt_id
+		join item item
+		on inmater.item_id = item.item_id
+		left join stock stock
+		on item.item_id = stock.item_id	
+		<if test="(whouse != null and pcd != null and ccd != null and startDate != null and endDate != null)">			
+	where whouse like CONCAT('%', #{whouse}, '%') 
+	<if test="startDate!='' and endDate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
+	and
+	in_mtrl_dt between #{startDate} and #{endDate} 	
+	</if>
+	<if test="startDate=='' and endDate==''"> <!-- 날짜 입력하지 않은 경우 -->
+	</if>	
+	<if test="startDate!=''"> <!-- 시작날짜만 입력한 경우 -->
+	and
+	in_mtrl_dt &gt;= #{startDate}
+	</if>
+	<if test="endDate!=''"> <!-- 끝날짜만 입력한 경우 -->
+	and
+	in_mtrl_dt &lt;= #{endDate}
+	</if>
+	and
+	item_num like CONCAT('%', #{pcd}, '%') 
+	and
+	clnt_cd like CONCAT('%', #{ccd}, '%')
+    </if>
+    </select>        
         
-        
+   <delete id="deleteInmtrl"> <!-- 자재입고 삭제 -->
+   	delete from in_material	
+   	where in_mtrl_id = #{inmtrlId}
+   	</delete>
+   	
+<!-- 실사량   	 -->
+<!--    	<select id="getStock" resultType="com.itwillbs.work.domain.StockDTO"> -->
+<!--    	select -->
+<!--    	stock_id,  -->
+<!-- 	item_id, -->
+<!-- 	whouse, -->
+<!-- 	cur_stock, -->
+<!-- 	insert_id, -->
+<!-- 	insert_dt -->
+<!--    	from stock -->
+<!--    	</select> -->
+
+
+
+ 
+	<!-- 자재입고 등록 -->
+	<insert id="insertInmtrl">
+		insert into in_material 
+		(item_id, clnt_id, in_mtrl_num, in_mtrl_dt, in_mtrl_qty, in_mtrl_lot, note, insert_id, insert_dt) 
+		VALUES (#{itemId}, #{clntId}, #{inmtrlNum},  #{inmtrlDt}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{insertId}, #{insertDt})
+	</insert>
+
+	<select id="getInmtrlList" resultType="com.itwillbs.material.domain.InmaterialDTO">
+	select 
+			inmater.in_mtrl_id,
+			inmater.in_mtrl_num, 
+			inmater.in_mtrl_dt,  
+			inmater.in_mtrl_qty,			 
+			inmater.in_mtrl_lot, 
+			inmater.note, 
+			clnt.clnt_cd,
+			clnt.clnt_nm,
+			stock.cur_stock,
+			stock.whouse,
+			item.item_num, 
+	    	item.item_nm,
+	    	item.invnt_unit,
+	    	item.item_id
+		from  
+			in_material inmater join client clnt
+			on inmater.clnt_id = clnt.clnt_id
+			join item item
+			on inmater.item_id = item.item_id
+			left join stock stock
+			on item.item_id = stock.item_id
+		where in_mtrl_id = #{inmtrlId}
+	</select>
+
+	<!-- 자재입고 수정 -->
+	<update id="updateInmtrl">
+		update in_material
+		set in_mtrl_num = #{inmtrlNum},
+			in_mtrl_dt = #{inmtrlDt},
+			item_id = #{itemId},
+			clnt_id = #{clntId},
+			in_mtrl_qty = #{inmtrlQty},
+			in_mtrl_lot = #{inmtrlLot},
+			note = #{note}
+		where in_mtrl_id = #{inmtrlId}
+	</update>
+
+	<select id="getInmtrlMap" resultMap="InmaterMap">
+		select 
+			inmater.in_mtrl_id,
+			inmater.in_mtrl_num, 
+			inmater.in_mtrl_dt,  
+			inmater.in_mtrl_qty,			 
+			inmater.in_mtrl_lot, 
+			inmater.note, 
+			clnt.clnt_cd,
+			clnt.clnt_nm,
+			clnt.clnt_id,
+			stock.cur_stock,
+			stock.whouse,
+			item.item_num, 
+	    	item.item_nm,
+	    	item.invnt_unit,
+	    	item.item_id
+		from  
+			in_material inmater join client clnt
+			on inmater.clnt_id = clnt.clnt_id
+			join item item
+			on inmater.item_id = item.item_id
+			left join stock stock
+			on item.item_id = stock.item_id	
+		where in_mtrl_id = #{inmtrlId}
+	</select>
+
+
+	<select id="getInmtrl" resultType="com.itwillbs.material.domain.InmaterialDTO">
+		select 
+			in_mtrl_id as inmtrlId,
+			item_id as itemId,
+			clnt_id as clntId,
+			in_mtrl_num as inmtrlNum,
+			in_mtrl_dt as inmtrlDt,
+			in_mtrl_qty as inmtrlQty,
+			in_mtrl_lot as inmtrlLot,
+			note as note,
+			insert_id as insertId,
+			insert_dt as insertDt,
+			update_id as updateId,
+			update_dt as updateDt
+		from in_material
+		where in_mtrl_id = #{inmtrlId}
+	</select>
+
+
+
+
+
+
+
         
 	<!-- 자재출고에 출고리스트 부분 -->
     <resultMap type="map" id="OutmaterMap">
     
 		<!--     column= "디비열이름" property="멤버변수이름" -->
+		<result column="out_mtrl_id" property="outmtrlId"/>
 	    <result column="out_mtrl_num" property="outmtrlNum"/>
 	    <result column="out_mtrl_dt" property="outmtrlDt"/>
 	    <result column="out_mtrl_qty" property="outmtrlQty"/>
@@ -126,6 +278,7 @@
 
 	<select id="getOutmaterLiMap" resultMap="OutmaterMap"> <!-- 처음에 조회되는 자재출고 리스트 -->
 		select 
+				outmater.out_mtrl_id,
 				outmater.out_mtrl_num, 
 				outmater.out_mtrl_dt,  
 				outmater.out_mtrl_qty,			  
@@ -136,14 +289,17 @@
 				stock.whouse,
 				item.item_num, 
 		    	item.item_nm,
-		    	item.invnt_unit
+		    	item.invnt_unit,
+		    	item.item_id
 			from  
 				out_material outmater join client clnt
 				on outmater.clnt_id = clnt.clnt_id
 				join item item
 				on outmater.item_id = item.item_id
-				join stock stock
-				on item.item_id = stock.item_id	
+				left join stock stock
+				on item.item_id = stock.item_id
+			order by outmater.out_mtrl_id desc
+			limit #{startRow}, #{pageSize}
 	</select>
    
     <select id="getSearchOutmaterLiMap" resultMap="OutmaterMap"> <!--  검색 자재출고 리스트 -->
@@ -164,7 +320,7 @@
 		on outmater.clnt_id = clnt.clnt_id
 		join item item
 		on outmater.item_id = item.item_id
-		join stock stock
+		left join stock stock
 		on item.item_id = stock.item_id
 	where
 	whouse like CONCAT('%', #{whouse}, '%') 
@@ -186,13 +342,59 @@
 	item_num like CONCAT('%', #{pcd}, '%') 
 	and
 	clnt_cd like CONCAT('%', #{ccd}, '%')
+	order by outmater.out_mtrl_id desc
+	limit #{startRow}, #{pageSize}
     </select>  
-		    
+
+	<select id="countOutLi" resultType="java.lang.Integer">        
+    select count(*)
+	from  
+		out_material outmater join client clnt
+		on outmater.clnt_id = clnt.clnt_id
+		join item item
+		on outmater.item_id = item.item_id
+		left join stock stock
+		on item.item_id = stock.item_id	
+		<if test="(whouse != null and pcd != null and ccd != null and startDate != null and endDate != null)">		
+	where whouse like CONCAT('%', #{whouse}, '%') 
+	<if test="startDate!='' and endDate!=''">  <!-- 날짜 둘다 입력한 경우 경우 -->
+	and
+	out_mtrl_dt between #{startDate} and #{endDate} 	
+	</if>
+	<if test="startDate=='' and endDate==''"> <!-- 날짜 입력하지 않은 경우 -->
+	</if>	
+	<if test="startDate!=''"> <!-- 시작날짜만 입력한 경우 -->
+	and
+	out_mtrl_dt &gt;= #{startDate}
+	</if>
+	<if test="endDate!=''"> <!-- 끝날짜만 입력한 경우 -->
+	and
+	out_mtrl_dt &lt;= #{endDate}
+	</if>
+	and
+	item_num like CONCAT('%', #{pcd}, '%') 
+	and
+	clnt_cd like CONCAT('%', #{ccd}, '%')
+	</if>
+    </select>    		    
+
+   <delete id="deleteOutmtrl"> <!-- 자재출고 삭제 -->
+   	delete from out_material	
+   	where out_mtrl_id = #{outmtrlId}
+   	</delete>
+
+	<!-- 자재출고 등록 -->
+	<insert id="insertOutmtrl">
+		insert into out_material 
+		(item_id, clnt_id, out_mtrl_num, out_mtrl_dt, out_mtrl_qty, note, insert_id, insert_dt) 
+		VALUES (#{itemId}, #{clntId}, #{outmtrlNum},  #{outmtrlDt}, #{outmtrlQty}, #{note}, #{insertId}, #{insertDt})
+	</insert>
 
    <select id="itemlist" resultType="com.itwillbs.material.domain.ItemDTO">
    select
    item_num as itemNum,
-   item_nm as itemName
+   item_nm as itemName,
+   item_id as itemId
    from item
    <if test="itemNum!=null and itemName!=null">
    where 
@@ -218,7 +420,8 @@
    <select id="clientlist" resultType="com.itwillbs.material.domain.ClientDTO">
    select
    clnt_cd as clientCode,
-   clnt_nm as clientName
+   clnt_nm as clientName,
+   clnt_id as clientId
    from client
    <if test="clientCode!=null and clientName!=null">
    where 
@@ -256,7 +459,7 @@
     </resultMap>
 
 	<select id="mtrlStateList" resultMap="MtrlStateMap"> <!-- 처음에 조회되는 자재현황 리스트 -->
-  select 
+  	 select 
 			item.item_num, 
 	    	item.item_nm,
             item.mtrl_type,
@@ -265,7 +468,9 @@
 			stock.cur_stock
 		from  
 			item item join stock stock
-			on item.item_id = stock.item_id	
+			on item.item_id = stock.item_id
+		order by item.item_id desc
+		limit #{startRow}, #{pageSize}	
 	</select>
  
    
@@ -282,6 +487,52 @@
 			on item.item_id = stock.item_id			
 	where mtrl_type like CONCAT('%', #{mtrltype}, '%') 
 	and
-	item_num like CONCAT('%', #{pcd}, '%'); 
+	item_num like CONCAT('%', #{pcd}, '%')
+	order by item.item_id desc
+	limit #{startRow}, #{pageSize}
     </select>
+    
+  <select id="countStateLi" resultType="java.lang.Integer">        
+    select
+    count(*)
+	from  
+		item item join stock stock
+		on item.item_id = stock.item_id	
+	<if test="(mtrltype != null and pcd != null)">		
+	where mtrl_type like CONCAT('%', #{mtrltype}, '%') 
+	and
+	item_num like CONCAT('%', #{pcd}, '%')
+	</if>	
+    </select>
+
+	<!-- 재고창고 부분 -->
+    <resultMap type="map" id="StockMap">
+    
+	<!--     column= "디비열이름" property="멤버변수이름" -->
+	<id column="id" property=""/>
+	<result column="stock_id" property="stockId"/>
+    <result column="item_id" property="itemId"/>
+    <result column="whouse" property="stockwhouse"/> 
+    <result column="cur_stock" property="stockcur"/>    
+    </resultMap>
+
+	<select id="getStockList" resultType="com.itwillbs.material.domain.StockDTO">
+ 	 select 
+			stock_id,
+	    	item_id,
+			whouse,
+			cur_stock
+		from  
+			stock
+		where stock_id = #{stockId}
+	</select>
+
+	<!-- 자재입고 수정 -->
+	<update id="updateStock">
+		update stock
+		set stock_id = #{stockId},
+			cur_stock = #{stockcur}
+		where stock_id = #{stockId}
+	</update>    
+    
 </mapper>

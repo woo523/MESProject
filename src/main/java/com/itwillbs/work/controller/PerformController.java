@@ -1,6 +1,8 @@
 package com.itwillbs.work.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.itwillbs.work.domain.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.line.service.LineService;
+import com.itwillbs.login.service.LoginService;
+import com.itwillbs.member.domain.MemberDTO;
 import com.itwillbs.work.domain.ItemDTO;
 import com.itwillbs.work.domain.PerformDTO;
 import com.itwillbs.work.service.PerformService;
@@ -33,6 +38,9 @@ public class PerformController {
 	
 	@Inject
 	private LineService lineService;
+	
+	@Inject
+	private LoginService loginService;
 	
 	@RequestMapping(value = "/work/performRegist", method = RequestMethod.GET)
 	public String performRegist(Model model, HttpServletRequest request, PageDTO pageDTO) {
@@ -215,7 +223,7 @@ public class PerformController {
 				
 		//페이징 처리
 		int count = performService.countPerformLi(search);
-
+		System.out.println("count : "+count);
 		int pageBlock = 10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 		int endPage=startPage+pageBlock-1;
@@ -245,13 +253,25 @@ public class PerformController {
 	
 		
 	@RequestMapping(value = "/work/pfInsert", method = RequestMethod.GET)
-	public String pfInsert(HttpServletRequest request, Model model) { // 실적 등록 창
+	public String pfInsert(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException { // 실적 등록 창
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
 		
 		Map<String, Object> getInstr = performService.getInstrMap(instrId);
 		
+		if(getInstr.get("workSts").equals("마감")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script type='text/javascript'>");
+			out.println("alert('마감된 지시는 실적을 등록할 수 없습니다.');");
+			out.println("window.close();");
+			out.println("</script>");
+			out.close();
+			return null;
+		}else {
+		
 		model.addAttribute("getInstr", getInstr);
 		return "work/pfInsert";
+		}
 	}
 	
 
@@ -279,8 +299,8 @@ public class PerformController {
 		performDTO.setDbReason(request.getParameter("dbReason"));
 		performDTO.setNote(request.getParameter("note"));
 		
-		
 		performService.insertPf(performDTO);
+		
 		
 		return "redirect:/common/offwindow";
 	}
@@ -302,31 +322,48 @@ public class PerformController {
 	}
 	
 	@RequestMapping(value = "/work/PmodiPro", method = RequestMethod.POST)
-	public String PmodiPro (PerformDTO performDTO, HttpSession session){ // 실적 수정 실행
+	public String PmodiPro (PerformDTO performDTO, HttpSession session, HttpServletRequest request){ // 실적 수정 실행
+		PerformDTO preDTO = new PerformDTO();
+		int preqty = Integer.parseInt(request.getParameter("preqty"));
+		String preYn = request.getParameter("preYn");
+		int preitemId = Integer.parseInt(request.getParameter("preitemId"));
+		preDTO.setPerformQty(preqty);
+		preDTO.setGbYn(preYn);
+		preDTO.setItemId(preitemId);
 
+		
 		String id = (String)session.getAttribute("id");
 		performDTO.setUpdateId(id); // 수정한 사람 id
 		performDTO.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+		performDTO.setItemId(preitemId);
 		
-		
+		performService.delqty(preDTO);
 		performService.updatePf(performDTO);
 		
 		return "redirect:/common/offwindow";
 	}
 	
 	@RequestMapping(value = "/work/del", method = RequestMethod.GET)
-	public String del(HttpServletRequest request, Model model) { // 실적 삭제창
+	public String del(HttpServletRequest request) { // 실적 삭제창
 		int performId = Integer.parseInt(request.getParameter("performId"));
-		
 		performService.delPf(performId);
+		
 		
 		return "redirect:/work/performRegist";
 	}
 
 	@RequestMapping(value = "/work/popPfRe", method = RequestMethod.GET)
-	public String popPfRe(Model model, HttpServletRequest request, PageDTO pageDTO) { // 팝 실적등록창
+	public String popPfRe(Model model, HttpServletRequest request, PageDTO pageDTO, HttpSession session) { // 팝 실적등록창
+
+		if(session.getAttribute("id")!=null) {
+		MemberDTO memberDTO = new MemberDTO();
+		String id = (String)session.getAttribute("id");
+		memberDTO.setId(id);
+		MemberDTO memberDTO2 = loginService.idCheck(memberDTO);
+		session.setAttribute("name", memberDTO2.getName());
+		}
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		int pageSize = 8; // sql문에 들어가는 항목
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -375,17 +412,170 @@ public class PerformController {
 	}
 	
 	@RequestMapping(value = "/work/popConfirm", method = RequestMethod.GET)
-	public String popConfirm(HttpServletRequest request, Model model) { // 실적 삭제창
+	public String popConfirm(HttpServletRequest request, Model model) { // 팝화면 지시 확인창
+		
+		
+		
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
 		
 		Map<String, Object> inst = performService.getInstrMap(instrId);
 		
+		List<Map<String, Object>> pflist = performService.getPfLiMap(request.getParameter("instrId"));
+		
+		System.out.println(pflist);
 		model.addAttribute("inst", inst); 
+		model.addAttribute("pflist", pflist); 
+		
 		
 		return "work/pop_confirm";
 	}
 	
 	
+	@RequestMapping(value = "/work/popInsert", method = RequestMethod.GET)
+	public String popInsert(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException { // 팝화면 실적 등록창
+
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		
+
+		Map<String, Object> inst = performService.getInstrMap(instrId);
+		
+		if(inst.get("workSts").equals("마감")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script type='text/javascript'>");
+			out.println("alert('마감된 지시는 실적을 등록할 수 없습니다.');");
+			out.println("history.back()");
+			out.println("</script>");
+			out.close();
+			return null;
+		}else {
+		
+		model.addAttribute("inst", inst);
+		return "work/pop_insert";}
+	}
+	
+	@RequestMapping(value = "/work/PopinsertPro", method = RequestMethod.GET)
+	public String PopinserPro (HttpServletRequest request, HttpSession session){ // 팝화면 실적 등록 실행
+		
+		PerformDTO performDTO = new PerformDTO();
+		String id = (String)session.getAttribute("id");
+		performDTO.setInsertId(id);
+		performDTO.setInstrId(Integer.parseInt(request.getParameter("instrId")));
+
+
+		String date = request.getParameter("performDate");
+		Date performDate = Date.valueOf(date); // String -> Date(sql)로 변환
+		performDTO.setPerformDate(performDate);
+
+		performDTO.setPerformQty(Integer.parseInt(request.getParameter("performQty")));
+		performDTO.setGbYn(request.getParameter("gbYn"));
+		performDTO.setDbReason(request.getParameter("dbReason"));
+		performDTO.setNote(request.getParameter("note"));
+		
+		
+		performService.insertPf(performDTO);
+		
+		return "redirect:/work/popPfRe";
+	}
+	
+	
+	
+	@RequestMapping(value = "/work/logout", method = RequestMethod.GET) // 팝화면 로그아웃
+	public String poplogout(HttpSession session) {
+
+		// 세션 초기화
+		session.invalidate();
+		
+		return "redirect:/work/poplogin";
+	}
+	
+	@RequestMapping(value = "/work/poplogin", method = RequestMethod.GET) // 팝화면 로그인
+	public String poplogin(HttpSession session) {
+		if((String)session.getAttribute("id")!=null) {
+			return "redirect:/work/popPfRe";
+		}
+		return "work/poplogin";
+	}
+	
+	@RequestMapping(value = "/work/loginPro", method = RequestMethod.POST) // 팝화면 로그인pro
+	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+		System.out.println(memberDTO.getId());
+		System.out.println(memberDTO.getPass());
+		
+		MemberDTO memberDTO2 = loginService.login(memberDTO);
+
+		if (memberDTO2 != null) { // 아이디,비밀번호 일치
+			
+			
+			session.setAttribute("id", memberDTO.getId());
+			session.setAttribute("name", memberDTO2.getName());
+
+			// 주소 변경되면서 메인페이지로 이동
+			return "redirect:/work/popPfRe";
+		} else { // 아이디,비밀번호 틀림
+
+			// common/msg.jsp 만들어서 "아이디 비밀번호 틀림" 메시지 출력하고 뒤로이동
+			return "common/msg";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/work/popmodi", method = RequestMethod.GET) // 팝화면 수정창
+	public String popmodi(Model model, HttpServletRequest request) {
+		
+		int performId = Integer.parseInt(request.getParameter("performId"));
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		
+
+		Map<String, Object> inst = performService.getInstrMap(instrId);
+		PerformDTO pfDTO = performService.getPf(performId);
+		
+	
+		model.addAttribute("pfDTO", pfDTO);
+		model.addAttribute("inst", inst);
+		
+		return "work/pop_modi";
+		
+	}
+	
+	@RequestMapping(value = "/work/popmodiPro", method = RequestMethod.POST)
+	public String popmodiPro (PerformDTO performDTO, HttpSession session, HttpServletRequest request){ // 팝화면 실적 수정 실행
+		PerformDTO preDTO = new PerformDTO(); // 수정전 실적 정보 담기
+		int preqty = Integer.parseInt(request.getParameter("preqty"));
+		String preYn = request.getParameter("preYn");
+		int preitemId = Integer.parseInt(request.getParameter("preitemId"));
+		preDTO.setPerformQty(preqty); // 수정전 실적량
+		preDTO.setGbYn(preYn); // 수정전 양불여부
+		preDTO.setItemId(preitemId); // 품목id
+
+		
+		String id = (String)session.getAttribute("id");
+		performDTO.setUpdateId(id); // 수정한 사람 id
+		performDTO.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+		performDTO.setItemId(preitemId);
+		
+		performService.delqty(preDTO); // 수정전 재고 삭제
+		performService.updatePf(performDTO); // 업뎃
+		
+		return "redirect:/work/popPfRe";
+	}
+	
+	
+	@RequestMapping(value = "/work/popdel", method = RequestMethod.GET) // 실적 삭제창
+	public String popdel(HttpServletRequest request) { 
+		int performId = Integer.parseInt(request.getParameter("performId"));
+		performService.delPf(performId);
+		
+		return "redirect:/work/popPfRe";
+	}
+	
+	@RequestMapping(value = "/work/close", method = RequestMethod.GET) // 수동마감
+	public String close(HttpServletRequest request) { 
+		int instrId = Integer.parseInt(request.getParameter("instrId"));
+		performService.close(instrId);
+		
+		return "redirect:/work/performRegist";
+	}
 	
 	
 	

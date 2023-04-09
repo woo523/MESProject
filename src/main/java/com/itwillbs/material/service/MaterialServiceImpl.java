@@ -9,7 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.material.dao.MaterialDAO;
 import com.itwillbs.material.domain.ClientDTO;
+import com.itwillbs.material.domain.InmaterialDTO;
+import com.itwillbs.material.domain.OutmaterialDTO;
+import com.itwillbs.material.domain.PageDTO;
+import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.work.domain.ItemDTO;
+
 
 @Service
 public class MaterialServiceImpl implements MaterialService{
@@ -26,14 +31,20 @@ public class MaterialServiceImpl implements MaterialService{
 
 	@Override
 	public List<Map<String, Object>> getInmaterLiMap(Map<String, Object> search) {
-		System.out.println("InmaterialServiceImpl getInmaterLiMap()");
+		System.out.println("InmaterialServiceImpl getInmaterLiMap(서치용)");
 		return materialDAO.getInmaterLiMap(search);
 	}
 
 	@Override
-	public List<Map<String, Object>> getInmaterLiMap() {
+	public List<Map<String, Object>> getInmaterLiMap(PageDTO pageDTO) {
 		System.out.println("InmaterialServiceImpl getInmaterLiMap()");
-		return materialDAO.getInmaterLiMap();
+		return materialDAO.getInmaterLiMap(pageDTO);
+	}
+	
+	@Override
+	public Integer countMtrlLi(Map<String, Object> search) {
+		System.out.println("InmaterialServiceImpl countMtrlLi()");
+		return  materialDAO.countMtrlLi(search);
 	}
 	
 	@Override
@@ -51,10 +62,16 @@ public class MaterialServiceImpl implements MaterialService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getOutmaterLiMap() {
+	public List<Map<String, Object>> getOutmaterLiMap(PageDTO pageDTO) {
 		System.out.println("OutmaterialServiceImpl getOutmaterLiMap()");
 		
-		return materialDAO.getOutmaterLiMap();
+		return materialDAO.getOutmaterLiMap(pageDTO);
+	}
+	
+	@Override
+	public Integer countOutLi(Map<String, Object> search) {
+		System.out.println("InmaterialServiceImpl countOutLi()");
+		return  materialDAO.countOutLi(search);
 	}
 
 	@Override
@@ -83,14 +100,14 @@ public class MaterialServiceImpl implements MaterialService{
 
 	@Override
 	public List<Map<String, Object>> mtrlStateList(Map<String, Object> search) { // 자재현황 리스트
-		System.out.println("materialServiceImpl mtrlStateList()");
+		System.out.println("materialServiceImpl mtrlStateList(검색)");
 		return materialDAO.mtrlStateList(search);
 	}
 
 	@Override
-	public List<Map<String, Object>> mtrlStateList() {
+	public List<Map<String, Object>> mtrlStateList(PageDTO pageDTO) {
 		System.out.println("materialServiceImpl mtrlStateList()");
-		return materialDAO.mtrlStateList();
+		return materialDAO.mtrlStateList(pageDTO);
 	}
 
 	@Override
@@ -99,6 +116,82 @@ public class MaterialServiceImpl implements MaterialService{
 		
 		return materialDAO.materialState();
 	}
+
+	@Override
+	public Integer countStateLi(Map<String, Object> search) {
+		System.out.println("InmaterialServiceImpl countStateLi()");
+		return materialDAO.countStateLi(search);
+	}
+
+
+//	@Override
+//	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+//		System.out.println("InmaterialServiceImpl getInmtrlMap()");
+//		return materialDAO.getInmtrlMap(inmtrlId);
+//	}
+
+	@Override
+	public void insertInmtrl(InmaterialDTO inmaterialDTO) {
+		System.out.println("InmaterialServiceImpl insertInmtrl()");
+		materialDAO.insertInmtrl(inmaterialDTO);
+	}
+
+	@Override
+	public void deleteInmtrl(int inmtrlId) {
+		System.out.println("InmaterialServiceImpl deleteInmtrl()");
+	
+		materialDAO.deleteInmtrl(inmtrlId);
+	}
+
+	@Override
+	public void deleteOutmtrl(int outmtrlId) {
+		System.out.println("OutmaterialServiceImpl deleteOutmtrl()");
+		materialDAO.deleteOutmtrl(outmtrlId);
+	}
+
+	@Override
+	public void insertOutmtrl(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl insertOutmtrl()");
+		materialDAO.insertOutmtrl(outmaterialDTO);
+	}
+
+	@Override
+	public InmaterialDTO getInmtrlList(int inmtrlId) {
+		System.out.println("OutmaterialServiceImpl getInmtrlList()");
+		return materialDAO.getInmtrlList(inmtrlId);
+	}
+
+	@Override
+	public void updateInmtrl(InmaterialDTO inmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl updateInmtrl()");
+		materialDAO.updateInmtrl(inmaterialDTO);
+	}
+
+	@Override
+	public StockDTO getStockList(int stockId) {
+		System.out.println("OutmaterialServiceImpl getStockList()");
+		return materialDAO.getStockList(stockId);
+	}
+
+	@Override
+	public void updateStock(StockDTO stockDTO, int stockId) {
+		System.out.println("OutmaterialServiceImpl updateStock()");
+		materialDAO.updateStock(stockDTO, stockId);
+	}
+
+	@Override
+	public InmaterialDTO getInmtrl(int inmtrlId) {
+		System.out.println("OutmaterialServiceImpl getInmtrl()");
+		return materialDAO.getInmtrl(inmtrlId);
+	}
+
+	@Override
+	public Map<String, Object> getInmtrlMap(int inmtrlId) {
+		System.out.println("OutmaterialServiceImpl getInmtrlMap()");
+		return materialDAO.getInmtrlMap(inmtrlId);
+	}
+
+
 
 
 

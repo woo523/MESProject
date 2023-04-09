@@ -1,10 +1,18 @@
 package com.itwillbs.work.domain;
 
 public class ItemDTO {
+	private int itemId;			// 품목 기본키
 	private String itemNum;		// 품번
 	private String itemName;	// 품명
 	private String invntUnit;	// 재고단위
 	
+	
+	public int getItemId() {
+		return itemId;
+	}
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
 	public String getItemNum() {
 		return itemNum;
 	}
@@ -27,7 +35,9 @@ public class ItemDTO {
 	
 	@Override
 	public String toString() {
-		return "itemDTO [itemNum=" + itemNum + ", itemName=" + itemName + ", invntUnit=" + invntUnit + "]";
+		return "ItemDTO [itemId=" + itemId + ", itemNum=" + itemNum + ", itemName=" + itemName + ", invntUnit="
+				+ invntUnit + "]";
 	}
+
 	
 }

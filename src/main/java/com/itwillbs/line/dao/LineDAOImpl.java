@@ -8,7 +8,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.common.PageDTO;
 import com.itwillbs.line.domain.LineDTO;
+import com.itwillbs.work.domain.InstructDTO;
 
 @Repository
 public class LineDAOImpl implements LineDAO{
@@ -26,8 +28,21 @@ public class LineDAOImpl implements LineDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch) {
+	public List<Map<String, Object>> lineList(PageDTO pageDTO) {
+		System.out.println("LineDAOImpl lineListPaging()");
+		
+		return sqlSession.selectList(namespace + ".lineListPaging", pageDTO);
+	}
+
+	@Override
+	public List<Map<String, Object>> lineSearch(Map<String, Object> lineSearch, PageDTO pageDTO) {
 		System.out.println("LineDAOImpl lineSearch()");
+		System.out.println("라인 : " + lineSearch);
+		
+		lineSearch.put("startRow", pageDTO.getStartRow());
+		lineSearch.put("pageSize", pageDTO.getPageSize());
+		
+		System.out.println("라인 페이징 : " + lineSearch);
 		
 		return sqlSession.selectList(namespace+".lineSearch", lineSearch);
 	}
@@ -44,6 +59,51 @@ public class LineDAOImpl implements LineDAO{
 		System.out.println("LineDAOImpl lineSearchCount");
 		
 		return sqlSession.selectOne(namespace+".lineSearchCount", lineSearch);
+	}
+
+	@Override
+	public void insertLine(LineDTO lineDTO) {
+		System.out.println("LineDAOImpl insertLine");
+		
+		sqlSession.selectList(namespace+".insertLine", lineDTO);
+	}
+
+	@Override
+	public LineDTO getLineList(int lineId) {
+		// lindId에 해당하는 라인 목록 가져오기
+		System.out.println("LineDAOImpl getLineList");
+		
+		return sqlSession.selectOne(namespace+".getLineList", lineId);
+	}
+
+	@Override
+	public List<LineDTO> getLinePlace() {
+		// 라인 작업장 목록
+		
+		return sqlSession.selectList(namespace+".getLinePlace");
+	}
+
+	@Override
+	public Map<String, Object> getInstrList(int lineId) {
+		// 라인번호에 해당하는 작업지시 목록
+		
+		return sqlSession.selectOne(namespace+".getInstrList", lineId);
+	}
+
+	@Override
+	public void updateLine(LineDTO lineDTO, int lineId) {
+		System.out.println("LineDAOImpl updateLine");
+		
+		lineDTO.setLineId(lineId);
+		
+		sqlSession.update(namespace+".updateLine", lineDTO);
+	}
+
+	@Override
+	public void deleteLine(int lineId) {
+		System.out.println("LineDAOImpl deleteLine");
+		
+		sqlSession.delete(namespace+".deleteLine", lineId);
 	}
 
 }

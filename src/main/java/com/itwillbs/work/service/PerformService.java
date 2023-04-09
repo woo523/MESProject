@@ -40,4 +40,9 @@ public interface PerformService {
 	public Integer countPerformLi(Map<String,Object> search);
 	
 	public List<Map<String, Object>> ReqList(String performId);
+	
+	public void close(int instrId);
+	
+	public void delqty(PerformDTO preDTO);
+	
 }

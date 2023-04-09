@@ -1,11 +1,13 @@
 package com.itwillbs.material.controller;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.material.domain.ClientDTO;
 import com.itwillbs.material.domain.InmaterialDTO;
+import com.itwillbs.material.domain.OutmaterialDTO;
 import com.itwillbs.material.domain.PageDTO;
+import com.itwillbs.material.domain.StockDTO;
 import com.itwillbs.material.service.MaterialService;
 import com.itwillbs.work.domain.ItemDTO;
 
@@ -26,7 +30,7 @@ public class MaterialController {
 	private MaterialService materialService;
 	
 	@RequestMapping(value = "/material/inmaterList", method = RequestMethod.GET)
-	public String inmeterList(HttpServletRequest request, Model model) {
+	public String inmeterList(HttpServletRequest request, Model model, PageDTO pageDTO) {
 		System.out.println("MaterialController inmaterList()");
 
 		String whouse = request.getParameter("whouse");
@@ -34,25 +38,67 @@ public class MaterialController {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		String ccd = request.getParameter("ccd");
+
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 10 ; // sql문에 들어가는 항목
 		
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
+		
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);
+		
+		Map<String, Object> search = new HashMap<>();
+		search.put("whouse", whouse);
+		search.put("startDate", startDate);
+		search.put("endDate", endDate);
+		search.put("pcd", pcd);
+		search.put("ccd", ccd);
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
+		
+		List<Map<String,Object>> inmaterList;
 		if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
 			
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap();		
-			model.addAttribute("inmaterList", inmaterList); // 전체 리스트
+			inmaterList = materialService.getInmaterLiMap(pageDTO);		
 		
 		}else {
+		
+			inmaterList = materialService.getInmaterLiMap(search);
 			
-			Map<String, Object> search = new HashMap<String, Object>();
-			search.put("whouse", whouse);
-			search.put("startDate", startDate);
-			search.put("endDate", endDate);
-			search.put("pcd", pcd);
-			search.put("ccd", ccd);
-			System.out.println(search);
-			
-			List<Map<String,Object>> inmaterList = materialService.getInmaterLiMap(search);
-			model.addAttribute("inmaterList", inmaterList); // 서치 결과 리스트
 		}
+		//페이징 처리
+		int count = materialService.countMtrlLi(search);
+		int pageBlock = 10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if(endPage > pageCount){
+		 	endPage = pageCount;
+		 }
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		System.out.println("endPage :"+pageDTO.getEndPage());
+		System.out.println("count :"+pageDTO.getCount());		
+		model.addAttribute("inmaterList", inmaterList);
+		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("search", search);
+		
 		return "material/inmaterList";
 	}
 		
@@ -170,16 +216,9 @@ public class MaterialController {
 		return "material/clientList";
 	}
 	
-	@RequestMapping(value = "/material/immodi", method = RequestMethod.GET)
-	public String immodi(HttpServletRequest request) {
-		String inmaterId = request.getParameter("inmaterId");
-		
-		return "material/inmater";
-	}
-	
 	
 	@RequestMapping(value = "/material/outmaterList", method = RequestMethod.GET)
-	public String outmeterList(HttpServletRequest request, Model model) {
+	public String outmeterList(HttpServletRequest request, Model model, PageDTO pageDTO) {
 		System.out.println("MaterialController outmaterList()");
 
 		String whouse = request.getParameter("whouse");
@@ -188,52 +227,276 @@ public class MaterialController {
 		String endDate = request.getParameter("endDate");
 		String ccd = request.getParameter("ccd");
 		
-		System.out.println("whouse :"+whouse);
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 10 ; // sql문에 들어가는 항목
 		
-	if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
-			
-		List<Map<String, Object>> outmaterList =  materialService.getOutmaterLiMap();		
-		model.addAttribute("outmeterList", outmaterList);} // 전체 리스트	
-	else{
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
 		
-		Map<String, Object> search = new HashMap<String, Object>();
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);
+		
+		Map<String, Object> search = new HashMap<>();
 		search.put("whouse", whouse);
 		search.put("startDate", startDate);
 		search.put("endDate", endDate);
 		search.put("pcd", pcd);
 		search.put("ccd", ccd);
-		System.out.println(search);
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
 		
-		List<Map<String,Object>> outmaterList = materialService.getOutmaterLiMap(search);
-		model.addAttribute("outmaterList", outmaterList); // 서치 결과 리스트	
+		List<Map<String, Object>> outmaterList;
+	if(whouse == null && pcd == null && startDate == null && endDate == null && ccd == null){
+			
+		outmaterList =  materialService.getOutmaterLiMap(pageDTO);		
+	
+	}else{
+		
+		outmaterList = materialService.getOutmaterLiMap(search);			
 	}
+	
+	//페이징 처리
+	int count = materialService.countOutLi(search);	
+	int pageBlock = 10;
+	int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+	int endPage=startPage+pageBlock-1;
+	int pageCount=count/pageSize+(count%pageSize==0?0:1);
+	if(endPage > pageCount){
+	 	endPage = pageCount;
+	 }
+	
+	pageDTO.setCount(count);
+	pageDTO.setPageBlock(pageBlock);
+	pageDTO.setStartPage(startPage);
+	pageDTO.setEndPage(endPage);
+	pageDTO.setPageCount(pageCount);
+
+	System.out.println("endPage :"+pageDTO.getEndPage());
+	System.out.println("count :"+pageDTO.getCount());
+	model.addAttribute("outmaterList", outmaterList);
+	model.addAttribute("pageDTO", pageDTO);
+	model.addAttribute("search", search);
+	
 	return "material/outmaterList";
 	}
 	
 	@RequestMapping(value = "/material/materialState", method = RequestMethod.GET)
-	public String materialState(HttpServletRequest request, Model model) {
+	public String materialState(HttpServletRequest request, Model model, PageDTO pageDTO) {
 		System.out.println("MaterialController materialState()");
 
 		String mtrltype = request.getParameter("mtrltype");
 		String pcd = request.getParameter("pcd");
 		System.out.println("mtrltype :"+mtrltype);
 		
+		// 한 화면에 보여줄 글 개수 설정
+		int pageSize = 10 ; // sql문에 들어가는 항목
+		
+		// 현페이지 번호 가져오기
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 페이지번호를 정수형 변경
+		int currentPage=Integer.parseInt(pageNum);
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+		int endRow = startRow+pageDTO.getPageSize()-1;
+		
+		pageDTO.setStartRow(startRow-1); // limit startRow (0이 1열이기 때문 1을 뺌)
+		pageDTO.setEndRow(endRow);		
+		
+		Map<String, Object> search = new HashMap<>();
+		search.put("mtrltype", mtrltype);
+		search.put("pcd", pcd);
+		search.put("startRow", pageDTO.getStartRow());
+		search.put("pageSize", pageDTO.getPageSize());
+		
+		List<Map<String,Object>> materialState;
 		if(mtrltype == null && pcd == null){
 			
-			List<Map<String,Object>> materialState = materialService.mtrlStateList();		
-			model.addAttribute("materialState", materialState);} // 전체 리스트
+			materialState = materialService.mtrlStateList(pageDTO);		
 		
-		else {
+		}else {
+						
+			materialState = materialService.mtrlStateList(search);
 			
-			Map<String, Object> search = new HashMap<String, Object>();
-			search.put("mtrltype", mtrltype);
-			search.put("pcd", pcd);
-			System.out.println(search);
-			
-			List<Map<String,Object>> materialState = materialService.mtrlStateList(search);
-			model.addAttribute("materialState", materialState ); // 서치 결과 리스트
 		}
+		
+		//페이징 처리
+		int count = materialService.countStateLi(search);
+		
+		int pageBlock = 10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+		if(endPage > pageCount){
+		 	endPage = pageCount;
+		 }
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+
+		
+		System.out.println("endPage :"+pageDTO.getEndPage());
+		System.out.println("count :"+pageDTO.getCount());
+		model.addAttribute("materialState", materialState );
+		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("search", search);
+		
 		return "material/materialState";
 	}
+	
+	// 입고 삭제
+	@RequestMapping(value = "/material/del", method = RequestMethod.GET)
+	public String del(HttpServletRequest request) { 
+		System.out.println("MaterialController del()");
+		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
+		
+		materialService.deleteInmtrl(inmtrlId);
 
-}
+		return "redirect:/material/inmaterList";
+	}
+	
+	// 입고 수정
+	@RequestMapping(value = "/material/inmtrlModify", method = RequestMethod.GET)
+	public String inmtrlModify(HttpServletRequest request, Model model) {
+		System.out.println("MaterialController inmtrlModify()");
+		
+		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
+		
+		InmaterialDTO inmaterialDTO = materialService.getInmtrl(inmtrlId);
+		
+		Map<String, Object> getInmtrl = materialService.getInmtrlMap(inmaterialDTO.getInmtrlId()); // 품명 가져오기 위해
+		
+		model.addAttribute("inmaterialDTO", inmaterialDTO);
+		model.addAttribute("getInmtrl", getInmtrl);
+		
+		System.out.println("폼 : " + inmtrlId);		
+		
+		return "material/inmtrlModify";
+	}
+	
+	// 입고 수정
+	@RequestMapping(value = "/material/inmtrlModifyPro", method = RequestMethod.POST)
+	public String inmtrlModifyPro(InmaterialDTO inmaterialDTO, HttpSession session) {
+		System.out.println("MaterialController inmtrlModifyPro()");
+		
+		String id = (String)session.getAttribute("id");
+		inmaterialDTO.setUpdateId(id);
+		inmaterialDTO.setUpdateDt(new Timestamp(System.currentTimeMillis()));
+		
+		materialService.updateInmtrl(inmaterialDTO);
+		
+		return "redirect:/common/offwindow";
+	}
+	
+	// 자재입고 등록
+	@RequestMapping(value = "/material/inmtrlInsert", method = RequestMethod.GET)
+	public String inmtrlInsert() {
+		System.out.println("MaterialController inmtrlInsert()");
+
+		return "material/inmtrlInsert";
+	}	
+	
+	// 자재입고 등록
+	@RequestMapping(value = "/material/inmtrlInsertPro", method = RequestMethod.POST)
+	public String inmtrlInsertPro(InmaterialDTO inmaterialDTO) {
+		System.out.println("MaterialController inmtrlInsertPro()");
+		String date = inmaterialDTO.getInmtrlDt(); // 등록 날짜
+		String date2 = date.replaceAll("-", ""); // "-" 빼기
+		String date3 = date2.substring(2);
+		int count = materialService.countMtrlLi(null)+1; // 입고 리스트 갯수+1
+		String inmtrlNum = String.format("IN%s%05d", date3,count); // 규격코드 만들기
+		System.out.println("규격코드:"+inmtrlNum);
+		inmaterialDTO.setInmtrlNum(inmtrlNum);
+		inmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
+		
+		materialService.insertInmtrl(inmaterialDTO);
+		System.out.println(inmaterialDTO);
+		
+		
+		return "redirect:/common/offwindow";
+	}
+	
+	// 실사량
+	@RequestMapping(value = "/material/addList", method = RequestMethod.GET)
+	public String addList(HttpServletRequest request,  Model model) {
+		System.out.println("MaterialController addList()");
+//		String whouse = request.getParameter("whouse");
+		int stockId = Integer.parseInt(request.getParameter("stockId"));
+		
+		StockDTO stockDTO = materialService.getStockList(stockId);
+		model.addAttribute("stockDTO", stockDTO);
+		System.out.println("폼 : " + stockId);
+		
+		return "material/addList";
+	}
+	
+	// 실사량
+	@RequestMapping(value = "/material/addListPro", method = RequestMethod.POST)
+	public String addListPro(HttpServletRequest request, StockDTO stockDTO) {
+		System.out.println("MaterialController addListPro()");
+		
+		int stockId = Integer.parseInt(request.getParameter("stockId"));
+		materialService.updateStock(stockDTO, stockId);
+		System.out.println("디비 : " + stockDTO);
+		
+		return "redirect:/material/addList";
+	}
+	
+	// 출고 삭제
+	@RequestMapping(value = "/material/outDel", method = RequestMethod.GET)
+	public String outDel(HttpServletRequest request) { 
+		System.out.println("MaterialController outDel()");
+		int outmtrlId = Integer.parseInt(request.getParameter("outmtrlId"));
+		
+		materialService.deleteOutmtrl(outmtrlId);
+
+		return "redirect:/material/outmaterList";
+	}
+	
+	
+	// 자재출고 등록
+	@RequestMapping(value = "/material/outmtrlInsert", method = RequestMethod.GET)
+	public String outmtrlInsert() {
+		System.out.println("MaterialController outmtrlInsert()");
+
+		return "material/outmtrlInsert";
+	}	
+	
+	// 자재입고 등록
+	@RequestMapping(value = "/material/outmtrlInsertPro", method = RequestMethod.POST)
+	public String outmtrlInsertPro(OutmaterialDTO outmaterialDTO) {
+		System.out.println("MaterialController outmtrlInsertPro()");
+		String date = outmaterialDTO.getOutmtrlDt(); // 등록 날짜
+		String date2 = date.replaceAll("-", ""); // "-" 빼기
+		String date3 = date2.substring(2);
+		int count = materialService.countOutLi(null)+1; // 입고 리스트 갯수+1
+		String outmtrlNum = String.format("IN%s%05d", date3,count); // 규격코드 만들기
+
+		System.out.println("규격코드:"+outmtrlNum);
+		outmaterialDTO.setOutmtrlNum(outmtrlNum);
+		outmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
+		
+		materialService.insertOutmtrl(outmaterialDTO);
+		System.out.println(outmaterialDTO);
+		
+		
+		return "redirect:/material/outmaterList";
+	}
+}	

@@ -27,6 +27,7 @@ public class PageUtil {
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
 		
+		System.out.println(pageDTO);
 		
 		model.addAttribute("pageDTO", pageDTO);
 		

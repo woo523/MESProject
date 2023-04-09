@@ -4,6 +4,7 @@ package com.itwillbs.work.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.itwillbs.mdm.domain.RequireDTO;
 import com.itwillbs.work.domain.InstructDTO;
 import com.itwillbs.work.domain.ItemDTO;
 import com.itwillbs.work.domain.PageDTO;
@@ -42,7 +43,22 @@ public interface PerformDAO {
 	
 	public List<Map<String, Object>> ReqList(String performId);
 	
+	public boolean checkY(int instrId);
 	
+	public void updateClose (int instrId);
 	
+	public void updateStart (int instrId);
+	
+	public void updateInstr(int instrId);
+	
+	public void updateStorage(PerformDTO performDTO);
+	
+	public void updateStock(PerformDTO performDTO);
+	
+	public void delStorage(PerformDTO preDTO);
+	
+	public void delStock(PerformDTO preDTO);
+	
+	public List<RequireDTO> getReAmnt(int itemId);
 	
 }

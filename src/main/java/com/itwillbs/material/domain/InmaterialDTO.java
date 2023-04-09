@@ -1,13 +1,14 @@
 package com.itwillbs.material.domain;
 
+
 import java.sql.Timestamp;
 
 public class InmaterialDTO {
-	private int inmtrlId;	// 자재입고 기본키
-	private int itemId;		// 품목관리 기본키
-	private int clntId;		// 거래처정보 기본키
+	private int inmtrlId;	// 자재입고 번호
+	private int itemId;		// 품목관리 번호
+	private int clntId;		// 거래처관리 번호
 	private String inmtrlNum;	// 입고번호
-	private Timestamp inmtrlDt;		// 입고일자
+	private String inmtrlDt;		// 입고일자
 	private int inmtrlQty;	// 입고수량
 	private int inmtrlLot;	// 입고
 //	private String whouse;	// 입고창고
@@ -43,10 +44,10 @@ public class InmaterialDTO {
 	public void setInmtrlNum(String inmtrlNum) {
 		this.inmtrlNum = inmtrlNum;
 	}
-	public Timestamp getInmtrlDt() {
+	public String getInmtrlDt() {
 		return inmtrlDt;
 	}
-	public void setInmtrlDt(Timestamp inmtrlDt) {
+	public void setInmtrlDt(String inmtrlDt) {
 		this.inmtrlDt = inmtrlDt;
 	}
 	public int getInmtrlQty() {

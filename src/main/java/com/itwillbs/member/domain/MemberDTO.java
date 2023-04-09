@@ -5,6 +5,7 @@ import java.sql.Date;
 import com.itwillbs.common.PageDTO;
 
 public class MemberDTO extends PageDTO {
+	private int userId;
 	private String id;
 	private String pass;
 	private String name;
@@ -114,6 +115,12 @@ public class MemberDTO extends PageDTO {
 	}
 	public void setPositionNm(String positionNm) {
 		this.positionNm = positionNm;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	
 	

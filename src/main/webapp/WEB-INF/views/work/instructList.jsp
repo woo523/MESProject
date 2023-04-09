@@ -1,4 +1,3 @@
-<%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,16 +9,82 @@
 	<meta charset="UTF-8">
 	<title>instructList</title>
 	
-	<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
-	<style type="text/css">
-	article {
-		width: 1125px;
-		margin: 0px auto;
-	}
+<%-- 	<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css"> --%>
+
+<style type="text/css">
+
+
+.content_body .selectButtons, .listButtons {
+	text-align: right;
+}
+
+.content_body button {
+	display: inline-block;
+	width: 70px;
+	height: 28px;
+	font-size: 15px;
+}
+
+.content_body .searchBox {
+	width: 100%;
+	height: 20px;
+	border: 1px solid black;
+	margin: 10px 0px 40px 0px;
+}
+
+.searchBox td {
+	padding: 10px;
+}
+
+.content_body .instrList, .instrStateList {
+	width: 100%;
+	margin: 10px 0px 40px 0px;
+	border-collapse: collapse;
+}
+
+.content_body .instrList th, .instrStateList th {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 5px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.content_body .instrList td {
+	padding: 10px 0px 10px 0px;
+	text-align: center;
+}
+
+article input {
+	height: 20px;
+}
+
+.searchBox .form-control {
+	width: 150px;
+}
+
+.content_body #instrList:hover {
+	background-color: #e1e1e1;
+}
+
+.content_body .searchBox #itemSearch {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.content_body .searchBox #itemSearchRead {
+	background-color: #EAEAEA;
+}
+	
+article {
+	width: 1280px;
+	margin: 0px auto;
+}
 	
 	.content_body #instrList:hover {
 		background-color: #e1e1e1;
-		cursor: pointer;
 	}
 	
 	.content_body .searchBox #pcd {
@@ -40,6 +105,23 @@
 		background-position: 98%;
 		border: 1px solid;
 	}
+	
+	.searchBox .lineName {
+		display: block;
+		height: 20px;
+		overflow: auto;
+	}
+	
+	.searchBox .lineName::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+		background-color: black;
+	}
+	
+	.searchBox .lineName::-webkit-scrollbar-thumb {
+		background: #000;
+	}
+	
 	</style>
 </head>
 
@@ -54,17 +136,17 @@
 	<form id="instr">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="insertBtn()">추가</button>
+			<button type="button" onclick="loginCheck()">등록</button>
 		</div>
 		
 		<table class="searchBox">
 			<tr>
 				<td>라인</td>
-				<td><select name="lineName">
+				<td><select name="lineName" class="lineName">
 						<option value="" selected>전체</option>
-						<option value="1">라인 1</option>
-						<option value="2">라인 2</option>
-						<option value="3">라인 3</option>
+						<c:forEach var="line" items="${lineList}">
+							<option value="${line.lineName}">${line.lineName}</option>
+						</c:forEach>
 					</select></td>
 				<td>지시일자</td>
 				<!-- 시작시 기본 날짜 설정은 value를 이용 -->
@@ -73,7 +155,8 @@
 			</tr>
 			<tr>	
 				<td>품번</td>
-				<td><input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openilist()">
+				<td><input type="hidden" id="pid" name="pid">
+					<input type="text" id="pcd" name="itemNum" placeholder="품번코드" onclick="openItem()">
 					<input type="text" id="pnm" placeholder="품명" style="border:1px solid" readonly></td>
 				<td>지시상태</td>
 				<td colspan="8">
@@ -89,8 +172,6 @@
 		
 		<div class="listButtons">
 			<span id="printCnt"></span>
-			<button type="button">취소</button>
-			<button type="button">저장</button>
 		</div>
 		
 		<table border="1" class="instrList">
@@ -101,10 +182,11 @@
 				<th rowspan="2">지시일자</th>
 				<th rowspan="2">지시상태</th>
 				<th colspan="3">품목정보</th>
-				<th colspan="3">공정정보</th>
+				<th colspan="2">공정정보</th>
 				<th rowspan="2">지시수량</th>
 				<th rowspan="2">등록일</th>
 				<th rowspan="2">등록자</th>
+				<th rowspan="2"></th>
 			</tr>
 			<tr>
 				<th>품번</th>
@@ -112,40 +194,84 @@
 				<th>단위</th>
 				<th>라인</th>
 				<th>라인명</th>
-				<th>공정</th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty instrList}">
-					<tr><td colspan="14"></td></tr>
+					<tr><td colspan="15"></td></tr>
 					<tr>
-						<td colspan="14">해당 데이터가 존재하지 않습니다.</td>
+						<td colspan="15">해당 데이터가 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="instrDTO" items="${instrList}">
 						<tr id="instrList">
-							<td>${instrDTO.workNum}</td>
-							<td>업체명</td>
-							<td>수주번호</td>
+							<td style="width: 170px;">${instrDTO.workNum}</td>
+							<td style="width: 120px;">${instrDTO.clntDTO.clientName}</td>
+							<td style="width: 160px;">${instrDTO.orderMngDTO.ordNum}</td>
 							<td>${instrDTO.workDate}</td>
-							<td>${instrDTO.workSts}</td>
+							<c:choose>
+								<c:when test="${instrDTO.workSts eq '시작' }">
+									<td style="color: green;">${instrDTO.workSts}</td>
+								</c:when>
+								<c:when test="${instrDTO.workSts eq '마감' }">
+									<td style="color: red;">${instrDTO.workSts}</td>
+								</c:when>
+								<c:otherwise>
+									<td>${instrDTO.workSts}</td>
+								</c:otherwise>
+							</c:choose>
 							<td>${instrDTO.itemDTO.itemNum}</td>
 							<td>${instrDTO.itemDTO.itemName}</td>
 							<td>${instrDTO.itemDTO.invntUnit}</td>
 							<td>${instrDTO.lineDTO.lineCode}</td>
 							<td>${instrDTO.lineDTO.lineName}</td>
-							<td>${instrDTO.lineDTO.proCode}</td>
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
-							<td>${instrDTO.insertId}</td>
+							<td>${instrDTO.userDTO.name}</td>
+							<c:choose>
+								<c:when test="${! empty sessionScope.id && instrDTO.workSts eq '지시'}">
+									<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="instrModify(${instrDTO.instrId})"></a>
+										<a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
+								</c:when>
+								<c:when test="${! empty sessionScope.id && instrDTO.workSts eq '마감'}">
+									<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
+								</c:when>
+								<c:otherwise></c:otherwise>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
 	</form>
-</article>
 	
+	<div class="center">
+	 	<div class="pagination">			
+			<c:choose>
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
+					<a href="/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">◀</a>
+				</c:otherwise>
+			</c:choose>
+			
+			<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+				<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
+					<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+				</c:when>
+				<c:otherwise>
+					<a class="none">▶</a>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div> <!-- 페이징 -->
+	
+</article>
 </div>
 
 <!-- <footer> -->
@@ -162,8 +288,7 @@ $(function() {
            ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능
-           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,changeMonth: true //option값  월 선택 가능     
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
@@ -186,8 +311,7 @@ $(function() {
            ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능
-           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,changeMonth: true //option값  월 선택 가능              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
@@ -206,8 +330,8 @@ $('button.ui-datepicker-current').live('click', function() {
 })
 
 // 품명 검색 팝업창
-function openilist(){
-    window.open("${pageContext.request.contextPath }/work/itemList","popup", "width=500, height=500,left=100, top=100");
+function openItem(){
+    window.open("${pageContext.request.contextPath}/work/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
 // 작업지시 유효성 검사
@@ -241,10 +365,37 @@ $(document).ready(function() {
 	
 });
 
-     
-function insertBtn() {
-	alert("btn");
+// 작업지시 등록 버튼 유효성 검사
+function loginCheck() {
+	
+	// 세션값 받아오기
+	var id = '<%=(String)session.getAttribute("id")%>';
+	
+	if(id == "null") {
+		// 로그인 X, 로그인 페이지로 이동
+		alert("로그인 후 이용하실 수 있습니다.");
+		location.href='/login/login';
+	} else {
+		// 로그인 O, 등록 페이지로 이동
+		window.open("/work/instructInsert", "popupInsert", "width=700, height=700, left=600, top=200");
+	}
 }
-      
+
+// 작업지시 수정
+function instrModify(instrId) {
+	window.open("/work/instructModify?instrId=" + instrId, "popupModify", "width=700, height=700, left=600, top=200");
+}
+
+// 작업지시 삭제
+function instrDelete(instrId) {
+	if(confirm("삭제하시겠습니까?")) {
+		location.href="/work/instructDelete?instrId=" + instrId;
+	} else {
+		return false;
+	}
+	
+}
+
+
 </script>
 </html>
