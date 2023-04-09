@@ -85,7 +85,8 @@ public class MemberController {
 		System.out.println(memberDTO.getName());
 
 		memberService.insertMember(memberDTO);
-		authService.inauth(memberDTO.getUserId()); // 메뉴 권한 N으로 기본적으로 부여
+		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
+		authService.inauth(memberDTO2.getUserId()); // 메뉴 권한 N으로 기본적으로 부여
 		
 		return "redirect:/member/list";
 	}
@@ -111,8 +112,8 @@ public class MemberController {
 		// 디비 삭제 처리 => 처리 => 디비 자바 메서드 호출
 		System.out.println(memberDTO.getId());
 		System.out.println(memberDTO.getPass());
-
-		authService.delauth(memberDTO); // 권한 다 삭제
+		MemberDTO memberDTO2 = memberService.getMember(memberDTO.getId());
+		authService.delauth(memberDTO2); // 권한 다 삭제
 		
 		// 삭제작업
 		memberService.deleteMember(memberDTO);
