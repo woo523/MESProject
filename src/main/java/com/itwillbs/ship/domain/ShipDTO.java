@@ -27,6 +27,13 @@ public class ShipDTO {
 	private String dlvryDt; 		
 	private String orderDt; 		
 	private String ordNum; 	
+	private String userId;
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getOrderDt() {
 		return orderDt;
 	}

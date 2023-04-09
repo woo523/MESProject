@@ -45,7 +45,7 @@ table#search {
  border:1px solid;
 }
 
-table#detail {
+table#insert {
  border:1px solid;
 }
 table#info {
@@ -101,24 +101,24 @@ $(function() {
   $(function() {
 	    $( ".datepicker1" ).datepicker1();
 	  });
-function openilist1(){
-    window.open("${pageContext.request.contextPath }/ship/itemInfo","popup", "width=500, height=500,left=100, top=100");
-}
-function openilist2(){
-    window.open("${pageContext.request.contextPath }/ship/userList","popup", "width=500, height=500,left=100, top=100");
-}
-function openilist3(){
-    window.open("${pageContext.request.contextPath }/ship/clntInfo","popup", "width=500, height=500,left=100, top=100");
-}
-function openilist4(){
-    window.open("${pageContext.request.contextPath }/ship/shipInfo","popup", "width=500, height=500,left=100, top=100");
-}
-function openilist5(){
-    window.open("${pageContext.request.contextPath }/order/orderMng","popup", "width=500, height=500,left=100, top=100");
-}
+  function openitemlist(){
+	    window.open("${pageContext.request.contextPath }/ship/itemInfo","popup", "width=500, height=500,left=100, top=100");
+	}
+	function userlist(){
+	    window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
+	}
+	function openclntlist(){
+	    window.open("${pageContext.request.contextPath }/ship/clntInfo","popup", "width=500, height=500,left=100, top=100");
+	}
+	function openshiplist(){
+	    window.open("${pageContext.request.contextPath }/ship/shipInfo","popup", "width=500, height=500,left=100, top=100");
+	}
+	function openorderlist(){
+	    window.open("${pageContext.request.contextPath }/order/orderMng","popup", "width=500, height=500,left=100, top=100");
+	}
 
 $(function() {
-	$("#orderDt").datepicker({
+	$("#Dlvdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -144,7 +144,7 @@ $(function() {
 
 
 $(function() {
-	$("#dlvryDt").datepicker({
+	$("#sshdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -176,32 +176,28 @@ $(function() {
 				<button type="submit" >저장</button>
 			</div>
 			<br>
-			<table class="insert">
+			<table id="insert">
 			<tr><td> <input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly></td></tr> 
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" name="userNm" id="userNm" onclick="openilist2()">
+				<td><input type="text" name="userNm" id="userNm" onclick="userlist()">
 					<input type="hidden" name="userId" id="userId"value="">
 					<input type="hidden" name="userNum" id="userNum" value=""></td>
-				<td>수주량</td>
-				<td><input type="text" name="ordQty" id="ordQty" onclick="openilist5()">
-				<td>출하량</td>
-				<td><input type="text" name="shipQty" id="shipQty" onclick="openilist4()">
+				
 				</tr>
 				<tr>
 				<td>출하업체</td>
-				<td><input type="text" name="clntNm" id="clntNm" onclick="openilist3()">
+				<td><input type="text" name="clntNm" id="clntNm" onclick="openclntlist()">
 					<input type="hidden" name="clntId" id="clntId" value="">
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
 				</tr>
+				
 				<tr>
 				<td>납품예정일</td>
 				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td>
-										
+									
 				<td>출하일자</td>
 				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="Shdate" class="form-control" name="Shdate" readonly></td>
 				<td></td>
 
 				<td></td>
@@ -215,11 +211,11 @@ $(function() {
 	<div class="shiprinfo">
 			<table id="info">
 				<tr>
-				<td><input type="hidden" name="itemId" id="itemId"  onclick="openilist1()"></td>
+				<td><input type="hidden" name="itemId" id="itemId"  onclick="openitemlist()"></td>
 				<td>품번</td>
-				<td><input type="text" name="itemNum" id="itemNum"  onclick="openilist1()"></td>
+				<td><input type="text" name="itemNum" id="itemNum"  onclick="openitemlist()"></td>
 				<td>품명</td>
-				<td><input type="text" name= "itemNm" id="itemNm"  onclick="openilist1()"></td>
+				<td><input type="text" name= "itemNm" id="itemNm"  onclick="openitemlist()"></td>
 				<td>단위</td>
 				<td><input type="text" name="invntUnit" id="invntUnit" value="" ></td>
 				<td>수량</td>

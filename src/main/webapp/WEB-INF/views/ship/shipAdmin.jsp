@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<title>출하관리</title>
 	<!-- <header> -->
-	<jsp:include page="../inc/header.jsp" />
+	<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 	
 <style type="text/css">
 
@@ -43,7 +43,7 @@ h2 {
   margin-bottom: 30px;
 }
 
-.search_bar tr, td{
+.shipinfo tr, td{
  border:0px;
 }
 
@@ -59,7 +59,7 @@ table#info {
 }
 
 
-#btn{
+#selectButtons, #button{
       width: 1125px; 
 	text-align: right;
  
@@ -122,25 +122,25 @@ table#info {
   $(function() {
 	    $( ".datepicker1" ).datepicker1();
 	  });
-function openilist1(){
+function openitemlist(){
     window.open("${pageContext.request.contextPath }/ship/itemInfo","popup", "width=500, height=500,left=100, top=100");
 }
-function openilist2(){
-    window.open("${pageContext.request.contextPath }/ship/userList","popup", "width=500, height=500,left=100, top=100");
+function userlist(){
+    window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
 }
-function openilist3(){
+function openclntlist(){
     window.open("${pageContext.request.contextPath }/ship/clntInfo","popup", "width=500, height=500,left=100, top=100");
 }
-function openilist4(){
+function openshiplist(){
     window.open("${pageContext.request.contextPath }/ship/shipInfo","popup", "width=500, height=500,left=100, top=100");
 }
-function openilist5(){
+function openorderlist(){
     window.open("${pageContext.request.contextPath }/order/orderMng","popup", "width=500, height=500,left=100, top=100");
 }
 
 
 $(function() {
-	$("#sOdate").datepicker({
+	$("#sshdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -164,7 +164,7 @@ $(function() {
 });
 
 $(function() {
-	$("#eOdate").datepicker({
+	$("#Shdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -183,7 +183,7 @@ $(function() {
 	});
 });
 $(function() {
-	$("#sDdate").datepicker({
+	$("#Dlvdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -207,7 +207,7 @@ $(function() {
 });
 
 $(function() {
-	$("#eDdate").datepicker({
+	$("#eDlvdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -273,44 +273,40 @@ $(document).ready(function () {
 	<h2>출하정보</h2>
 	<div class="shipinfo">
 	<form id="info">
-		<div class="selectButtons">
+		<div id="selectButtons">
 			<button type="submit">조회</button>
-			<button type="button">취소</button>
-			<button type="button" onclick="location.href='${pageContext.request.contextPath}/order/shipInsert'">추가</button>
+			<button type="reset">취소</button>
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/ship/shipInsert'">추가</button>
 		</div>
 		
-			<table class="searchBox">
+			<table id="searchBox">
 				<tr>
 				<td>담당자</td>
-				<td><input type="text" name="userNm" id="userNm" onclick="openilist2()">
+				<td><input type="text" name="userNm" id="userNm" onclick="userlist()">
 					<input type="hidden" name="userId" id="userId"value="">
 					<input type="hidden" name="userNum" id="userNum" value=""></td>
-				<td>수주량</td>
-				<td><input type="text" name="ordQty" id="ordQty" onclick="openilist5()">
-				<td>출하량</td>
-				<td><input type="text" name="shipQty" id="shipQty" onclick="openilist4()">
-				</tr>
-				<tr>
 				<td>출하업체</td>
-				<td><input type="text" name="clntNm" id="clntNm" onclick="openilist3()">
+				<td><input type="text" name="clntNm" id="clntNm" onclick="openclntlist()">
 					<input type="hidden" name="clntId" id="clntId" value="">
-					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
-				</tr>
+					<input type="hidden" name="clntCd" id="clntCd" value=""></td></tr>
+					
 				<tr>
 				<td>납품예정일</td>
 				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly></td>
 				<td><input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td>
-										
+				</tr>
+				<tr>						
 				<td>출하일자</td>
 				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
 				<td><input type="text" id="Shdate" class="form-control" name="Shdate" readonly></td>
-				
 				</tr>
+				
 			</table>
 		</form>
 	</div>	
-		
-	
+		<br>
+		<br>
+		<br>
 		
 			
 		
@@ -324,6 +320,7 @@ $(document).ready(function () {
 			<tr id="th">
 				<th>등록자</th>
 				<th>출하번호</th>
+				<th>납품예정일</th>
 				<th>출하일자</th>
 				<th>품번</th>
 				<th>품명</th>
@@ -334,6 +331,7 @@ $(document).ready(function () {
 						<tr onclick="location.href='${pageContext.request.contextPath}/ship/shipInfo?shipId=${sdto.shipId}'">
 							<td>${sdto.userNm}</td>
 							<td>${sdto.shipNum}</td>
+							<td>${sdto.dlvryDt}</td>
 							<td>${sdto.shipDt}</td>
 							<td>${sdto.itemNum}</td>
 							<td>${sdto.itemName}</td>
@@ -346,30 +344,30 @@ $(document).ready(function () {
     <div id="pagination">
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
-	<a href="${pageContext.request.contextPath }/order/shipAdmin?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage-1}"><</a>
+	<a href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
 
 <!-- 10페이지 이전 -->
 	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/order/shipAdmin?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	<a href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 	</c:if>
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a id="num" href="${pageContext.request.contextPath }/order/shipAdmin?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${i}">${i}</a> 
+	<a id="num" href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${i}">${i}</a> 
 	</c:forEach>
 
 <!-- 1페이지 다음 -->	
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/order/shipAdmin?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.currentPage+1}">></a>
+	<a href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>
 
 <!-- 10페이지 다음 -->
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/order/shipAdmin?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	<a href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
 	</div>
 <br>
-<h1><a href="${pageContext.request.contextPath }/order/shipInfo">추가</a></h1>
+<h1><a href="${pageContext.request.contextPath }/ship/shipInfo">추가</a></h1>
 
 
 
@@ -379,7 +377,7 @@ $(document).ready(function () {
 
 
 <!-- <footer> -->
-	<jsp:include page="../inc/footer.jsp" />
+	<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
 <!-- </footer> -->
 
 </body>
