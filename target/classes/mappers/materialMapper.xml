@@ -575,7 +575,7 @@
 		select 
 			stock_id as stockId,
 			item_id as itemId,
-			whouse as whouse,
+			whouse as whouse       ,
 			cur_stock as curStock,
 			insert_id as insertId,
 			insert_dt as insertDt,
