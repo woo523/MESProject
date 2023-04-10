@@ -7,7 +7,9 @@
 	<meta charset="UTF-8">
 	<title>출하현황</title>
 <!-- 헤더 -->
-<jsp:include page="../inc/header.jsp" /><!-- 지우면안됨 -->
+<%-- <jsp:include page="../inc/header.jsp" /><!-- 지우면안됨 --> --%>
+<!-- 헤더 -->
+<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
 
  table {
@@ -97,283 +99,273 @@ text-align: center;
 
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
+  $(function() {
+    $( ".datepicker" ).datepicker();
+  });
+  $(function() {
+	    $( ".datepicker1" ).datepicker1();
+	  });
+function openitemlist(){
+    window.open("${pageContext.request.contextPath }/ship/itemInfo","popup", "width=500, height=500,left=100, top=100");
+}
+function userlist(){
+    window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
+}
+function openclntlist(){
+    window.open("${pageContext.request.contextPath }/ship/clntInfo","popup", "width=500, height=500,left=100, top=100");
+}
+function openshiplist(){
+    window.open("${pageContext.request.contextPath }/ship/shipInfo","popup", "width=500, height=500,left=100, top=100");
+}
+function openorderlist(){
+    window.open("${pageContext.request.contextPath }/order/orderMng","popup", "width=500, height=500,left=100, top=100");
+}
+
+
+$(function() {
+	$("#sshdate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+           ,onClose: function ( selectedDate ) {
+        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
+        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+           }
+	});
+});
+
+$(function() {
+	$("#Shdate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+	});
+});
+$(function() {
+	$("#Dlvdate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+           ,onClose: function ( selectedDate ) {
+        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
+        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+           }
+	});
+});
+
+$(function() {
+	$("#eDlvdate").datepicker({
+		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
+           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,changeYear: true //option값 년 선택 가능
+           ,changeMonth: true //option값  월 선택 가능                
+           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
+           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
+           ,closeText: '닫기' // 닫기 버튼 패널
+//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+	});
+});
+  
+$(document).ready(function () {
+	// class = "brown" 클릭했을 때 "클릭"
+	$('.searchBox').click(function () {
 	
-	function addRow() {
-		var table = document.getelementByld("shipList").getElementsByTagName('tbody')[0];
-		var newRow = table.insertRow(table.length);
+	// 자바스크립트 배열(json) <= DB에서 가져옴
+	var arr = [
+			   {"subject":"제목1","date":"2023-01-01"},
+			   {"subject":"제목2","date":"2023-01-02"},
+			   {"subject":"제목3","date":"2023-01-03"}
+			  ];
+	
+	// 초기화
+	$('table').html('');
+	
+	$.ajax({
+		url:'${pageContext.request.contextPath}/board/listjson', 			// json형태로 들고옴 (페이지에 가서)
+		dataType:'json',			// json형태로 받아옴 (json형태)
+		success:function(arr){ 		// json형태로 만든 arr를 가져옴
 		
-		var cell1 = newRow.insert(0);
-		var cell2 = newRow.insert(1);
-		var cell3 = newRow.insert(2);
-		var cell4 = newRow.insert(3);
-		var cell5 = newRow.insert(4);
-		var cell6 = newRow.insert(5);
-		var cell7 = newRow.insert(6);
-		var cell8 = newRow.insert(7);
-		
-		cell1.innerHTML = "";
-		cell2.innerHTML = "";
-		cell3.innerHTML = "";
-		cell4.innerHTML = "";
-		cell5.innerHTML = "";
-		cell6.innerHTML = "";
-		cell7.innerHTML = "";
-		cell8.innerHTML = "";	
-	}
+					// 반복해서 출력 .each()
+					// arr 배열을 반복하겠다 반복할때의 기능은 어떻게 할건지?
+					$.each(arr,function(index, item){
+					// 클릭을 하면 0,1,2번 배열을 반복함
+//	 				alert(index);
+//	 				alert(item.subject);
+//	 				alert(item.date);
 
-    function editRow(button) {
-        const row = button.parentNode.parentNode;
-        const cells = row.cells;
+					// 변수이기에 +로 연결시켜줘야 함
+					// 기존내용 없애고 그자리에 새로 넣기, 마지막 게 나옴 ,하나에 덮어서 써진다
+//	 				$('table').html('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
+					
+					// 추가하겠다는 함수 다시 사용 (html -> append로 바꾸기)
+					$('table').append('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
+				});
+			}
+		});
+	});
+});
 
-        for (let i = 0; i < cells.length - 1; i++) {
-          const input = document.createElement("input");
-          input.value = cells[i].innerText;
-          cells[i].innerText = "";
-          cells[i].appendChild(input);
-        }
+function prtTable() {
+    const table = document.getElementById("shipList").outerHTML;
+    const printWindow = window.open('', 'PrintWindow', 'height=400,width=600');
+    printWindow.document.write('<html><head><title>' + document.title + '</title>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(table);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+  }
 
-        const saveButton = document.createElement("button");
-        saveButton.innerText = "저장";
-        saveButton.onclick = function() {
-          saveRow(row);
-        }
-
-        const cancelButton = document.createElement("button");
-        cancelButton.innerText = "취소";
-        cancelButton.onclick = function() {
-          cancelEdit(row);
-        }
-
-        const editCell = row.lastElementChild;
-        editCell.innerHTML = "";
-        editCell.appendChild(saveButton);
-        editCell.appendChild(cancelButton);
-      }
-
-      function saveRow(row) {
-        const cells = row.cells;
-
-        for (let i = 0; i < cells.length - 1; i++) {
-          const input = cells[i].firstChild;
-          cells[i].innerText = input.value;
-        }
-
-        const editCell = row.lastElementChild;
-        editCell.innerHTML = '<button class="edit-row" onclick="editRow(this)">수정</button>';
-      }
-
-      function cancelEdit(row) {
-        const cells = row.cells;
-
-        for (let i = 0; i < cells.length - 1; i++) {
-          cells[i].innerHTML = cells[i].firstChild.value;
-        }
-
-        const editCell = row.lastElementChild;
-        editCell.innerHTML = '<button class="edit-row" onclick="editRow(this)">수정</button>';
-      }
-	
-      
-      function delRow(button) {
-          const row = button.parentNode.parentNode;
-          row.parentNode.removeChild(row);
-        }
-      
-      function prtTable() {
-          const table = document.getElementById("shipList").outerHTML;
-          const printWindow = window.open('', 'PrintWindow', 'height=400,width=600');
-          printWindow.document.write('<html><head><title>' + document.title + '</title>');
-          printWindow.document.write('</head><body>');
-          printWindow.document.write(table);
-          printWindow.document.write('</body></html>');
-          printWindow.document.close();
-          printWindow.print();
-        }
-      
-      
-      $(function() {
-    		$("#sOdate").datepicker({
-    			 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-    	           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-    	           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-    	           ,changeYear: true //option값 년 선택 가능
-    	           ,changeMonth: true //option값  월 선택 가능                
-    	           ,buttonText: "선택" //버튼 호버 텍스트              
-    	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-    	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-    	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-    	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-    	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-    	           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-    	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-    	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-    	           ,closeText: '닫기' // 닫기 버튼 패널
-    	           ,onClose: function ( selectedDate ) {
-    	        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-    	        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
-    	           }
-    		});
-    	});
-
-    	$(function() {
-    		$("#eOdate").datepicker({
-    			 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-    	           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-    	           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-    	           ,changeYear: true //option값 년 선택 가능
-    	           ,changeMonth: true //option값  월 선택 가능                
-    	           ,buttonText: "선택" //버튼 호버 텍스트              
-    	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-    	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-    	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-    	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-    	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-    	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-    	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-    	           ,closeText: '닫기' // 닫기 버튼 패널
-//    	            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-    		});
-    	});
-    	$(function() {
-    		$("#sDdate").datepicker({
-    			 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-    	           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-    	           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-    	           ,changeYear: true //option값 년 선택 가능
-    	           ,changeMonth: true //option값  월 선택 가능                
-    	           ,buttonText: "선택" //버튼 호버 텍스트              
-    	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-    	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-    	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-    	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-    	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-    	           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-    	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-    	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-    	           ,closeText: '닫기' // 닫기 버튼 패널
-    	           ,onClose: function ( selectedDate ) {
-    	        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-    	        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
-    	           }
-    		});
-    	});
-
-    	$(function() {
-    		$("#eDdate").datepicker({
-    			 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-    	           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-    	           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-    	           ,changeYear: true //option값 년 선택 가능
-    	           ,changeMonth: true //option값  월 선택 가능                
-    	           ,buttonText: "선택" //버튼 호버 텍스트              
-    	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-    	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-    	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-    	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-    	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-    	           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-    	           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-    	           ,closeText: '닫기' // 닫기 버튼 패널
-//    	            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-    		});
-    	});
-    	  
-    	$(document).ready(function () {
-    		// class = "brown" 클릭했을 때 "클릭"
-    		$('.search').click(function () {
-    		
-    		// 자바스크립트 배열(json) <= DB에서 가져옴
-    		var arr = [
-    				   {"subject":"제목1","date":"2023-01-01"},
-    				   {"subject":"제목2","date":"2023-01-02"},
-    				   {"subject":"제목3","date":"2023-01-03"}
-    				  ];
-    		
-    		// 초기화
-    		$('table').html('');
-    		
-    		$.ajax({
-    			url:'${pageContext.request.contextPath}/board/listjson', 			// json형태로 들고옴 (페이지에 가서)
-    			dataType:'json',			// json형태로 받아옴 (json형태)
-    			success:function(arr){ 		// json형태로 만든 arr를 가져옴
-    			
-    						// 반복해서 출력 .each()
-    						// arr 배열을 반복하겠다 반복할때의 기능은 어떻게 할건지?
-    						$.each(arr,function(index, item){
-    						// 클릭을 하면 0,1,2번 배열을 반복함
-//    		 				alert(index);
-//    		 				alert(item.subject);
-//    		 				alert(item.date);
-
-    						// 변수이기에 +로 연결시켜줘야 함
-    						// 기존내용 없애고 그자리에 새로 넣기, 마지막 게 나옴 ,하나에 덮어서 써진다
-//    		 				$('table').html('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
-    						
-    						// 추가하겠다는 함수 다시 사용 (html -> append로 바꾸기)
-    						$('table').append('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
-    					});
-    				}
-    			});
-    		});
-    	});
-
-	
-	
 </script>
+      
 <!-- 스크립트 끝. -->
 
 <div class="content_body"> <!-- 지우면안됨 -->
 <article>
 	<!-- 내용시작 -->
 		
-	<h2>출하현황</h2>
+	<h1>출하현황</h1>
+<div class="search_bar">
+	<form id="search">
+		<div id="btn">
+			<button type="submit" id="submit">조회</button>			
+		</div>
+				<br>
+			<table id="search">
+				<tr>
+				<td>출하업체</td>
+				<td><input type="text" name="clntNm" id="clntNm" onclick="openclntlist()">
+					<input type="hidden" name="clntId" id="clntId" value="">
+					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
+				
+				<td>납품예정일</td>
+				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly>	</td>
+
+				<td>품번</td>
+				<td><input type="text" name="itemNum" id="itemNum"  onclick="openitemList()">
+					<input type="hidden" name= "itemNm" id="itemNm"  onclick="openitemList()">	
+					<input type="hidden" name="invntUnit" id="invntUnit" value="" >
+					<input type="hidden" name="shipQty" id="shipQty" value="" ></td>
+				</tr>
+				
+				<tr>
+				<td>담당자</td>
+				<td><input type="text" name="userNm" id="userNm" onclick="openuserList()">
+					<input type="hidden" name="userId" id="userId"value="">
+					<input type="hidden" name="userNum" id="userNum" value="">
+					<input type="hidden" name="itemId" id="itemId"  onclick="openitemList()"></td>
+				
+				<td>출하일자</td>
+				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
+				<td>출하완료여부</td>
+				<td><select name="shipCond" id="shipCond" > <!-- 조회함, N Y값을 들고와야함 -->
+					<option value="">완료여부</option>
+					<option value="Y">Y</option>
+					<option value="N">N</option>
+				</select>
+				</tr>
+				
+			</table>
+		</form>
+	</div>
+<br>
+<br>
 	
-	<form id="shAdmin">
-		<div class="selectButtons">
-			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="addRow()">추가</button>
-			<button type="button" class="edit-row" onclick="editRow(this)">수정</button>
-			<button type="button" class="delete-row" onclick="delRow()">삭제</button>
-			<button type="button" class="print-table" onclick="prtTable()">출력</button>
+	
+	
+		
+	<h2>목록</h2>
+	<div id="count">총 ${pageDTO.count } 건</div>
+	<table border="1" id="main">
+		
+		<div id="btn">
+			<input type="button" value="출하완료" class="btn btn-outline-info" onclick="cmpltValue();">
+			<input type="button" value="출하삭제" class="btn btn-outline-info" onclick="deleteValue();">
+			<input type="button" value="출력" class="print-table" onclick="prtTable();">
 		</div>
 		
-		<table border="1" class="shipList">
-			<thead>
-				<tr>
-				<th>출하번호</th>
-				<th>제품명</th>
-				<th>수량</th>
-				<th>출하일</th>
-				<th>출하지</th>
-				<th>송장번호</th>
-				<th>주문자 정보</th>
-				<th>출하상태</th>
-				</tr>
-			</thead>
-			<c:when test="${empty orderList}">
-				<tr>
-				<td colspan="8"></td>
-				</tr>
-				<tr>
-				<td colspan="8">해당 주문 정보가 존재하지 않습니다.</td>
-				</tr>
-		</c:when>
-			<tbody>
-				<c:forEach var="shipDTO" items="${shipList}">
+		
+		<tr id="th">
+			<td><input id="allCheck" type="checkbox" name="allCheck"/></td>
+			<th>출하번호</th>
+			<th>납품예정일</th>
+			<th>출하업체</th>
+			<th>담당자</th>
+			<th>품번</th>
+			<th>품명</th>
+			<th>출하일자</th>
+			<th>출하량</th>
+			<th>출하상태</th>
+		</tr>
+			
+			
+				<c:forEach var="sdto" items="${shipList}">
 					<tr>
-					<td>${shipDTO.shipNum}</td>
-					<td>${shipDTO.itemName}</td>
-					<td>${shipDTO.amount}</td>
-					<td>${shipDTO.shipDt}</td>
-					<td>${shipDTO.clntNm}</td>
-					<td>${shipDTO.trackNum}</td>
-					<td>${shipDTO.clntId}</td>
-					<td>${shipDTO.shipCond}</td>
+					<td><input name="RowCheck" type="checkbox" value="${sdto.shipId}"/>
+						<input type="hidden"${sdto.shipId}></td>
+					<td>${sdto.shipNum}</td>
+					<td>${sdto.Dlvdate}</td>
+					<td>${sdto.clntNm}</td>
+					<td>${sdto.userNm}</td>
+					<td>${sdto.itemNum}</td>
+					<td>${sdto.itemNm}</td>
+					<td>${sdto.Shdate}</td>
+					<td>${sdto.shipQty}</td>
+					<c:choose>
+					<c:when test="${sdto.shipCond eq 'Y' }">
+						<td style="color: blue">${sdto.shipCond}</td>
+					</c:when>
+					<c:otherwise>
+						<td style="color: red">${sdto.shipCond}</td>
+					</c:otherwise>
+				</c:choose>
 				</tr>
 				</c:forEach>
-			</tbody>
-	</table>
-	
+				</table>
+		<br>
 	
 		<div id="pagination">
 
@@ -412,25 +404,18 @@ text-align: center;
 				&clntId=${search.clntId}&shipNum=${search.shipNum}&insertId=${search.insertId}&shipQty=${search.shipQty}&shipCond=${search.shipCond}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 		</c:if>
 
-	</div>
+		</div>
+	<br>
 	
 	
-	
-	
-	
-	</form>
 <!-- 내용끝 -->
 </article>
 </div><!-- 지우면안됨 -->
-
-
-
-
-
+</body>
 
 <!-- 푸터 -->
-<jsp:include page="../inc/footer.jsp" /><!-- 지우면안됨 -->
+<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
 
-</body>
+
 
 </html>

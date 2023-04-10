@@ -276,7 +276,7 @@ $(document).ready(function () {
 		<div id="selectButtons">
 			<button type="submit">조회</button>
 			<button type="reset">취소</button>
-			<button type="button" onclick="location.href='${pageContext.request.contextPath}/ship/shipInsert'">추가</button>
+			<button type="button" onclick="openshiplist(${shipDTO.shipId})">추가</button>
 		</div>
 		
 			<table id="searchBox">
