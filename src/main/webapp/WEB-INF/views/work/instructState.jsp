@@ -7,82 +7,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>instructState</title>
-	
-<!-- 	<link href="/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css"> -->
+<meta charset="UTF-8">
+<title>instructState</title>
+
+<link href="/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
-.content_body .selectButtons, .listButtons {
-	text-align: right;
-}
-
-.content_body button {
-	display: inline-block;
-	width: 70px;
-	height: 28px;
-	font-size: 15px;
-}
-
-.content_body .searchBox {
-	width: 100%;
-	height: 20px;
-	border: 1px solid black;
-	margin: 10px 0px 40px 0px;
-}
-
-.searchBox td {
-	padding: 10px;
-}
-
-.content_body .instrList, .instrStateList {
-	width: 100%;
-	margin: 10px 0px 40px 0px;
-	border-collapse: collapse;
-}
-
-.content_body .instrList th, .instrStateList th {
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-	padding: 5px;
-	margin-bottom: 10px;
-	font-weight: bold;
-	vertical-align: middle;
-}
-
-.content_body .instrList td {
-	padding: 10px 0px 10px 0px;
-	text-align: center;
-}
-
-.content_body .instrStateList td {
-	padding: 10px 0px 10px 0px;
-	text-align: center;
-}
-	
-article {
-	width: 1280px;
-	margin: 0px auto;
-}
-
-article input {
-	height: 20px;
-}
-
-.content_body #instrList:hover {
-	background-color: #e1e1e1;
-	cursor: pointer;
-}
 
 .content_body .searchBox #pcd {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
 	background-position: 98%;
 	border: 1px solid;
-}
-
-.content_body .searchBox #pnm {
-	background-color: #EAEAEA;
 }
 
 .content_body .searchBox .form-control {
