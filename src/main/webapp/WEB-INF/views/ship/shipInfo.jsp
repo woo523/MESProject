@@ -5,81 +5,138 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>shipInfo</title>
+<title>출하정보</title>
+<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
-	#sh:hover {
-		background-color: #e1e1e1;
-		cursor: pointer;
-	}
+ table {
+      width: 1125px;  
+   } 
 
-.pagination {
-  display: inline-block;
+th,td{
+border-bottom: 1px solid black;
+padding: 10px;
+}
+#th {
+	font-weight: bold;
 }
 
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  margin: 0 4px;
+#con {
+	text-align: center;
 }
 
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
+#con:hover{
+	background-color : #e1e1e1;
+	cursor:pointer;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+h1{
+	font-weight: bold;
+}
+
+.search_bar tr, td{
+ border:0px;
+}
+
+table#search {
+ border:1px solid;
+}
+
+table#detail {
+ border:1px solid;
+}
+table#info {
+ border:1px solid;
+}
+
+
+#btn{
+      width: 1125px; 
+	text-align: right;
+ 
+}
+#pagination{
+      width: 1125px;  
+text-align: center;
+}
+
+#num:hover{
+	background-color : #e1e1e1;
+}
+
+.form-control{
+	width:150px;
+	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
+}
+
+#pcd {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
+}
+
+#pnm {
+	background-color: #EAEAEA;
+	border: 1px solid;
+}
 
 </style>
-
-
 </head>
+
+
 <body>
 
-	<h2>출하 정보</h2>
-		<form>
-			<table>
-				<tr>
-					<td>출하번호</td>
-					<td><input type="text" name="shipNum"></td>
-					<td>출하량</td>
-					<td><input type="text" name="shipQty"></td>
-				</tr>
-				<tr>
-					<td>출하일자</td>
-					<td><input type="text" name="shipDt"></td>
-					<td><input type="submit" value="조회"></td>
-				</tr>
-			</table>
-		</form>
-			<table>
-				<tr>
-					<td>출하번호</td>
-					<td>출하량</td>
-					<td>출하일자</td>
-				</tr>
-				<c:forEach var="shipInfo" items="${shipInfo }">
-					<tr id="sh" onclick="selectShip('${shipInfo.shipNum }','${shipInfo.shipQty }','${shipInfo.shipDt }')">
-						<td>${shipInfo.shipNum }</td>
-						<td>${shipInfo.shipQty }</td>
-						<td>${shipInfo.shipDt }</td>
-					</tr>
-				
-					<script type="text/javascript">
-					function selectShip(a, b, c) { 
-						opener.document.getElementById("shipNum").value = a
-						opener.document.getElementById("shipQty").value = b
-						opener.document.getElementById("shipDt").value = c
-						window.close();
-						}
-					</script>
-				</c:forEach>
-			</table>
+<!-- 자바스크립트 들어가는 곳 -->
+<script type="text/javascript">
+
+
+</script>
+<!-- 스크립트 끝. -->
+
+<div class="content_body"> <!-- 지우면안됨 -->
+<br>
+<form>
+
+	<h1>출하품목상세</h1>
+	<div class="content">
+		<div id="btn">
+			<input type="button" value="수정" class="btn"
+				onclick="location.href='${pageContext.request.contextPath}/ship/shupdate?ordId=${shipDTO.shipId }'">
+			<input type="button" value="삭제" class="btn"
+				onclick="location.href='${pageContext.request.contextPath}/ship/shdelete?ordId=${shipDTO.shipId }'">
+			</div>
+				<br>
+
+	<table id="content" border="1">
+	<tr><td>${orderDTO.ordId }</td></tr>
 	
+	<tr><td>출하고객</td>
+	<td>${shipDTO.clntNm }</td></tr>
+	<tr><td>출하일자</td>
+	<td>${shipDTO.orderDt }</td></tr>
+	<tr><td>담당자</td>
+	<td>${shipDTO.userNm }</td></tr>
+	<tr><td>납품예정일</td>
+	<td>${shipDTO.dlvryDt }</td></tr>
+	<tr><td>품번</td>
+	<td>${shipDTO.itemNum }</td></tr>
+	<tr><td>품명</td>
+	<td>${shipDTO.itemNm }</td></tr>
+	<tr><td>단위</td>
+	<td>${shipDTO.invntUnit }</td></tr>
+	<tr><td>수량</td>
+	<td>${shipDTO.shipQty }</td></tr>
+	</table>
+	</div>
+<br>
+
+</form>
+</div>
 	
 	<div id="pagination">
 
@@ -115,4 +172,6 @@
 
 	</div>
 </body>
+<!-- 푸터 -->
+<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
 </html>
