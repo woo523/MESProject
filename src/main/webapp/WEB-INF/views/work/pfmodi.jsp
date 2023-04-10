@@ -56,6 +56,9 @@ input, select, button{
 	font-family: 'NanumSquare', sans-serif;
 }
 
+#red{
+	color:red;
+}
 
 </style>
 
@@ -151,15 +154,15 @@ function fun1() {
 <table>
 <tr><td>품번</td><td><input type="text"  value="${getInstr.itemNum}" readonly></td></tr>
 <tr><td>품명</td><td><input type="text"  value="${getInstr.itemName}" readonly></td></tr>
-<tr><td>실적일</td><td><input type="date" id="Date" class="pfDate" name="performDate" value="${pfDTO.performDate}"></td></tr>
-<tr><td>실적수량</td><td><input type="number" class="Qty" name="performQty" value="${pfDTO.performQty}"></td></tr>
+<tr><td>실적일 <span id="red">*</span></td><td><input type="date" id="Date" class="pfDate" name="performDate" value="${pfDTO.performDate}"></td></tr>
+<tr><td>실적수량 <span id="red">*</span></td><td><input type="number" class="Qty" name="performQty" value="${pfDTO.performQty}"></td></tr>
 <input type="hidden" name="preqty" value="${pfDTO.performQty}">
 <input type="hidden" name="preYn" value="${pfDTO.gbYn}">
 <input type="hidden" name="preitemId" value="${pfDTO.itemId}">
-<tr><td>양불여부</td><td><input type="radio" name="gbYn" id="Y" value="Y"> Y(양품)
+<tr><td>양불여부 <span id="red">*</span></td><td><input type="radio" name="gbYn" id="Y" value="Y"> Y(양품)
 		<input type="radio" name="gbYn" id="N" value="N"> N(불량)</td></tr>
 		
-<tr><td>불량사유</td><td><select name="dbReason" class="reason" id="dbReason">
+<tr><td>불량사유 <span id="red">*</span></td><td><select name="dbReason" class="reason" id="dbReason">
 		<option value="">불량사유</option>
 		<option value="파손">파손</option>
 		<option value="스크래치">스크래치</option>

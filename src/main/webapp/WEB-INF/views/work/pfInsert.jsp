@@ -57,6 +57,9 @@ input, select, button{
 	font-family: 'NanumSquare', sans-serif;
 }
 
+#red{
+	color:red;
+}
 </style>	
 	
 	
@@ -138,12 +141,12 @@ $(document).ready(function(){
 <table>
 <tr><td>품번</td><td><input type="text"  value="${getInstr.itemNum}" readonly></td> </tr>
 <tr><td>품명</td><td><input type="text"  value="${getInstr.itemName}" readonly></td> </tr>
-<tr><td>실적일</td><td><input type="date" id="Date" class="pfDate" name="performDate"></td></tr>
-<tr><td>실적수량</td><td><input type="number" class="Qty" name="performQty"></td></tr>
-<tr><td>양불여부</td><td><input type="radio" name="gbYn" value="Y"> Y(양품)
+<tr><td>실적일 <span id="red">*</span></td><td><input type="date" id="Date" class="pfDate" name="performDate"></td></tr>
+<tr><td>실적수량 <span id="red">*</span></td><td><input type="number" class="Qty" name="performQty"></td></tr>
+<tr><td>양불여부 <span id="red">*</span></td><td><input type="radio" name="gbYn" value="Y"> Y(양품)
 		<input type="radio"  name="gbYn" value="N"> N(불량)
 		</td></tr>
-<tr><td>불량사유 </td><td><select name="dbReason" class="reason">
+<tr><td>불량사유 <span id="red">*</span></td><td><select name="dbReason" class="reason">
 		<option value="">불량사유</option>
 		<option value="파손">파손</option>
 		<option value="스크래치">스크래치</option>

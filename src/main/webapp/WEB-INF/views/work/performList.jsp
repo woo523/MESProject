@@ -34,10 +34,6 @@ padding: 10px;
 
 
 
-h1{
-	font-weight: bold;
-}
-
 .search_bar tr, td{
  border:0px;
 }
@@ -115,6 +111,10 @@ button{
   width:1125px;
 }
 
+#count{
+	text-align:right;
+	width:1125px;
+}
 
 
 </style>
@@ -267,7 +267,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	<br><br><br>
 	<h2>생산실적</h2>
 	<br>
-	총 ${pageDTO.count }건
+	<div id="count">총 ${pageDTO.count }건</div>
 	<table border="1" id="main">
 	<tr id="th"><th>실적일자</th><th>라인명</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th>불량사유</th><th>지시번호</th><th>수주번호</th><th>업체</th><th>등록자</th></tr>
 
