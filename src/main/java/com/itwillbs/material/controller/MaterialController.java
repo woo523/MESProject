@@ -415,7 +415,7 @@ public class MaterialController {
 	
 	// 자재입고 등록
 	@RequestMapping(value = "/material/inmtrlInsertPro", method = RequestMethod.POST)
-	public String inmtrlInsertPro(InmaterialDTO inmaterialDTO) {
+	public String inmtrlInsertPro(InmaterialDTO inmaterialDTO, HttpServletRequest request) {
 		System.out.println("MaterialController inmtrlInsertPro()");
 		String date = inmaterialDTO.getInmtrlDt(); // 등록 날짜
 		String date2 = date.replaceAll("-", ""); // "-" 빼기
@@ -425,10 +425,11 @@ public class MaterialController {
 		System.out.println("규격코드:"+inmtrlNum);
 		inmaterialDTO.setInmtrlNum(inmtrlNum);
 		inmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
+		inmaterialDTO.setInsertId(request.getParameter(inmtrlNum));
 		
 		materialService.insertInmtrl(inmaterialDTO);
 		System.out.println(inmaterialDTO);
-		
+		System.out.println(inmtrlNum);
 		
 		return "redirect:/common/offwindow";
 	}

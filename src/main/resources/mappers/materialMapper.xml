@@ -59,7 +59,8 @@
  
    
     <select id="getSearchInmaterLiMap" resultMap="InmaterMap"> <!--  검색 자재입고 리스트 -->
-    select 
+   		select 
+    		inmater.in_mtrl_id,
 			inmater.in_mtrl_num, 
 			inmater.in_mtrl_dt,  
 			inmater.in_mtrl_qty,			 
@@ -288,7 +289,8 @@
 	</select>
    
     <select id="getSearchOutmaterLiMap" resultMap="OutmaterMap"> <!--  검색 자재출고 리스트 -->
-		  select 
+	select 
+		outmater.out_mtrl_id,
 		outmater.out_mtrl_num, 
 		outmater.out_mtrl_dt,  
 		outmater.out_mtrl_qty,			  
@@ -494,6 +496,7 @@
 	<id column="id" property=""/>
     <result column="mtrl_type" property="mtrltype"/>
     <result column="cur_stock" property="stockcur"/>
+    <result column="stock_id" property="stockId"/>
     <result column="whouse" property="stockwhouse"/>
     <result column="item_num" property="itemNum"/>
     <result column="item_nm" property="itemName"/>
@@ -507,7 +510,8 @@
             item.mtrl_type,
 	    	item.invnt_unit,
 			stock.whouse,
-			stock.cur_stock
+			stock.cur_stock,
+			stock.stock_id
 		from  
 			item item join stock stock
 			on item.item_id = stock.item_id
@@ -523,7 +527,8 @@
             item.mtrl_type,
 	    	item.invnt_unit,
 			stock.whouse,
-			stock.cur_stock
+			stock.cur_stock,
+			stock.stock_id
 		from  
 			item item join stock stock
 			on item.item_id = stock.item_id			
@@ -554,7 +559,7 @@
 	<id column="id" property=""/>
 	<result column="stock_id" property="stockId"/>
     <result column="item_id" property="itemId"/>
-    <result column="whouse" property="whouse"/> 
+    <result column="whouse" property="stockwhouse"/> 
     <result column="cur_stock" property="curStock"/>
     <result column="insert_id" property="insertId"/> 
     <result column="insert_dt" property="insertDt"/> 
@@ -575,7 +580,7 @@
 		select 
 			stock_id as stockId,
 			item_id as itemId,
-			whouse as whouse       ,
+			whouse as stockwhouse,
 			cur_stock as curStock,
 			insert_id as insertId,
 			insert_dt as insertDt,

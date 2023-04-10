@@ -19,10 +19,7 @@
 </style>
 
 </head>
-
-<body>
-	<div class="content_body">
-	<h2>현재고 수량 변경</h2>
+	<h2>현재고 수정</h2>
 	<form action="${pageContext.request.contextPath}/material/quantityPro" id="update" method="post">
 	<input type="hidden" name="stockId" value="${stockDTO.stockId}">
 		<table>
@@ -38,6 +35,6 @@
 	</form>
 
 
-</div>
+
 </body>
 </html>

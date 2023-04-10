@@ -95,7 +95,7 @@ table#search {
 .selectButtons tr, td{
  border:0px;
 }
-	
+
 </style>
 
 </head>
@@ -105,7 +105,7 @@ table#search {
 <div class="content_body">
 	<!-- 내용시작 -->
 <article>	
-<h1>자재 입고 관리</h1>
+<h1> 자재 입고 관리</h1>
 <div class="search_bar">
 	<form id="search">
 	<div id="btn">
@@ -288,32 +288,6 @@ function openInsert(a){ // 추가창
 	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=650, height=500,left=500, top=200");
 }
 
-
-// 유효성 검사
-$(document).ready(function() {
-	$('#inmtrl').submit(function() {
-		if($('#sDate').val() == "") {
-			alert("입고일자를 선택해주세요.");
-			$('#sDate').focus();
-			
-			return false;
-		}
-		
-		if($('#pcd').val() == "") {
-			alert("품번코드를 입력해주세요.");
-			$('#pcd').focus();
-			
-			return false;
-		}
-		
-// 		if($('#ccd').val() == "") {
-// 			alert("업체코드를 입력해주세요.");
-// 			$('#ccd').focus();
-			
-// 			return false;
-// 		}
-	});
-});
 </script>
 
 
