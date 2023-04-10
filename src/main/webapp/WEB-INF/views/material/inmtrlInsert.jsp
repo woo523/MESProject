@@ -76,10 +76,13 @@ function openclist(){
 <div class="content_body">
 	<h2>자재입고 등록</h2>
 	<br>
-	<div id="num">- 등록자 : ${sessionScope.id} - </div><br>
+<%-- 	<div id="num">- 등록자 : ${sessionScope.id} - </div><br> --%>
 	<form action="${pageContext.request.contextPath }/material/inmtrlInsertPro" method="post" id="insert">	
+<!-- 	<div id="num"> -->
+<%--          등록자 : <input type="text" name="insertId" value="${sessionScope.id}" readonly> --%>
+<!--       </div> -->
 		<table>
-<%-- 			<tr><td>등록자</td><td><input type="text" name="insertId" value="${sessionScope.id}" readonly></td></tr> --%>
+			<tr><td>등록자</td><td><input type="text" name="insertId" value="${sessionScope.id}" readonly></td></tr>
 			<tr><td>입고일자</td><td><input type="date" id="Date" class="mtDate" name="inmtrlDt"></td></tr>
 			<tr><td>제품 정보</td><td><input type="text" id="pcd" placeholder="품번코드" onclick="openilist()">
 					   <input type="text" id="pnm" placeholder="품번명" onclick="openilist()"></td></tr>
