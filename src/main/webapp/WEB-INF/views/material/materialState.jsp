@@ -116,8 +116,10 @@ function openlist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup", "width=500, height=500,left=100, top=100");
 }
 
-function openadd(){
-    window.open("${pageContext.request.contextPath }/material/addList","popup", "width=500, height=500,left=100, top=100");
+var stockId = a;
+
+function openadd(a){ // 수정창
+    window.open("${pageContext.request.contextPath}/material/quantity?stockId="+a,"popup", "width=400, height=400,left=300, top=200");
 }
 </script>
 
@@ -187,7 +189,7 @@ function openadd(){
 		  	<td>${inte.itemUnit}</td>
 		  	<td>${inte.stockwhouse}</td>
 		  	<td>${inte.stockcur}</td>
-		  	<td><img src='${pageContext.request.contextPath}/resources/image/add.png' width='17px' onclick='openadd()'></td>
+		  	<td><img src='${pageContext.request.contextPath}/resources/image/add.png' width='18px' onclick='openadd(${inte.stockId})'></td>
 		</tr>
 		</c:forEach>
 	</c:otherwise>

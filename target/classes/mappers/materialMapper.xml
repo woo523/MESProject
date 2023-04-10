@@ -555,26 +555,35 @@
 	<result column="stock_id" property="stockId"/>
     <result column="item_id" property="itemId"/>
     <result column="whouse" property="stockwhouse"/> 
-    <result column="cur_stock" property="stockcur"/>    
+    <result column="cur_stock" property="stockcur"/>
+    <result column="insert_id" property="insertId"/> 
+    <result column="insert_dt" property="insertDt"/> 
+    <result column="update_id" property="updateId"/>
+    <result column="update_dt" property="updateDt"/>  
+        
     </resultMap>
 
-	<select id="getStockList" resultType="com.itwillbs.material.domain.StockDTO">
- 	 select 
-			stock_id,
-	    	item_id,
-			whouse,
-			cur_stock
-		from  
-			stock
-		where stock_id = #{stockId}
-	</select>
-
-	<!-- 자재입고 수정 -->
+	<!-- 실사량 -->
 	<update id="updateStock">
 		update stock
 		set stock_id = #{stockId},
 			cur_stock = #{stockcur}
 		where stock_id = #{stockId}
-	</update>    
+	</update>
+
+	<select id="getStock" resultType="com.itwillbs.material.domain.StockDTO">
+		select 
+			stock_id as stockId,
+			item_id as itemId,
+			whouse as stockwhouse,
+			cur_stock as stockcur,
+			insert_id as insertId,
+			insert_dt as insertDt,
+			update_id as updateId,
+			update_dt as updateDt
+		from stock
+		where stock_id = #{stockId}
+	</select>
+
     
 </mapper>

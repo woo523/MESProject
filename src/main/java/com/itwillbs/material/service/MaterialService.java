@@ -62,10 +62,6 @@ public interface MaterialService {
 
 	public void updateInmtrl(InmaterialDTO inmaterialDTO);
 
-	public StockDTO getStockList(int stockId);
-
-	public void updateStock(StockDTO stockDTO, int stockId);
-
 	public InmaterialDTO getInmtrl(int inmtrlId);
 
 	public Map<String, Object> getInmtrlMap(int inmtrlId);
@@ -75,6 +71,10 @@ public interface MaterialService {
 	public Map<String, Object> getOutmtrlMap(int outmtrlId);
 
 	public void updateOutmtrl(OutmaterialDTO outmaterialDTO);
+
+	public StockDTO getStock(int stockId);
+
+	public void updateStock(StockDTO stockDTO);
 	
 
 }

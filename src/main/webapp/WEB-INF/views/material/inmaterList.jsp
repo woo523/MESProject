@@ -117,9 +117,9 @@ text-align: center;
 			<td>입고창고</td>
 				<td><select name="whouse">
 					<option value="" selected>전체</option>
-					<option value="1">창고 1</option>
-					<option value="2">창고 2</option>
-					<option value="3">창고 3</option>
+					<option value="창고A">창고A</option>
+					<option value="창고B">창고B</option>
+					<option value="창고C">창고C</option>
 				</select></td>
 			<td>입고일자</td>
 			<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="날짜를 선택해주세요" readonly />
@@ -280,11 +280,11 @@ function openclist(){
 var inmtrlId = a;
 
 function openmodi(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=500, height=500,left=500, top=200");
+    window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=650, height=500,left=500, top=200");
 }
 
 function openInsert(a){ // 추가창
-	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=500, height=500,left=500, top=200");
+	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=650, height=500,left=500, top=200");
 }
 
 

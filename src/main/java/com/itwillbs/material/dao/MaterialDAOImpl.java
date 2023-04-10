@@ -186,22 +186,6 @@ public class MaterialDAOImpl implements MaterialDAO{
 
 
 	@Override
-	public StockDTO getStockList(int stockId) {
-		System.out.println("materialDAOImpl getStockList()");
-		return sqlSession.selectOne(namespace+".getStockList", stockId);
-	}
-
-
-	@Override
-	public void updateStock(StockDTO stockDTO, int stockId) {
-		System.out.println("materialDAOImpl updateStock()");
-		
-		stockDTO.setStockId(stockId);
-		sqlSession.update(namespace+".updateStock", stockDTO);	
-	}
-
-
-	@Override
 	public InmaterialDTO getInmtrl(int inmtrlId) {
 		System.out.println("materialDAOImpl getInmtrl()");
 		return sqlSession.selectOne(namespace+".getInmtrl", inmtrlId);
@@ -233,6 +217,20 @@ public class MaterialDAOImpl implements MaterialDAO{
 	public void updateOutmtrl(OutmaterialDTO outmaterialDTO) {
 		System.out.println("materialDAOImpl updateOutmtrl()");		
 		sqlSession.update(namespace+".updateOutmtrl", outmaterialDTO);
+	}
+
+
+	@Override
+	public StockDTO getStock(int stockId) {
+		System.out.println("materialDAOImpl getStock()");
+		return sqlSession.selectOne(namespace+".getStock", stockId);
+	}
+
+
+	@Override
+	public void updateStock(StockDTO stockDTO) {
+		System.out.println("materialDAOImpl updateStock()");		
+		sqlSession.update(namespace+".updateStock", stockDTO);
 	}
 
 

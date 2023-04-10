@@ -432,32 +432,7 @@ public class MaterialController {
 		
 		return "redirect:/common/offwindow";
 	}
-	
-	// 실사량
-	@RequestMapping(value = "/material/addList", method = RequestMethod.GET)
-	public String addList(HttpServletRequest request,  Model model) {
-		System.out.println("MaterialController addList()");
-//		String whouse = request.getParameter("whouse");
-		int stockId = Integer.parseInt(request.getParameter("stockId"));
-		
-		StockDTO stockDTO = materialService.getStockList(stockId);
-		model.addAttribute("stockDTO", stockDTO);
-		System.out.println("폼 : " + stockId);
-		
-		return "material/addList";
-	}
-	
-	// 실사량
-	@RequestMapping(value = "/material/addListPro", method = RequestMethod.POST)
-	public String addListPro(HttpServletRequest request, StockDTO stockDTO) {
-		System.out.println("MaterialController addListPro()");
-		
-		int stockId = Integer.parseInt(request.getParameter("stockId"));
-		materialService.updateStock(stockDTO, stockId);
-		System.out.println("디비 : " + stockDTO);
-		
-		return "redirect:/material/addList";
-	}
+
 	
 	// 출고 삭제
 	@RequestMapping(value = "/material/outDel", method = RequestMethod.GET)
@@ -500,7 +475,7 @@ public class MaterialController {
 		return "redirect:/common/offwindow";
 	}
 	
-	// 입고 수정
+	// 출고 수정
 	@RequestMapping(value = "/material/outmtrlModify", method = RequestMethod.GET)
 	public String outmtrlModify(HttpServletRequest request, Model model) {
 		System.out.println("MaterialController outmtrlModify()");
@@ -519,7 +494,7 @@ public class MaterialController {
 		return "material/outmtrlModify";
 	}
 	
-	// 입고 수정
+	// 출고 수정
 	@RequestMapping(value = "/material/outmtrlModifyPro", method = RequestMethod.POST)
 	public String outmtrlModifyPro(OutmaterialDTO outmaterialDTO, HttpSession session) {
 		System.out.println("MaterialController outmtrlModifyPro()");
@@ -532,4 +507,60 @@ public class MaterialController {
 		
 		return "redirect:/common/offwindow";
 	}
+	
+	// 실사량
+	@RequestMapping(value = "/material/quantity", method = RequestMethod.GET)
+	public String quantity(HttpServletRequest request, Model model) {
+		System.out.println("MaterialController quantity()");
+		
+		int stockId = Integer.parseInt(request.getParameter("stockId"));
+		
+		StockDTO stockDTO = materialService.getStock(stockId);
+		
+		model.addAttribute("stockDTO", stockDTO);
+		
+		System.out.println("폼 : " + stockId);		
+		
+		return "material/quantity";
+	}
+	
+	// 실사량
+	@RequestMapping(value = "/material/quantityPro", method = RequestMethod.POST)
+	public String quantityPro(StockDTO stockDTO, HttpSession session) {
+		System.out.println("MaterialController quantityPro()");
+		
+		String id = (String)session.getAttribute("id");
+		stockDTO.setUpdateId(id);
+		stockDTO.setUpdateDt(new Timestamp(System.currentTimeMillis()));
+		
+		materialService.updateStock(stockDTO);
+		
+		return "redirect:/common/offwindow";
+	}
+	
+//	// 실사량
+//	@RequestMapping(value = "/material/addList", method = RequestMethod.GET)
+//	public String addList(HttpServletRequest request,  Model model) {
+//		System.out.println("MaterialController addList()");
+////		String whouse = request.getParameter("whouse");
+//		int stockId = Integer.parseInt(request.getParameter("stockId"));
+//		
+//		StockDTO stockDTO = materialService.getStockList(stockId);
+//		model.addAttribute("stockDTO", stockDTO);
+//		System.out.println("폼 : " + stockId);
+//		
+//		return "material/addList";
+//	}
+//	
+//	// 실사량
+//	@RequestMapping(value = "/material/addListPro", method = RequestMethod.POST)
+//	public String addListPro(HttpServletRequest request, StockDTO stockDTO) {
+//		System.out.println("MaterialController addListPro()");
+//		
+//		int stockId = Integer.parseInt(request.getParameter("stockId"));
+//		materialService.updateStock(stockDTO, stockId);
+//		System.out.println("디비 : " + stockDTO);
+//		
+//		return "redirect:/material/addList";
+//	}
 }	
