@@ -69,7 +69,7 @@ public class AuthController {
 		map.put("userId", userId);
 
 		List<Integer> allMenuCd = new ArrayList<>(); // 전체 메뉴 코드 리스트
-		for (int i = 1; i <= 18; i++) {
+		for (int i = 1; i <= 19; i++) {
 		    allMenuCd.add(i);
 		}
 
