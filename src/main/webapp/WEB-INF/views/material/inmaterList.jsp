@@ -52,8 +52,8 @@ table#search {
 }
 
 #pagination{
-      width: 1125px;  
-text-align: center;
+     width: 1125px;  
+	text-align: center;
 }
 
 #pcd {
@@ -75,6 +75,7 @@ text-align: center;
 	background-position: 98%;
 	border: 1px solid;
 }
+
 
 #cnm {
 	background-color: #EAEAEA;

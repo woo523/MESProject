@@ -554,8 +554,8 @@
 	<id column="id" property=""/>
 	<result column="stock_id" property="stockId"/>
     <result column="item_id" property="itemId"/>
-    <result column="whouse" property="stockwhouse"/> 
-    <result column="cur_stock" property="stockcur"/>
+    <result column="whouse" property="whouse"/> 
+    <result column="cur_stock" property="curStock"/>
     <result column="insert_id" property="insertId"/> 
     <result column="insert_dt" property="insertDt"/> 
     <result column="update_id" property="updateId"/>
@@ -567,7 +567,7 @@
 	<update id="updateStock">
 		update stock
 		set stock_id = #{stockId},
-			cur_stock = #{stockcur}
+			cur_stock = #{curStock}
 		where stock_id = #{stockId}
 	</update>
 
@@ -575,8 +575,8 @@
 		select 
 			stock_id as stockId,
 			item_id as itemId,
-			whouse as stockwhouse,
-			cur_stock as stockcur,
+			whouse as whouse,
+			cur_stock as curStock,
 			insert_id as insertId,
 			insert_dt as insertDt,
 			update_id as updateId,

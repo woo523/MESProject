@@ -538,29 +538,4 @@ public class MaterialController {
 		return "redirect:/common/offwindow";
 	}
 	
-//	// 실사량
-//	@RequestMapping(value = "/material/addList", method = RequestMethod.GET)
-//	public String addList(HttpServletRequest request,  Model model) {
-//		System.out.println("MaterialController addList()");
-////		String whouse = request.getParameter("whouse");
-//		int stockId = Integer.parseInt(request.getParameter("stockId"));
-//		
-//		StockDTO stockDTO = materialService.getStockList(stockId);
-//		model.addAttribute("stockDTO", stockDTO);
-//		System.out.println("폼 : " + stockId);
-//		
-//		return "material/addList";
-//	}
-//	
-//	// 실사량
-//	@RequestMapping(value = "/material/addListPro", method = RequestMethod.POST)
-//	public String addListPro(HttpServletRequest request, StockDTO stockDTO) {
-//		System.out.println("MaterialController addListPro()");
-//		
-//		int stockId = Integer.parseInt(request.getParameter("stockId"));
-//		materialService.updateStock(stockDTO, stockId);
-//		System.out.println("디비 : " + stockDTO);
-//		
-//		return "redirect:/material/addList";
-//	}
 }	

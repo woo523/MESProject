@@ -19,13 +19,16 @@
 </style>
 
 </head>
-	<h2>실사량</h2>
+
+<body>
+	<div class="content_body">
+	<h2>현재고 수량 변경</h2>
 	<form action="${pageContext.request.contextPath}/material/quantityPro" id="update" method="post">
 	<input type="hidden" name="stockId" value="${stockDTO.stockId}">
 		<table>
 			<tr style="text-align:center;">
 				<td>실사량</td>
-				<td><input type="number" class="stockcur" name="stockcur" value="${stockDTO.stockcur}"></td>
+				<td><input type="number" class="curStock" name="curStock" value="${stockDTO.curStock}"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="저장">
@@ -35,6 +38,6 @@
 	</form>
 
 
-
+</div>
 </body>
 </html>
