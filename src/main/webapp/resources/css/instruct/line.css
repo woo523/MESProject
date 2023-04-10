@@ -1,6 +1,13 @@
 @charset "UTF-8";
 
+article {
+	width: 1280px;
+	margin: 0px auto;
+}
 
+.content_body #lineList:hover {
+	background-color: #e1e1e1;
+}
 
 .content_body .selectButtons, .listButtons {
 	text-align: right;

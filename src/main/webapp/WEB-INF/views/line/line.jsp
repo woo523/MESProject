@@ -8,16 +8,6 @@
 <title>Line</title>
 
 <link href="/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
-
-<style type="text/css">
-	article {
-		width: 1280px;
-		margin: 0px auto;
-	}
-	.content_body #lineList:hover {
-		background-color: #e1e1e1;
-	}
-</style>
 </head>
 
 <body>
@@ -80,7 +70,7 @@
 							<td>${lineDTO.linePlace}</td>
 							<td>${lineDTO.sortOrder}</td>
 							<c:choose>
-								<c:when test="${lineDTO.useChoice eq 'Y' }">
+								<c:when test="${lineDTO.useChoice eq 'Y'}">
 									<td style="color: blue">${lineDTO.useChoice}</td>
 								</c:when>
 								<c:otherwise>
@@ -89,8 +79,7 @@
 							</c:choose>
 							<td style="width: 300px">${lineDTO.note}</td>
 							<c:if test="${! empty sessionScope.id && lineDTO.useChoice eq 'N'}">
-								<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="modifyConfirm(${lineDTO.lineId})"></a>
-									<a href="/line/lineDelete?lineId=${lineDTO.lineId}" style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="deleteConfirm(${lineDTO.lineId})"></a></td>      
+								<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="modifyConfirm(${lineDTO.lineId})"></a></td>    
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -106,7 +95,6 @@
 					<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
 				</c:when>
 				<c:otherwise>
-					<a class="none">◀</a>
 				</c:otherwise>
 			</c:choose>
 			
@@ -119,7 +107,6 @@
 					<a href="/line/line?lineCode=${lineSearch.lineCode}&lineName=${lineSearch.lineName}&useChoice=${lineSearch.useChoice}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
 				</c:when>
 				<c:otherwise>
-					<a class="none">▶</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -189,13 +176,6 @@ function insertCheck() {
 function modifyConfirm(lineId) {
 	window.open("/line/lineModify?lineId=" + lineId, "popup", "width=500, height=500, left=600, top=200");
 }
-
-// 라인 삭제
-// 작업지시에서 라인 사용 중이면 삭제 못 함
-function deleteConfirm(lineId) {
-	href="/line/lineDelete?lineId=${lineDTO.lineId}"
-}
-
 
 </script>
 </html>
