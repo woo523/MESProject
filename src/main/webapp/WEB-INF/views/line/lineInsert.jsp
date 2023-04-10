@@ -21,6 +21,10 @@
 	resize: none;
 }
 
+.content_body span {
+	color: red;
+}
+
 </style>
 </head>
 <body>
@@ -29,14 +33,17 @@
 	<form action="${pageContext.request.contextPath}/line/lineInsertPro" method="post" onsubmit="return checkForm()">
 		<ul>
 			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
-			<li>라인명 <input type="text" name="lineName" class="lineName"></li>
-			<li>작업장   <select name="linePlace" class="linePlace">
+			<li>라인명  <span>*</span>
+						<input type="text" name="lineName" class="lineName"></li>
+			<li>작업장  <span>*</span> 
+						<select name="linePlace" class="linePlace">
 							<option value="" selected>전체</option>
 							<option value="외주">외주</option>
 							<option value="작업장1">작업장1</option>
 							<option value="작업장2">작업장2</option>
 						</select></li>			
-			<li>일렬번호 <input type="text" name="sortOrder" class="sortOrder"></li>
+			<li>일렬번호 <span>*</span>
+						 <input type="text" name="sortOrder" class="sortOrder"></li>
 			<li>사용여부 <input type="radio" name="useChoice" value="Y" class="sCheck">Y
 						 <input type="radio" name="useChoice" value="N" class="sCheck" checked="checked" onclick="return false;">N</li>
 			<li>비고 <textarea rows="5" cols="30" name="note" maxlength="25"

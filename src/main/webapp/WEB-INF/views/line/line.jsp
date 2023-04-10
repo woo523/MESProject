@@ -17,7 +17,7 @@
 
 <div class="content_body">
 <article>
-	<h2>라인정보</h2>
+	<h1>라인정보</h1>
 	<form id="lineSearch">
 		<div class="selectButtons">
 			<button type="submit">조회</button>
@@ -39,7 +39,7 @@
 			</tr>
 		</table>
 	
-		<h2>목록</h2>
+		<h1>목록</h1>
 		
 		<div class="listButtons">
 			<span id="printCnt"></span>

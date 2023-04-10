@@ -23,6 +23,10 @@
 	background-position: 98%;
 	border: 1px solid;
 }
+
+.content_body span {
+	color: red;
+}
 </style>
 
 </head>
@@ -34,7 +38,8 @@
 		<ul>
 			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
 			<li>지시일자 <input type="date" id="instrDate" name="instrDate" readonly></li>
-			<li>수주 <input type="hidden" id="ordId" name="ordId" placeholder="수주">
+			<li>수주 <span>*</span>
+					 <input type="hidden" id="ordId" name="ordId" placeholder="수주">
 					 <input type="text" id="ordNum" name="ordNum" placeholder="수주번호" onclick="openOrd()">
 					 <input type="hidden" id="orderDate" name="orderDate" placeholder="일자">
 					 <input type="hidden" id="dlvryDate" name="dlvryDate" placeholder="예정일">
@@ -47,11 +52,13 @@
 			<li>제품 정보  <input type="hidden" id="itemId" name="itemId" placeholder="품목" readonly>
 						   <input type="text" id="itemNum" name="itemNum" placeholder="품번" readonly>
 					 	   <input type="text" id="itemName" name="itemName" placeholder="품명" readonly></li>
-			<li>공정 정보 <input type="hidden" id="lineId"  name="lineId"> 
+			<li>공정 정보 <span>*</span>
+						  <input type="hidden" id="lineId"  name="lineId"> 
 						  <input type="text" id="lineName" placeholder="라인 검색" onclick="openLine()" readonly>
 						  <input type="text" id="linePlace" placeholder="작업장" readonly>
 						  <input type="text" id="useChoice" placeholder="라인사용여부" readonly></li>
-			<li>지시수량  <input type="number" id="instrCnt" name="instrCnt"></li>
+			<li>지시수량  <span>*</span>
+						  <input type="number" id="instrCnt" name="instrCnt"></li>
 		</ul>
 		
 		<div>

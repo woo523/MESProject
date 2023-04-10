@@ -38,7 +38,7 @@
 
 <div class="content_body">
 <article>
-	<h2>작업지시</h2>
+	<h1>작업지시</h1>
 	<form id="instr">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
@@ -74,7 +74,7 @@
 		</table>
 	
 
-		<h2>목록</h2>
+		<h1>목록</h1>
 		
 		<div class="listButtons">
 			<span id="printCnt"></span>

@@ -17,6 +17,17 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
 
+<style type="text/css">
+.content_body textarea {
+	resize: none;
+}
+
+.content_body span {
+	color: red;
+}
+
+</style>
+
 </head>
 <body>
 <div class="content_body">
@@ -24,15 +35,19 @@
 	<form action="${pageContext.request.contextPath}/line/lineModifyPro" method="post" onsubmit="return checkForm()">
 		<input type="hidden" name="lineId" value="${lineDTO.lineId}">
 		<ul>
-			<li>라인코드 <input type="text" name="lineCode" value="${lineDTO.lineCode}"></li>
+			<li>라인코드 <span>*</span> 
+						 <input type="text" name="lineCode" class="lineCode" value="${lineDTO.lineCode}"></li>
 			<li>수정자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
-			<li>라인명 <input type="text" name="lineName" class="lineName" value="${lineDTO.lineName}"></li>
-			<li>작업장  <select name="linePlace" id="linePlace" class="linePlace">
+			<li>라인명  <span>*</span>
+						<input type="text" name="lineName" class="lineName" value="${lineDTO.lineName}"></li>
+			<li>작업장  <span>*</span>
+						<select name="linePlace" id="linePlace" class="linePlace">
 							<c:forEach var="place" items="${lineList}">
 								<option value="${place.linePlace}">${place.linePlace}</option>
 							</c:forEach>
 						</select></li>			
-			<li>일렬번호 <input type="text" name="sortOrder" class="sortOrder" value="${lineDTO.sortOrder}"></li>
+			<li>일렬번호 <span>*</span>
+						 <input type="text" name="sortOrder" class="sortOrder" value="${lineDTO.sortOrder}"></li>
 			<li>사용여부 <input type="radio" id="Y" name="useChoice" value="Y" class="sCheck">Y
 						 <input type="radio" id="N" name="useChoice" value="N" class="sCheck">N</li>
 			<li>비고 <textarea rows="5" cols="30" name="note">${lineDTO.note}</textarea></li>
@@ -64,6 +79,13 @@ $(document).ready(function() {
 function checkForm() {
 
 	// 라인 유효성 검사
+	if($('.lineCode').val() == "") {
+		alert("라인코드를 입력해주세요.");
+		$('.lineCode').focus();
+		
+		return false;
+	}
+	
 	if($('.lineName').val() == "") {
 		alert("라인명을 입력해주세요.");
 		$('.lineName').focus();

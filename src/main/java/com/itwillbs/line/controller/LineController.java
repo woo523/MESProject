@@ -96,7 +96,6 @@ public class LineController {
 		
 		model.addAttribute("lineDTO", lineDTO);
 		model.addAttribute("lineList", lineList);
-		System.out.println("폼 : " + lineDTO);
 		
 		return "line/lineModify";
 	}
@@ -107,10 +106,7 @@ public class LineController {
 		System.out.println("LineController lineModifyPro()");
 		
 		int lineId = Integer.parseInt(request.getParameter("lineId"));
-		
 		lineService.updateLine(lineDTO, lineId);
-		
-		System.out.println("디비 : " + lineDTO);
 		
 		return "redirect:/common/offwindow";
 	}
@@ -121,7 +117,6 @@ public class LineController {
 		System.out.println("LineController lineDelete");
 		
 		int lineId = Integer.parseInt(request.getParameter("lineId"));
-		
 		lineService.deleteLine(lineId);
 		
 		return "redirect:/line/line";
