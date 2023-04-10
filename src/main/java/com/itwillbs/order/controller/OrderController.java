@@ -385,6 +385,7 @@ public class OrderController {
 			orderDTO.setOrdId(Integer.parseInt(string));
 			int ordId2 = Integer.parseInt(request.getParameter("ordId"));
 			orderService.deleteOrder(ordId2);
+			System.out.println("마지막");
 		}
 		return "redirect:/order/orderSts";
 	}

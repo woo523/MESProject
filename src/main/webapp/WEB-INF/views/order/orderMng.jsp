@@ -14,9 +14,17 @@
       width: 1125px;  
    } 
 
+#count{
+	text-align: right;
+	width: 1125px;
+}
 th,td{
 border-bottom: 1px solid black;
 padding: 10px;
+}
+#main tr{
+padding: 10px;
+text-align: center;
 }
 #th {
 	font-weight: bold;
@@ -35,6 +43,7 @@ padding: 10px;
 
 h1{
 	font-weight: bold;
+	font-size: 18px;
 }
 
 .search_bar tr, td{
@@ -93,9 +102,12 @@ text-align: center;
 </head>
 <body>
 
-<!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
+<!-- 자바스크립트 들어가는 곳 -->
 
+function openInsert(a){ 
+		window.open("${pageContext.request.contextPath}/order/orderInsert","popup1", "width=700, height=600,left=500, top=200");
+	}
 
 function openItemList(b){
         window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
@@ -126,7 +138,7 @@ $(function() {
            ,closeText: '닫기' // 닫기 버튼 패널
            ,onClose: function ( selectedDate ) {
         	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+        	   $("input[name='eOdate']").datepicker("option", "minDate", selectedDate );
            }
 	});
 });
@@ -169,7 +181,7 @@ $(function() {
            ,closeText: '닫기' // 닫기 버튼 패널
            ,onClose: function ( selectedDate ) {
         	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+        	   $("input[name='eDdate']").datepicker("option", "minDate", selectedDate );
            }
 	});
 });
@@ -212,7 +224,8 @@ $(function() {
 	<form id="search">
 		<div id="btn">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="location.href='${pageContext.request.contextPath}/order/orderInsert'">추가</button>		
+			<button type="button" onclick="openInsert(${orderDTO.ordId})" >추가</button>	
+				
 		</div>
 				<br>
 			<table id="search">
@@ -242,6 +255,8 @@ $(function() {
 <br>
 <br>
 	<h1>목록</h1>
+	<div id="count">총 ${pageDTO.count } 건</div>
+	<br>
 	<table border="1" id="main">
 		<tr id="th">
 			<th>수주업체코드</th>
@@ -251,6 +266,16 @@ $(function() {
 			<th>담당자코드</th>
 			<th>담당자</th>
 		</tr>
+		
+			<c:choose>
+				<c:when test="${empty orderList}">
+					<tr><td colspan="15"></td></tr>
+					<tr>
+						<td colspan="15">해당 데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:when>
+				
+			<c:otherwise>
 			<c:forEach var="odto" items="${orderList}">
 			<tr onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">
 				<td>${odto.clntCd}</td>
@@ -261,6 +286,8 @@ $(function() {
 				<td>${odto.userNm}</td>
 				</tr>
 			</c:forEach>
+			</c:otherwise>
+			</c:choose>
   </table>
   
     <br>
@@ -289,11 +316,10 @@ $(function() {
 	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
 	</div>
-<br>
-<a href="${pageContext.request.contextPath }/order/orderInsert">추가</a></h1>
+<!-- <br> -->
+<%-- <a href="${pageContext.request.contextPath }/order/orderInsert">추가</a></h1> --%>
 
 
 </div>
 </body>
-<!-- 푸터 -->
-<%-- <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 --> --%>
+<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->

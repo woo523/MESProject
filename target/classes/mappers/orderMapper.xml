@@ -183,24 +183,22 @@
 		on o.item_id = i.item_id
 		join user u
 		on o.user_id= u.user_id
-		<if test="(ordNum != null and clntNm != null and sOdate != null and
-		 userNm != null and itemNum != null and itemNm != null and invntUnit != null and sDdate != null
-		  and ordQty != null and cmpltYn != null)">
-
-		where clnt_nm like CONCAT('%', #{clntNm}, '%')
-
-		<if test="sOdate!=''"> and o.order_dt = #{sOdate}</if>
-		<if test="sDdate!=''"> and o.dlvry_dt = #{sDdate}</if>
 		
+		<if test="clntNm != null and sOdate != null and
+		 itemNum != null and userNm != null and sDdate != null
+		  and cmpltYn != null">
+		  
+		where clnt_nm like CONCAT('%', #{clntNm}, '%')
+		
+		<if test="sOdate!=''"> and o.order_dt = #{sOdate}</if>
 		and
 		item_num like CONCAT('%', #{itemNum}, '%')
-
-		and
-		item_nm like CONCAT('%', #{itemNm}, '%')
 		
 		and
 		name like CONCAT('%', #{userNm}, '%')
 		
+		<if test="sDdate!=''"> and o.dlvry_dt = #{sDdate}</if>
+				
 		<if test="cmpltYn!=''">	and o.cmplt_yn = #{cmpltYn}</if>
 		
 		</if>

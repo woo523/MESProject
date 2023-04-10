@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 헤더 -->
-<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
+<%@ include file="../inc/header2.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
 
  table {
-      width: 1125px;  
+      width: 600px;  
    } 
 
 th,td{
@@ -54,12 +54,12 @@ table#info {
 
 
 #btn{
-      width: 1125px; 
+      width: 600px; 
 	text-align: right;
  
 }
 #pagination{
-      width: 1125px;  
+      width: 600px;  
 text-align: center;
 }
 
@@ -246,11 +246,13 @@ $(document).ready(function(){
 	<div class="orderinfo">
 			<table id="info">
 				<tr>
-				<td><input type="hidden" name="itemId" id="itemId"  onclick="openItemList()"></td>
 				<td>품번</td>
-				<td><input type="text" name="itemNum" id="itemNum"  onclick="openItemList()"></td>
+				<td><input type="hidden" name="itemId" id="itemId"  onclick="openItemList()">
+					<input type="text" name="itemNum" id="itemNum"  onclick="openItemList()"></td>
 				<td>품명</td>
 				<td><input type="text" name= "itemNm" id="itemNm"  onclick="openItemList()"></td>
+				</tr>
+				<tr>
 				<td>단위</td>
 				<td><input type="text" name="invntUnit" id="invntUnit" value="" ></td>
 				<td>수량</td>
@@ -265,4 +267,4 @@ $(document).ready(function(){
 
 </body>
 <!-- 푸터 -->
-<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
+<%-- <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 --> --%>

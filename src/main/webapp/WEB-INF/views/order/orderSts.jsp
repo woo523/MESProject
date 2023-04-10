@@ -13,10 +13,18 @@
  table {
       width: 1125px;  
    } 
+#count{
+	text-align: right;
+	width: 1125px;
+}
 
 th,td{
 border-bottom: 1px solid black;
 padding: 10px;
+}
+#main tr{
+padding: 10px;
+text-align: center;
 }
 #th {
 	font-weight: bold;
@@ -35,6 +43,7 @@ padding: 10px;
 
 h1{
 	font-weight: bold;
+	font-size: 18px;
 }
 
 .search_bar tr, td{
@@ -323,17 +332,16 @@ function cmpltValue(){
 		</form>
 	</div>
 <br>
-<br>
 	<h1>목록</h1>
-
+	<div id="count">총 ${pageDTO.count } 건</div>
 	<table border="1" id="main">
 	
 		<div id="btn">
-<!-- 			<button type="submit" id="submit">수주변경</button> -->
-<!-- 			<button type="submit" id="submit">수주마감</button> -->
 			<input type="button" value="수주마감" class="btn btn-outline-info" onclick="cmpltValue();">
 			<input type="button" value="수주삭제" class="btn btn-outline-info" onclick="deleteValue();">
 		</div>
+		
+		
 		<tr id="th">
 			<td><input id="allCheck" type="checkbox" name="allCheck"/></td>
 			<th>수주번호</th>
@@ -348,10 +356,9 @@ function cmpltValue(){
 			<th>완료여부</th>
 		</tr>
 		
+	
 			<c:forEach var="odto" items="${orderStsList}">
 			<tr>
-<%-- 			<tr onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">			 --%>
-<!-- 				<td><input name="checkYn" id="checkYn" onchange="YnCheck(this);" type="checkbox"></td> -->
 				<td><input name="RowCheck" type="checkbox" value="${odto.ordId}"/>
 					<input type="hidden"${odto.ordId}></td>
 				<td>${odto.ordNum}</td>
@@ -363,9 +370,16 @@ function cmpltValue(){
 				<td>${odto.invntUnit}</td>
 				<td>${odto.sDdate}</td>
 				<td>${odto.ordQty}</td>
-				<td>${odto.cmpltYn}</td>
-				</tr>
-			</c:forEach>
+				<c:choose>
+					<c:when test="${odto.cmpltYn eq 'Y' }">
+						<td style="color: blue">${odto.cmpltYn}</td>
+					</c:when>
+					<c:otherwise>
+						<td style="color: red">${odto.cmpltYn}</td>
+					</c:otherwise>
+				</c:choose>
+			</tr>
+	</c:forEach>
   </table>
     <br>
     <div id="pagination">
