@@ -47,6 +47,8 @@ public interface OrderDAO {
 
 	public void updateCmplt(OrderDTO orderDTO);
 
+	public void deleteCmplt(OrderDTO orderDTO);
+
 
 
 	

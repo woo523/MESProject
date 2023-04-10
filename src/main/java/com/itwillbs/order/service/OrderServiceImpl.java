@@ -133,6 +133,13 @@ public class OrderServiceImpl implements OrderService{
 		
 	}
 
+	@Override
+	public void deleteCmplt(OrderDTO orderDTO) {
+		System.out.println("OrderServiceImpl deleteCmplt()");
+		orderDAO.deleteCmplt(orderDTO);
+		
+	}
+
 
 
 

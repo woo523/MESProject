@@ -372,17 +372,21 @@ public class OrderController {
 	@RequestMapping(value = "/order/deleteCmplt", method = RequestMethod.GET)
 	public String deleteCmplt(HttpServletRequest request, Model model) {
 		System.out.println("OrderController deleteCmplt()");
+		
 		String ordId[]=request.getParameterValues("ordId");
 		OrderDTO orderDTO = new OrderDTO();
-		
+		System.out.println("아이디 오는지 확인"+ ordId);
 		for (int i = 0; i < ordId.length; i++) {
+			
 			String string = ordId[i];
+			System.out.println("아이디 배열"+ ordId);
 		
 			System.out.println("ordId"+string);
 			orderDTO.setOrdId(Integer.parseInt(string));
-			orderService.updateCmplt(orderDTO);
+			int ordId2 = Integer.parseInt(request.getParameter("ordId"));
+			orderService.deleteOrder(ordId2);
 		}
-		return "/order/orderSts";
+		return "redirect:/order/orderSts";
 	}
 	
 	@RequestMapping(value = "/order/delete", method = RequestMethod.GET)
@@ -390,8 +394,8 @@ public class OrderController {
 		int ordId = Integer.parseInt(request.getParameter("ordId"));
 		System.out.println("확인용"+ordId);
 		orderService.deleteOrder(ordId);
-		
-		return "order/orderMng";
+
+		return "redirect:/order/orderMng";
 	}
 
 	
@@ -507,17 +511,6 @@ public class OrderController {
 
 		return "order/orderSts";
 	}
-//	@RequestMapping(value = "/order/delete" ,method = RequestMethod.POST)
-//	public String ajax(HttpServletRequest request) throws Exception {
-//		System.out.println("OrderController ajax()");
-//		
-//		String[] ajaxMsg = request.getParameterValues("valueArr");
-//		int size = ajaxMsg.length;
-//		for(int i=0; i<size; i++) {
-////			orderService.deleteOrder(ajaxMsg[i]);
-//		}
-//		return "redirect:/order/orderSts";
-//	}
-//	
+
 }
 

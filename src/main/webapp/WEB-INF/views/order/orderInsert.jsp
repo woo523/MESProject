@@ -155,7 +155,48 @@ $(function() {
 	});
 });
 
+$(document).ready(function(){
+	$('#insertOrder').submit(function() {
+	
+	if ($('#clntNm').val()=="") {
+		alert("업체명을 입력하세요");
+		$('#clntNm').focus();
+		return false;
+	}
+	
+	if ($('#orderDt').val()=="") {
+		alert("수주일자를 입력하세요");7
+		$('#orderDt').focus();
+		return false;
+	}
+	
+	if ($('#userNm').val()=="") {
+		alert("담당자를 입력하세요");
+		$('#userNm').focus();
+		return false;
+	}
+	
+	if ($('#dlvryDt').val()=="") {
+		alert("납품예정일을 입력하세요");
+		$('#dlvryDt').focus();
+		return false;
+	}
+	
+	if ($('#itemNum').val()=="") {
+		alert("품번을 입력하세요");
+		$('#clntNm').focus();
+		return false;
+	}
+	
+	if ($('#ordQty').val()=="") {
+		alert("수량을 입력하세요");
+		$('#ordQty').focus();
+		return false;
+	}
+	
 
+});
+});
 
 
 </script>
@@ -168,8 +209,9 @@ $(function() {
 		<form id="insertOrder" action="${pageContext.request.contextPath }/order/orderInsertPro" method="get">
 	<div class="orderdetail">
 			<div id="btn">
+
 				<button type="reset">취소</button>
-				<button type="submit" >저장</button>
+				<input type="submit" value="저장" class="submit">
 			</div>
 				<br>
 			<table id="detail">
@@ -212,7 +254,7 @@ $(function() {
 				<td>단위</td>
 				<td><input type="text" name="invntUnit" id="invntUnit" value="" ></td>
 				<td>수량</td>
-				<td><input type="text" name="ordQty" id="ordQty" value="" ></td>
+				<td><input type="text" name="ordQty" id="ordQty" value="" placeholder="필수입력"></td>
 				</tr>
 			</table>
 	</div>

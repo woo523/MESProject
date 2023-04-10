@@ -35,8 +35,6 @@ public interface OrderService {
 	public void updateOrder(OrderDTO orderDTO);
 
 	public void deleteOrder(int ordId);
-//	
-//	public void deleteCmplt(String ordId);
 	
 	public Integer orderSCount();
 
@@ -47,6 +45,8 @@ public interface OrderService {
 	public Integer countStsOrder(Map<String, Object> search);
 
 	public void updateCmplt(OrderDTO orderDTO);
+
+	public void deleteCmplt(OrderDTO orderDTO);
 
 
 	

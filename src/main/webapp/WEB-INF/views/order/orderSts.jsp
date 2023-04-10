@@ -185,14 +185,14 @@ $(function(){
 });
 
 function deleteValue(){
-	var url = "";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
+	var url = "/order/deleteCmplt";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
 	var valueArr = new Array();
     var list = $("input[name='RowCheck']");
     
     for(var i = 0; i < list.length; i++){
         if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
             valueArr.push(list[i].value);
-        alert(list[i].value);
+//         alert(list[i].value);
         }
     }
     if (valueArr.length == 0){
@@ -210,8 +210,8 @@ function deleteValue(){
 		    },
             success: function(jdata){
                 if(jdata = 1) {
-                    alert("삭제 성공");
-                    location.replace("orderMng")
+                    alert("삭제되었습니다");
+                    location.replace("orderSts")
                 }
                 else{
                     alert("삭제 실패");
@@ -234,14 +234,14 @@ function cmpltValue(){
     for(var i = 0; i < list.length; i++){
         if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
             valueArr.push(list[i].value);
-        alert(list[i].value);
+//         alert(list[i].value);
         }
     }
     if (valueArr.length == 0){
     	alert("선택된 글이 없습니다.");
     }
     else{
-		var chk = confirm("수정하시겠습니까?");		
+		var chk = confirm("완료처리하시겠습니까?");		
 		if(chk == true ){
 		$.ajax({
 		    url : url,                    // 전송 URL
@@ -252,8 +252,8 @@ function cmpltValue(){
 		    },
             success: function(jdata){
                 if(jdata = 1) {
-                    alert("수정 성공");
-                    location.replace("orderMng")
+                    alert("수주완료되었습니다");
+                    location.replace("orderSts")
                 }
                 else{
                     alert("수정 실패");
@@ -278,14 +278,14 @@ function cmpltValue(){
 <div class="content_body">
 	<!-- 내용시작 -->
 	
-	<h1>수주관리</h1>
+	<h1>수주현황</h1>
 <div class="search_bar">
 	<form id="search">
 		<div id="btn">
 			<button type="submit" id="submit">조회</button>
 		</div>
 				<br>
-			<table id="status">
+			<table id="search">
 				<tr>
 				<td>수주업체</td>
 				<td><input type="text" name="clntNm" id="clntNm" onclick="openClntList()">

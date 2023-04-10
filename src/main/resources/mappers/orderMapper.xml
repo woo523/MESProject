@@ -19,6 +19,7 @@
 		<result column="item_id" property="itemId" />
 		<result column="invnt_unit" property="invntUnit" />
 		<result column="ord_qty" property="ordQty" />
+		<result column="complt_yn" property="compltYn" />
 
 	</resultMap>
 	
@@ -88,6 +89,7 @@
 		<if test="sDdate=='' and eDdate==''"></if>
 		<if test="sDdate!=''"> and o.dlvry_dt &gt;= #{sDdate}</if>
 		<if test="eDdate!=''"> and o.dlvry_dt &lt;= #{eDdate}</if>
+
 
 		and
 		name like CONCAT('%', #{userNm}, '%')
@@ -165,6 +167,8 @@
 		and
 		name like CONCAT('%', #{userNm}, '%')
 		
+		<if test="cmpltYn!=''">	and o.cmplt_yn = #{cmpltYn}</if>
+		
 		order by sOdate desc
 		limit #{startRow}, #{pageSize}
 	</select>
@@ -197,6 +201,7 @@
 		and
 		name like CONCAT('%', #{userNm}, '%')
 		
+		<if test="cmpltYn!=''">	and o.cmplt_yn = #{cmpltYn}</if>
 		
 		</if>
 	</select>
@@ -326,7 +331,7 @@
 <!-- 	수주관리 주문 삭제 -->
 	<delete id="deleteOrder">
 	delete from order_mng
-	where ord_id = #{ordID}
+	where ord_id = #{ordId}
 	</delete>
 	
 </mapper>

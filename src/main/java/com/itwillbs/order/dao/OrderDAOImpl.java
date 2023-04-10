@@ -133,6 +133,13 @@ public class OrderDAOImpl implements OrderDAO{
 		sqlSession.update(namespace+".updateCmplt", orderDTO);
 	}
 
+	@Override
+	public void deleteCmplt(OrderDTO orderDTO) {
+		System.out.println("OrderDAOImpl deleteCmplt() 화면단 정보를 db에 저장");
+		sqlSession.delete(namespace+".deleteOrder", orderDTO);
+		
+	}
+
 
 
 
