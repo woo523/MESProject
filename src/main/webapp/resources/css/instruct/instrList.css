@@ -68,21 +68,3 @@ article input {
 .content_body .searchBox #pnm {
 	background-color: #EAEAEA;
 }
-
-
-/* 스크롤바 수정중 */
-.searchBox .lineName {
-	display: block;
-	height: 20px;
-	overflow: auto;
-}
-
-.searchBox .lineName::-webkit-scrollbar {
-	width: 5px;
-	height: 5px;
-	background-color: black;
-}
-
-.searchBox .lineName::-webkit-scrollbar-thumb {
-	background: #000;
-}
