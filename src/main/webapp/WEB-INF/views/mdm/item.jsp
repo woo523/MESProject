@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>item</title>
-	<link href="/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 	
 <style type="text/css">
 h2{
@@ -21,9 +21,11 @@ h2{
 	margin-top : 5px;
 	margin-bottom : 30px;
 }
-.itemfilter td{
-	padding : 10px;
-}
+ .itemfilter td{ 
+ 	padding : 10px; 
+ } 
+
+
 .searchitem{
 	display :block;	
 }
@@ -62,13 +64,13 @@ display: inline-block;
 }
 
 .itemcontent td{
-    padding: 5px;
-    margin-bottom: 10px;
-    font-weight: bold;
+/*     padding: 5px; */
+/*     margin-bottom: 10px; */
+/*     font-weight: bold; */
     vertical-align: middle;
     width : 9%; 
     text-align:center;
-    height : 30px;
+    height : 15px; 
 }
 
 .imodifyList td{
@@ -84,6 +86,7 @@ display: inline-block;
 
 .listButtons{
 	margin-bottom: 5px;
+	text-align:right;
 }
 
 .itemcontent td input{ 
@@ -110,10 +113,26 @@ display: inline-block;
      text-align:center; 
 }
 
+.searchitem{
+	text-align:right;
+}
 
+.itemcount{
+	text-align:right;
+}
 </style>
 	<script type="text/javascript">
+	
+	$(document).ready(function(){
 		
+		$('#itemcount').html("총 "+ ${itemcount} + "건");
+		
+		
+		var scount = "${searchcount}";
+		if(scount != "") {
+			$('#itemcount').html("총 "+ ${searchcount} + "건");
+		}
+	});
 	
 	function insert_item(){
 		var row_idx = parseInt($(".row_idx:last").text()) + 1;
@@ -273,10 +292,18 @@ display: inline-block;
 		
 	} //삭제
 	
-// 	function openmodifybox() {
-// 		window.open("/mdm/itemupdate","m","width=1000, height=200");	
-// 	} //수정박스
+	function openmodifybox(obj) {
+// 		window.open("/mdm/itemupdate","m","width=1000, height=200");
+		var itemId=$(obj).closest('tr').children('#helpbutton').find('input[type="hidden"]').val();
+		console.log(itemId);
+		var itemName=$(obj).closest('tr').children('.tditemname').find('input[type="text"]').val();
+		console.log(itemName);
+		var itemNum=$(obj).closest('tr').children('.tditemnum').innerText;
+		console.log(itemName);
+		window.open("${pageContext.request.contextPath}/mdm/itemupdate?itemId="+itemId,"popup", "width=450, height=600, left=500, top=250");
+	} //수정박스
 	function openinsertbox() {
+		var id = '<%=(String)session.getAttribute("id")%>';
 		window.open("/mdm/iteminsert", "a", "width=1000, height=200");
 	} //추가박스
 	
@@ -316,10 +343,9 @@ display: inline-block;
 <div class="itemlist">
 <h2>|| 품목리스트 ||</h2><br>
 	<div class="listButtons">
-		<button type="button" id="cancel" onclick="cancleLine(this);">취소</button>
 		<button type="button" onclick="openinsertbox();">추가</button>
 	</div>
-
+	<div class="itemcount"><span id="itemcount"></span></div>
 <form name="formlist" id="formlist" method="post">
 	<table style="width:100%;" class="itemList">
 		<thead>
@@ -339,27 +365,31 @@ display: inline-block;
 			<th> </th>
 		</tr>
 		<c:forEach var="itemDTO" items="${itemList}">	
-			<tr class="itemcontent" id="modifybox">		
-				<td class="tditemnum"><input type="text"  name="itemNum"  value="${itemDTO.itemNum}" readonly></td>
-				<td class="tditemname"><input type="text" name="itemName"  value="${itemDTO.itemName}" readonly></td>
-				<td class="tdmtrltype"><input type="text" name="mtrlType"  value="${itemDTO.mtrlType}" readonly></td>
-				<td class="tdmtrlsort"><input type="text"  name="mtrlSort" value="${itemDTO.mtrlSort}" readonly></td>
-				<td class="tdinvntunit"><input type="text" name="invntUnit" value="${itemDTO.invntUnit}" readonly></td>
-				<td class="tdinvntqlt"><input type="text" name="invntQlt"  value="${itemDTO.invntQlt}" readonly></td>
-				<td class="tdstandard"><input type="text" name="standard"  value="${itemDTO.standard}" readonly></td>
-				<td class="tduseyn"><input type="text" name="useYn"  value="${itemDTO.useYn}" readonly></td>
-				<td class="tdclntname"><input type="text" name="clntName"  value="${itemDTO.clntName}" readonly></td>
-				<td class="tdsaleprice"><input type="text" name="salePrice"  value="${itemDTO.salePrice}" readonly></td>
-				<td class="tdbuyprice"><input type="text" name="buyPrice"  value="${itemDTO.buyPrice}" readonly></td>
-				<td class="tdnote"><input type="text" name="note"  value="${itemDTO.note}" readonly></td>
+			<tr class="itemcontent">		
+				<td class="tditemnum">${itemDTO.itemNum}</td>
+				<td class="tditemname">${itemDTO.itemName}</td>
+				<td class="tdmtrltype">${itemDTO.mtrlType}</td>
+				<td class="tdmtrlsort">${itemDTO.mtrlSort}</td>
+				<td class="tdinvntunit">${itemDTO.invntUnit}</td>
+				<td class="tdinvntqlt">${itemDTO.invntQlt}</td>
+				<td class="tdstandard">${itemDTO.standard}</td>
+				<td class="tduseyn">${itemDTO.useYn}</td>
+				<td class="tdclntname">${itemDTO.clntName}</td>
+				<td class="tdsaleprice">${itemDTO.salePrice}</td>
+				<td class="tdbuyprice">${itemDTO.buyPrice}</td>
+				<td class="tdnote">${itemDTO.note}</td>
 				<td id="helpbutton" style="width:10px; text-align:center;vertical-align:middle;">
-				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a>
-<%-- 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="openmodifybox();"></a> --%>
+<%-- 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a> --%>
+				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="openmodifybox(this);"></a>
 				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a>
-				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/save.png' id="save" width='17px' onclick="saveLine(this)";></a>
+				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/save.png' id="save" width='17px' onclick="saveLine(this);"></a>
 <%-- 				<input type="image" src="${pageContext.request.contextPath}/resources/image/save.png" alt="" id="save" width='17px' onclick="saveLine(this);"> --%>
 <%-- 				<input class="tditemid" type="hidden"  value="${itemDTO.itemId}" readonly> --%>
 				<input class="tditemid" type="hidden" name="itemId"  value="${itemDTO.itemId}" readonly>
+				<input class="tditemistid" type="hidden" name="insertId"  value="${itemDTO.insertId}" readonly>
+				<input class="tditemistdt" type="hidden" name="insertDate"  value="${itemDTO.insertDate}" readonly>
+				<input class="tditemudtid" type="hidden" name="updateId"  value="${itemDTO.updateId}" readonly>
+				<input class="tditemudtdate" type="hidden" name="updateDate"  value="${itemDTO.updateDate}" readonly>
 				</td>
 			</tr>	
 		</c:forEach>
@@ -373,7 +403,7 @@ display: inline-block;
 
 <div class="center">
  	<div class="pagination">			
-		<c:choose >
+		<c:choose>
 			<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
 				<a href="/mdm/item?itemNum=${itemSearch.itemNum}&itemName=${itemSearch.itemName}&mtrlType=${itemSearch.mtrlType}&mtrlSort=${itemSearch.mtrlSort}&useYn=${itemSearch.useYn}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
 			</c:when>

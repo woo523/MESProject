@@ -13,7 +13,7 @@
     <result column="item_count" property="itemCount"/>
     </resultMap>
 	
-	<select id="getStorageMap" resultMap="StorageMap">
+	<select id="storageList" resultMap="StorageMap">
 		SELECT stor_id,
 			   stor_cd,
 			   stor_nm,
@@ -22,5 +22,116 @@
 			   item_count
 		FROM storage
 	</select>
+	
+	 <select id="SearchStorageMap" resultMap="StorageMap">
+		SELECT stor_id,
+			   stor_cd,
+			   stor_nm,
+			   stor_type,
+			   use_yn,
+			   item_count
+		FROM storage
+		WHERE stor_nm LIKE CONCAT('%', #{storName}, '%') 
+		AND stor_cd LIKE CONCAT('%', #{storCode}, '%')
+	<choose>
+			<when test="storType == '자재'.toString()">
+				AND stor_type LIKE CONCAT('%', #{storType}, '%')
+			</when>
+			<when test="storType == '제품'.toString()">
+				AND stor_type LIKE CONCAT('%', #{storType}, '%')
+			</when>
+			<when test="storType == '불량'.toString()">
+				AND stor_type LIKE CONCAT('%', #{storType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="useYn == 'Y'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+			<when test="useYn == 'N'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+	</choose>	
+	ORDER BY stor_id ASC
+	LIMIT #{startRow}, #{pageSize}	
+    </select>
+	
+	<select id="insertStorage">
+		insert into storage (stor_cd, stor_nm, stor_type, use_yn, item_count)
+		values (#{storCode},#{storName},#{storType},#{useYn},#{itemCount})
+	</select>
+	
+	<select id="storagePage" resultMap="StorageMap">
+		SELECT stor_id,
+			   stor_cd,
+			   stor_nm,
+			   stor_type,
+			   use_yn,
+			   item_count
+		FROM storage
+		ORDER BY stor_id ASC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="storageCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM storage
+	</select>
+	
+	<select id="searchCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM storage
+		WHERE stor_nm LIKE CONCAT('%', #{storName}, '%') 
+		AND stor_cd LIKE CONCAT('%', #{storCode}, '%')
+	<choose>
+			<when test="storType == '자재'.toString()">
+				AND stor_type LIKE CONCAT('%', #{storType}, '%')
+			</when>
+			<when test="storType == '제품'.toString()">
+				AND stor_type LIKE CONCAT('%', #{storType}, '%')
+			</when>
+			<when test="storType == '불량'.toString()">
+				AND stor_type LIKE CONCAT('%', #{storType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="useYn == 'Y'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+			<when test="useYn == 'N'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+	</choose>	
+	</select>
+	
+	<select id="getstoragelist" resultMap="StorageMap">
+ 		SELECT stor_id,
+			   stor_cd,
+			   stor_nm,
+			   stor_type,
+			   use_yn,
+			   item_count
+		FROM storage
+        WHERE stor_id = #{storId}   	
+    </select>
+	
+	<update id="updateStorage">
+    	UPDATE storage SET stor_cd = #{storCode},
+    					   stor_nm = #{storName},
+    					   stor_type = #{storType},
+    					   use_yn = #{useYn},
+    	   				   item_count = #{itemCount},
+    	WHERE stor_id = #{storId}   
+    </update>
+    
+    <delete id="deleteStorage">
+    	DELETE FROM storage
+    	WHERE stor_id = #{storId}
+    </delete>
+	
+	<select id="storagelist" resultType="com.itwillbs.mdm.domain.StorageDTO">
+			select stor_nm
+			from storage 
+	</select>
+		
+	
 	
 </mapper>

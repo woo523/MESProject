@@ -18,7 +18,7 @@ public interface ItemDAO {
 	
 	public Integer itemCount();
 	
-	public Integer searchCount(Map<String, Object> lineSearch);
+	public Integer searchCount(Map<String, Object> itemSearch);
 	
 	public void deleteItem(int itemId);
 

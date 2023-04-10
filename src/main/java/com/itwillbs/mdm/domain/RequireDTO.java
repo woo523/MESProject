@@ -5,7 +5,11 @@ import java.sql.Timestamp;
 public class RequireDTO {
 	private int reqId; //소요량id
 	private int pItemId; //상위품목id
+	private String pItemNum; //상위품목넘버
+	private String pItemName; //상위품목명
 	private int cItemId; //하위품목id
+	private String cItemNum; //하위품목넘버
+	private String cItemName; //하위품목명
 	private String reqUnit; //소요량단위
 	private String reqAmnt; //소요량
 	private String useYn; //사용여부
@@ -72,6 +76,30 @@ public class RequireDTO {
 	}
 	public void setUpdateDate(Timestamp updateDate) {
 		this.updateDate = updateDate;
+	}
+	public String getpItemName() {
+		return pItemName;
+	}
+	public void setpItemName(String pItemName) {
+		this.pItemName = pItemName;
+	}
+	public String getcItemName() {
+		return cItemName;
+	}
+	public void setcItemName(String cItemName) {
+		this.cItemName = cItemName;
+	}
+	public String getpItemNum() {
+		return pItemNum;
+	}
+	public void setpItemNum(String pItemNum) {
+		this.pItemNum = pItemNum;
+	}
+	public String getcItemNum() {
+		return cItemNum;
+	}
+	public void setcItemNum(String cItemNum) {
+		this.cItemNum = cItemNum;
 	}
 	
 	

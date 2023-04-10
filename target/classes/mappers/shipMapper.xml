@@ -19,6 +19,7 @@
   		<result column="invnt_unit" property="itemUnit"/> 
   		<result column="amount" property="amount" />
   		<result column="clnt_id" property="clntId" />
+  		<result column="user_id" property="userId" />
   		<result column="id" property="userNum" />
   		<result column="ship_qty" property="shipQty" />
   </resultMap>

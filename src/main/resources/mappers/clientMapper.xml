@@ -5,6 +5,7 @@
 	
 
     <resultMap type="map" id="ClientMap">
+    <result column="clnt_id" property="clntId"/>
     <result column="clnt_cd" property="clntCode"/>
     <result column="clnt_nm" property="clntName"/>
     <result column="clnt_type" property="clntType"/>
@@ -24,8 +25,9 @@
     <result column="note" property="note"/>
     </resultMap>
 	
-	<select id="getClientMap" resultMap="ClientMap">
-		SELECT clnt_cd,
+	<select id="clientList" resultMap="ClientMap">
+		SELECT clnt_id,
+			   clnt_cd,
 			   clnt_nm,
 			   clnt_type,
 			   bsns_num,
@@ -45,13 +47,163 @@
 		FROM client
 	</select>
 	
-	<select id="clientList" resultType="com.itwillbs.mdm.domain.ClientDTO">
+	 <select id="SearchClientMap" resultMap="ClientMap">
+		SELECT clnt_id,
+			   clnt_cd,
+			   clnt_nm,
+			   clnt_type,
+			   bsns_num,
+			   industry,
+			   event,
+			   daepyo,
+			   manager,
+			   zipcode,
+			   addr,
+			   addr_dtl,
+			   tell,
+			   phone,
+			   fax,
+			   email,
+			   use_yn,
+			   note
+		FROM client
+		WHERE clnt_cd LIKE CONCAT('%', #{clntCode}, '%') 
+		AND clnt_nm LIKE CONCAT('%', #{clntName}, '%')
+	<choose>
+			<when test="clntType == '자사'.toString()">
+				AND clnt_type LIKE CONCAT('%', #{clntType}, '%')
+			</when>
+			<when test="clntType == '고객사'.toString()">
+				AND clnt_type LIKE CONCAT('%', #{clntType}, '%')
+			</when>
+			<when test="clntType == '협력사'.toString()">
+				AND clnt_type LIKE CONCAT('%', #{clntType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="useYn == 'Y'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+			<when test="useYn == 'N'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+	</choose>	
+	ORDER BY clnt_id ASC
+	LIMIT #{startRow}, #{pageSize}	
+    </select>
+	
+	<select id="insertClient">
+		insert into client (clnt_cd, clnt_nm, clnt_type, bsns_num, industry, event, daepyo, manager, zipcode, addr, addr_dtl, tell, phone, fax, email, use_yn, note)
+		values (#{clntCode},#{clntName},#{clntType},#{bsnsNum},#{industry},#{event},#{daepyo},#{manager},#{zipCode},#{address},#{addrDtl},#{tell},#{phone},#{fax},#{email},#{useYn},#{note})
+	</select>
+	
+	<select id="clientPage" resultMap="ClientMap">
+		SELECT clnt_id,
+			   clnt_cd,
+			   clnt_nm,
+			   clnt_type,
+			   bsns_num,
+			   industry,
+			   event,
+			   daepyo,
+			   manager,
+			   zipcode,
+			   addr,
+			   addr_dtl,
+			   tell,
+			   phone,
+			   fax,
+			   email,
+			   use_yn,
+			   note
+		FROM client
+		ORDER BY clnt_id ASC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="clientCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM client
+	</select>
+	
+	<select id="searchCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM client
+		WHERE clnt_cd LIKE CONCAT('%', #{clntCode}, '%') 
+		AND clnt_nm LIKE CONCAT('%', #{clntName}, '%')
+	<choose>
+			<when test="clntType == '자사'.toString()">
+				AND clnt_type LIKE CONCAT('%', #{clntType}, '%')
+			</when>
+			<when test="clntType == '고객사'.toString()">
+				AND clnt_type LIKE CONCAT('%', #{clntType}, '%')
+			</when>
+			<when test="clntType == '협력사'.toString()">
+				AND clnt_type LIKE CONCAT('%', #{clntType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="useYn == 'Y'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+			<when test="useYn == 'N'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+	</choose>			
+	</select>
+	
+	<select id="getclientlist" resultMap="ClientMap">
+       SELECT clnt_id,
+			   clnt_cd,
+			   clnt_nm,
+			   clnt_type,
+			   bsns_num,
+			   industry,
+			   event,
+			   daepyo,
+			   manager,
+			   zipcode,
+			   addr,
+			   addr_dtl,
+			   tell,
+			   phone,
+			   fax,
+			   email,
+			   use_yn,
+			   note
+		FROM client
+        WHERE clnt_id = #{clntId}   	
+    </select>
+	
+	<update id="updateClient">
+    	UPDATE client SET clnt_cd = #{clntCode},
+    					  clnt_nm = #{clntName},
+    					  clnt_type = #{clntType},
+    					  bsns_num = #{bsnsNum},
+    					  industry = #{industry},
+    					  event = #{event},
+    					  daepyo = #{daepyo},
+    					  manager = #{manager},
+    					  zipcode = #{zipCode},
+    					  addr = #{address},
+    					  addr_dtl = #{addrDtl},
+    					  tell = #{tell},
+    					  phone = #{phone},
+    					  fax = #{fax},
+    					  email = #{email},
+    					  use_yn = #{useYn},
+    					  note = #{note}
+    	WHERE clnt_id = #{clntId}   
+    </update>
+    
+    <delete id="deleteClient">
+    	DELETE FROM client
+    	WHERE clnt_id = #{clntId}
+    </delete>
+	
+	<select id="clientlist" resultType="com.itwillbs.mdm.domain.ClientDTO">
 			select clnt_nm
 			from client
 	</select>
 	
-<!-- 	<select id="getClientList" resultType="com.itwillbs.item.domain.ClientDTO"> -->
-<!--         select * from client -->
-<!--     </select> -->
+
 	
 </mapper>

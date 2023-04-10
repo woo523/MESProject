@@ -7,7 +7,11 @@
     <resultMap type="map" id="RequireMap">
     <result column="req_id" property="reqId"/>
     <result column="p_item_id" property="pItemId"/>
+    <result column="item_num" property="pItemNum"/>
+    <result column="item_nm" property="pItemName"/>
     <result column="c_item_id" property="cItemId"/>
+    <result column="item_num" property="cItemNum"/>
+    <result column="item_nm" property="cItemName"/>
     <result column="req_unit" property="reqUnit"/>
     <result column="req_amnt" property="reqAmnt"/>
     <result column="use_yn" property="useYn"/>

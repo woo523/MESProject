@@ -16,11 +16,11 @@
     <result column="equp_stat" property="equpStat"/>
     </resultMap>
 	
-	<select id="getEquipMap" resultMap="EquipMap">
+	<select id="equipList" resultMap="EquipMap">
 		SELECT equp_id,
 			   equp_cd,
 			   equp_nm,
-			   equp_type ,
+			   equp_type,
 			   po_nm,
 			   po_dt,
 			   po_amount,
@@ -28,5 +28,147 @@
 			   equp_stat
 		FROM equipment
 	</select>
+	 <select id="SearchEquipMap" resultMap="EquipMap">
+		SELECT equp_id,
+			   equp_cd,
+			   equp_nm,
+			   equp_type,
+			   po_nm,
+			   po_dt,
+			   po_amount,
+			   use_yn,
+			   equp_stat
+		FROM equipment
+		WHERE equp_cd LIKE CONCAT('%', #{equpCode}, '%') 
+		AND equp_nm LIKE CONCAT('%', #{equpName}, '%')
+	<choose>
+			<when test="equpType == '조립'.toString()">
+				AND equp_type LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+			<when test="equpType == '멸균'.toString()">
+				AND equp_type LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+			<when test="equpType == '포장'.toString()">
+				AND equp_type LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="equpStat == '양호'.toString()">
+				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+			<when test="equpStat == '불량'.toString()">
+				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+			<when test="equpStat == '고장'.toString()">
+				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="useYn == 'Y'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+			<when test="useYn == 'N'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+	</choose>	
+	ORDER BY equp_id ASC
+	LIMIT #{startRow}, #{pageSize}	
+    </select>
 	
+	<select id="insertEquip">
+		insert into equipment (equp_cd, equp_nm, equp_type, po_nm, po_dt, po_amount, use_yn, equp_stat)
+		values (#{equpCode},#{equpName},#{equpType},#{poNum},#{poDate},#{poAmount},#{useYn},#{equpStat})
+	</select>
+	
+	<select id="equipPage" resultMap="EquipMap">
+		SELECT equp_id,
+			   equp_cd,
+			   equp_nm,
+			   equp_type,
+			   po_nm,
+			   po_dt,
+			   po_amount,
+			   use_yn,
+			   equp_stat
+		FROM equipment
+		ORDER BY equp_id ASC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="equipCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM equipment
+	</select>
+	
+	<select id="searchCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM equipment
+		WHERE equp_cd LIKE CONCAT('%', #{equpCode}, '%') 
+		AND equp_nm LIKE CONCAT('%', #{equpName}, '%')
+	<choose>
+			<when test="equpType == '조립'.toString()">
+				AND equp_type LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+			<when test="equpType == '멸균'.toString()">
+				AND equp_type LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+			<when test="equpType == '포장'.toString()">
+				AND equp_type LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="equpStat == '양호'.toString()">
+				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+			<when test="equpStat == '불량'.toString()">
+				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+			<when test="equpStat == '고장'.toString()">
+				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+			</when>
+	</choose>
+	<choose>
+			<when test="useYn == 'Y'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+			<when test="useYn == 'N'.toString()">
+				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
+			</when>
+	</choose>		
+	</select>
+	
+	<select id="getequiplist" resultMap="EquipMap">
+		SELECT equp_id,
+			   equp_cd,
+			   equp_nm,
+			   equp_type,
+			   po_nm,
+			   po_dt,
+			   po_amount,
+			   use_yn,
+			   equp_stat
+		FROM equipment
+        WHERE equp_id = #{equpId}   	
+    </select>
+	
+	<update id="updateEquip">
+    	UPDATE client SET equp_cd = #{equpCode},
+    					  equp_nm = #{equpName},
+    					  equp_type = #{equpType},
+    					  po_nm = #{poNum},
+    					  po_dt = #{poDate},
+    					  po_amount = #{poAmount},
+    					  use_yn = #{useYn},
+    					  equp_stat = #{equpStat}
+    	WHERE equp_id = #{equpId}   
+    </update>
+    
+    <delete id="deleteEquip">
+    	DELETE FROM equipment
+    	WHERE equp_id = #{equpId}
+    </delete>
+	
+	<select id="equiplist" resultType="com.itwillbs.mdm.domain.EquipDTO">
+			select equp_nm
+			from equipment
+	</select>
+		
 </mapper>

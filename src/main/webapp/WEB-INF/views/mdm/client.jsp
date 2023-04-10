@@ -5,7 +5,102 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>item</title>
+	<title>client</title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
+<style type="text/css">
+h2{
+	margin : 20px 0px;
+}
+table{
+      width: 100%;  
+} 
+   
+#th{
+	border-bottom: 1px solid black;
+	padding: 10px;
+/* 	margin-bottom: 10px; */
+}
+button{
+display: inline-block;
+    width: 70px;
+    height: 28px;
+    font-size: 15px;
+}
+.client_filter{
+	border: 1px solid black;
+	margin : 20px 0px;
+	padding : 5px;
+}
+
+.client_filter tr, td{
+ 	border:0px;
+}
+
+#data {
+	text-align : center;
+}
+ 
+#data:hover{
+	background-color : #e1e1e1;
+	cursor:pointer;
+}
+
+.ClientButtons{
+	width: 100%; 
+	text-align:right;
+}
+
+.search{
+	text-align:right;
+}
+
+.clientcount{
+	text-align:right;
+}
+
+</style>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+
+	$('#clientcount').html("총 "+ ${clientcount} + "건");
+	
+	
+	var scount = "${searchcount}";
+	if(scount != "") {
+		$('#clientcount').html("총 "+ ${searchcount} + "건");
+	}
+});
+
+function modifyLine(obj){
+	console.log('수정');
+
+	var tr = $(obj);
+	var clntId=$(obj).closest('tr').children('#helpbutton').find('input[type="hidden"]').val();
+	console.log(clntId);
+	
+	window.open("${pageContext.request.contextPath}/mdm/clientupdate?clntId="+clntId,"popup", "width=450, height=750, left=500, top=250");
+}//수정
+function insertLine(obj){
+	console.log('추가');
+	
+	window.open("/mdm/clientinsert", "a", "width=700, height=800");
+}//추가
+
+function deleteLine(obj){
+
+	var clntId=$(obj).closest('tr').children('#helpbutton').find('input[type="hidden"]').val();
+	if(confirm("삭제하시겠습니까?")){
+	console.log(clntId); 
+	location.href="${pageContext.request.contextPath}/mdm/clientdelete?clntId="+clntId+"&pageNum=${pageDTO.pageNum}";
+	$(obj).closest('tr').remove();
+	}else{
+		return false;
+	}
+} //삭제
+</script>
 
 </head>
 
@@ -15,35 +110,39 @@
 <!-- </header> -->
 
 <div>
-거래처정보관리<br>		
-	거래처코드 : <input type="text">
-	거래처명 : <input type="text">
-	거래처구분 :<select>
-				<option value="1" selected>전체</option>
-				<option value="2">자사</option>
-				<option value="3">고객사</option>
-				<option value="4">협력사</option>
-			</select>
-	사용여부 :<select>
-			<option value="5" selected>전체</option>
-			<option value="6">Y</option>
-			<option value="7">N</option>
-			</select>
-	<button type="button">조회</button>
-</div>
+<h2>|| 거래처정보관리 ||</h2><br>
+<form id="clientSearch">
+<div class="search"><button type="submit">조회</button></div>
+<table class="client_filter">
+	<tr>	
+	<td>거래처코드</td> <td><input type="text" class="clntCode" name="clntCode"></td>
+	<td>거래처명</td>  <td><input type="text" class="clntName" name="clntName"></td>
+	<td>거래처구분</td> <td><select name="clntType">
+						<option value="" selected>전체</option>
+						<option value="자사">자사</option>
+						<option value="고객사">고객사</option>
+						<option value="협력사">협력사</option>
+					</select></td>
+	<td>사용여부</td> <td><select name="useYn">
+						<option value="" selected>전체</option>
+						<option value="Y">Y</option>
+						<option value="N">N</option>
+						</select></td>
+</table>
+</form>
 	
 <div>
-거래처<br>
+<h2>|| 거래처 ||</h2><br>
 	
 	<div class="ClientButtons">
-		<button type="button">수정</button>
-		<button type="button">삭제</button>
-		<button type="button">추가</button>
-		<button type="button">저장</button>
+		<button type="button" onclick="insertLine();">추가</button>
 	</div>
+	<div class="clientcount"><span id="clientcount"></span></div>
 	
+	<form name="clientlist" id="clientlist" method="post">
 	<table border="1" class="clientList">
-		<tr>
+		<thead>
+		<tr id="th">
 			<th>거래처코드</th>
 			<th>거래처명</th>
 			<th>거래처구분</th>
@@ -62,7 +161,7 @@
 			<th>사용여부</th>
 		</tr>
 		<c:forEach var="clientDTO" items="${clientList}">
-			<tr>
+			<tr id="data">
 				<td>${clientDTO.clntCode}</td>
 				<td>${clientDTO.clntName}</td>
 				<td>${clientDTO.clntType}</td>
@@ -79,9 +178,49 @@
 				<td>${clientDTO.email}</td>
 				<td>${clientDTO.note}</td>
 				<td>${clientDTO.useYn}</td>
+				<td id="helpbutton" style="width:10px; text-align:center;vertical-align:middle;">
+				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a>
+				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="deleteLine(this);"></a>
+				<input class="tdclntid" id="tdclntid" type="hidden" name="clntId"  value="${clientDTO.clntId}" readonly>
+				<input class="tdclntistid" type="hidden" name="insertId"  value="${clientDTO.insertId}" readonly>
+				<input class="tdclntistdt" type="hidden" name="insertDate"  value="${clientDTO.insertDate}" readonly>
+				<input class="tdclntudtid" type="hidden" name="updateId"  value="${clientDTO.updateId}" readonly>
+				<input class="tdclntudtdt" type="hidden" name="updateDate"  value="${clientDTO.updateDate}" readonly>
+				</td>
 			</tr>
 		</c:forEach>
+		</thead>
+		<tbody id="tbody_id">
+		</tbody>
 	</table>
+	</form>
+</div>
+</div>
+
+<div class="center">
+ 	<div class="pagination">			
+		<c:choose>
+			<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
+				<a href="/mdm/client?clntCode=${clientSearch.clntCode}&clntName=${clientSearch.clntName}&clntType=${clientSearch.clntType}&useYn=${clientSearch.useYn}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
+			</c:when>
+			<c:otherwise>
+				<a class="none">◀</a>
+			</c:otherwise>
+		</c:choose>
+		
+		<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+			<a href="/mdm/client?clntCode=${clientSearch.clntCode}&clntName=${clientSearch.clntName}&clntType=${clientSearch.clntType}&useYn=${clientSearch.useYn}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
+		</c:forEach>
+		
+		<c:choose>
+			<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
+				<a href="/mdm/client?clntCode=${clientSearch.clntCode}&clntName=${clientSearch.clntName}&clntType=${clientSearch.clntType}&useYn=${clientSearch.useYn}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
+			</c:when>
+			<c:otherwise>
+				<a class="none">▶</a>
+			</c:otherwise>
+		</c:choose>
+	</div>
 </div>
 
 <!-- <footer> -->

@@ -73,16 +73,19 @@
                         <li>기준정보 관리<i class="arrow fas fa-angle-right"></i></li>
                         <ul class="small_menu">
                         	<c:if test="${not empty menu4}">
-                            <li><a href="#">품목정보 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/mdm/item">품목정보 관리</a></li>
                             </c:if>
                             <c:if test="${not empty menu5}">
-                            <li><a href="#">소요량 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/mdm/client">거래처정보 관리</a></li>
                             </c:if>
                             <c:if test="${not empty menu6}">
                             <li><a href="${pageContext.request.contextPath}/line/line">라인정보 관리</a></li>
                             </c:if>
                             <c:if test="${not empty menu7}">
-                            <li><a href="#">거래처정보 관리</a></li>
+                            <li><a href="${pageContext.request.contextPath}/mdm/equip">설비정보 관리</a></li>
+                            </c:if>
+                            <c:if test="${not empty menu19}">
+                            <li><a href="${pageContext.request.contextPath}/mdm/storage">창고정보 관리</a></li>
                             </c:if>
                         </ul>
                     </ul>

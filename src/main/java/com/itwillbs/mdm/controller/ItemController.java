@@ -42,6 +42,11 @@ public class ItemController {
 		String mtrlType = request.getParameter("mtrlType");
 		String mtrlSort = request.getParameter("mtrlSort");
 		String useYn = request.getParameter("useYn");
+		System.out.println("품번:"+itemNum);
+		System.out.println("품명:"+itemName);
+		System.out.println("자재유형:"+mtrlType);
+		System.out.println("자재구분:"+mtrlSort);
+		System.out.println("사용여부:"+useYn);
 		
 		Map<String, Object> itemSearch = new HashMap<String, Object>();
 		itemSearch.put("itemNum", itemNum);
@@ -60,11 +65,13 @@ public class ItemController {
 			itemList = itemService.itemList(pageDTO, model);
 			int itemcount = itemService.itemCount();
 			model.addAttribute("itemcount", itemcount);
+			System.out.println("테스트" + itemcount);
 		}else {
 			// 검색시
 			itemList = itemService.itemSearch(itemSearch,pageDTO,model);
 			int searchcount = itemService.searchCount(itemSearch);
 			model.addAttribute("searchcount",searchcount);
+			System.out.println("테스트" + searchcount);
 		}
 		
 		model.addAttribute("itemList", itemList);
@@ -76,7 +83,7 @@ public class ItemController {
 	@RequestMapping(value = "/mdm/iteminsert", method = RequestMethod.GET)
 	public String insertitemList(HttpServletRequest request, Model model) {
 		System.out.println("ItemController insertitemList()");
-		List<ClientDTO> clientList = clientService.clientList();
+		List<ClientDTO> clientList = clientService.clientlist();
 		model.addAttribute("clientList", clientList);
 		return "mdm/iteminsert";	
 	}
@@ -96,8 +103,9 @@ public class ItemController {
 		
 		ItemDTO itemDTO=itemService.getitemlist(itemId);
 		
-		model.addAttribute("boardDTO", itemDTO);
-		
+		model.addAttribute("itemDTO", itemDTO);
+		System.out.println("itemlist품번:"+itemDTO.getItemNum());
+		System.out.println("itemlist품명:"+itemDTO.getItemName());
 		// 주소변경 없이 이동
 		// /WEB-INF/views/board/content.jsp
 		return "mdm/item";
@@ -111,30 +119,24 @@ public class ItemController {
 		
 		ItemDTO itemDTO=itemService.getitemlist(itemId);
 		model.addAttribute("itemDTO", itemDTO);
-		
+		System.out.println("itemupdate품번:"+itemDTO.getItemNum());
+		System.out.println("itemupdate품명:"+itemDTO.getItemName());
 		// 주소변경 없이 이동
 		// /WEB-INF/views/board/updateForm.jsp
-		return "mdm/item";
+		return "mdm/itemmodify";
 	}
 	
 	@RequestMapping(value = "/mdm/itemupdatePro", method = RequestMethod.POST)
-	public String itemupdatePro(HttpServletRequest request, ItemDTO itemDTO, Model model) {
+	public String itemupdatePro(HttpServletRequest request, ItemDTO itemDTO) {
 		System.out.println("itemupdatePro()");
 		int itemId=Integer.parseInt(request.getParameter("itemId"));
 		System.out.println("id는"+itemId);
-	
-		ItemDTO itemDTO2=itemService.getitemlist(itemId);
-		
-		
-		System.out.println("기존품번:"+itemDTO2.getItemNum());
-		System.out.println("기존품명:"+itemDTO2.getItemName());
-		System.out.println("기존자재유형:"+itemDTO2.getMtrlType());
 		
 		System.out.println("바꿀품번:"+itemDTO.getItemNum());
 		System.out.println("바꿀품명:"+itemDTO.getItemName());
 		System.out.println("바꿀자재유형:"+itemDTO.getMtrlType());
 		
-//		itemService.updateItem(itemDTO);
+		itemService.updateItem(itemDTO);
 		
 		// 주소변경 하면서 이동
 		return "redirect:/mdm/item";
@@ -154,7 +156,7 @@ public class ItemController {
 	@GetMapping("/clientList")
 	public void clientList(HttpServletRequest request, Model model) {
 		System.out.println("ItemController clientList()");
-		List<ClientDTO> clientList = clientService.clientList();
+		List<ClientDTO> clientList = clientService.clientlist();
 		model.addAttribute("clientList", clientList);
 	}
 }
