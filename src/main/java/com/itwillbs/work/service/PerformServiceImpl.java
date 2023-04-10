@@ -70,11 +70,13 @@ public class PerformServiceImpl implements PerformService {
 		
 		if(performDAO.checkY(performDTO.getInstrId())) { // 양품이 지시수량보다 같거나 많으면
 			performDAO.updateClose(performDTO.getInstrId()); // 마감으로 지시 상태 변경
+			performDAO.updateLineN(); // 라인 사용 안함으로 변경
 		}
 		
 		Map<String, Object> instr = performDAO.getInstrMap(performDTO.getInstrId());
 		if(instr.get("workSts").equals("지시")) { // 지시 상태면 
 			performDAO.updateStart(performDTO.getInstrId()); // 시작으로 변경
+			performDAO.updateLineY(); // 라인 사용으로 변경
 		}
 		
 		performDAO.updateStorage(performDTO); // 창고 재고 업뎃
@@ -129,8 +131,10 @@ public class PerformServiceImpl implements PerformService {
 		
 		if(performDAO.checkY(instrId)==false) { // 양품이 지시수량보다 적으면
 			performDAO.updateStart(instrId); // 시작상태로 변경
+			performDAO.updateLineY(); // 라인 사용으로 변경
 			if(performDAO.getPfLiMap(String.valueOf(instrId)).size()==0) { // 실적이 하나도 없으면
 				performDAO.updateInstr(instrId); // 지시상태로 변경
+				performDAO.updateLineN(); // 라인 사용 안함으로 변경
 			}
 		}
 	}
@@ -148,8 +152,10 @@ public class PerformServiceImpl implements PerformService {
 		
 		if(performDAO.checkY(performDTO.getInstrId())) { // 양품이 지시수량보다 같거나 많으면
 			performDAO.updateClose(performDTO.getInstrId()); // 마감으로 지시 상태 변경
+			performDAO.updateLineN(); // 라인 사용 안함으로 변경
 		}else { // 양품이 지시수량보다 적으면
 			performDAO.updateStart(performDTO.getInstrId()); // 상태는 시작
+			performDAO.updateLineY(); // 라인 사용으로 변경
 		}
 		
 		performDAO.updateStorage(performDTO); // 창고 재고 업뎃

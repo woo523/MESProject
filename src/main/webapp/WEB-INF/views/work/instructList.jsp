@@ -228,16 +228,10 @@ article {
 							<td>${instrDTO.workQty}</td>
 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
 							<td>${instrDTO.userDTO.name}</td>
-							<c:choose>
-								<c:when test="${! empty sessionScope.id && instrDTO.workSts eq '지시'}">
-									<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="instrModify(${instrDTO.instrId})"></a>
-										<a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
-								</c:when>
-								<c:when test="${! empty sessionScope.id && instrDTO.workSts eq '마감'}">
-									<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
-								</c:when>
-								<c:otherwise></c:otherwise>
-							</c:choose>
+							<c:if test="${! empty sessionScope.id && instrDTO.workSts eq '지시'}">
+								<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="instrModify(${instrDTO.instrId})"></a>
+									<a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="instrDelete(${instrDTO.instrId})"></a></td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
@@ -252,7 +246,6 @@ article {
 					<a href="/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
 				</c:when>
 				<c:otherwise>
-					<a class="none">◀</a>
 				</c:otherwise>
 			</c:choose>
 			
@@ -265,7 +258,6 @@ article {
 					<a href="${pageContext.request.contextPath}/work/instructList?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
 				</c:when>
 				<c:otherwise>
-					<a class="none">▶</a>
 				</c:otherwise>
 			</c:choose>
 		</div>

@@ -61,4 +61,8 @@ public interface PerformDAO {
 	
 	public List<RequireDTO> getReAmnt(int itemId);
 	
+	public void updateLineY();
+	
+	public void updateLineN();
+	
 }

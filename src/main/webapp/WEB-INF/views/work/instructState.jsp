@@ -211,7 +211,6 @@ article input {
 					<a href="/work/instructState?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
 				</c:when>
 				<c:otherwise>
-					<a class="none">◀</a>
 				</c:otherwise>
 			</c:choose>
 			
@@ -224,7 +223,6 @@ article input {
 					<a href="/work/instructState?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
 				</c:when>
 				<c:otherwise>
-					<a class="none">▶</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
