@@ -21,7 +21,7 @@
 	<form id="lineSearch">
 		<div class="selectButtons">
 			<button type="submit">조회</button>
-			<button type="button" onclick="insertCheck()">등록</button>
+			<button type="button" onclick="insertCheck()">추가</button>
 		</div>
 		
 		<table class="searchBox">

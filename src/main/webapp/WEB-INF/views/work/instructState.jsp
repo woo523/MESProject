@@ -74,7 +74,7 @@
 		</table>
 	
 
-		<h1>작업지시 현황</h1>
+		<h1>목록</h1>
 		
 		<div class="listButtons">
 			<span id="printCnt"></span>
@@ -104,7 +104,7 @@
 				<c:when test="${empty instrList}">
 					<tr><td colspan="14"></td></tr>
 					<tr>
-						<td colspan="14">해당 실적이 존재하지 않습니다.</td>
+						<td colspan="14">작업지시 목록이 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -143,19 +143,19 @@
 	<div class="center">
 	 	<div class="pagination">			
 			<c:choose>
-				<c:when test="${pageDTO.startPage > pageDTO.pageBlock }">
+				<c:when test="${pageDTO.startPage > pageDTO.pageBlock}">
 					<a href="/work/instructState?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage - pageDTO.pageBlock}">◀</a>
 				</c:when>
 				<c:otherwise>
 				</c:otherwise>
 			</c:choose>
 			
-			<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+			<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage}" step="1">
 				<a href="/work/instructState?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a>
 			</c:forEach>
 			
 			<c:choose>
-				<c:when test="${pageDTO.endPage < pageDTO.pageCount  }">
+				<c:when test="${pageDTO.endPage < pageDTO.pageCount}">
 					<a href="/work/instructState?lineName=${instrSearch.lineName}&startDate=${instrSearch.startDate}&endDate=${instrSearch.endDate}&itemNum=${instrSearch.itemNum}&workSts1=${instrSearch.workSts1}&workSts2=${instrSearch.workSts2}&workSts3=${instrSearch.workSts3}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">▶</a>
 				</c:when>
 				<c:otherwise>
@@ -165,7 +165,7 @@
 	</div> <!-- 페이징 -->
 	
 	<div>
-		<h2>작업지시현황</h2>
+		<h1>작업지시현황</h1>
 		
 		<table border="1" class="instrStateList">
 			<tr>
@@ -297,7 +297,7 @@ function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 		output = output + "<span>총 0건</span>";
 		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th style='width: 250px'>불량사유</th></tr>";
 		output = output + "<tr><td colspan='7'></td></tr>";
-		output = output + "<tr><td colspan='7'> 해당 자료가 존재하지 않습니다. </td></tr>";	
+		output = output + "<tr><td colspan='7'> 해당 실적이 존재하지 않습니다. </td></tr>";	
 	
 	} else {
 		output = output + "<span>총 " + arr.length + "건</span>";

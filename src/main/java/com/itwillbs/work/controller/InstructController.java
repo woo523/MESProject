@@ -235,12 +235,12 @@ public class InstructController {
 	
 	// 작업지시 삭제
 	@RequestMapping(value = "/work/instructDelete", method = RequestMethod.GET)
-	public String workDelete(HttpServletRequest request, Model model) {
+	public String workDelete(HttpServletRequest request, PageDTO pageDTO) {
 		
 		int instrId = Integer.parseInt(request.getParameter("instrId"));
 		instructService.instrDelete(instrId);
 		
-		return "redirect:/work/instructList";
+		return "redirect:/work/instructList?pageNum=" + pageDTO.getPageNum();
 	}
 	
 }

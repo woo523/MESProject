@@ -42,7 +42,7 @@
 	<form id="instr">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>
-			<button type="button" onclick="loginCheck()">등록</button>
+			<button type="button" onclick="loginCheck()">추가</button>
 		</div>
 		
 		<table class="searchBox">
@@ -105,7 +105,7 @@
 				<c:when test="${empty instrList}">
 					<tr><td colspan="15"></td></tr>
 					<tr>
-						<td colspan="15">해당 데이터가 존재하지 않습니다.</td>
+						<td colspan="15">작업지시 목록이 존재하지 않습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
