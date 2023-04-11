@@ -127,7 +127,7 @@ $(document).ready(function(){
 
 
 </script> 
-
+<%@ include file="../inc/header3.jsp"%>
 
 <body>
 <h2>생산 실적 등록 </h2>
