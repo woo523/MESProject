@@ -25,11 +25,11 @@
 	<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
 
 <!-- <style type="text/css"> -->
-/* .sub_menu ul.small_menu1,ul.small_menu2,ul.small_menu3,ul.small_menu4,ul.small_menu5{ */
+<!-- /* .sub_menu ul.small_menu1,ul.small_menu2,ul.small_menu3,ul.small_menu4,ul.small_menu5{ */
 /* 		color: #333; */
 /* 	font-size: 14px; */
 /* 	font-weight: 600; */
-/* } */
+/* } */ -->
 <!-- </style>	 -->
 </head>
 
@@ -51,7 +51,7 @@
 		</div>
 		
 		<header>
-			<img style="width: 250px; height: 135px;" src="/resources/image/mes.png" title="로고" onclick="location.href='${pageContext.request.contextPath }/login/login'">
+			<img style="width: 250px; height: 135px;" src="/resources/image/mes.png" onclick="location.href='${pageContext.request.contextPath }/main/main'">
 		</header>
 		
 		<div class="containerBody">
