@@ -67,7 +67,7 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public ItemDTO getitemlist(int itemId) {
+	public Map<String, Object> getitemlist(int itemId) {
 		return itemDAO.getitemlist(itemId);
 	}
 
@@ -76,6 +76,8 @@ public class ItemServiceImpl implements ItemService{
 	
 		itemDAO.updateItem(itemDTO);
 	}
+
+
 	
 	
 	

@@ -122,17 +122,17 @@ table#info {
   $(function() {
 	    $( ".datepicker1" ).datepicker1();
 	  });
-function openitemlist(){
+function openitemlist(b){
     window.open("${pageContext.request.contextPath }/ship/itemInfo","popup", "width=500, height=500,left=100, top=100");
 }
-function userlist(){
+function userlist(b){
     window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
 }
-function openclntlist(){
+function openclntlist(b){
     window.open("${pageContext.request.contextPath }/ship/clntInfo","popup", "width=500, height=500,left=100, top=100");
 }
 function openshiplist(){
-    window.open("${pageContext.request.contextPath }/ship/shipInfo","popup", "width=500, height=500,left=100, top=100");
+    window.open("${pageContext.request.contextPath }/ship/shipInsert","popup", "width=700, height=600,left=500, top=200");
 }
 function openorderlist(){
     window.open("${pageContext.request.contextPath }/order/orderMng","popup", "width=500, height=500,left=100, top=100");
@@ -312,7 +312,7 @@ $(document).ready(function () {
 		
 		
 		<h2>목록</h2>
-		<div class="listButtons">
+		<div class="selectButtons">
 			<button type="button">삭제</button>
 		</div>
 		
@@ -367,7 +367,7 @@ $(document).ready(function () {
 	</c:if>
 	</div>
 <br>
-<h1><a href="${pageContext.request.contextPath }/ship/shipInfo">추가</a></h1>
+
 
 
 

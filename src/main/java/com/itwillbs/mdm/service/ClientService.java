@@ -15,7 +15,7 @@ public interface ClientService {
 	//추상메서드
 //	public List<Map<String, Object>> getClientMap();
 	
-	public List<ClientDTO> clientlist();
+	public List<ClientDTO> clientList();
 	
 	public void insertClient(ClientDTO clientDTO);
 	
@@ -32,4 +32,6 @@ public interface ClientService {
 	public Map<String, Object> getclientlist(int clntId);
 
 	public void updateClient(ClientDTO clientDTO);
+	
+	public List<Map<String, Object>> clientlist();
 }

@@ -9,11 +9,9 @@
 <!-- 헤더 -->
 <%@ include file="../inc/header2.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
-
  table {
-      width: 600px;  
+      width: 650px;  
    } 
-
 th,td{
 border-bottom: 1px solid black;
 padding: 10px;
@@ -21,52 +19,41 @@ padding: 10px;
 #th {
 	font-weight: bold;
 }
-
 #con {
 	text-align: center;
 }
-
 #con:hover{
 	background-color : #e1e1e1;
 	cursor:pointer;
 }
-
-
-
 h1{
 	font-weight: bold;
+	font-size: 20px;
 }
-
 .search_bar tr, td{
  border:0px;
 }
-
 table#search {
  border:1px solid;
 }
-
 table#detail {
  border:1px solid;
 }
 table#info {
  border:1px solid;
 }
-
-
 #btn{
-      width: 600px; 
-	text-align: right;
+      width: 650px; 
+	text-align: center;
  
 }
 #pagination{
       width: 600px;  
 text-align: center;
 }
-
 #num:hover{
 	background-color : #e1e1e1;
 }
-
 .form-control{
 	width:150px;
 	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
@@ -74,25 +61,38 @@ text-align: center;
 	background-position: 98%;
 	border: 1px solid;
 }
-
-#pcd {
+#clntNm {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
-	background-position: 98%;
+	background-position:98%;
+	border: 1px solid;
+}
+#userNm{
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
 	border: 1px solid;
 }
 
-#pnm {
+#itemNum{
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
+	border: 1px solid;
+}
+#itemNm {
 	background-color: #EAEAEA;
+	background-position:98%;
 	border: 1px solid;
 }
-
-#main{
-	padding:40px;
+#invntUnit {
+	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
 }
-
-
-
+#main{
+	padding:20px;
+}
 </style>
 </head>
 
@@ -101,8 +101,6 @@ text-align: center;
 
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
-
-
 function openItemList(){
         window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
     }
@@ -112,7 +110,6 @@ function openUserList(){
 function openClntList(){
         window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
     }
-
 $(function() {
 	$("#orderDt").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
@@ -136,9 +133,6 @@ $(function() {
            }
 	});
 });
-
-
-
 $(function() {
 	$("#dlvryDt").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
@@ -158,7 +152,6 @@ $(function() {
 //            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
-
 $(document).ready(function(){
 	$('#insertOrder').submit(function() {
 	
@@ -198,25 +191,16 @@ $(document).ready(function(){
 		return false;
 	}
 	
-
 });
 });
-
-
 </script>
 <!-- 스크립트 끝. -->
 
 <div id="main" style="overflow: hidden;"> <!-- 지우면안됨 -->
 
-<br>
 	<h1>수주품목상세</h1>
 		<form id="insertOrder" action="${pageContext.request.contextPath }/order/orderInsertPro" method="get">
 	<div class="orderdetail">
-			<div id="btn">
-
-				<button type="reset">취소</button>
-				<input type="submit" value="저장" class="submit">
-			</div>
 				<br>
 			<table id="detail">
 				<tr>
@@ -253,16 +237,19 @@ $(document).ready(function(){
 				<td>품번</td>
 				<td><input type="hidden" name="itemId" id="itemId"  onclick="openItemList()">
 					<input type="text" name="itemNum" id="itemNum"  onclick="openItemList()"></td>
-				<td>품명</td>
-				<td><input type="text" name= "itemNm" id="itemNm"  onclick="openItemList()"></td>
+				<td><input type="text" name= "itemNm" id="itemNm"  readonly="readonly" placeholder="품명"></td>
+				<td><input type="text" name="invntUnit" id="invntUnit" readonly="readonly" value="" placeholder="단위"></td>
 				</tr>
 				<tr>
-				<td>단위</td>
-				<td><input type="text" name="invntUnit" id="invntUnit" value="" ></td>
 				<td>수량</td>
 				<td><input type="text" name="ordQty" id="ordQty" value="" placeholder="필수입력"></td>
 				</tr>
 			</table>
+			<br>
+				<div id="btn">
+				<button type="reset">취소</button>
+				<input type="submit" value="저장" class="submit">
+			</div>
 	</div>
 		</form>
 <br>

@@ -28,4 +28,6 @@ public interface ClientDAO {
 	
 	public void updateClient(ClientDTO clientDTO);
 	
+	public List<Map<String, Object>> clientlist();
+	
 }

@@ -71,7 +71,7 @@ public class ItemDAOImpl implements ItemDAO{
 	}
 
 	@Override
-	public ItemDTO getitemlist(int itemId) {
+	public Map<String, Object> getitemlist(int itemId) {
 		return sqlSession.selectOne(namespace+".getitemlist", itemId);
 	}
 
@@ -80,6 +80,8 @@ public class ItemDAOImpl implements ItemDAO{
 
 		sqlSession.update(namespace+".updateItem", itemDTO);
 	}
+
+
 	
 	
 

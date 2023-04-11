@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <title>출하 등록</title>
 <!-- 헤더 -->
-<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
+<%@ include file="../inc/header2.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
 
  table {
-      width: 1125px;  
+      width: 600px;  
    } 
 
 th,td{
@@ -54,12 +54,12 @@ table#info {
 
 
 #btn{
-      width: 1125px; 
+      width: 600px; 
 	text-align: right;
  
 }
 #pagination{
-      width: 1125px;  
+      width: 600px;  
 text-align: center;
 }
 
@@ -87,6 +87,10 @@ text-align: center;
 	border: 1px solid;
 }
 
+#main{
+	padding:40px;
+}
+
 </style>
 </head>
 
@@ -95,30 +99,25 @@ text-align: center;
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
 
-$(function() {
-    $( ".datepicker" ).datepicker();
-  });
-  $(function() {
-	    $( ".datepicker1" ).datepicker1();
-	  });
+
   function openitemlist(){
 	    window.open("${pageContext.request.contextPath }/ship/itemInfo","popup", "width=500, height=500,left=100, top=100");
 	}
 	function userlist(){
-	    window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
+	    window.open("${pageContext.request.contextPath }/ship/userList","popup", "width=500, height=500,left=100, top=100");
 	}
 	function openclntlist(){
 	    window.open("${pageContext.request.contextPath }/ship/clntInfo","popup", "width=500, height=500,left=100, top=100");
 	}
 	function openshiplist(){
-	    window.open("${pageContext.request.contextPath }/ship/shipInfo","popup", "width=500, height=500,left=100, top=100");
+	    window.open("${pageContext.request.contextPath }/ship/shipInsert","popup", "width=500, height=500,left=100, top=100");
 	}
 	function openorderlist(){
 	    window.open("${pageContext.request.contextPath }/order/orderMng","popup", "width=500, height=500,left=100, top=100");
 	}
 
 $(function() {
-	$("#Dlvdate").datepicker({
+	$("#dlvryDt").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -144,7 +143,7 @@ $(function() {
 
 
 $(function() {
-	$("#sshdate").datepicker({
+	$("#shipDt").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
            ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
            ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -163,9 +162,54 @@ $(function() {
 	});
 });
 
+
+
+$(document).ready(function(){
+	$('#insertOrder').submit(function() {
+	
+	if ($('#clntNm').val()=="") {
+		alert("업체명을 입력하세요");
+		$('#clntNm').focus();
+		return false;
+	}
+	
+	if ($('#dlvryDt').val()=="") {
+		alert("납품예정일을 입력하세요");7
+		$('#dlvryDt').focus();
+		return false;
+	}
+	
+	if ($('#userNm').val()=="") {
+		alert("담당자를 입력하세요");
+		$('#userNm').focus();
+		return false;
+	}
+	
+	if ($('#shipDt').val()=="") {
+		alert("출하일자를 입력하세요");
+		$('#shipDt').focus();
+		return false;
+	}
+	
+	if ($('#itemNum').val()=="") {
+		alert("품번을 입력하세요");
+		$('#clntNm').focus();
+		return false;
+	}
+	
+	if ($('#shipQty').val()=="") {
+		alert("수량을 입력하세요");
+		$('#shipQty').focus();
+		return false;
+	}
+	
+
+});
+});
+
 </script>
 
-<div class="content_body"> <!-- 지우면안됨 -->
+<div id="main" style="overflow: hidden;"> <!-- 지우면안됨 -->
 
 <h2>출하정보</h2>
 	
@@ -173,7 +217,7 @@ $(function() {
 		<div class="shipdetail">
 			<div id="btn">
 				<button type="reset">취소</button>
-				<button type="submit" >저장</button>
+				<input type="submit" value="저장" class="submit">
 			</div>
 			<br>
 			<table id="insert">
@@ -187,17 +231,18 @@ $(function() {
 				</tr>
 				<tr>
 				<td>출하업체</td>
-				<td><input type="text" name="clntNm" id="clntNm" onclick="openclntlist()">
+				<td><input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly>
+					<input type="text" name="clntNm" id="clntNm" onclick="openclntlist()">
 					<input type="hidden" name="clntId" id="clntId" value="">
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
 				</tr>
 				
 				<tr>
 				<td>납품예정일</td>
-				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="dlvryDt" class="form-control" name="dlvryDt" placeholder="날짜를 선택해주세요" readonly></td>
 									
 				<td>출하일자</td>
-				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="shipDt" class="form-control" name="shipDt" placeholder="날짜를 선택해주세요" readonly></td>
 				<td></td>
 
 				<td></td>
@@ -211,17 +256,22 @@ $(function() {
 	<div class="shiprinfo">
 			<table id="info">
 				<tr>
-				<td><input type="hidden" name="itemId" id="itemId"  onclick="openitemlist()"></td>
 				<td>품번</td>
-				<td><input type="text" name="itemNum" id="itemNum"  onclick="openitemlist()"></td>
-				<td>품명</td>
-				<td><input type="text" name= "itemNm" id="itemNm"  onclick="openitemlist()"></td>
-				<td>단위</td>
-				<td><input type="text" name="invntUnit" id="invntUnit" value="" ></td>
+				<td><input type="hidden" name="itemId" id="itemId"  onclick="openitemlist()">
+						<input type="text" name="itemNum" id="itemNum"  onclick="openitemlist()"></td>
+				<td><input type="text" name= "itemNm" id="itemNm"  readonly="readonly" placeholder="품명"></td>
+				<td><input type="text" name="invntUnit" id="invntUnit" readonly="readonly" value="" placeholder="단위"></td>
+				</tr>
+				<tr>
 				<td>수량</td>
-				<td><input type="text" name="shipQty" id="shipQty" value="" ></td>
+				<td><input type="text" name="shipQty" id="shipQty" value="" placeholder="필수입력"></td>
 				</tr>
 			</table>
+			<br>
+			<div id="btn">
+				<button type="reset">취소</button>
+				<input type="submit" value="저장" class="submit">
+			</div>
 	</div>
 	</form>
 	<br>
@@ -230,5 +280,5 @@ $(function() {
 
 </body>
 <!-- 푸터 -->
-<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
+<%-- <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 --> --%>
 </html>

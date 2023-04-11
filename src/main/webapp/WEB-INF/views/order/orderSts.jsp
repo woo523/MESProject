@@ -84,15 +84,23 @@ text-align: center;
 	border: 1px solid;
 }
 
-#pcd {
+#itemNum {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
 	background-position: 98%;
 	border: 1px solid;
 }
 
-#pnm {
-	background-color: #EAEAEA;
+#clntNm {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
+	border: 1px solid;
+}
+#userNm{
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
 	border: 1px solid;
 }
 
@@ -201,7 +209,7 @@ function deleteValue(){
         }
     }
     if (valueArr.length == 0){
-    	alert("선택된 글이 없습니다.");
+    	alert("선택된 항목이 없습니다.");
     }
     else{
 		var chk = confirm("삭제하시겠습니까?");		
@@ -226,7 +234,7 @@ function deleteValue(){
 		
 		
 		}else {
-			alert("취소했습니다");			
+			alert("취소되었습니다");			
 		}
 	}
 }
@@ -243,7 +251,7 @@ function cmpltValue(){
         }
     }
     if (valueArr.length == 0){
-    	alert("선택된 글이 없습니다.");
+    	alert("선택된 항목이 없습니다.");
     }
     else{
 		var chk = confirm("완료처리하시겠습니까?");		
@@ -257,7 +265,7 @@ function cmpltValue(){
 		    },
             success: function(jdata){
                 if(jdata = 1) {
-                    alert("수주완료되었습니다");
+                    alert("완료처리 되었습니다");
                     location.replace("orderSts")
                 }
                 else{
@@ -328,8 +336,10 @@ function cmpltValue(){
 		</form>
 	</div>
 <br>
+<br>
 	<h1>목록</h1>
 	<div id="count">총 ${pageDTO.count } 건</div>
+	<br>
 	<table border="1" id="main">
 	
 		<div id="btn">

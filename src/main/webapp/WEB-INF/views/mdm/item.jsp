@@ -9,9 +9,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 	
 <style type="text/css">
-h2{
-	margin : 20px 0px;
-}
+
 .item_body {
 	padding : 30px;
 }
@@ -315,9 +313,9 @@ display: inline-block;
 	<jsp:include page="../inc/header.jsp" />
 <!-- </header> -->
 <div class="item_body" id="item_body">
-<h2>|| 품목검색 ||</h2><br>
+<h1> 품목 정보 관리 </h1><br>
 <form id="itemSearch">		
-<div class="searchitem"><button type="submit">조회</button></div>
+<div class="searchitem"><button type="submit">조회</button><button type="button" onclick="openinsertbox();">등록</button></div>
 <table class="itemfilter">
 	<tr>
 	<td>품번</td>  <td><input type="text" class="itemNum" name="itemNum"></td>
@@ -341,10 +339,7 @@ display: inline-block;
 </table>
 </form>
 <div class="itemlist">
-<h2>|| 품목리스트 ||</h2><br>
-	<div class="listButtons">
-		<button type="button" onclick="openinsertbox();">추가</button>
-	</div>
+<h1> 품목 목록 </h1><br>
 	<div class="itemcount"><span id="itemcount"></span></div>
 <form name="formlist" id="formlist" method="post">
 	<table style="width:100%;" class="itemList">
@@ -363,7 +358,14 @@ display: inline-block;
 			<th>매출단가</th>
 			<th>비고</th>
 			<th> </th>
-		</tr>
+			<c:choose>
+				<c:when test="${empty itemList}">
+					<tr><td colspan="14"></td></tr>
+					<tr>
+						<td colspan="14">해당 데이터가 존재하지 않습니다.</td> 
+					</tr>
+					</c:when>
+					<c:otherwise>
 		<c:forEach var="itemDTO" items="${itemList}">	
 			<tr class="itemcontent">		
 				<td class="tditemnum">${itemDTO.itemNum}</td>
@@ -382,7 +384,7 @@ display: inline-block;
 <%-- 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a> --%>
 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="openmodifybox(this);"></a>
 				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a>
-				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/save.png' id="save" width='17px' onclick="saveLine(this);"></a>
+<%-- 				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/save.png' id="save" width='17px' onclick="saveLine(this);"></a> --%>
 <%-- 				<input type="image" src="${pageContext.request.contextPath}/resources/image/save.png" alt="" id="save" width='17px' onclick="saveLine(this);"> --%>
 <%-- 				<input class="tditemid" type="hidden"  value="${itemDTO.itemId}" readonly> --%>
 				<input class="tditemid" type="hidden" name="itemId"  value="${itemDTO.itemId}" readonly>
@@ -393,6 +395,8 @@ display: inline-block;
 				</td>
 			</tr>	
 		</c:forEach>
+		</c:otherwise>
+		</c:choose>
 		</thead>
 		<tbody id="tbody_id">
 		</tbody>

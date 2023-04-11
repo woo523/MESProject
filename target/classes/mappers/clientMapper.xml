@@ -199,7 +199,7 @@
     	WHERE clnt_id = #{clntId}
     </delete>
 	
-	<select id="clientlist" resultType="com.itwillbs.mdm.domain.ClientDTO">
+    <select id="clientlist" resultMap="ClientMap">
 			select clnt_nm
 			from client
 	</select>

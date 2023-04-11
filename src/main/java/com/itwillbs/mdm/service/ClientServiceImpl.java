@@ -28,7 +28,7 @@ public class ClientServiceImpl implements ClientService{
 //	}
 
 	@Override
-	public List<ClientDTO> clientlist() {
+	public List<ClientDTO> clientList() {
 		System.out.println("ClientServiceImpl clientList()");
 		return clientDAO.clientList();
 	}
@@ -77,7 +77,11 @@ public class ClientServiceImpl implements ClientService{
 		clientDAO.updateClient(clientDTO);
 	}
 
-
+	@Override
+	public List<Map<String, Object>> clientlist() {
+		return clientDAO.clientlist();
+	}
+	
 	
 	
 	

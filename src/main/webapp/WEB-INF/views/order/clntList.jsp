@@ -56,7 +56,7 @@ table {
 	border: 1px #a39485 solid;
 	font-size: .9em;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-	width: 425px;
+	width: 470px;
 	border-collapse: collapse;
 	border-radius: 5px;
 	overflow: hidden;
@@ -96,7 +96,6 @@ h2{
 <h2>
 수주업체 조회
 </h2>
-<br>
 <form>
 <table>
 <tr>

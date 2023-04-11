@@ -397,7 +397,7 @@ public class OrderController {
 		System.out.println("확인용"+ordId);
 		orderService.deleteOrder(ordId);
 
-		return "redirect:/order/orderMng";
+		return "redirect:/common/offwindow";
 	}
 
 	

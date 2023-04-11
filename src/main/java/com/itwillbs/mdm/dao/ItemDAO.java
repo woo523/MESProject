@@ -22,7 +22,9 @@ public interface ItemDAO {
 	
 	public void deleteItem(int itemId);
 
-	public ItemDTO getitemlist(int itemId);
+	public Map<String, Object> getitemlist(int itemId);
 	
 	public void updateItem(ItemDTO itemDTO);
+	
+	
 }

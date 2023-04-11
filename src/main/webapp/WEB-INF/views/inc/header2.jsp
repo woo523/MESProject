@@ -29,19 +29,9 @@
 
 <!-- 스크립트 끝. -->
 <body>
-	<div class="container">
-		<div class="topBar">
-		<c:choose>
-			<c:when test="${id==null }">
-				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/login'">로그인</div>
-			</c:when>
-			
-		</c:choose>
-		
-		</div>
-		
+<br>
 		<header>
-			<img src="/resources/image/logo.png" title="로고" onclick="location.href='${pageContext.request.contextPath }/login/login'">
+			<img src="/resources/image/logo.png" title="로고" >
 		</header>
 		
 	
