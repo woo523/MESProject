@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,14 +12,13 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
 <!-- Meta -->
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="CodedThemes">
 <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
 <meta name="author" content="CodedThemes">
 <!-- Favicon icon -->
-<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 <!-- Google font-->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 <!-- Required Fremwork -->
@@ -33,6 +30,7 @@
 <!-- Style.css -->
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+
 </head>
 
 <body>
@@ -49,13 +47,12 @@
 							<!-- card1 start -->
 							<div class="col-md-6 col-xl-3">
 								<div class="card widget-card-1">
-									<div class="card-block-small">
+									<div class="card-block-small" onclick="location.href='${pageContext.request.contextPath}/member/list'">
 										<i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
-										<h1 class="text-c-blue f-w-600">시스템관리</h1>
-<!-- 										<h4>49/50GB</h4> --> 
+										<h1 class="text-c-blue f-w-600 m-t-10">시스템 관리</h1>
 										<div>
 											<span class="f-left m-t-10 text-muted"> 
-											<i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i>Get more space</span>
+											<i class="text-c-blue f-20 icofont icofont-tag m-r-10"></i>사용자 관리 권한 관리 공통 코드 관리</span>
 										</div>
 									</div>
 								</div>
@@ -64,13 +61,14 @@
 							<!-- card1 start -->
 							<div class="col-md-6 col-xl-3">
 								<div class="card widget-card-1">
-									<div class="card-block-small">
+									<div class="card-block-small" onclick="location.href='${pageContext.request.contextPath}/mdm/item'">
 										<i class="icofont icofont-ui-home bg-c-pink card1-icon"></i> 
-										<h1 class="text-c-pink f-w-600">기준정보 관리</h1>
-										<h4>$23,589</h4>
+										<h1 class="text-c-pink f-w-600 m-t-10">기준정보 관리</h1>
 										<div>
 											<span class="f-left m-t-10 text-muted"> 
-											<i class="text-c-pink f-16 icofont icofont-calendar m-r-10"></i>Last 24 hours</span>
+											<i class="text-c-pink f-20 icofont icofont-tag m-r-10" ></i>품목정보 관리 거래처정보 관리</span>
+											<span class="f-left m-t-10 text-muted">
+											<i class="text-c-pink f-20 icofont icofont-tag m-r-10" ></i>라인정보 관리 설비정보 관리 창고정보 관리</span>
 										</div>
 									</div>
 								</div>
@@ -79,13 +77,12 @@
 							<!-- card1 start -->
 							<div class="col-md-6 col-xl-3">
 								<div class="card widget-card-1">
-									<div class="card-block-small">
-										<i class="icofont icofont-warning-alt bg-c-green card1-icon"></i>
-										<h1 class="text-c-green f-w-600">영업 관리</h1>
-										<h4>45</h4>
+									<div class="card-block-small" onclick="location.href='${pageContext.request.contextPath}/order/orderMng'">
+										<i class="icofont bg-c-green card1-icon"><img src='${pageContext.request.contextPath}/resources/image/cargo-ship-40.png'></i>
+										<h1 class="text-c-green f-w-600 m-t-10">영업 관리</h1>
 										<div>
 											<span class="f-left m-t-10 text-muted"> 
-											<i class="text-c-green f-16 icofont icofont-tag m-r-10"></i>Tracked via microsoft</span>
+											<i class="text-c-green f-20 icofont icofont-tag m-r-10"></i>수주관리 수주현황 출하관리 출하현황</span>
 										</div>
 									</div>
 								</div>
@@ -94,13 +91,14 @@
 							<!-- card1 start -->
 							<div class="col-md-6 col-xl-3">
 								<div class="card widget-card-1">
-									<div class="card-block-small">
-										<i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
-										<h1 class="text-c-yellow f-w-600">생산 관리</h1>
-										<h4>+562</h4>
+									<div class="card-block-small" onclick="location.href='${pageContext.request.contextPath}/work/instructList'">
+										<i class="icofont bg-c-yellow card1-icon">🛠</i>
+										<h1 class="text-c-yellow f-w-600 m-t-10">생산 관리</h1>
 										<div>
 											<span class="f-left m-t-10 text-muted"> 
-											<i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Just update </span>
+											<i class="text-c-yellow f-20 icofont icofont-tag m-r-10"></i>작업지시 정보관리 작업지시 현황</span>
+											<span class="f-left m-t-10 text-muted">
+											<i class="text-c-yellow f-20 icofont icofont-tag m-r-10"></i>실적등록 생산실적 현황</span>
 										</div>
 									</div>
 								</div>
@@ -109,13 +107,12 @@
 							<!-- card1 start -->
 							<div class="col-md-6 col-xl-3">
 								<div class="card widget-card-1">
-									<div class="card-block-small">
-										<i class="icofont icofont-social-twitter bg-c-yellow card1-icon"></i>
-										<h1 class="text-c-yellow f-w-600">자재 관리</h1>
-										<h4>+562</h4>
+									<div class="card-block-small" onclick="location.href='${pageContext.request.contextPath}/material/inmaterList'">
+										<i class="icofont bg-c-purple card1-icon">⛓</i>
+										<h1 class="text-c-purple f-w-600 m-t-10">자재 관리</h1>
 										<div>
 											<span class="f-left m-t-10 text-muted"> 
-											<i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Just update</span>
+											<i class="text-c-purple f-20 icofont icofont-tag m-r-10"></i>자재입고 관리 자재출고 관리 자재재고 현황</span>
 										</div>
 									</div>
 								</div>
@@ -175,38 +172,7 @@
 </div>
 <![endif]-->
 	<!-- Warning Section Ends -->
-	<!-- Required Jquery -->
-	<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-	<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js"></script>
-	<!-- jquery slimscroll js -->
-	<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
-	<!-- modernizr js -->
-	<script type="text/javascript" src="assets/js/modernizr/modernizr.js"></script>
-	<!-- am chart -->
-	<script src="assets/pages/widget/amchart/amcharts.min.js"></script>
-	<script src="assets/pages/widget/amchart/serial.min.js"></script>
-	<!-- Todo js -->
-	<script type="text/javascript " src="assets/pages/todo/todo.js "></script>
-	<!-- Custom js -->
-	<script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>
-	<script type="text/javascript" src="assets/js/script.js"></script>
-	<script type="text/javascript " src="assets/js/SmoothScroll.js"></script>
-	<script src="assets/js/pcoded.min.js"></script>
-	<script src="assets/js/demo-12.js"></script>
-	<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script>
-		var $window = $(window);
-		var nav = $('.fixed-button');
-		$window.scroll(function() {
-			if ($window.scrollTop() >= 200) {
-				nav.addClass('active');
-			} else {
-				nav.removeClass('active');
-			}
-		});
-	</script>
+
 </body>
 
 </html>

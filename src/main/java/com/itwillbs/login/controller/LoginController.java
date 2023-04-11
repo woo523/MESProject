@@ -57,7 +57,7 @@ public class LoginController {
 				session.setAttribute("menu"+auth.getMenuCd(), auth.getMenuCd());
 			}
 			// 주소 변경되면서 메인페이지로 이동
-			return "redirect:/member/list";
+			return "redirect:/main/main";
 		} else {
 			// 아이디,비밀번호 틀림
 			System.out.println("LoginController.loginPro.아이디 비밀번호 틀림");
@@ -75,25 +75,27 @@ public class LoginController {
 	}
 
 	// 가상주소 http://localhost:8080/login/idCheck
-		@RequestMapping(value = "/login/idCheck")
-		public ResponseEntity<String> idCheck(MemberDTO memberDTO,HttpServletRequest request) {
-			System.out.println("LoginController idCheck() ");
-			String result="";
-			// request 파라미터 id값 가져오기
-			String id=request.getParameter("id");
-			// 디비 아이디 중복체크
-			MemberDTO memberDTO2 = loginService.idCheck(memberDTO);
-			if(memberDTO2!=null) {
-				//아이디 있음 => 아이디 중복
-				result="Y";
-			}else {
-				//아이디 없음 => 아이디 사용가능
-				result="N";
-			}
-			//출력 결과 ResponseEntity 저장 => 되돌아감
-			ResponseEntity<String> entity= new ResponseEntity<String>(result,HttpStatus.OK);
-			return entity;
+	@RequestMapping(value = "/login/idCheck")
+	public ResponseEntity<String> idCheck(MemberDTO memberDTO,HttpServletRequest request) {
+		System.out.println("LoginController idCheck() ");
+		String result="";
+		// request 파라미터 id값 가져오기
+		String id=request.getParameter("id");
+		// 디비 아이디 중복체크
+		MemberDTO memberDTO2 = loginService.idCheck(memberDTO);
+		if(memberDTO2!=null) {
+			//아이디 있음 => 아이디 중복
+			result="Y";
+		}else {
+			//아이디 없음 => 아이디 사용가능
+			result="N";
 		}
+		//출력 결과 ResponseEntity 저장 => 되돌아감
+		ResponseEntity<String> entity= new ResponseEntity<String>(result,HttpStatus.OK);
+		return entity;
+	}
+	
+	
 }
 	
 
