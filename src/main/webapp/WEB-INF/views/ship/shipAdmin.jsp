@@ -327,7 +327,7 @@ $(document).ready(function () {
 				<th>출하고객</th>
 			</tr>
 			
-			<c:forEach var="sdto" items="${shipList}">
+			<c:forEach var="sdto" items="${shipAdmin1}">
 						<tr onclick="location.href='${pageContext.request.contextPath}/ship/shipInfo?shipId=${sdto.shipId}'">
 							<td>${sdto.userNm}</td>
 							<td>${sdto.shipNum}</td>

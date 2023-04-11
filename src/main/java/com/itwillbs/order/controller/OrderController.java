@@ -1,12 +1,16 @@
 package com.itwillbs.order.controller;
 
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +23,8 @@ import com.itwillbs.order.domain.PageDTO;
 import com.itwillbs.order.domain.clntDTO;
 import com.itwillbs.order.domain.userDTO;
 import com.itwillbs.order.service.OrderService;
+import com.itwillbs.ship.domain.ShipDTO;
+import com.itwillbs.ship.service.ShipService;
 
 
 @Controller
@@ -26,6 +32,10 @@ public class OrderController {
 	
 	@Inject
 	private OrderService orderService;
+	
+	
+	@Inject
+	private ShipService shipService;
 
 	@RequestMapping(value = "/order/orderInsert", method = RequestMethod.GET)
 	public String orderInsert() {
@@ -328,11 +338,10 @@ public class OrderController {
 		System.out.println("OrderController update()");
 		
 		int ordId=Integer.parseInt(request.getParameter("ordId"));
+		
 		OrderDTO orderDTO=orderService.getOrder(ordId);
-//		List<Map<String, Object>> getOrderList = orderService.getOrderList(ordId);
 		
 		model.addAttribute("orderDTO", orderDTO);
-//		model.addAttribute("getOrderList", getOrderList);
 		
 		return "order/update";
 	}
@@ -351,7 +360,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/order/updateCmplt", method = RequestMethod.GET)
-	public String updateCmplt(HttpServletRequest request, Model model) {
+	public String updateCmplt(HttpServletRequest request, Model model,HttpSession session) {
 		System.out.println("OrderController updateCmplt()");
 		
 		String ordId[]=request.getParameterValues("ordId");
@@ -364,7 +373,43 @@ public class OrderController {
 			orderDTO.setOrdId(Integer.parseInt(string));
 			orderService.updateCmplt(orderDTO);
 		}
-		
+		//------------------------------------------------
+		for (int i =0; i< ordId.length;i++) {
+			String string = ordId[i];
+			OrderDTO dto=orderService.getOrder(Integer.parseInt(string));
+			
+			ShipDTO sdto=shipService.getShipOrderId(Integer.parseInt(string));
+			
+			if(sdto != null) {
+				System.out.println("ordId 정보있음");
+				
+			}else {
+				System.out.println("ordId 정보없음");
+				
+				// 출하지시 규격코드
+				SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
+				String shipDate = sDate.format(new Timestamp(System.currentTimeMillis()));
+				String date = (shipDate.replaceAll("-", "")).substring(2);
+				int count = shipService.shipSCount() + 1;
+				String shipNum = String.format("SHP%s%05d", date, count);
+				
+				
+				sdto = new ShipDTO();
+				sdto.setOrdId(dto.getOrdId());
+				sdto.setOrdInfoId(dto.getOrdId());
+				sdto.setShipNum(shipNum);
+				sdto.setInsertId((String)session.getAttribute("id"));
+				sdto.setDlvryDt(dto.getDlvryDt());
+				sdto.setUserId(dto.getUserId());
+				sdto.setClntId(dto.getClntId());
+				sdto.setItemId(dto.getItemId());
+				System.out.println(sdto.getUserId());
+				System.out.println(sdto.getClntId());
+				System.out.println(sdto.getItemId());
+				shipService.insertShip(sdto);
+			}
+		}
+		//-----------------------------------------------------------------------------------
 		
 		return "redirect:/order/orderSts";
 	}

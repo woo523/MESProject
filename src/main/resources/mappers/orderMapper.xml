@@ -31,9 +31,7 @@
 
 <!-- 	orderMng 주문아이디 가져오기	 -->
 	<select id="getOrder" resultType="com.itwillbs.order.domain.OrderDTO">
-	select 
-	o.ord_id,c.clnt_nm, o.order_dt, u.name as userNm ,
-	 o.dlvry_dt, i.item_num, i.item_nm, i.invnt_unit, o.ord_qty,o.cmplt_yn
+	select o.ord_id,c.clnt_nm, o.order_dt, u.name as userNm , o.dlvry_dt, i.item_num, i.item_nm, i.invnt_unit, o.ord_qty,o.cmplt_yn,o.user_id, o.clnt_id, o.item_id
 	from client c join order_mng o
 	on o.clnt_id = c.clnt_id
 	join user u

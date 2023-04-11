@@ -52,5 +52,7 @@ public interface ShipDAO {
 	public ShipDTO getShip(int shipId);
 
 	public void deleteShip(int shipId);
+
+	public ShipDTO getShipOrderId(int ordId);
 	
 }

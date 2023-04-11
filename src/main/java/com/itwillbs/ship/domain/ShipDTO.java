@@ -19,19 +19,20 @@ public class ShipDTO {
 	private String trackNum;				// 송장번호
 	private String itemNum;
 	private String itemNm;
-	private String itemId;
+	private int itemId;
 	private String itemUnit;
-	private String clntId;
+	private int clntId;
 	private String userNum;
 	private int ordQty;
 	private String dlvryDt; 		
 	private String orderDt; 		
 	private String ordNum; 	
-	private String userId;
-	public String getUserId() {
+	private int userId;
+
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getOrderDt() {
@@ -76,22 +77,24 @@ public class ShipDTO {
 	public void setItemNm(String itemNm) {
 		this.itemNm = itemNm;
 	}
-	public String getItemId() {
-		return itemId;
-	}
-	public void setItemId(String itemId) {
-		this.itemId = itemId;
-	}
+
 	public String getItemUnit() {
 		return itemUnit;
 	}
 	public void setItemUnit(String itemUnit) {
 		this.itemUnit = itemUnit;
 	}
-	public String getClntId() {
+
+	public int getItemId() {
+		return itemId;
+	}
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	public int getClntId() {
 		return clntId;
 	}
-	public void setClntId(String clntId) {
+	public void setClntId(int clntId) {
 		this.clntId = clntId;
 	}
 	public String getTrackNum() {

@@ -150,6 +150,12 @@ public class ShipServiceImpl implements ShipService{
 		shipDAO.deleteShip(shipId);
 	}
 
+	@Override
+	public ShipDTO getShipOrderId(int ordId) {
+		System.out.println("ShipServiceImpl getShipOrderId()");
+		return shipDAO.getShipOrderId(ordId);
+	}
+
 	
 
 

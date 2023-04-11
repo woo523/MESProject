@@ -149,6 +149,12 @@ public class ShipDAOImpl implements ShipDAO{
 		sqlSession.delete(namespace+".deleteShip", shipId);
 	}
 
+	@Override
+	public ShipDTO getShipOrderId(int ordId) {
+		System.out.println("ShipDAOImpl getShipOrderId() ");
+		return sqlSession.selectOne(namespace+".getShipOrderId",ordId);
+	}
+
 
 
 	

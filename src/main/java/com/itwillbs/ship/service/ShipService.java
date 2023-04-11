@@ -53,6 +53,8 @@ public interface ShipService {
 
 	public void deleteShip(int shipId);
 	
+	public ShipDTO getShipOrderId(int ordId);
+	
 
 
 	

@@ -153,6 +153,15 @@
 			order by Dlvdate desc
 			limit #{startRow}, #{pageSize}
     	</select>
+    	
+    	
+    	<!-- 	ship 하나만 아이디 가져오기	 -->
+	<select id="getShipOrderId" resultType="com.itwillbs.ship.domain.ShipDTO">
+	select *
+	from ship_mng
+	where ord_id = #{ordId}
+	</select>
+    	
     
     <!-- 	shipList 조회할때 갯수와 조회값 가져오기 -->
     <select id="countListShip" resultType="java.lang.Integer">
@@ -277,6 +286,13 @@
 
 <!-- 	출하관리 납품 추가하기 -->
 	<insert id="insertShip">
+		insert into ship_mng
+		(ship_num,ord_id,ord_info_id,insert_id,insert_dt,dlvry_dt,user_id,clnt_id,item_id)
+		values(#{shipNum},#{ordId},#{ordInfoId},#{insertId},#{insertDt},#{dlvryDt},#{userId},#{clntId},#{itemId})
+	</insert>
+	
+	<!-- 	출하관리 납품 추가하기 -->
+	<insert id="insertShipOrder">
 		insert into ship_mng
 		(clnt_id,dlvry_dt,user_id,ship_dt,item_id,ship_qty,insert_id,insert_dt,ship_num)
 		values(#{clntId},#{dlvryDt},#{userId},#{shipDt},#{itemId},#{shipQty},#{insertId},#{insertDt},#{shipNum})
