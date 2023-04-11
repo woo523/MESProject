@@ -363,13 +363,13 @@ public class MaterialController {
 	
 	// 입고 삭제
 	@RequestMapping(value = "/material/del", method = RequestMethod.GET)
-	public String del(HttpServletRequest request, PageDTO pageDTO) { 
+	public String del(HttpServletRequest request) { 
 		System.out.println("MaterialController del()");
 		
 		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));		
 		materialService.deleteInmtrl(inmtrlId);
 
-		return "redirect:/material/inmaterList?pageNum=" + pageDTO.getPageNum();
+		return "redirect:/material/inmaterList";
 	}
 	
 	// 입고 수정

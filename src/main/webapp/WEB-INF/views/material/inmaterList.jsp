@@ -204,7 +204,7 @@ table#search {
 		  	<td>${inte.inmtrlLot}</td>
 		  	<td>${inte.note}</td>
 		  	<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="openmodi(${inte.inmtrlId})">
-				<a href="/material/del?inmtrlId=${inte.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="openDelete(${inte.inmtrlId})"></a></td>		
+				<img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="openDelete(${inte.inmtrlId})"></td>		
 			</tr>
 			</c:forEach>
 			</c:otherwise>
@@ -308,7 +308,7 @@ function openclist(){
     window.open("${pageContext.request.contextPath }/material/clientList","popup2", "width=500, height=500,left=100, top=100");
 }
 
-var inmtrlId = a;
+// var inmtrlId = a;
 
 function openmodi(a){ // 수정창
     window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=650, height=500,left=500, top=200");
