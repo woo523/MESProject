@@ -24,7 +24,13 @@
 	<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
 
-	
+<!-- <style type="text/css"> -->
+/* .sub_menu ul.small_menu1,ul.small_menu2,ul.small_menu3,ul.small_menu4,ul.small_menu5{ */
+/* 		color: #333; */
+/* 	font-size: 14px; */
+/* 	font-weight: 600; */
+/* } */
+<!-- </style>	 -->
 </head>
 
 <!-- 스크립트 끝. -->
@@ -53,9 +59,9 @@
 			<div class="left_sub_menu">
                 <div class="sub_menu">
                     <c:if test="${not empty menu1 || not empty menu2 || not empty menu3}">
-                    <ul class="big_menu">            	
+                    <ul class="big_menu1">            	
                         <li>시스템관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu">
+                        <ul class="small_menu1" id="sub1">
                         	<c:if test="${not empty menu1}">
                             <li><a href="${pageContext.request.contextPath}/member/list">사용자 관리</a></li>
                             </c:if>
@@ -69,9 +75,9 @@
                     </ul>
                     </c:if>
                     <c:if test="${not empty menu4 || not empty menu5 || not empty menu6 || not empty menu7 || not empty menu8}">
-                    <ul class="big_menu">
+                    <ul class="big_menu2">
                         <li>기준정보 관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu">
+                        <ul class="small_menu2" id="sub2">
                         	<c:if test="${not empty menu4}">
                             <li><a href="${pageContext.request.contextPath}/mdm/item">품목정보 관리</a></li>
                             </c:if>
@@ -91,9 +97,9 @@
                     </ul>
                     </c:if>
                     <c:if test="${not empty menu9 || not empty menu10 || not empty menu11 || not empty menu12}">
-                    <ul class="big_menu">
+                    <ul class="big_menu3">
                         <li>영업 관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu">
+                        <ul class="small_menu3" id="sub3">
                         	<c:if test="${not empty menu9}">
                             <li><a href="${pageContext.request.contextPath }/order/orderMng">수주관리</a></li>
                             </c:if>
@@ -110,9 +116,9 @@
    					</ul>
    					</c:if>
    					<c:if test="${not empty menu13 || not empty menu14 || not empty menu15 || not empty menu16}">
-                    <ul class="big_menu">
+                    <ul class="big_menu4">
                         <li>생산 관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu">
+                        <ul class="small_menu4" id="sub4">
                         	<c:if test="${not empty menu13}">
                             <li><a href="${pageContext.request.contextPath}/work/instructList">작업지시 정보관리</a></li>
                             </c:if>
@@ -129,9 +135,9 @@
                     </ul>
                     </c:if>
                     <c:if test="${not empty menu17 || not empty menu18 || not empty menu19}">
-                     <ul class="big_menu">
+                     <ul class="big_menu5">
                         <li>자재 관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu">
+                        <ul class="small_menu5" id="sub5">
                        	    <c:if test="${not empty menu17}">
                             <li><a href="${pageContext.request.contextPath }/material/inmaterList">자재입고 관리</a></li>
                             </c:if>
@@ -153,15 +159,68 @@
 
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
-$(document).ready(function(){
+// $(document).ready(function(){
 
-	// 왼쪽메뉴 드롭다운
-	$(".sub_menu ul.small_menu").hide();
-	$(".sub_menu ul.big_menu").click(function () {
+// 	// 왼쪽메뉴 드롭다운
+// 	$(".sub_menu ul.small_menu").hide();
+// 	$(".sub_menu ul.big_menu").click(function () {
 
-		$("ul", this).fadeIn();
-		$(this).addClass("active");
+// 		$("ul", this).slideDown();
+// 		$(this).addClass("active");
+// 	});
+	
+// 	// 왼쪽메뉴 드롭다운
+// 	$(".sub_menu ul.big_menu").click(function () {
+// 		$("ul", this).slideUp();
+// 	});	
+// });
+
+let subToggle=true;
+$(".sub_menu ul.small_menu1,ul.small_menu2,ul.small_menu3,ul.small_menu4,ul.small_menu5").hide();
+$(".sub_menu ul.big_menu1").click(()=>{
+  if(subToggle){
+    $("#sub1").slideDown(1000);
+  }else{
+    $("#sub1").slideUp(1000);
+  }
+  subToggle=!subToggle;
+});
+
+$(".sub_menu ul.big_menu2").click(()=>{
+	  if(subToggle){
+	    $("#sub2").slideDown(1000);
+	  }else{
+	    $("#sub2").slideUp(1000);
+	  }
+	  subToggle=!subToggle;
 	});
 	
-});
+$(".sub_menu ul.big_menu3").click(()=>{
+	  if(subToggle){
+	    $("#sub3").slideDown(1000);
+	  }else{
+	    $("#sub3").slideUp(1000);
+	  }
+	  subToggle=!subToggle;
+	});
+
+$(".sub_menu ul.big_menu4").click(()=>{
+	  if(subToggle){
+	    $("#sub4").slideDown(1000);
+	  }else{
+	    $("#sub4").slideUp(1000);
+	  }
+	  subToggle=!subToggle;
+	});
+
+$(".sub_menu ul.big_menu5").click(()=>{
+	  if(subToggle){
+	    $("#sub5").slideDown(1000);
+	  }else{
+	    $("#sub5").slideUp(1000);
+	  }
+	  subToggle=!subToggle;
+	});
+
+
 </script>
