@@ -76,7 +76,9 @@ public class ClientDAOImpl implements ClientDAO{
 		sqlSession.update(namespace+".updateClient", clientDTO);
 	}
 
-
-	
+	@Override
+	public List<Map<String, Object>> clientlist() {
+		return sqlSession.selectList(namespace+".clientlist");
+	}
 	
 }

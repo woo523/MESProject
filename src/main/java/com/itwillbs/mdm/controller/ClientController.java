@@ -72,7 +72,7 @@ public class ClientController {
 	@RequestMapping(value = "/mdm/clientinsert", method = RequestMethod.GET)
 	public String insertclientList(HttpServletRequest request, Model model) {
 		System.out.println("ClientController insertclientList()");
-		List<ClientDTO> clientList = clientService.clientlist();
+		List<ClientDTO> clientList = clientService.clientList();
 		model.addAttribute("clientList", clientList);
 		return "mdm/clientinsert";	
 	}

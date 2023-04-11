@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -83,7 +82,7 @@ public class ItemController {
 	@RequestMapping(value = "/mdm/iteminsert", method = RequestMethod.GET)
 	public String insertitemList(HttpServletRequest request, Model model) {
 		System.out.println("ItemController insertitemList()");
-		List<ClientDTO> clientList = clientService.clientlist();
+		List<Map<String, Object>> clientList = clientService.clientlist();
 		model.addAttribute("clientList", clientList);
 		return "mdm/iteminsert";	
 	}
@@ -101,11 +100,10 @@ public class ItemController {
 	public String itemlist(HttpServletRequest request, Model model) {
 		int itemId=Integer.parseInt(request.getParameter("itemId"));
 		
-		ItemDTO itemDTO=itemService.getitemlist(itemId);
+		Map<String, Object> itemDTO=itemService.getitemlist(itemId);
 		
 		model.addAttribute("itemDTO", itemDTO);
-		System.out.println("itemlist품번:"+itemDTO.getItemNum());
-		System.out.println("itemlist품명:"+itemDTO.getItemName());
+
 		// 주소변경 없이 이동
 		// /WEB-INF/views/board/content.jsp
 		return "mdm/item";
@@ -117,10 +115,11 @@ public class ItemController {
 		int itemId=Integer.parseInt(request.getParameter("itemId"));
 		System.out.println("update 아이템 아이디 : "+itemId);
 		
-		ItemDTO itemDTO=itemService.getitemlist(itemId);
+		Map<String, Object> itemDTO=itemService.getitemlist(itemId);
 		model.addAttribute("itemDTO", itemDTO);
-		System.out.println("itemupdate품번:"+itemDTO.getItemNum());
-		System.out.println("itemupdate품명:"+itemDTO.getItemName());
+		
+		List<Map<String, Object>> clientList=clientService.clientlist();
+		model.addAttribute("clientList", clientList);
 		// 주소변경 없이 이동
 		// /WEB-INF/views/board/updateForm.jsp
 		return "mdm/itemmodify";
@@ -153,10 +152,10 @@ public class ItemController {
 		return "mdm/item";	
 	}
 	
-	@GetMapping("/clientList")
-	public void clientList(HttpServletRequest request, Model model) {
-		System.out.println("ItemController clientList()");
-		List<ClientDTO> clientList = clientService.clientlist();
-		model.addAttribute("clientList", clientList);
-	}
+//	@GetMapping("/clientList")
+//	public void clientList(HttpServletRequest request, Model model) {
+//		System.out.println("ItemController clientList()");
+//		List<ClientDTO> clientList = clientService.clientlist();
+//		model.addAttribute("clientList", clientList);
+//	}
 }

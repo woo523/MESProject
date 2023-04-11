@@ -110,9 +110,10 @@ function deleteLine(obj){
 <!-- </header> -->
 
 <div>
-<h2>|| 설비정보관리 ||</h2><br>
+<h1> 설비정보관리 </h1><br>
 <form id="equipSearch">
-<div class="search"><button type="submit">조회</button></div>	
+<div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>	
+
 <table class="equip_filter">
 	<tr>	
 	<td>설비명</td>  <td><input type="text" class="equpName" name="equpName"></td>
@@ -125,8 +126,8 @@ function deleteLine(obj){
 			</select></td>
 	<td>설비상태</td> <td><select name="equpStat">
 				<option value="" selected>전체</option>
-				<option value="양호">양호</option>
-				<option value="불량">불량</option>
+				<option value="가동">가동</option>
+				<option value="대기">대기</option>
 				<option value="고장">고장</option>
 			</select></td>
 	<td>사용여부</td>  <td><select name="useYn">
@@ -138,11 +139,8 @@ function deleteLine(obj){
 </form>
 	
 <div>
-<h2>|| 설비 ||</h2><br>
+<h1> 설비 </h1><br>
 	
-	<div class="EquipButtons">
-		<button type="button" onclick="insertLine();">추가</button>
-	</div>
 	<div class="equipcount"><span id="equipcount"></span></div>
 	<form name="equiplist" id="equiplist" method="post">
 	<table border="1" class="equipList">

@@ -41,11 +41,7 @@ input, select, button{
 <meta charset="UTF-8">
 <title>ItemInsert</title>
 <script type="text/javascript">
-$('#modify').click(function(){
-	alert("수정되었습니다.");
-});
 
-$("#mtrlType").val("${itemDTO.mtrlType}").prop("selected",true);
 </script>
 </head>
 <body>
@@ -72,10 +68,10 @@ $("#mtrlType").val("${itemDTO.mtrlType}").prop("selected",true);
 	<tr><td>규격</td> <td><input type="text" name="standard" value="${itemDTO.standard}"></td></tr>
 	<tr><td>사용여부</td> <td><input type="radio" name="useYn" value="Y">Y
 							<input type="radio" name="useYn" value="N">N</td></tr>
-	<tr><td>거래처</td> <td><select name="clntName">
-						<option value="">거래처</option>
-						<c:forEach var="clientDTO" items="${clientList}">
-							<option value="${itemDTO.clntName}">${itemDTO.clntName}</option>
+	<tr><td>거래처</td> <td><select name="clntName" id="clntName" class="clntName">
+<!-- 						<option value="">거래처</option> -->
+						<c:forEach var="clientList" items="${clientList}">
+							<option value="${clientList.clntName}">${clientList.clntName}</option>
 						</c:forEach>
 	  				   </select>
 				  </td></tr>

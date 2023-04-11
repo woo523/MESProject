@@ -50,7 +50,11 @@
 		}
 	}
 
-	
+	function onKeyUp() {
+		if(window.event.keyCode == '13'){
+			login();
+		}
+	}
 </script>
 
   <section class="login_section">
@@ -74,11 +78,11 @@
             <form name="loginForm" id="loginForm" class="form w-100 p-4" action="/login/loginPro" method="post">
               <div class="form-group">
                 <label for="email">아이디</label>
-                <input type="text" id="id" name="id" class="form-control" onfocus="labelUp(this)" onblur="labelDown(this)" required />
+                <input type="text" id="id" name="id" class="form-control" onfocus="labelUp(this)" onblur="labelDown(this)" onkeyup="onKeyUp()" required />
               </div>
               <div class="form-group">
                 <label for="login_password">비밀번호</label>
-                <input type="password" id="login_password"  name="pass" class="form-control" onfocus="labelUp(this)" onblur="labelDown(this)" required />
+                <input type="password" id="login_password"  name="pass" class="form-control" onfocus="labelUp(this)" onblur="labelDown(this)" onkeyup="onKeyUp()" required />
               </div>
               <div class="form-group mb-0">
                 <button type="button" class="btn btn-primary register_btn w-100" onclick="login();">Login</button>

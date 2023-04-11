@@ -53,10 +53,10 @@
 			</when>
 	</choose>
 	<choose>
-			<when test="equpStat == '양호'.toString()">
+			<when test="equpStat == '가동'.toString()">
 				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
 			</when>
-			<when test="equpStat == '불량'.toString()">
+			<when test="equpStat == '대기'.toString()">
 				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
 			</when>
 			<when test="equpStat == '고장'.toString()">
@@ -115,10 +115,10 @@
 			</when>
 	</choose>
 	<choose>
-			<when test="equpStat == '양호'.toString()">
+			<when test="equpStat == '가동'.toString()">
 				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
 			</when>
-			<when test="equpStat == '불량'.toString()">
+			<when test="equpStat == '대기'.toString()">
 				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
 			</when>
 			<when test="equpStat == '고장'.toString()">
