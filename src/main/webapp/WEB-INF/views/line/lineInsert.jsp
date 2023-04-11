@@ -42,7 +42,7 @@
 							<option value="작업장1">작업장1</option>
 							<option value="작업장2">작업장2</option>
 						</select></li>			
-			<li>일렬번호 <span>*</span>
+			<li>일련번호 <span>*</span>
 						 <input type="text" name="sortOrder" class="sortOrder"></li>
 			<li>사용여부 <input type="radio" name="useChoice" value="Y" class="sCheck">Y
 						 <input type="radio" name="useChoice" value="N" class="sCheck" checked="checked" onclick="return false;">N</li>
@@ -58,6 +58,7 @@
 
 <script type="text/javascript">
 
+// 라인 등록 시 사용여부 기본값 N
 $(document).ready(function () {
 	$("input[value='Y']").attr('disabled', true);
 });

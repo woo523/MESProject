@@ -48,7 +48,7 @@ article input {
 	vertical-align: middle;
 }
 
-.content_body .instrList td {
+.content_body .instrList td, .instrStateList td {
 	padding: 10px 0px 10px 0px;
 	text-align: center;
 }
@@ -67,4 +67,8 @@ article input {
 
 .content_body .searchBox #pnm {
 	background-color: #EAEAEA;
+}
+
+.content_body .instrStateList span {
+	text-align: right;
 }

@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>instructState</title>
 
-<link href="/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
 

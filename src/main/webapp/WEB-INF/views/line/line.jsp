@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Line</title>
 
-<link href="/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
