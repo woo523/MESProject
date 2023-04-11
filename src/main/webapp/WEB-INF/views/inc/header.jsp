@@ -45,7 +45,7 @@
 		</div>
 		
 		<header>
-			<img src="/resources/image/logo.png" title="로고" onclick="location.href='${pageContext.request.contextPath }/login/login'">
+			<img style="width: 250px; height: 135px;" src="/resources/image/mes.png" title="로고" onclick="location.href='${pageContext.request.contextPath }/login/login'">
 		</header>
 		
 		<div class="containerBody">
