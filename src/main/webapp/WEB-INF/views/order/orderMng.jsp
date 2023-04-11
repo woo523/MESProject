@@ -84,18 +84,19 @@ text-align: center;
 	border: 1px solid;
 }
 
-#pcd {
+
+#clntNm {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
-	background-position: 98%;
+	background-position:98%;
 	border: 1px solid;
 }
-
-#pnm {
-	background-color: #EAEAEA;
+#userNm{
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
 	border: 1px solid;
 }
-
 
 
 </style>
@@ -106,7 +107,7 @@ text-align: center;
 <!-- 자바스크립트 들어가는 곳 -->
 
 function openInsert(a){ 
-		window.open("${pageContext.request.contextPath}/order/orderInsert","popup1", "width=700, height=600,left=100, top=100");
+		window.open("${pageContext.request.contextPath}/order/orderInsert","popup1", "width=700, height=500,left=100, top=100");
 	}
 function openContent(a){ 
 		window.open("${pageContext.request.contextPath}/order/content?ordId="+a,"popup2", "width=600, height=600,left=100, top=100");

@@ -331,7 +331,8 @@
 	delete from order_mng
 	where ord_id = #{ordId}
 	</delete>
-<!-- 	수주관리 주문 삭제 -->
+	
+	
 	<delete id="deleteCmplt">
 	delete from order_mng
 	where ord_id = #{ordId}
