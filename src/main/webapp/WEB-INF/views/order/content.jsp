@@ -84,6 +84,7 @@ td {
 h1{
 	padding-left: 40px;
 	padding-top: 10px;
+	font-size: 22.5px;
 }
 
 #con:hover{

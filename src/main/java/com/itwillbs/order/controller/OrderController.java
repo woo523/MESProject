@@ -328,10 +328,11 @@ public class OrderController {
 		System.out.println("OrderController update()");
 		
 		int ordId=Integer.parseInt(request.getParameter("ordId"));
-		
 		OrderDTO orderDTO=orderService.getOrder(ordId);
+//		List<Map<String, Object>> getOrderList = orderService.getOrderList(ordId);
 		
 		model.addAttribute("orderDTO", orderDTO);
+//		model.addAttribute("getOrderList", getOrderList);
 		
 		return "order/update";
 	}

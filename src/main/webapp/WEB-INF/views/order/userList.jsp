@@ -81,8 +81,9 @@ td {
 	background: #fff;
 	text-align: center;
 }
-h2{
+h1{
 	text-align: center;
+	font-size: 22.5px;
 }
 
 #con:hover{
@@ -93,9 +94,9 @@ h2{
 </style>
 </head>
 <body>
-<h2>
+<h1>
 담당자 조회
-</h2>
+</h1>
 <form>
 <table>
 <tr>

@@ -28,7 +28,7 @@ padding: 10px;
 }
 h1{
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 22.5px;
 }
 .search_bar tr, td{
  border:0px;

@@ -20,38 +20,6 @@ body{
 }
 
 
-
-/* 페이징 */
-
-
-#pagination {
-  display: inline-block;
-}
-
-#pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-}
-
-
-
-#pagination a.active {
-	background-color: #b9b9b9;
-  color: white;
-  border: 1px solid #b9b9b9;
-}
-
-#pagination a:hover:not(.active,.none) {background-color: #ddd;}
-
-.center {
-  text-align: center;
-}
-
-
 table {
 	margin : 0px auto;
 	border: 1px #a39485 solid;
@@ -83,6 +51,7 @@ td {
 h1{
 	padding-left: 40px;
 	padding-top: 10px;
+	font-size: 22.5px;
 }
 
 #con:hover{
@@ -163,7 +132,7 @@ $(function() {
 
 <div class="content_body"> <!-- 지우면안됨 -->
 <br>
-<h2>수주폼목 수정</h2>
+<h1>수주폼목 수정</h1>
 <form action="${pageContext.request.contextPath}/order/updatePro" method="post">
 			<div id="btn">
 				<button type="submit" >저장</button>

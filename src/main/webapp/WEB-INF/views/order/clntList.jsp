@@ -81,8 +81,9 @@ td {
 	background: #fff;
 	text-align: center;
 }
-h2{
+h1{
 	text-align: center;
+	font-size: 22.5px;
 }
 
 #con:hover{
@@ -93,9 +94,9 @@ h2{
 </style>
 </head>
 <body>
-<h2>
+<h1>
 수주업체 조회
-</h2>
+</h1>
 <form>
 <table>
 <tr>
@@ -128,10 +129,13 @@ h2{
 </c:forEach>
 </table>
 <br>
+
+
+
 <div class="center">
 <div id="pagination">
 
-    <!-- 1페이지 이전 -->
+<!--     1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
 	<a href="${pageContext.request.contextPath }/order/clntList?clntCd=${search.clntCd}&clntNm=${search.clntNm}&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
@@ -145,7 +149,7 @@ h2{
 	<a href="${pageContext.request.contextPath }/order/clntList?clntCd=${search.clntCd}&clntNm=${search.clntNm}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a> 
 	</c:forEach>
 
-<!-- 1페이지 다음 -->	
+<!-- 1페이지 다음	 -->
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
 	<a href="${pageContext.request.contextPath }/order/clntList?clntCd=${search.clntCd}&clntNm=${search.clntNm}&pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>

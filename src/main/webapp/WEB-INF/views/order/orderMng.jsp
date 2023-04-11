@@ -43,7 +43,7 @@ text-align: center;
 
 h1{
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 22.5px;
 }
 
 .search_bar tr, td{
@@ -54,22 +54,10 @@ table#search {
  border:1px solid;
 }
 
-table#detail {
- border:1px solid;
-}
-table#info {
- border:1px solid;
-}
-
-
 #btn{
-      width: 1125px; 
+    width: 1125px; 
 	text-align: right;
  
-}
-#pagination{
-      width: 1125px;  
-text-align: center;
 }
 
 #num:hover{
@@ -97,6 +85,39 @@ text-align: center;
 	background-position:98%;
 	border: 1px solid;
 }
+
+/* 페이징 */
+
+
+#pagination {
+
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+  width:1125px;
+}
+
 
 
 </style>
@@ -295,6 +316,7 @@ $(function() {
   </table>
   
     <br>
+<div class="center">
     <div id="pagination">
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
@@ -319,11 +341,9 @@ $(function() {
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
 	<a href="${pageContext.request.contextPath }/order/orderMng?clntNm=${search.clntNm}&sOdate=${search.sOdate}&eOdate=${search.eOdate }&userNm=${search.userNm }&sDdate=${search.sDdate}&eDdate=${search.eDdate }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
+	
 	</div>
-<!-- <br> -->
-<%-- <a href="${pageContext.request.contextPath }/order/orderInsert">추가</a></h1> --%>
-
-
+</div>
 </div>
 </body>
 <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
