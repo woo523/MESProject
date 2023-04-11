@@ -118,7 +118,7 @@ text-align: center;
 	<tr><td>출하고객</td>
 	<td>${shipDTO.clntNm }</td></tr>
 	<tr><td>출하일자</td>
-	<td>${shipDTO.orderDt }</td></tr>
+	<td>${shipDTO.shipDt }</td></tr>
 	<tr><td>담당자</td>
 	<td>${shipDTO.userNm }</td></tr>
 	<tr><td>납품예정일</td>
