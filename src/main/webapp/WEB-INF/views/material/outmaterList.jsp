@@ -13,7 +13,11 @@
 table {
     width: 1125px;
   }
-  
+
+article input {
+   height: 20px;
+}
+
 th,td{
 border-bottom: 1px solid black;
 padding: 10px;

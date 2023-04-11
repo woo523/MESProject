@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -17,7 +17,7 @@ body{
 	font-family: 'NanumSquare', sans-serif;
 }
 
-/* ÆäÀÌÂ¡ */
+/* í˜ì´ì§• */
 
 
 #pagination {
@@ -89,20 +89,20 @@ h2{
 
 <body>
 <h2>
-¾÷Ã¼ Á¶È¸
+ì—…ì²´ ì¡°íšŒ
 </h2>
 <br>
 <form>
 	<table>
 		<tr>
-			<td>¾÷Ã¼¹øÈ£</td><td><input type="text" name="clientCode" style="width:120px;"></td>
-			<td>¾÷Ã¼¸í</td><td><input type="text" name="clientName" style="width:120px;"></td>
-			<td><input type="submit" value="Á¶È¸"></td>
+			<td>ì—…ì²´ë²ˆí˜¸</td><td><input type="text" name="clientCode" style="width:120px;"></td>
+			<td>ì—…ì²´ëª…</td><td><input type="text" name="clientName" style="width:120px;"></td>
+			<td><input type="submit" value="ì¡°íšŒ"></td>
 		</tr>
 	</table>
 </form>	
 <table>
-	<tr><th>¾÷Ã¼¹øÈ£</th><th>¾÷Ã¼¸í</th></tr>
+	<tr><th>ì—…ì²´ë²ˆí˜¸</th><th>ì—…ì²´ëª…</th></tr>
 	<c:forEach var="clientList" items="${clientList }">
 		<tr onclick="selectClient('${clientList.clientCode }','${clientList.clientName }', ${clientList.clientId } )">
 			<td id="con">${clientList.clientCode }</td>
@@ -110,7 +110,7 @@ h2{
 		</tr>	
 		
 		<script type="text/javascript">
-			function selectClient(a,b,c){ // ºÎ¸ğÃ¢À¸·Î °ª ³Ñ±â±â
+			function selectClient(a,b,c){ // ë¶€ëª¨ì°½ìœ¼ë¡œ ê°’ ë„˜ê¸°ê¸°
 				opener.document.getElementById("ccd").value = a 
 		        opener.document.getElementById("cnm").value = b
 		        opener.document.getElementById("cid").value = c
@@ -123,12 +123,12 @@ h2{
 <div class="center">
 <div id="pagination">
 
-    <!-- 1ÆäÀÌÁö ÀÌÀü -->
+    <!-- 1í˜ì´ì§€ ì´ì „ -->
 	<c:if test="${pageDTO.currentPage > 1}">
 	<a href="${pageContext.request.contextPath }/material/clientList?clientCode=${search.clientCode}&clientName=${search.clientName}&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
 
-<!-- 10ÆäÀÌÁö ÀÌÀü -->
+<!-- 10í˜ì´ì§€ ì´ì „ -->
 	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
 	<a href="${pageContext.request.contextPath }/material/clientList?clientCode=${search.clientCode}&clientName=${search.clientName}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 	</c:if>
@@ -137,12 +137,12 @@ h2{
 	<a href="${pageContext.request.contextPath }/material/clientList?clientCode=${search.clientCode}&clientName=${search.clientName}&pageNum=${i}">${i}</a> 
 	</c:forEach>
 
-<!-- 1ÆäÀÌÁö ´ÙÀ½ -->	
+<!-- 1í˜ì´ì§€ ë‹¤ìŒ -->	
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
 	<a href="${pageContext.request.contextPath }/material/clientList?clientCode=${search.clientCode}&clientName=${search.clientName}&pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>
 
-<!-- 10ÆäÀÌÁö ´ÙÀ½ -->
+<!-- 10í˜ì´ì§€ ë‹¤ìŒ -->
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
 	<a href="${pageContext.request.contextPath }/material/clientList?clientCode=${search.clientCode}&clientName=${search.clientName}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>

@@ -85,7 +85,7 @@ table#search {
 	
 .content_body td {
 	padding: 10px;
-	text-align: center;
+/* 	text-align: center; */
 }	
 
 .content_body .inList th{
@@ -108,6 +108,9 @@ table#search {
 	width: 1125px; 
 }
 
+article input {
+   height: 20px;
+}
 
 /* 페이징 */
 

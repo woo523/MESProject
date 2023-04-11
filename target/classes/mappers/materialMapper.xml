@@ -150,6 +150,13 @@
 		VALUES (#{itemId}, #{clntId}, #{inmtrlNum},  #{inmtrlDt}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{insertId}, #{insertDt})
 	</insert>
 
+<!-- 	<update id="updateStock"> -->
+<!-- 	update stock -->
+<!-- 	set cur_stock = cur_stock + #{inmtrlQty} -->
+<!-- 	where -->
+<!-- 	item_id= #{itemId} -->
+<!-- 	</update> -->
+	
 	<select id="getInmtrlList" resultType="com.itwillbs.material.domain.InmaterialDTO">
 	select 
 			inmater.in_mtrl_id,
@@ -575,6 +582,13 @@
 			cur_stock = #{curStock}
 		where stock_id = #{stockId}
 	</update>
+
+<!-- 	<update id="delStock"> -->
+<!-- 		update stock -->
+<!-- 		set cur_stock = cur_stock - #{outmtrlQty} -->
+<!-- 		where -->
+<!-- 		where stock_id = #{stockId} -->
+<!-- 	</update> -->
 
 	<select id="getStock" resultType="com.itwillbs.material.domain.StockDTO">
 		select 

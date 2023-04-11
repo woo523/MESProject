@@ -436,13 +436,13 @@ public class MaterialController {
 	
 	// 출고 삭제
 	@RequestMapping(value = "/material/outDel", method = RequestMethod.GET)
-	public String outDel(HttpServletRequest request, PageDTO pageDTO) { 
+	public String outDel(HttpServletRequest request) { 
 		System.out.println("MaterialController outDel()");
 		
 		int outmtrlId = Integer.parseInt(request.getParameter("outmtrlId"));		
 		materialService.deleteOutmtrl(outmtrlId);
 		
-		return "redirect:/material/outmaterList?pageNum=" + pageDTO.getPageNum();
+		return "redirect:/material/outmaterList";
 	}
 	
 	
