@@ -363,13 +363,13 @@ public class MaterialController {
 	
 	// 입고 삭제
 	@RequestMapping(value = "/material/del", method = RequestMethod.GET)
-	public String del(HttpServletRequest request) { 
+	public String del(HttpServletRequest request, PageDTO pageDTO) { 
 		System.out.println("MaterialController del()");
-		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));
 		
+		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));		
 		materialService.deleteInmtrl(inmtrlId);
 
-		return "redirect:/material/inmaterList";
+		return "redirect:/material/inmaterList?pageNum=" + pageDTO.getPageNum();
 	}
 	
 	// 입고 수정
@@ -425,11 +425,10 @@ public class MaterialController {
 		System.out.println("규격코드:"+inmtrlNum);
 		inmaterialDTO.setInmtrlNum(inmtrlNum);
 		inmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
-		inmaterialDTO.setInsertId(request.getParameter(inmtrlNum));
+		inmaterialDTO.setInsertId(request.getParameter("insertId"));
 		
 		materialService.insertInmtrl(inmaterialDTO);
 		System.out.println(inmaterialDTO);
-		System.out.println(inmtrlNum);
 		
 		return "redirect:/common/offwindow";
 	}
@@ -437,13 +436,13 @@ public class MaterialController {
 	
 	// 출고 삭제
 	@RequestMapping(value = "/material/outDel", method = RequestMethod.GET)
-	public String outDel(HttpServletRequest request) { 
+	public String outDel(HttpServletRequest request, PageDTO pageDTO) { 
 		System.out.println("MaterialController outDel()");
-		int outmtrlId = Integer.parseInt(request.getParameter("outmtrlId"));
 		
+		int outmtrlId = Integer.parseInt(request.getParameter("outmtrlId"));		
 		materialService.deleteOutmtrl(outmtrlId);
-
-		return "redirect:/material/outmaterList";
+		
+		return "redirect:/material/outmaterList?pageNum=" + pageDTO.getPageNum();
 	}
 	
 	
@@ -455,9 +454,9 @@ public class MaterialController {
 		return "material/outmtrlInsert";
 	}	
 	
-	// 자재입고 등록
+	// 자재출고 등록
 	@RequestMapping(value = "/material/outmtrlInsertPro", method = RequestMethod.POST)
-	public String outmtrlInsertPro(OutmaterialDTO outmaterialDTO) {
+	public String outmtrlInsertPro(OutmaterialDTO outmaterialDTO, HttpServletRequest request) {
 		System.out.println("MaterialController outmtrlInsertPro()");
 		String date = outmaterialDTO.getOutmtrlDt(); // 등록 날짜
 		String date2 = date.replaceAll("-", ""); // "-" 빼기
@@ -468,6 +467,7 @@ public class MaterialController {
 		System.out.println("규격코드:"+outmtrlNum);
 		outmaterialDTO.setOutmtrlNum(outmtrlNum);
 		outmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
+		outmaterialDTO.setInsertId(request.getParameter("insertId"));
 		
 		materialService.insertOutmtrl(outmaterialDTO);
 		System.out.println(outmaterialDTO);

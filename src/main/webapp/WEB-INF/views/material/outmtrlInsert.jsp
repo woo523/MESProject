@@ -57,6 +57,10 @@ input, select, button{
 	font-family: 'NanumSquare', sans-serif;
 }
 
+#red{
+	color:red;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -68,51 +72,49 @@ function openclist(){
     window.open("${pageContext.request.contextPath }/material/clientList","popup", "width=500, height=500,left=100, top=100");
 }
 
-// $('#insert').submit(function(){ // 유효성 검사
-   
-// 	if($('.mtDate').val()==null||$('.mtDate').val()==""){
-//     	alert("입고일을 입력하세요");
-// 		$('.mtDate').focus();
-// 		return false;
-//     }
-
-// 	if($('.Qty').val()==null||$('.Qty').val()==""){
-// 		alert("출고 수량을 입력하세요");
-// 		$('.Qty').focus();
+//유효성 검사
+function checkForm() {
 	
-// 		return false;
-// 	}
+	if($('.mtDate').val() == "") {
+		alert("출고 일자를 입력해주세요.");
+		$('.mtDate').focus();
+		
+		return false;
+	}
 	
-// 	if($('.Qty').val()<=0){
-// 		alert("출고 수량은 양수로 입력해주세요");
-// 		$('.Qty').focus();
+	if($('.pcd').val() == "") {
+		alert("제품 정보를 입력해주세요.");
+		$('.pcd').focus();
+		
+		return false;
+	}
 	
-// 		return false;
-// 	}
+	if($('.ccd').val() == "") {
+		alert("거래처 정보를 입력해주세요.");
+		$('.ccd').focus();
+		
+		return false;
+	}
 	
-// 	if($('.unit').val()==null||$('.unit').val()==""){
-// 		alert("단위를 입력하세요");
-// 		$('.unit').focus();
 	
-// 		return false;
-// 	}
+	if($('.Qty').val() == "") {
+		alert("출고 수량을 입력해주세요.");
+		$('.Qty').focus();
+		
+		return false;
+	}
+	 if($('.Qty').val()<=0){
+	    	alert("출고 수량은 양수로 입력해주세요.");
+			$('.Qty').focus();
 	
-// 	if($('.pcd').val()==null||$('.pcd').val()==""){
-// 		alert("제품 정보를 입력하세요");
-// 		$('.pcd').focus();
+			return false;
+	 }
+	 
+	let submit = confirm("등록하시겠습니까?");
+	let resultSubmit = submit ? true : false;	// 삼항연산자
+	return resultSubmit;
 	
-// 		return false;
-// 	}
-	
-// 	if($('.ccd').val()==null||$('.ccd').val()==""){
-// 		alert("거래처 정보를 입력하세요");
-// 		$('.ccd').focus();
-	
-// 		return false;
-// 		}
-// 	}
-
-// });
+}
 </script>
 </head>
 
@@ -121,21 +123,22 @@ function openclist(){
 
 	<h2>자재출고 등록</h2>
 	
-	<div id="num">- 등록자 : ${sessionScope.id} - </div><br>
-	<form action="${pageContext.request.contextPath }/material/outmtrlInsertPro" id="insert" method="post">	
+<%-- 	<div id="num">- 등록자 : ${sessionScope.id} - </div><br> --%>
+	<form action="${pageContext.request.contextPath }/material/outmtrlInsertPro" id="insert" method="post" onsubmit="return checkForm()">	
 	
 		<table>
-			<tr><td>출고일자</td><td><input type="date" id="Date" class="mtDate" name="outmtrlDt"></td></tr>
-			<tr><td>제품 정보</td><td><input type="text" id="pcd" class="pcd" placeholder="품번코드" onclick="openilist()">
+			<tr><td>등록자</td><td><input type="text" name="insertId" value="${sessionScope.id}" readonly></td></tr>
+			<tr><td>출고일자<span id="red">*</span></td><td><input type="date" id="Date" class="mtDate" name="outmtrlDt"></td></tr>
+			<tr><td>제품 정보<span id="red">*</span></td><td><input type="text" id="pcd" class="pcd" placeholder="품번코드" onclick="openilist()">
 					   <input type="text" id="pnm" placeholder="품번명" onclick="openilist()"></td></tr>
 					    <input type="hidden" name="itemId" id="pid" >
-			<tr><td>거래처 정보</td><td><input type="text" id="ccd" class="ccd" placeholder="업체코드" onclick="openclist()">
+			<tr><td>거래처 정보<span id="red">*</span></td><td><input type="text" id="ccd" class="ccd" placeholder="업체코드" onclick="openclist()">
 						 <input type="text" id="cnm" placeholder="업체명" onclick="openclist()"></td></tr>
 						 <input type="hidden" name="clntId" id="cid">
 						 <input type="hidden" name="whouse" id="whouse">
 						<input type="hidden" name="curStock" id="stockcur">
 <!-- 			<tr><td>단위</td><td><input type="text" name="unit"></td></tr> -->
-			<tr><td>출고수량</td><td><input type="number" class="Qty" name="outmtrlQty"></td></tr>
+			<tr><td>출고수량<span id="red">*</span></td><td><input type="number" class="Qty" name="outmtrlQty"></td></tr>
 			<tr><td>비고</td><td><input type="text" name="note"></td></tr>
 		</table><br>
 		<div id="bu">

@@ -49,11 +49,6 @@ table#search {
  border:1px solid;
 }
 
-#pagination{
-      width: 1125px;  
-text-align: center;
-}
-
 #pcd {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
@@ -92,6 +87,43 @@ text-align: center;
 .selectButtons tr, td{
  border:0px;
 }
+
+#count{
+	text-align: right;
+	width: 1125px; 
+}
+
+/* 페이징 */
+
+
+#pagination {
+
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+  width:1125px;
+}
 	
 </style>
 
@@ -111,7 +143,8 @@ text-align: center;
 		</div>
 	<br>	
 	<table id="search">
-		<tr><td>출고창고</td>
+		<tr>
+			<td>출고창고</td>
 				<td><select name="whouse">
 					<option value="" selected>전체</option>
 					<option value="창고A">창고A</option>
@@ -137,9 +170,8 @@ text-align: center;
 </div>
 
 	<br><br><br>
-	<h1>자재 출고 목록</h1>
-	<br>
-	<h2>총 ${pageDTO.count } 건</h2>
+	<h2>자재 출고 목록</h2>
+	<div id="count">총 ${pageDTO.count} 건</div>
 	<br>
 	<table border="1" class="outList">	
 	<tr>
@@ -168,15 +200,14 @@ text-align: center;
 		  	<td>${outte.clientName}</td>
 		  	<td>${outte.note}</td>	
 	  		<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="openmodi(${outte.outmtrlId})">
-				<a href="/material/outDel?outmtrlId=${outte.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>		
+				<a href="/material/outDel?outmtrlId=${outte.outmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="openDelete(${outte.outmtrlId})"></a></td>		
 	</tr>
 	</c:forEach>
 	</c:otherwise>
 </c:choose>
 </table>
 
-
-	
+<br><br>	
 	<div class="center">
 	 	<div class="pagination">			
 			<c:choose>
@@ -277,6 +308,14 @@ function openInsert(a){ // 추가창
 
 function openmodi(a){ // 수정창
     window.open("${pageContext.request.contextPath}/material/outmtrlModify?outmtrlId="+a,"popup4", "width=650, height=500,left=500, top=200");
+}
+
+function openDelete(a){	// 삭제창
+	if(confirm("삭제하시겠습니까?")) {
+		location.href="/material/outDel?outmtrlId=" + a;
+	} else {
+		return false;
+	}
 }
 
 </script>

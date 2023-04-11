@@ -57,11 +57,6 @@ table#search {
  border:1px solid;
 }
 
-#pagination{
-      width: 1125px;  
-text-align: center;
-}
-
 #pcd {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
@@ -106,6 +101,45 @@ text-align: center;
 	padding: 10px;
 	text-align: center;
 }
+
+
+#count{
+	text-align: right;
+	width: 1125px; 
+}
+
+
+/* 페이징 */
+
+
+#pagination {
+
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+  width:1125px;
+}
 </style>
 
 </head>
@@ -118,8 +152,8 @@ function openlist(){
 
 var stockId = a;
 
-function openadd(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/quantity?stockId="+a,"popup", "width=400, height=400,left=300, top=200");
+function openadd(a){ // 실사량
+    window.open("${pageContext.request.contextPath}/material/quantity?stockId="+a,"popup", "width=400, height=200,left=100, top=200");
 }
 </script>
 
@@ -134,7 +168,7 @@ function openadd(a){ // 수정창
 
 <div class="content_body">
 <article>
-	<h2>자재재고현황</h2>
+	<h1>자재재고현황</h1>
 		<div class="search_bar">
 		<form id="search">
 		<div id="btn">
@@ -151,17 +185,16 @@ function openadd(a){ // 수정창
 						<option value="부자재">부자재</option>
 					</select></td>
 				<td>품번</td>
-				<input type="hidden" id="pid">
-					<td><input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openlist()">
-						<input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
+				<td><input type="hidden" id="pid">
+					<input type="text" name="pcd" id="pcd" class="form-control" placeholder="품번코드" onclick="openlist()">
+					<input type="text" name="pnm" id="pnm" class="form-control" placeholder="품번명" readonly></td>
 			</tr>
 	</table>
 </form>
 </div>
 <br><br><br>	
-	<h2>자재재고</h2>
-	<br>	
-	<h2>총 ${pageDTO.count } 건</h2>
+	<h2>자재재고</h2>	
+	<div id="count">총 ${pageDTO.count} 건</div>
 	<br>
 	<table border="1" class="inList">	
 	<tr id="th">
@@ -198,6 +231,7 @@ function openadd(a){ // 수정창
 </article>
 </div>
 
+<br><br>
 	<div class="center">
 	 	<div class="pagination">			
 			<c:choose>

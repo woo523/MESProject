@@ -51,9 +51,9 @@ table#search {
  border:1px solid;
 }
 
-#pagination{
-     width: 1125px;  
-	text-align: center;
+#count{
+	text-align: right;
+	width: 1125px; 
 }
 
 #pcd {
@@ -96,6 +96,37 @@ table#search {
  border:0px;
 }
 
+/* 페이징 */
+
+
+#pagination {
+
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+  width:1125px;
+}
 </style>
 
 </head>
@@ -141,10 +172,9 @@ table#search {
 </div>
 
 	<br><br><br>
-	<h1>자재 입고 목록</h1>
-	<br>
-	<h2>총 ${pageDTO.count } 건</h2>
-	<br>
+	<h2>자재 입고 목록</h2>
+
+	<div id="count">총 ${pageDTO.count} 건</div>
 	<table border="1" class="inList">	
 	<tr>
 		<th>입고번호</th><th>입고일자</th><th>품번</th><th>품명</th><th>단위</th>
@@ -174,7 +204,7 @@ table#search {
 		  	<td>${inte.inmtrlLot}</td>
 		  	<td>${inte.note}</td>
 		  	<td><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="openmodi(${inte.inmtrlId})">
-				<a href="/material/del?inmtrlId=${inte.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a></td>		
+				<a href="/material/del?inmtrlId=${inte.inmtrlId}"><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="openDelete(${inte.inmtrlId})"></a></td>		
 			</tr>
 			</c:forEach>
 			</c:otherwise>
@@ -183,7 +213,7 @@ table#search {
 	
 </article>
 
-
+<br><br>
 	<div class="center">
 	 	<div class="pagination">			
 			<c:choose>
@@ -288,6 +318,13 @@ function openInsert(a){ // 추가창
 	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=650, height=500,left=500, top=200");
 }
 
+function openDelete(a){	// 삭제창
+	if(confirm("삭제하시겠습니까?")) {
+		location.href="/material/del?inmtrlId=" + a;
+	} else {
+		return false;
+	}
+}
 </script>
 
 
