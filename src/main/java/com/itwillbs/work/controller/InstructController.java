@@ -27,6 +27,13 @@ public class InstructController {
 	@Inject
 	private LineService lineService;
 	
+	@RequestMapping(value = "/work/main", method = RequestMethod.GET)
+	public String main() {
+		System.out.println("InstructController main()");
+		
+		return "work/main";
+	}
+	
 	@RequestMapping(value = "/work/instructList", method = RequestMethod.GET)
 	public String instructList(HttpServletRequest request, Model model, PageDTO pageDTO) {
 		System.out.println("InstructController instructList()");
