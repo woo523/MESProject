@@ -45,7 +45,3 @@
 		</header>
 		
 	
-		
-
-
-</script>

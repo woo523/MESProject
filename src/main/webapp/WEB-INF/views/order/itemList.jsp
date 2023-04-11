@@ -1,103 +1,163 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style type="text/css">
-#con:hover {
-	background-color: #e1e1e1;
-	cursor: pointer;
+
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
+	
+	
+body{
+	font-family: 'NanumSquare', sans-serif;
 }
 
+
+
+/* í˜ì´ì§• */
+
+
 #pagination {
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+}
+
+
+table {
+	margin : 0px auto;
+	border: 1px #a39485 solid;
+	font-size: .9em;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+	width: 425px;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+	
+}
+
+th {
+	text-align: center;
+	background: #b9b9b9;
+	font-weight: 700;
+}
+
+
+td, th {
+	padding: 1em .5em;
+	
+	vertical-align: middle;
+}
+
+td {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: #fff;
 	text-align: center;
 }
+h2{
+	text-align: center;
+}
+
+#con:hover{
+	background-color : #e1e1e1;
+	cursor:pointer;
+}
+
 </style>
 </head>
 <body>
+<h2>
+í’ˆë²ˆ ì¡°íšŒ
+</h2>
+<br>
+<form>
+<table>
+<tr>
+	<td>í’ˆë²ˆ</td><td><input type="text" name="itemNum" style="width:120px;"></td>
+	<td>í’ˆëª…</td><td><input type="text" name="itemNm" style="width:120px;"></td>
+	<td><input type="submit" value="ì¡°íšŒ"></td></tr>
+</table>
+</form>
+<table>
+<tr><th>í’ˆë²ˆ</th><th>í’ˆëª…</th></tr>
+<c:forEach var="itemList" items="${itemList}">
+<tr onclick="selectItem('${itemList.itemNum }','${itemList.itemNm }','${itemList.itemId}','${itemList.invntUnit}')">
+	<td id="con">${itemList.itemNum}</td>
+	<td id="con">${itemList.itemNm}</td>
+	</tr>
 
-	<h2>Ç°¹ø Á¶È¸</h2>
-	<form>
-		<table>
-			<tr>
-				<td>Ç°¹ø</td>
-				<td><input type="text" name="item_num"></td>
-				<td>Ç°¸í</td>
-				<td><input type="text" name="item_nm"></td>
-				<td><input type="submit" value="Á¶È¸"></td>
-			</tr>
-		</table>
+    <script type="text/javascript">
 
-	<table>
-		<tr>
-			<td>Ç°id</td>
-			<td>Ç°¹ø</td>			
-			<td>Ç°¸í</td>
-			<td>´ÜÀ§</td>
-		</tr>
-		<c:forEach var="itemList" items="${itemList }">
-			<tr id="con"
-				onclick="selectItem('${itemList.itemId }','${itemList.itemNum }','${itemList.itemNm }','${itemList.invntUnit }')">
-				<td>${itemList.itemId }</td>
-				<td>${itemList.itemNum }</td>
-				<td>${itemList.itemNm }</td>
-				<td>${itemList.invntUnit }</td>
-			</tr>
+        function selectItem(a,b,c,d){ // ë¶€ëª¨ì°½ìœ¼ë¡œ ê°’ ë„˜ê¸°ê¸°
+		  
+          opener.document.getElementById("itemNum").value = a 
+          opener.document.getElementById("itemNm").value = b
+          opener.document.getElementById("itemId").value = c
+          opener.document.getElementById("invntUnit").value = d
+          window.close();
 
-			<script type="text/javascript">
-				function selectItem(a, b, c, d) { // ºÎ¸ğÃ¢À¸·Î °ª ³Ñ±â±â
+        }
 
-					opener.document.getElementById("itemId").value = a;
-					opener.document.getElementById("itemNum").value = b;
-					opener.document.getElementById("itemNm").value = c;
-					opener.document.getElementById("invntUnit").value = d;
-					window.close();
+   </script>
 
-				}
-			</script>
+</c:forEach>
+</table>
+<br>
+<div class="center">
+<div id="pagination">
 
+    <!-- 1í˜ì´ì§€ ì´ì „ -->
+	<c:if test="${pageDTO.currentPage > 1}">
+	<a href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemNm=${search.itemNm}&pageNum=${pageDTO.currentPage-1}"><</a>
+	</c:if>
 
-
-		</c:forEach>
-
-	</table>
-	<div id="pagination">
-
-		<!-- 1ÆäÀÌÁö ÀÌÀü -->
-		<c:if test="${pageDTO.currentPage > 1}">
-			<a
-				href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemNm=${search.itemNm}&invntUnit=${search.invntUnit}&pageNum=${pageDTO.currentPage-1}"><</a>
-		</c:if>
-
-		<!-- 10ÆäÀÌÁö ÀÌÀü -->
-		<c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-			<a
-				href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemNm=${search.iitemNm}&invntUnit=${search.invntUnit}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
-		</c:if>
-
-		<c:forEach var="i" begin="${pageDTO.startPage }"
-			end="${pageDTO.endPage }" step="1">
-			<a
-				href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemNm=${search.itemNm}&invntUnit=${search.invntUnit}&pageNum=${i}">${i}</a>
-		</c:forEach>
-
-		<!-- 1ÆäÀÌÁö ´ÙÀ½ -->
-		<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-			<a
-				href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemNm=${search.itemNm}&invntUnit=${search.invntUnit}&pageNum=${pageDTO.currentPage+1}">></a>
-		</c:if>
-
-		<!-- 10ÆäÀÌÁö ´ÙÀ½ -->
-		<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-			<a
-				href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemNm=${search.itemNm}&invntUnit=${search.invntUnit}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
-		</c:if>
-
-	</div>
+<!-- 10í˜ì´ì§€ ì´ì „ -->
+	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
+	<a href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemName=${search.itemNm}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	</c:if>
 	
+	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+	<a href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemName=${search.itemNm}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a> 
+	</c:forEach>
+
+<!-- 1í˜ì´ì§€ ë‹¤ìŒ -->	
+	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemName=${search.itemNm}&pageNum=${pageDTO.currentPage+1}">></a>
+	</c:if>
+
+<!-- 10í˜ì´ì§€ ë‹¤ìŒ -->
+ 	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/order/itemList?itemNum=${search.itemNum}&itemName=${search.itemNm}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	</c:if>
+	
+</div>
+</div>
 </body>
 </html>

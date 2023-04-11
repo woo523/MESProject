@@ -87,6 +87,10 @@ text-align: center;
 	border: 1px solid;
 }
 
+#main{
+	padding:40px;
+}
+
 
 
 </style>
@@ -202,7 +206,7 @@ $(document).ready(function(){
 </script>
 <!-- 스크립트 끝. -->
 
-<div class="content_body"> <!-- 지우면안됨 -->
+<div id="main" style="overflow: hidden;"> <!-- 지우면안됨 -->
 
 <br>
 	<h1>수주품목상세</h1>

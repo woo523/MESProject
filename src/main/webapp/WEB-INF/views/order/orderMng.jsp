@@ -106,7 +106,10 @@ text-align: center;
 <!-- 자바스크립트 들어가는 곳 -->
 
 function openInsert(a){ 
-		window.open("${pageContext.request.contextPath}/order/orderInsert","popup1", "width=700, height=600,left=500, top=200");
+		window.open("${pageContext.request.contextPath}/order/orderInsert","popup1", "width=700, height=600,left=100, top=100");
+	}
+function openContent(a){ 
+		window.open("${pageContext.request.contextPath}/order/content?ordId="+a,"popup2", "width=600, height=600,left=100, top=100");
 	}
 
 function openItemList(b){
@@ -116,7 +119,7 @@ function openUserList(b){
         window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
     }
 function openClntList(b){
-        window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
+        window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=550,left=100, top=100");
     }
 
 $(function() {
@@ -277,7 +280,7 @@ $(function() {
 				
 			<c:otherwise>
 			<c:forEach var="odto" items="${orderList}">
-			<tr onclick="location.href='${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'">
+			<tr onclick="openContent(${odto.ordId})">
 				<td>${odto.clntCd}</td>
 				<td>${odto.clntNm}</td>
 				<td>${odto.sOdate}</td>

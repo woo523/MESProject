@@ -51,7 +51,7 @@ public class OrderController {
 		
 		orderService.insertOrder(orderDTO);
 		
-		return "redirect:/order/orderMng";
+		return "redirect:/order/orderInsert";
 	}
 	
 
@@ -383,9 +383,10 @@ public class OrderController {
 		
 			System.out.println("ordId"+string);
 			orderDTO.setOrdId(Integer.parseInt(string));
-			int ordId2 = Integer.parseInt(request.getParameter("ordId"));
-			orderService.deleteOrder(ordId2);
-			System.out.println("마지막");
+			orderService.deleteCmplt(orderDTO);
+//			int ordId2 = Integer.parseInt(request.getParameter("ordId"));
+//			orderService.deleteOrder(ordId2);
+//			System.out.println("마지막");
 		}
 		return "redirect:/order/orderSts";
 	}

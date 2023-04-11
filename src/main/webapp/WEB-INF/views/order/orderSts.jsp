@@ -106,20 +106,16 @@ text-align: center;
 <script type="text/javascript">
 
 
-function openItemList(b){
+function openItemList(c){
         window.open("${pageContext.request.contextPath }/order/itemList","popup", "width=500, height=500,left=100, top=100");
     }
-function openUserList(b){
+function openUserList(c){
         window.open("${pageContext.request.contextPath }/order/userList","popup", "width=500, height=500,left=100, top=100");
     }
 function openClntList(b){
-        window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=500,left=100, top=100");
+        window.open("${pageContext.request.contextPath }/order/clntList","popup", "width=500, height=600,left=100, top=100");
     }
-// function openContent(){
-//         window.open("${pageContext.request.contextPath}/order/content?ordId=","${odto.ordId}","popup", "width=500, height=500,left=100, top=100");
-//     }
 
-// "'${pageContext.request.contextPath}/order/content?ordId=${odto.ordId}'"
 
 
 $(function() {
@@ -307,6 +303,7 @@ function cmpltValue(){
 				<td>품번</td>
 				<td><input type="text" name="itemNum" id="itemNum"  onclick="openItemList()">
 					<input type="hidden" name= "itemNm" id="itemNm"  onclick="openItemList()">	
+					<input type="hidden" name="itemId" id="itemId"  onclick="openItemList()">
 					<input type="hidden" name="invntUnit" id="invntUnit" value="" >
 					<input type="hidden" name="ordQty" id="ordQty" value="" ></td>
 				</tr>
@@ -315,8 +312,7 @@ function cmpltValue(){
 				<td>담당자</td>
 				<td><input type="text" name="userNm" id="userNm" onclick="openUserList()">
 					<input type="hidden" name="userId" id="userId"value="">
-					<input type="hidden" name="userNum" id="userNum" value="">
-					<input type="hidden" name="itemId" id="itemId"  onclick="openItemList()"></td>
+					<input type="hidden" name="userNum" id="userNum" value=""></td>
 				
 				<td>납품예정일</td>
 				<td><input type="text" id="sDdate" class="form-control" name="sDdate" placeholder="날짜를 선택해주세요" readonly></td>

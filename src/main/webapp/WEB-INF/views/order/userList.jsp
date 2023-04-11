@@ -1,99 +1,162 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style type="text/css">
-#con:hover {
-	background-color: #e1e1e1;
-	cursor: pointer;
+
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
+	
+	
+body{
+	font-family: 'NanumSquare', sans-serif;
 }
 
+
+
+/* ÌéòÏù¥Ïßï */
+
+
 #pagination {
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+}
+
+
+table {
+	margin : 0px auto;
+	border: 1px #a39485 solid;
+	font-size: .9em;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+	width: 425px;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+	
+}
+
+th {
+	text-align: center;
+	background: #b9b9b9;
+	font-weight: 700;
+}
+
+
+td, th {
+	padding: 1em .5em;
+	
+	vertical-align: middle;
+}
+
+td {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: #fff;
 	text-align: center;
 }
+h2{
+	text-align: center;
+}
+
+#con:hover{
+	background-color : #e1e1e1;
+	cursor:pointer;
+}
+
 </style>
 </head>
 <body>
+<h2>
+Îã¥ÎãπÏûê Ï°∞Ìöå
+</h2>
+<br>
+<form>
+<table>
+<tr>
+	<td>ÏÇ¨Î≤à</td><td><input type="text" name="userNum" style="width:120px;"></td>
+	<td>Ïù¥Î¶Ñ</td><td><input type="text" name="userNm" style="width:120px;"></td>
+	<td><input type="submit" value="Ï°∞Ìöå"></td></tr>
+</table>
+</form>
+<table>
+<tr><th>ÏÇ¨Î≤à</th><th>Ïù¥Î¶Ñ</th></tr>
+<c:forEach var="userList" items="${userList}">
+<tr onclick="selectUser('${userList.userNum }','${userList.userNm }','${userList.userId}')">
+	<td id="con">${userList.userNum}</td>
+	<td id="con">${userList.userNm}</td>
+	</tr>
 
-	<h2>¥„¥Á¿⁄ ¡∂»∏</h2>
-	<form>
-		<table>
-			<tr>
-				<td>ªÁπ¯</td>
-				<td><input type="text" name="user_num"></td>
-				<td>¿Ã∏ß</td>
-				<td><input type="text" name="user_nm"></td>
-				<td><input type="submit" value="¡∂»∏"></td>
-			</tr>
-		</table>
-	</form>
-	<table>
-		<tr>
-			<td>«∞π¯</td>
-			<td>«∞∏Ì</td>
-			<td>userId</td>
-		</tr>
-		<c:forEach var="userList" items="${userList }">
-			<tr id="con"
-				onclick="selectUser('${userList.userNum }','${userList.userNm }','${userList.userId }')">
-				<td>${userList.userNum }</td>
-				<td>${userList.userNm }</td>
-				<td>${userList.userId }</td>
-			</tr>
+    <script type="text/javascript">
 
-			<script type="text/javascript">
-				function selectUser(a,b,c) { // ∫Œ∏√¢¿∏∑Œ ∞™ ≥—±‚±‚
+        function selectUser(a,b,c){ // Î∂ÄÎ™®Ï∞ΩÏúºÎ°ú Í∞í ÎÑòÍ∏∞Í∏∞
+		  
+          opener.document.getElementById("userNum").value = a 
+          opener.document.getElementById("userNm").value = b
+          opener.document.getElementById("userId").value = c
+          window.close();
 
-					opener.document.getElementById("userNum").value = a;
-					opener.document.getElementById("userNm").value = b;
-					opener.document.getElementById("userId").value = c;
-					window.close();
+        }
 
-				}
-			</script>
+   </script>
 
+</c:forEach>
+</table>
+<br>
+<div class="center">
+<div id="pagination">
 
+    <!-- 1ÌéòÏù¥ÏßÄ Ïù¥Ï†Ñ -->
+	<c:if test="${pageDTO.currentPage > 1}">
+	<a href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.currentPage-1}"><</a>
+	</c:if>
 
-		</c:forEach>
+<!-- 10ÌéòÏù¥ÏßÄ Ïù¥Ï†Ñ -->
+	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
+	<a href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	</c:if>
+	
+	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+	<a href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${i}" <c:if test="${pageDTO.pageNum eq i}">class="active"</c:if>>${i}</a> 
+	</c:forEach>
 
-	</table>
-	<div id="pagination">
+<!-- 1ÌéòÏù¥ÏßÄ Îã§Ïùå -->	
+	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.currentPage+1}">></a>
+	</c:if>
 
-		<!-- 1∆‰¿Ã¡ˆ ¿Ã¿¸ -->
-		<c:if test="${pageDTO.currentPage > 1}">
-			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.currentPage-1}"><</a>
-		</c:if>
-
-		<!-- 10∆‰¿Ã¡ˆ ¿Ã¿¸ -->
-		<c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
-		</c:if>
-
-		<c:forEach var="i" begin="${pageDTO.startPage }"
-			end="${pageDTO.endPage }" step="1">
-			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${i}">${i}</a>
-		</c:forEach>
-
-		<!-- 1∆‰¿Ã¡ˆ ¥Ÿ¿Ω -->
-		<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.currentPage+1}">></a>
-		</c:if>
-
-		<!-- 10∆‰¿Ã¡ˆ ¥Ÿ¿Ω -->
-		<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-			<a
-				href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
-		</c:if>
-
-	</div>
+<!-- 10ÌéòÏù¥ÏßÄ Îã§Ïùå -->
+ 	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
+	<a href="${pageContext.request.contextPath }/order/userList?userNum=${search.userNum}&userNm=${search.userNm}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	</c:if>
+	
+</div>
+</div>
 </body>
 </html>

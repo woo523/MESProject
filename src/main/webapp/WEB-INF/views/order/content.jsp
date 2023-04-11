@@ -7,87 +7,94 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 헤더 -->
-<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
+<%@ include file="../inc/header2.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
 
- table {
-      width: 1125px;  
-   } 
-
-th,td{
-border-bottom: 1px solid black;
-padding: 10px;
-}
-#th {
-	font-weight: bold;
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
+	
+	
+body{
+	font-family: 'NanumSquare', sans-serif;
 }
 
-#con {
+
+
+/* 페이징 */
+
+
+#pagination {
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+}
+
+
+table {
+	margin : 0px auto;
+	border: 1px #a39485 solid;
+	font-size: 1em;
+	width: 425px;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+	
+}
+
+th {
 	text-align: center;
+	background: #b9b9b9;
+	font-weight: 700;
+}
+
+
+td, th {
+	padding: 1em .5em;
+	
+	vertical-align: middle;
+}
+
+td {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: #fff;
+	text-align: center;
+}
+h1{
+	padding-left: 40px;
+	padding-top: 10px;
 }
 
 #con:hover{
 	background-color : #e1e1e1;
 	cursor:pointer;
 }
-
-
-
-h1{
-	font-weight: bold;
-}
-
-.search_bar tr, td{
- border:0px;
-}
-
-table#search {
- border:1px solid;
-}
-
-table#detail {
- border:1px solid;
-}
-table#info {
- border:1px solid;
-}
-
-
 #btn{
-      width: 1125px; 
+	width: 500px; 
 	text-align: right;
- 
+	margin: 0px auto;
 }
-#pagination{
-      width: 1125px;  
-text-align: center;
-}
-
-#num:hover{
-	background-color : #e1e1e1;
-}
-
-.form-control{
-	width:150px;
-	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
-	background-repeat: no-repeat;
-	background-position: 98%;
-	border: 1px solid;
-}
-
-#pcd {
-	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
-	background-repeat: no-repeat;
-	background-position: 98%;
-	border: 1px solid;
-}
-
-#pnm {
-	background-color: #EAEAEA;
-	border: 1px solid;
-}
-
-
 
 </style>
 </head>
@@ -102,7 +109,7 @@ text-align: center;
 </script>
 <!-- 스크립트 끝. -->
 
-<div class="content_body"> <!-- 지우면안됨 -->
+<div id="main"> <!-- 지우면안됨 -->
 <br>
 <form>
 
@@ -117,8 +124,7 @@ text-align: center;
 				<br>
 
 	<table id="content" border="1">
-	<tr><td>${orderDTO.ordId }</td></tr>
-	
+<%-- 	<tr><td>${orderDTO.ordId }</td></tr> --%>
 	<tr><td>업체명</td>
 	<td>${orderDTO.clntNm }</td></tr>
 	<tr><td>수주일자</td>
@@ -142,5 +148,3 @@ text-align: center;
 </form>
 </div>
 </body>
-<!-- 푸터 -->
-<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
