@@ -57,7 +57,7 @@ table#search {
 #btn{
       width: 1125px; 
 	text-align: right;
- 
+ cursor : pointer;
 }
 
 #num:hover{
@@ -77,6 +77,7 @@ table#search {
 	background-repeat: no-repeat;
 	background-position: 98%;
 	border: 1px solid;
+	
 }
 
 #clntNm {
@@ -407,7 +408,18 @@ function cmpltValue(){
 					</c:otherwise>
 				</c:choose>
 			</tr>
-	</c:forEach>
+			</c:forEach>
+			
+				<c:choose>
+				<c:when test="${empty orderStsList}">
+					<tr><td colspan="15"></td></tr>
+					<tr>
+						<td colspan="15">해당 데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:when>
+				</c:choose>
+			
+			
   </table>
     <br>
     

@@ -169,7 +169,7 @@ $(document).ready(function(){
 	}
 	
 	if ($('#orderDt').val()=="") {
-		alert("수주일자를 입력하세요");7
+		alert("수주일자를 입력하세요");
 		$('#orderDt').focus();
 		return false;
 	}
@@ -199,6 +199,13 @@ $(document).ready(function(){
 	}
 	
 });
+});
+
+$(function(){
+    $("#insertOrder").submit(function(event){
+      alert("저장되었습니다.");
+        return true;
+    });
 });
 </script>
 <!-- 스크립트 끝. -->

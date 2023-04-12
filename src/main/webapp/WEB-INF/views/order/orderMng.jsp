@@ -57,6 +57,7 @@ table#search {
 #btn{
     width: 1125px; 
 	text-align: right;
+	 cursor : pointer;
  
 }
 
@@ -120,7 +121,9 @@ table#search {
 .search_bar input {
    height: 20px;
 }
-
+#modify,#del{
+ cursor : pointer;
+}
 
 
 </style>
@@ -319,9 +322,9 @@ function openDelete(a){	// 삭제창
 				<td>${odto.userNum}</td>
 				<td>${odto.userNm}</td>
 				<td><img src='${pageContext.request.contextPath}
-								/resources/image/modify.png' width='17px' onclick="openContent(${odto.ordId})">
+								/resources/image/modify.png' width='17px' id="modify" onclick="openContent(${odto.ordId})">
 					<img src='${pageContext.request.contextPath}
-								/resources/image/del.png' width='17px' onclick="openDelete(${odto.ordId})"></td>
+								/resources/image/del.png' width='17px' id="del" onclick="openDelete(${odto.ordId})"></td>
 			</tr>
 			</c:forEach>
 			</c:otherwise>
