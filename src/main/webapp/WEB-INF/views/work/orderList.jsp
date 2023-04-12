@@ -21,13 +21,78 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
 
 <style type="text/css">
+@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+	
+body{
+	font-family: 'NanumSquare', sans-serif;
+}
+
+form {
+	width: 850px;
+	height: 100%;
+	margin: 0px auto;
+}
+
+table.ordSearch {
+	clear: right;
+	width: 850px;
+	margin : 0px auto;
+	margin-bottom: 15px;
+	border: 1px #a39485 solid;
+}
+
+table.ordList {
+	margin : 0px auto;
+	border: 1px #a39485 solid;
+	font-size: 1em;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+	width: 850px;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+th {
+	text-align: center;
+	background: #b9b9b9;
+	font-weight: 700;
+}
+
+td, th {
+	padding: 1em .5em;
+	vertical-align: middle;
+}
+
+.ordList td {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: #fff;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+input {
+	height: 20px;
+}
+
 #con:hover{
 	background-color : #e1e1e1;
 	cursor:pointer;
 }
 
-#pagination{
-	text-align: center;
+.ordSearch .form-control {
+	width: 150px;
+	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
+}
+
+#submit {
+	margin: 10px 0px 10px 0px;
+	float: right;
 }
 </style>
 </head>
@@ -36,31 +101,31 @@
 	<h2>수주 조회</h2>
 	<form>
 		<button type="submit" id="submit">조회</button>
-		<table>
+		<table class="ordSearch">
 			<tr>
 				<td>수주일자</td>
-				<td><input type="text" id="sDate" class="form-control" name="startDate" readonly>
-					<input type="text" id="eDate" name="endDate"></td>
+				<td><input type="text" id="sDate" class="form-control" name="startDate" placeholder="시작" readonly>
+					<input type="text" id="eDate" class="form-control" name="endDate" placeholder="마감" readonly></td>
 				<td>수주업체</td>
 				<td><input type="text" name="clientName"></td>
 			</tr>
 			<tr>
 				<td>납품예정일</td>
-				<td><input type="text" id="dDate" name="dlvryDate"> </td>
+				<td><input type="text" id="dDate" class="form-control" name="dlvryDate"> </td>
 				<td>품번</td>
 				<td><input type="text" id="itemNum" name="itemNum"></td>
 			</tr>
 		</table>
 	</form>
-	<table>
+	<table class="ordList">
 		<tr>
-			<td>수주번호</td>
-			<td>수주일자</td>
-			<td>납품예정일</td>
-			<td>품번</td>
-			<td>품명</td>
-			<td>수주수량</td>
-			<td>수주업체</td>
+			<th>수주번호</th>
+			<th>수주일자</th>
+			<th>납품예정일</th>
+			<th>품번</th>
+			<th>품명</th>
+			<th>수주수량</th>
+			<th>수주업체</th>
 		</tr>
 		<c:forEach var="ordList" items="${getOrdList}">
 			<input type="hidden" value="${ordList.ordId}">
@@ -76,9 +141,6 @@
 				<td>${ordList.orderMngDTO.ordQty}</td>
 				<td>${ordList.clntDTO.clientName}</td>
 			</tr>
-			<script type="text/javascript">
-				
-			</script>
 		</c:forEach>
 	</table>
 </body>

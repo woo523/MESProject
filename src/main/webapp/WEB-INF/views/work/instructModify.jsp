@@ -17,55 +17,64 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
 
-<style type="text/css">
-.content_body #instrDate {
-	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
-	background-repeat: no-repeat;
-	background-position: 98%;
-	border: 1px solid;
-}
-
-.content_body span {
-	color: red;
-}
-</style>
+<link href="${pageContext.request.contextPath}/resources/css/instruct/instrForm.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
+<!-- <header> -->
+	<jsp:include page="../inc/header3.jsp" />
+<!-- </header> -->
+
 <div class="content_body">
 	<h2>작업지시 수정</h2> 
 	<form action="${pageContext.request.contextPath}/work/instructModifyPro" method="post" onsubmit="return checkForm()">
 		<input type="hidden" name="instrId" value="${instrDTO.instrId}">
 		<ul>
-			<li>수정자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
+			<li>
+				<label class="title">수정자</label>
+				<input type="text" name="insertId" value="${sessionScope.id}" readonly>
+			</li>
 			<c:forEach var="instrList" items="${getInstrList}">
-			<li>지시일자 <input type="date" id="instrDate" name="instrDate" value="${instrList.workDate}" readonly></li>
-			<li>수주 <span>*</span>
-					 <input type="hidden" id="ordId" name="ordId" value="${instrList.orderMngDTO.ordId}" placeholder="수주">
-					 <input type="text" id="ordNum" name="ordNum" value="${instrList.orderMngDTO.ordNum}" placeholder="수주번호" onclick="openOrd()">
-					 <input type="hidden" id="orderDate" name="orderDate" value="${instrList.orderMngDTO.orderDate}" placeholder="일자">
-					 <input type="hidden" id="dlvryDate" name="dlvryDate" value="${instrList.orderMngDTO.dlvryDate}" placeholder="예정일">
-					 <input type="text" id="ordQty" name="ordQty" value="${instrList.orderMngDTO.ordQty}" placeholder="수주량" onclick="openOrd()" readonly>
-					 <input type="text" id="clientName" name="clientName" value="${instrList.clntDTO.clientName}" placeholder="수주업체"></li>
-			<li>지시상태
-						 <input type="checkbox" id="지시" name="workSts" value="지시" class="sCheck">지시
-						 <input type="checkbox" id="시작" name="workSts" value="시작" class="sCheck">시작
-						 <input type="checkbox" id="마감" name="workSts" value="마감" class="sCheck">마감</li>
-			<li>제품 정보  <input type="hidden" id="itemId" name="itemId" value="${instrList.itemDTO.itemId}"placeholder="품목" readonly>
-						   <input type="text" id="itemNum" name="itemNum" value="${instrList.itemDTO.itemNum}" placeholder="품번" readonly>
-					 	   <input type="text" id="itemName" name="itemName" value="${instrList.itemDTO.itemName}" placeholder="품명" readonly></li>
-			<li>공정 정보 <span>*</span>
-						  <input type="hidden" id="lineId"  name="lineId" value="${instrList.lineDTO.lineId}"> 
-						  <input type="text" id="lineName" placeholder="라인 검색" value="${instrList.lineDTO.lineName}" onclick="openLine()" readonly>
-						  <input type="text" id="linePlace" value="${instrList.lineDTO.linePlace}" placeholder="작업장" onclick="openLine()" readonly>
-						  <input type="text" id="useChoice" value="${instrList.lineDTO.useChoice}" placeholder="라인사용여부" onclick="openLine()" readonly></li>
-			<li>지시수량  <span>*</span>
-						  <input type="number" id="instrCnt" name="instrCnt" value="${instrList.workQty}"></li>
+			<li>
+				<label class="title">지시일자</label>
+				<input type="date" id="instrDate" name="instrDate" value="${instrList.workDate}" readonly>
+			</li>
+			<li>
+				<label class="title">수주 <span>*</span> </label>
+				<input type="hidden" id="ordId" name="ordId" value="${instrList.orderMngDTO.ordId}" placeholder="수주">
+				<input type="text" id="ordNum" name="ordNum" value="${instrList.orderMngDTO.ordNum}" placeholder="수주번호" onclick="openOrd()">
+				<input type="hidden" id="orderDate" name="orderDate" value="${instrList.orderMngDTO.orderDate}" placeholder="일자">
+				<input type="hidden" id="dlvryDate" name="dlvryDate" value="${instrList.orderMngDTO.dlvryDate}" placeholder="예정일">
+				<input type="text" id="ordQty" name="ordQty" value="${instrList.orderMngDTO.ordQty}" placeholder="수주량" onclick="openOrd()" readonly>
+				<input type="text" id="clientName" name="clientName" value="${instrList.clntDTO.clientName}" placeholder="수주업체">
+			</li>
+			<li>
+				<label class="title">지시상태</label>
+				<input type="checkbox" id="지시" name="workSts" value="지시" class="sCheck">지시
+				<input type="checkbox" id="시작" name="workSts" value="시작" class="sCheck">시작
+				<input type="checkbox" id="마감" name="workSts" value="마감" class="sCheck">마감
+			</li>
+			<li>
+				<label class="title">제품 정보</label>
+				<input type="hidden" id="itemId" name="itemId" value="${instrList.itemDTO.itemId}"placeholder="품목" readonly>
+				<input type="text" id="itemNum" name="itemNum" value="${instrList.itemDTO.itemNum}" placeholder="품번" readonly>
+				<input type="text" id="itemName" name="itemName" value="${instrList.itemDTO.itemName}" placeholder="품명" readonly>
+			</li>
+			<li>
+				<label class="title">공정 정보 <span>*</span> </label>
+				<input type="hidden" id="lineId"  name="lineId" value="${instrList.lineDTO.lineId}"> 
+				<input type="text" id="lineName" placeholder="라인 검색" value="${instrList.lineDTO.lineName}" onclick="openLine()" readonly>
+				<input type="text" id="linePlace" value="${instrList.lineDTO.linePlace}" placeholder="작업장" onclick="openLine()" readonly>
+				<input type="text" id="useChoice" value="${instrList.lineDTO.useChoice}" placeholder="라인사용여부" onclick="openLine()" readonly></li>
+			<li>
+				<label class="title">지시수량 <span>*</span> </label>
+				<input type="number" id="instrCnt" name="instrCnt" value="${instrList.workQty}" min="0">
+			</li>
 			</c:forEach>
 		</ul>
 		
-		<div>
+		<div class="btn">
 			<input type="submit" value="수정">
 			<button type="reset">취소</button>
 		</div>

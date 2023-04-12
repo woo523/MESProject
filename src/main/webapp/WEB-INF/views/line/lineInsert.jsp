@@ -17,6 +17,34 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
 
 <style type="text/css">
+@import	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
+.content_body {
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
+form {
+	border:1px solid;
+	padding:10px;
+	width: 500px;
+	margin: 0px auto;
+}
+
+h2 {
+	text-align: center;
+}
+
+.content_body ul li {
+	list-style: none;
+	padding: 6px;
+}
+
+label.title {
+	width: 80px;
+	float: left;
+}
+
 .content_body textarea {
 	resize: none;
 }
@@ -25,33 +53,63 @@
 	color: red;
 }
 
+.content_body .btn {
+	text-align: center;
+}
+
+input, select, button {
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
 </style>
 </head>
 <body>
+
+<!-- <header> -->
+	<jsp:include page="../inc/header3.jsp" />
+<!-- </header> -->
+
 <div class="content_body">
 	<h2>라인 등록</h2> 
 	<form action="${pageContext.request.contextPath}/line/lineInsertPro" method="post" onsubmit="return checkForm()">
 		<ul>
-			<li>등록자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
-			<li>라인명  <span>*</span>
-						<input type="text" name="lineName" class="lineName"></li>
-			<li>작업장  <span>*</span> 
-						<select name="linePlace" class="linePlace">
-							<option value="" selected>전체</option>
-							<option value="외주">외주</option>
-							<option value="작업장1">작업장1</option>
-							<option value="작업장2">작업장2</option>
-						</select></li>			
-			<li>일련번호 <span>*</span>
-						 <input type="text" name="sortOrder" class="sortOrder"></li>
-			<li>사용여부 <input type="radio" name="useChoice" value="Y" class="sCheck">Y
-						 <input type="radio" name="useChoice" value="N" class="sCheck" checked="checked" onclick="return false;">N</li>
-			<li>비고 <textarea rows="5" cols="30" name="note" maxlength="25"
-							   placeholder="글자수는 최대 25자 입니다"></textarea></li>
+			<li>
+				<label class="title">등록자</label>
+				<input type="text" name="insertId" value="${sessionScope.id}" readonly>
+			</li>
+			<li>
+				<label class="title">라인명 <span>*</span> </label>
+				<input type="text" name="lineName" class="lineName">
+			</li>
+			<li>
+				<label class="title">작업장 <span>*</span> </label>
+				<select name="linePlace" class="linePlace">
+					<option value="" selected>전체</option>
+					<option value="외주">외주</option>
+					<option value="작업장1">작업장1</option>
+					<option value="작업장2">작업장2</option>
+				</select>
+			</li>			
+			<li>
+				<label class="title">일련번호 <span>*</span> </label>
+				<input type="text" name="sortOrder" class="sortOrder">
+			</li>
+			<li>
+				<label class="title">사용여부</label>
+				<input type="radio" name="useChoice" value="Y" class="sCheck">Y
+				<input type="radio" name="useChoice" value="N" class="sCheck" checked="checked" onclick="return false;">N
+			</li>
+			<li>
+				<label class="title">비고</label>
+				<textarea rows="5" cols="30" name="note" maxlength="25" placeholder="글자수는 최대 25자 입니다"></textarea>
+			</li>
 		</ul>
 		
-		<input type="submit" value="등록">
-		<button type="reset">취소</button>
+		<div class="btn">
+			<input type="submit" value="등록">
+			<button type="reset">취소</button>
+		</div>
 	</form>
 </div>
 </body>
