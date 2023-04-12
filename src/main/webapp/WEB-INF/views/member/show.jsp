@@ -20,7 +20,7 @@
 	<c:redirect url="/login/login"></c:redirect>
 </c:if>
 
-	<h1>‖ 사용자 조회 ‖</h1> <br><br>
+	<h1>사용자 조회</h1> <br><br>
 	
 	<div style="width: 60%">
 		<table class="view_table">

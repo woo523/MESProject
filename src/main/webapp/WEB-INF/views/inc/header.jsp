@@ -23,6 +23,8 @@
 	<script type="text/javascript" src="/resources/js/jquery/jquery.mCustomScrollbar.js"></script>
 	<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
+	
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 
 <!-- <style type="text/css"> -->
 <!-- /* .sub_menu ul.small_menu1,ul.small_menu2,ul.small_menu3,ul.small_menu4,ul.small_menu5{ */
@@ -51,7 +53,7 @@
 		</div>
 		
 		<header>
-			<img style="width: 250px; height: 135px;" src="/resources/image/mes.png" onclick="location.href='${pageContext.request.contextPath }/main/main'">
+			<img style="width: 250px; height: 120px;" src="/resources/image/mes1.png" onclick="location.href='${pageContext.request.contextPath }/main/main'">
 		</header>
 		
 		<div class="containerBody">

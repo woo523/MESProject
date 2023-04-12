@@ -130,7 +130,7 @@ function valChk(obj, alias) {
 
 
 	
-	<h1>‖ 사용자 수정 ‖</h1><br><br>
+	<h1>사용자 수정</h1><br><br>
 	
 	<div style="width: 60%">
 		<form action="/member/update" id="join"  method="post">

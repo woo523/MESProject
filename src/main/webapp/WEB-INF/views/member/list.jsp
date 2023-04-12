@@ -23,7 +23,7 @@ function delMember(memId) {
 	<c:redirect url="/login/login"></c:redirect>
 </c:if>
 
-<h1>‖ 사용자 조회 ‖</h1> <br><br>
+<h1>사용자 조회</h1> <br><br>
 		<table>
 			<colgroup>
 				<col width="10%">

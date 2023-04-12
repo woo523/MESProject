@@ -67,7 +67,7 @@
 		</c:choose>
 	</div>
 	<header>
-		<img src="/resources/image/mes1.png" style="width: 220px; height: 100px;">
+		<img src="/resources/image/mes1.png" style="width: 250px; height: 120px;">
 	</header>
 		
 	
