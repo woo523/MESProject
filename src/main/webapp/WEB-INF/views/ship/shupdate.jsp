@@ -7,84 +7,61 @@
 <meta charset="UTF-8">
 <title>출하 수정</title>
 <!-- 헤더 -->
-<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
+<%@ include file="../inc/header2.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
 
- table {
-      width: 1125px;  
-   } 
-
-th,td{
-border-bottom: 1px solid black;
-padding: 10px;
-}
-#th {
-	font-weight: bold;
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
+	
+	
+body{
+	font-family: 'NanumSquare', sans-serif;
 }
 
-#con {
+
+table {
+	margin : 0px auto;
+	border: 1px #a39485 solid;
+	font-size: 1em;
+	width: 425px;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+	
+}
+
+th {
 	text-align: center;
+	background: #b9b9b9;
+	font-weight: 700;
+}
+
+
+td, th {
+	padding: 1em .5em;
+	vertical-align: middle;
+}
+
+td {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: #fff;
+	text-align: center;
+}
+h1{
+	padding-left: 40px;
+	padding-top: 10px;
+	font-size: 22.5px;
 }
 
 #con:hover{
 	background-color : #e1e1e1;
 	cursor:pointer;
 }
-
-
-
-h1{
-	font-weight: bold;
-}
-
-.search_bar tr, td{
- border:0px;
-}
-
-table#search {
- border:1px solid;
-}
-
-table#detail {
- border:1px solid;
-}
-table#info {
- border:1px solid;
-}
-
-
 #btn{
-      width: 1125px; 
+	width: 500px; 
 	text-align: right;
- 
-}
-#pagination{
-      width: 1125px;  
-text-align: center;
-}
-
-#num:hover{
-	background-color : #e1e1e1;
-}
-
-.form-control{
-	width:150px;
-	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
-	background-repeat: no-repeat;
-	background-position: 98%;
-	border: 1px solid;
-}
-
-#pcd {
-	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
-	background-repeat: no-repeat;
-	background-position: 98%;
-	border: 1px solid;
-}
-
-#pnm {
-	background-color: #EAEAEA;
-	border: 1px solid;
+	margin: 0px auto;
 }
 
 
@@ -165,21 +142,21 @@ $(function() {
 			</div>
 			
 	<table id="shupdate">
-	<tr><td>변경자</td>
-	<td> <input type="hidden" name="updateId" id="updateId" value="${sessionScope.id}" readonly></td></tr> 
-	<tr><td> <input type="hidden" name="shipId" id="shipId" value="${shipDTO.ordId }" readonly></td></tr> 
 	<tr><td>업체명</td>
 	<td><input type="text" id="clntNm" name="clntNm" value="${shipDTO.clntNm }"  onclick="openClntList()">
+	<input type="hidden" name="updateId" id="updateId" value="${sessionScope.id}" readonly>
+	 <input type="hidden" name="ordId" id="ordId" value="${shipDTO.ordId }" readonly>
 		<input type="hidden" id="clntId" name="clntId" value="${shipDTO.clntId }">
 		<input type="hidden" id="clntCd" name="clntCd" value="${shipDTO.clntCd }"></td></tr>
-	<tr><td>출하일자</td>
-	<td><input type="text" id="shipDt" name="shipDt" class="form-control" value="${shipDTO.shipDt }"></td></tr>
+	<tr><td>납품예정일</td>
+	<td><input type="text" id="dlvryDt" name="dlvryDt"  class="form-control" value="${shipDTO.dlvryDt }" ></td></tr>
 	<tr><td>담당자</td>
 	<td><input type="text" id="userNm" name="userNm" value="${shipDTO.userNm }" onclick="openUserList()">
 		<input type="hidden" id="userId" name="userId" value="${shipDTO.userId }" >
 		<input type="hidden" id="userNum" name="userNum" value="${shipDTO.userNum }"  ></td></tr>
-	<tr><td>납품예정일</td>
-	<td><input type="text" id="dlvryDt" name="dlvryDt"  class="form-control" value="${shipDTO.dlvryDt }" ></td></tr>
+	<tr><td>출하일자</td>
+	<td><input type="text" id="shipDt" name="shipDt" class="form-control" value="${shipDTO.shipDt }"></td></tr>
+	
 	<tr><td>품번</td>
 	<td><input type="hidden" id="itemId" name="itemId"  value="${shipDTO.itemId }" onclick="openItemList()">
 		<input type="text" id="itemNum" name="itemNum" value="${shipDTO.itemNum }" onclick="openItemList()"></td></tr>
@@ -196,4 +173,4 @@ $(function() {
 
 </body>
 <!-- 푸터 -->
-<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
+<%-- <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 --> --%>

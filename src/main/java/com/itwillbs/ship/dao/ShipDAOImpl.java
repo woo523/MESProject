@@ -138,7 +138,7 @@ public class ShipDAOImpl implements ShipDAO{
 	}
 
 	@Override
-	public ShipDTO getShip(int shipId) {
+	public Map<String, Object> getShip(int shipId) {
 		System.out.println("ShipDAOImpl getShip() ");
 		return sqlSession.selectOne(namespace+".getShip", shipId);
 	}

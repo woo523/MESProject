@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.ship.domain.ShipDTO;
+import com.itwillbs.order.domain.OrderDTO;
 import com.itwillbs.ship.domain.ClntDTO;
 import com.itwillbs.ship.domain.MaterialDTO;
 import com.itwillbs.ship.domain.PageDTO;
@@ -79,7 +80,7 @@ public class ShipController {
 		String shipCond = request.getParameter("shipCond");
 		
 		// 한 화면에 보여줄 글 개수 설정
-			int pageSize=5;
+			int pageSize=3;
 		// 현페이지 번호 가져오기
 		String pageNum=request.getParameter("pageNum");
 		if(pageNum==null) {
@@ -169,17 +170,23 @@ public class ShipController {
 		
 		String insertId = request.getParameter("insertId");
 		String insertDt = request.getParameter("insertDt");
+		
 		String shipNum = request.getParameter("shipNum");
 		String shipDt = request.getParameter("shipDt");
+		String Dlvdate = request.getParameter("Dlvdate");
+		String Shdate = request.getParameter("Shdate");
+		
+		String userNum = request.getParameter("userNum");
+		String userNm = request.getParameter("userNm");
+		String userId = request.getParameter("userId");
+		
 		String itemNum = request.getParameter("itemNum");
-		String itemName = request.getParameter("itemName");
-		String barcord = request.getParameter("barcord");
-		String itemUnit = request.getParameter("itemUnit");
-		String amount = request.getParameter("amount");
+		String itemNm = request.getParameter("itemNm");
+		
 		String clntId = request.getParameter("clntId");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목		
+		int pageSize = 3; // sql문에 들어가는 항목		
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -200,13 +207,19 @@ public class ShipController {
 		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
 		search.put("insertId", insertId);
 		search.put("insertDt", insertDt);
+		
 		search.put("shipNum", shipNum);
 		search.put("shipDt", shipDt);
+		search.put("Dlvdate", Dlvdate);
+		search.put("Shdate", Shdate);
+		
+		search.put("userNum", userNum);
+		search.put("userNm", userNm);
+		search.put("userId", userId);
+		
 		search.put("itemNum", itemNum);
-		search.put("itemName", itemName);
-		search.put("barcord", barcord);
-		search.put("itemUnit", itemUnit);
-		search.put("amount", amount);
+		search.put("itemNm", itemNm);
+		
 		search.put("clntId", clntId);
 		
 		search.put("startRow", pageDTO.getStartRow());
@@ -214,7 +227,8 @@ public class ShipController {
 		
 		
 		List<Map<String,Object>> shipAdmin1;
-		if(insertId == null && insertDt ==null && shipNum==null && shipDt==null && itemNum==null && itemName==null && barcord==null && itemUnit==null && amount==null && clntId==null) {
+		if(insertId == null && insertDt ==null && shipNum==null && shipDt==null && Dlvdate==null && Shdate==null
+				&& userNum==null && userNm==null && userId==null && itemNum==null&& itemNm==null&& clntId==null) {
 			// 조회 안한 경우
 			shipAdmin1 = shipService.getShipMap(pageDTO); // page만 필요해서
 		
@@ -222,6 +236,7 @@ public class ShipController {
 			// 조회값 넣은 경우
 			shipAdmin1 = shipService.getShipMap(search);
 		}
+		System.out.println("itemNm"+shipAdmin1.get(0).get("itemNm"));
 		
 		//페이징 처리
 		int count = shipService.countListShip(search);
@@ -258,7 +273,7 @@ public class ShipController {
 		String invntUnit = request.getParameter("invntUnit");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		int pageSize = 3; // sql문에 들어가는 항목
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -309,62 +324,80 @@ public class ShipController {
 	}
 	
 	// 출하정보
+//	@RequestMapping(value = "/ship/shipInfo", method = RequestMethod.GET)
+//	public String shipInfo(Model model, HttpServletRequest request, PageDTO pageDTO) { 
+//		String shipNum = request.getParameter("shipNum");
+//		String shipQty = request.getParameter("shipQty");
+//		String shipDt = request.getParameter("shipDt");
+//		
+//		// 한 화면에 보여줄 글 개수 설정
+//		int pageSize = 3; // sql문에 들어가는 항목
+//		
+//		// 현페이지 번호 가져오기
+//		String pageNum = request.getParameter("pageNum");
+//		if(pageNum==null) {
+//			pageNum="1";
+//		}
+//		// 페이지번호를 정수형 변경
+//		int currentPage=Integer.parseInt(pageNum);
+//		pageDTO.setPageSize(pageSize);
+//		pageDTO.setPageNum(pageNum);
+//		pageDTO.setCurrentPage(currentPage);
+//		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
+//		int endRow = startRow+pageDTO.getPageSize()-1;
+//		
+//		pageDTO.setStartRow(startRow-1); 
+//		pageDTO.setEndRow(endRow);
+//
+//		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
+//		search.put("shipNum", shipNum);
+//		search.put("shipQty", shipQty);
+//		search.put("shipDt", shipDt);
+//		search.put("startRow", pageDTO.getStartRow());
+//		search.put("pageSize", pageDTO.getPageSize());
+// 
+//		List<ShipDTO> shipInfo = shipService.getInfoList(search);
+//			
+//		//페이징 처리
+//		int count = shipService.countInfoList(search);
+//
+//		int pageBlock = 10;
+//		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+//		int endPage=startPage+pageBlock-1;
+//		int pageCount=count/pageSize+(count%pageSize==0?0:1);
+//		if(endPage > pageCount){
+//		 	endPage = pageCount;
+//		 }
+//		
+//		pageDTO.setCount(count);
+//		pageDTO.setPageBlock(pageBlock);
+//		pageDTO.setStartPage(startPage);
+//		pageDTO.setEndPage(endPage);
+//		pageDTO.setPageCount(pageCount);
+//				
+//		model.addAttribute("pageDTO", pageDTO);
+//		model.addAttribute("search", search);
+//		model.addAttribute("shipInfo", shipInfo);
+//		return "ship/shipInfo";
+//	}
+	
+	// 출하정보
 	@RequestMapping(value = "/ship/shipInfo", method = RequestMethod.GET)
-	public String shipInfo(Model model, HttpServletRequest request, PageDTO pageDTO) { 
-		String shipNum = request.getParameter("shipNum");
-		String shipQty = request.getParameter("shipQty");
-		String shipDt = request.getParameter("shipDt");
+	public String content(HttpServletRequest request, Model model) {
+		System.out.println("ShipController shipInfo()");
+		int shipId=Integer.parseInt(request.getParameter("shipId"));
 		
-		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		System.out.println("shipId"+shipId);
 		
-		// 현페이지 번호 가져오기
-		String pageNum = request.getParameter("pageNum");
-		if(pageNum==null) {
-			pageNum="1";
-		}
-		// 페이지번호를 정수형 변경
-		int currentPage=Integer.parseInt(pageNum);
-		pageDTO.setPageSize(pageSize);
-		pageDTO.setPageNum(pageNum);
-		pageDTO.setCurrentPage(currentPage);
-		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1; // sql문에 들어가는 항목
-		int endRow = startRow+pageDTO.getPageSize()-1;
+		Map<String, Object> shipDTO=shipService.getShip(shipId);
 		
-		pageDTO.setStartRow(startRow-1); 
-		pageDTO.setEndRow(endRow);
-
-		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
-		search.put("shipNum", shipNum);
-		search.put("shipQty", shipQty);
-		search.put("shipDt", shipDt);
-		search.put("startRow", pageDTO.getStartRow());
-		search.put("pageSize", pageDTO.getPageSize());
- 
-		List<ShipDTO> shipInfo = shipService.getInfoList(search);
-			
-		//페이징 처리
-		int count = shipService.countInfoList(search);
-
-		int pageBlock = 10;
-		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
-		int endPage=startPage+pageBlock-1;
-		int pageCount=count/pageSize+(count%pageSize==0?0:1);
-		if(endPage > pageCount){
-		 	endPage = pageCount;
-		 }
+		model.addAttribute("shipDTO", shipDTO);
 		
-		pageDTO.setCount(count);
-		pageDTO.setPageBlock(pageBlock);
-		pageDTO.setStartPage(startPage);
-		pageDTO.setEndPage(endPage);
-		pageDTO.setPageCount(pageCount);
-				
-		model.addAttribute("pageDTO", pageDTO);
-		model.addAttribute("search", search);
-		model.addAttribute("shipInfo", shipInfo);
 		return "ship/shipInfo";
 	}
+	
+	
+	
 	
 	// 재고정보
 	@RequestMapping(value = "/ship/mtrInfo", method = RequestMethod.GET)
@@ -376,7 +409,7 @@ public class ShipController {
 		String shipSch = request.getParameter("shipSch");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		int pageSize = 3; // sql문에 들어가는 항목
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -436,7 +469,7 @@ public class ShipController {
 		String clntId = request.getParameter("clntId");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 5; // sql문에 들어가는 항목
+		int pageSize = 3; // sql문에 들어가는 항목
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -492,32 +525,40 @@ public class ShipController {
 		
 		int shipId=Integer.parseInt(request.getParameter("shipId"));
 		
-		ShipDTO shipDTO=shipService.getShip(shipId);
+		Map<String, Object> shipDTO=shipService.getShip(shipId);
 		
 		model.addAttribute("shipDTO", shipDTO);
 		
 		return "order/shupdate";
 	}
 	
-	@RequestMapping(value = "/ship/shupdatePro", method = RequestMethod.POST)
-	public String shupdatePro(ShipDTO shipDTO,HttpServletRequest request) {
-		System.out.println("ShipController shupdatePro()");
-		
-		System.out.println("shipDTO 값" +shipDTO);
-		shipService.updateShip(shipDTO);
-		int shipId=Integer.parseInt(request.getParameter("shipId"));
-		shipDTO=shipService.getShip(shipId);
-
-		return "redirect:/ship/shipAdmin";
-	}
+//	@RequestMapping(value = "/ship/shupdatePro", method = RequestMethod.POST)
+//	public String shupdatePro(ShipDTO shipDTO,HttpServletRequest request) {
+//		System.out.println("ShipController shupdatePro()");
+//		
+//		System.out.println("shipDTO 값" +shipDTO);
+//		shipService.updateShip(shipDTO);
+//		int shipId=Integer.parseInt(request.getParameter("shipId"));
+//		shipDTO=shipService.getShip(shipId);
+//
+//		return "redirect:/ship/shipAdmin";
+//	}
 	
 	@RequestMapping(value = "/ship/shdelete", method = RequestMethod.GET)
 	public String shdelete(HttpServletRequest request, Model model) {
-		System.out.println("ShipController delete()");
+		
 		int shipId=Integer.parseInt(request.getParameter("shipId"));
+		System.out.println("확인용"+shipId);
 		shipService.deleteShip(shipId);
-		return "redirect:/ship/shipAdmin";
+		
+		return "redirect:/common/offwindow";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 }

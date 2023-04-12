@@ -23,12 +23,20 @@ public class ShipDTO {
 	private String itemUnit;
 	private int clntId;
 	private String userNum;
+	private String userNm;
+	
 	private int ordQty;
 	private String dlvryDt; 		
 	private String orderDt; 		
 	private String ordNum; 	
 	private int userId;
 
+	public String getUserNm() {
+		return userNm;
+	}
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
 	public int getUserId() {
 		return userId;
 	}

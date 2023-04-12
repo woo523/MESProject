@@ -77,19 +77,50 @@ text-align: center;
 	border: 1px solid;
 }
 
-#pcd {
+#clntNm {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
-	background-position: 98%;
+	background-position:98%;
+	border: 1px solid;
+}
+#userNm{
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
 	border: 1px solid;
 }
 
-#pnm {
-	background-color: #EAEAEA;
-	border: 1px solid;
+/* 페이징 */
+
+
+#pagination {
+
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
 }
 
 
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+  width:1125px;
+}
 
 </style>	
 </head>
@@ -205,48 +236,117 @@ $(function() {
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
+           ,onClose: function ( selectedDate ) {
+            	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
+            	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+               }
 //            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
   
-$(document).ready(function () {
-	// class = "brown" 클릭했을 때 "클릭"
-	$('.searchBox').click(function () {
+$(function(){
+	var chkObj = document.getElementsByName("RowCheck");
+	var rowCnt = chkObj.length;
 	
-	// 자바스크립트 배열(json) <= DB에서 가져옴
-	var arr = [
-			   {"subject":"제목1","date":"2023-01-01"},
-			   {"subject":"제목2","date":"2023-01-02"},
-			   {"subject":"제목3","date":"2023-01-03"}
-			  ];
-	
-	// 초기화
-	$('table').html('');
-	
-	$.ajax({
-		url:'${pageContext.request.contextPath}/board/listjson', 			// json형태로 들고옴 (페이지에 가서)
-		dataType:'json',			// json형태로 받아옴 (json형태)
-		success:function(arr){ 		// json형태로 만든 arr를 가져옴
-		
-					// 반복해서 출력 .each()
-					// arr 배열을 반복하겠다 반복할때의 기능은 어떻게 할건지?
-					$.each(arr,function(index, item){
-					// 클릭을 하면 0,1,2번 배열을 반복함
-//	 				alert(index);
-//	 				alert(item.subject);
-//	 				alert(item.date);
-
-					// 변수이기에 +로 연결시켜줘야 함
-					// 기존내용 없애고 그자리에 새로 넣기, 마지막 게 나옴 ,하나에 덮어서 써진다
-//	 				$('table').html('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
-					
-					// 추가하겠다는 함수 다시 사용 (html -> append로 바꾸기)
-					$('table').append('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
-				});
-			}
-		});
+	$("input[name='allCheck']").click(function(){
+		var chk_listArr = $("input[name='RowCheck']");
+		for (var i=0; i<chk_listArr.length; i++){
+			chk_listArr[i].checked = this.checked;
+		}
+	});
+	$("input[name='RowCheck']").click(function(){
+		if($("input[name='RowCheck']:checked").length == rowCnt){
+			$("input[name='allCheck']")[0].checked = true;
+		}
+		else{
+			$("input[name='allCheck']")[0].checked = false;
+		}
 	});
 });
+
+function deleteValue(){
+	var url = "/ship/deleteCond";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
+	var valueArr = new Array();
+    var list = $("input[name='RowCheck']");
+    
+    for(var i = 0; i < list.length; i++){
+        if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+            valueArr.push(list[i].value);
+//         alert(list[i].value);
+        }
+    }
+    if (valueArr.length == 0){
+    	alert("선택된 항목이 없습니다.");
+    }
+    else{
+		var chk = confirm("삭제하시겠습니까?");		
+		if(chk == true ){
+		$.ajax({
+		    url : url,                    // 전송 URL
+		    type : 'GET',                // GET or POST 방식
+		    traditional : true,
+		    data : {
+		    	"shipId" : valueArr        // 보내고자 하는 data 변수 설정
+		    },
+            success: function(jdata){
+                if(jdata = 1) {
+                    alert("삭제되었습니다");
+                    location.replace("shipList")
+                }
+                else{
+                    alert("삭제 실패");
+                }
+            }
+		});
+		
+		
+		}else {
+			alert("취소되었습니다");			
+		}
+	}
+}
+
+function cmpltValue(){
+	var url = "/ship/updateCond";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
+	var valueArr = new Array();
+    var list = $("input[name='RowCheck']");
+//     console.log(list);
+    for(var i = 0; i < list.length; i++){
+        if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+            valueArr.push(list[i].value);
+//         alert(list[i].value);
+        }
+    }
+    if (valueArr.length == 0){
+    	alert("선택된 항목이 없습니다.");
+    }
+    else{
+		var chk = confirm("완료처리하시겠습니까?");		
+		if(chk == true ){
+		$.ajax({
+		    url : url,                    // 전송 URL
+		    type : 'GET',                // GET or POST 방식
+		    traditional : true,
+		    data : {
+		    	"shipId" : valueArr        // 보내고자 하는 data 변수 설정
+		    },
+            success: function(jdata){
+                if(jdata = 1) {
+                    alert("완료처리 되었습니다");
+                    location.replace("shipList")
+                }
+                else{
+                    alert("수정 실패");
+                }
+            }
+		});
+		
+		
+		}else {
+			alert("취소했습니다");			
+		}
+	}
+}
 
 function prtTable() {
     const table = document.getElementById("shipList").outerHTML;
@@ -367,6 +467,7 @@ function prtTable() {
 				</table>
 		<br>
 	
+		<div class="center">
 		<div id="pagination">
 
 		<!-- 1페이지 이전 -->
@@ -404,6 +505,7 @@ function prtTable() {
 				&clntId=${search.clntId}&shipNum=${search.shipNum}&insertId=${search.insertId}&shipQty=${search.shipQty}&shipCond=${search.shipCond}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 		</c:if>
 
+		</div>
 		</div>
 	<br>
 	

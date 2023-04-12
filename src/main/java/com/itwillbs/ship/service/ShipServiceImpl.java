@@ -139,7 +139,7 @@ public class ShipServiceImpl implements ShipService{
 	}
 
 	@Override
-	public ShipDTO getShip(int shipId) {
+	public Map<String, Object> getShip(int shipId) {
 		System.out.println("ShipServiceImpl getShip()");
 		return shipDAO.getShip(shipId);
 	}

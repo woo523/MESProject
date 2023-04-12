@@ -6,83 +6,93 @@
 <head>
 <meta charset="UTF-8">
 <title>출하정보</title>
-<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
+<%@ include file="../inc/header2.jsp"%><!-- 지우면안됨 -->
 <style type="text/css">
- table {
-      width: 1125px;  
-   } 
 
-th,td{
-border-bottom: 1px solid black;
-padding: 10px;
-}
-#th {
-	font-weight: bold;
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
+	
+body{
+	font-family: 'NanumSquare', sans-serif;
 }
 
-#con {
+
+
+/* 페이징 */
+
+
+#pagination {
+  display: inline-block;
+}
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+}
+
+
+table {
+	margin : 0px auto;
+	border: 1px #a39485 solid;
+	font-size: 1em;
+	width: 425px;
+	border-collapse: collapse;
+	border-radius: 5px;
+	overflow: hidden;
+	
+}
+
+th {
 	text-align: center;
+	background: #b9b9b9;
+	font-weight: 700;
+}
+
+
+td, th {
+	padding: 1em .5em;
+	
+	vertical-align: middle;
+}
+
+td {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: #fff;
+	text-align: center;
+}
+h1{
+	padding-left: 40px;
+	padding-top: 10px;
+	font-size: 22.5px;
 }
 
 #con:hover{
 	background-color : #e1e1e1;
 	cursor:pointer;
 }
-
-
-
-h1{
-	font-weight: bold;
-}
-
-.search_bar tr, td{
- border:0px;
-}
-
-table#search {
- border:1px solid;
-}
-
-table#detail {
- border:1px solid;
-}
-table#info {
- border:1px solid;
-}
-
-
 #btn{
-      width: 1125px; 
+	width: 500px; 
 	text-align: right;
- 
-}
-#pagination{
-      width: 1125px;  
-text-align: center;
-}
-
-#num:hover{
-	background-color : #e1e1e1;
-}
-
-.form-control{
-	width:150px;
-	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
-	background-repeat: no-repeat;
-	background-position: 98%;
-	border: 1px solid;
-}
-
-#pcd {
-	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
-	background-repeat: no-repeat;
-	background-position: 98%;
-	border: 1px solid;
-}
-
-#pnm {
-	background-color: #EAEAEA;
-	border: 1px solid;
+	margin: 0px auto;
 }
 
 </style>
@@ -98,7 +108,7 @@ text-align: center;
 </script>
 <!-- 스크립트 끝. -->
 
-<div class="content_body"> <!-- 지우면안됨 -->
+<div id="main"> <!-- 지우면안됨 -->
 <br>
 <form>
 
@@ -106,14 +116,14 @@ text-align: center;
 	<div class="content">
 		<div id="btn">
 			<input type="button" value="수정" class="btn"
-				onclick="location.href='${pageContext.request.contextPath}/ship/shupdate?ordId=${shipDTO.shipId }'">
+				onclick="location.href='${pageContext.request.contextPath}/ship/shupdate?shipId=${shipDTO.shipId }'">
 			<input type="button" value="삭제" class="btn"
-				onclick="location.href='${pageContext.request.contextPath}/ship/shdelete?ordId=${shipDTO.shipId }'">
+				onclick="location.href='${pageContext.request.contextPath}/ship/shdelete?shipId=${shipDTO.shipId }'">
 			</div>
 				<br>
 
 	<table id="content" border="1">
-	<tr><td>${orderDTO.ordId }</td></tr>
+<%-- 	<tr><td>${orderDTO.ordId }</td></tr> --%>
 	
 	<tr><td>출하고객</td>
 	<td>${shipDTO.clntNm }</td></tr>
@@ -138,40 +148,40 @@ text-align: center;
 </form>
 </div>
 	
-	<div id="pagination">
+<!-- 	<div id="pagination"> -->
 
-		<!-- 1페이지 이전 -->
-		<c:if test="${pageDTO.currentPage > 1}">
-			<a
-				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${pageDTO.currentPage-1}"></a>
-		</c:if>
+<!-- 		<!-- 1페이지 이전 --> -->
+<%-- 		<c:if test="${pageDTO.currentPage > 1}"> --%>
+<!-- 			<a -->
+<%-- 				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${pageDTO.currentPage-1}"></a> --%>
+<%-- 		</c:if> --%>
 
-		<!-- 10페이지 이전 -->
-		<c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-			<a
-				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"></a>
-		</c:if>
+<!-- 		<!-- 10페이지 이전 --> -->
+<%-- 		<c:if test="${pageDTO.startPage > pageDTO.pageBlock}"> --%>
+<!-- 			<a -->
+<%-- 				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"></a> --%>
+<%-- 		</c:if> --%>
 
-		<c:forEach var="i" begin="${pageDTO.startPage }"
-			end="${pageDTO.endPage }" step="1">
-			<a
-				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${i}">${i}</a>
-		</c:forEach>
+<%-- 		<c:forEach var="i" begin="${pageDTO.startPage }" --%>
+<%-- 			end="${pageDTO.endPage }" step="1"> --%>
+<!-- 			<a -->
+<%-- 				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${i}">${i}</a> --%>
+<%-- 		</c:forEach> --%>
 
-		<!-- 1페이지 다음 -->
-		<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-			<a
-				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${pageDTO.currentPage+1}">></a>
-		</c:if>
+<!-- 		<!-- 1페이지 다음 --> -->
+<%-- 		<c:if test="${pageDTO.currentPage < pageDTO.pageCount}"> --%>
+<!-- 			<a -->
+<%-- 				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${pageDTO.currentPage+1}">></a> --%>
+<%-- 		</c:if> --%>
 
-		<!-- 10페이지 다음 -->
-		<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-			<a
-				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
-		</c:if>
+<!-- 		<!-- 10페이지 다음 --> -->
+<%-- 		<c:if test="${pageDTO.endPage < pageDTO.pageCount}"> --%>
+<!-- 			<a -->
+<%-- 				href="${pageContext.request.contextPath }/ship/shipInfo?shipNum=${search.shipNum}&shipQty=${search.shipQty}&shipDt=${search.shipDt}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a> --%>
+<%-- 		</c:if> --%>
 
-	</div>
+<!-- 	</div> -->
 </body>
 <!-- 푸터 -->
-<%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 -->
+<%-- <%@ include file="../inc/footer.jsp"%><!-- 지우면안됨 --> --%>
 </html>

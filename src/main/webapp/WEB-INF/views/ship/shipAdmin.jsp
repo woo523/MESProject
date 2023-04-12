@@ -14,10 +14,19 @@
  table {
       width: 1125px;  
    } 
+   
+   #count{
+	text-align: right;
+	width: 1125px;
+}
 
 th,td{
 border-bottom: 1px solid black;
 padding: 10px;
+}
+#main tr{
+padding: 10px;
+text-align: center;
 }
 #th {
 	font-weight: bold;
@@ -36,6 +45,7 @@ padding: 10px;
 
 h1{
 	font-weight: bold;
+	font-size: 22.5px;
 }
 
 h2 {
@@ -51,9 +61,7 @@ table#searchBox {
  border:1px solid;
 }
 
-table#detail {
- border:1px solid;
-}
+
 table#info {
  border:1px solid;
 }
@@ -65,26 +73,7 @@ table#info {
  
 }
 
-.pagination {
-  display: inline-block;
-}
 
-
-.pagination a{
-     color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
-  border: 1px solid #ddd;
-  margin: 0 4px;
-}
-
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border: 1px solid #4CAF50;
-}
 
 #num:hover{
 	background-color : #e1e1e1;
@@ -98,17 +87,51 @@ table#info {
 	border: 1px solid;
 }
 
-#pcd {
+#clntNm {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
 	background-repeat: no-repeat;
-	background-position: 98%;
+	background-position:98%;
+	border: 1px solid;
+}
+#userNm{
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
 	border: 1px solid;
 }
 
-#pnm {
-	background-color: #EAEAEA;
-	border: 1px solid;
+/* 페이징 */
+
+
+#pagination {
+
+  display: inline-block;
 }
+
+#pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+
+
+#pagination a.active {
+	background-color: #b9b9b9;
+  color: white;
+  border: 1px solid #b9b9b9;
+}
+
+#pagination a:hover:not(.active,.none) {background-color: #ddd;}
+
+.center {
+  text-align: center;
+  width:1125px;
+}
+
 </style>
 </head>
 
@@ -131,11 +154,11 @@ function userlist(b){
 function openclntlist(b){
     window.open("${pageContext.request.contextPath }/ship/clntInfo","popup", "width=500, height=500,left=100, top=100");
 }
-function openshiplist(){
-    window.open("${pageContext.request.contextPath }/ship/shipInsert","popup", "width=700, height=600,left=500, top=200");
-}
-function openorderlist(){
-    window.open("${pageContext.request.contextPath }/order/orderMng","popup", "width=500, height=500,left=100, top=100");
+// function openshiplist(){
+//     window.open("${pageContext.request.contextPath }/ship/shipInsert","popup", "width=700, height=600,left=500, top=200");
+// }
+function openInfo(a){ 
+	window.open("${pageContext.request.contextPath}/ship/shipInfo?shipId="+a,"popup2", "width=600, height=600,left=100, top=100");
 }
 
 
@@ -275,10 +298,10 @@ $(document).ready(function () {
 	<form id="info">
 		<div id="selectButtons">
 			<button type="submit">조회</button>
-			<button type="reset">취소</button>
-			<button type="button" onclick="openshiplist(${shipDTO.shipId})">추가</button>
+<!-- 			<button type="reset">취소</button> -->
+<%-- 			<button type="button" onclick="openshiplist(${shipDTO.shipId})">추가</button> --%>
 		</div>
-		
+		<br>
 			<table id="searchBox">
 				<tr>
 				<td>담당자</td>
@@ -293,12 +316,12 @@ $(document).ready(function () {
 				<tr>
 				<td>납품예정일</td>
 				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td>
-				</tr>
-				<tr>						
+<!-- 				<td><input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td> -->
+<!-- 				</tr> -->
+<!-- 				<tr>						 -->
 				<td>출하일자</td>
 				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="Shdate" class="form-control" name="Shdate" readonly></td>
+<!-- 				<td><input type="text" id="Shdate" class="form-control" name="Shdate" readonly></td> -->
 				</tr>
 				
 			</table>
@@ -312,9 +335,8 @@ $(document).ready(function () {
 		
 		
 		<h2>목록</h2>
-		<div class="selectButtons">
-			<button type="button">삭제</button>
-		</div>
+		<div id="count">총 ${pageDTO.count } 건</div>
+		<br>
 		
 		<table border="1" id="main">
 			<tr id="th">
@@ -328,19 +350,20 @@ $(document).ready(function () {
 			</tr>
 			
 			<c:forEach var="sdto" items="${shipAdmin1}">
-						<tr onclick="location.href='${pageContext.request.contextPath}/ship/shipInfo?shipId=${sdto.shipId}'">
+						<tr onclick="openInfo(${sdto.shipId})">
 							<td>${sdto.userNm}</td>
 							<td>${sdto.shipNum}</td>
-							<td>${sdto.dlvryDt}</td>
+							<td>${sdto.Dlvdate}</td>
 							<td>${sdto.shipDt}</td>
 							<td>${sdto.itemNum}</td>
-							<td>${sdto.itemName}</td>
-							<td>${sdto.clntCd}</td>
+							<td>${sdto.itemNm}</td>
+							<td>${sdto.clntNm}</td>
 						</tr>
 			</c:forEach>
 		</table>
 	
     <br>
+    <div class="center">
     <div id="pagination">
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
@@ -373,6 +396,7 @@ $(document).ready(function () {
 
 
 	
+</div>
 </div>
 
 

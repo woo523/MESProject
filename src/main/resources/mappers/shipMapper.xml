@@ -22,6 +22,9 @@
   		<result column="user_id" property="userId" />
   		<result column="id" property="userNum" />
   		<result column="ship_qty" property="shipQty" />
+  		<result column="user_Nm" property="userNm" />
+  		<result column="clnt_cd" property="clntCd" />
+  		<result column="clnt_nm" property="clntNm" />
   </resultMap>
 
     <select id="shipSCount" resultType="java.lang.Integer">
@@ -31,25 +34,29 @@
     
     
     <!-- 	shipAdmin 출하아이디 가져오기	 -->
-    <select id="getShip" resultType="com.itwillbs.ship.domain.ShipDTO">
-    	select sh.ship_id, c.clnt_nm,sh.ship_dt,u.name as userNm, sh.dlvry_dt, i.item_num,i.item_nm,i.invnt_unit,sh.ship_qty
+    <select id="getShip" resultMap="shipMap">
+    	select sh.ship_id, c.clnt_nm,sh.ship_dt,u.name as userNm, sh.dlvry_dt, i.item_num,i.item_nm,i.invnt_unit,sh.ship_qty,sh.ship_num
     	from client c join ship_mng sh
-    	on. sh.clnt_id = c.clnt_id
+    	on sh.clnt_id = c.clnt_id
     	join user u
-    	in sh.user_id = u.user_id
+    	on sh.user_id = u.user_id
     	join item i
     	on sh.item_id = i.item_id
     	where sh.ship_id = #{shipId}
+    	
+    	
      </select>
     
     <!-- 	shipAdmin 조회 안할경우 페이지만 가져오기 -->
     <select id="getShipMap" resultMap="shipMap">
-    	select sh.ship_id, c.clnt_cd,c.clnt_nm,sh.dlvry_dt as Dlvdate, sh.ship_dt as Shdate,
-    				u.id,u.name as userNm, sh.ship_num
+    	select sh.ship_id, c.clnt_cd,c.clnt_nm,sh.dlvry_dt as Dlvdate, sh.ship_dt as Shdate, 
+    			u.id,u.name as userNm, sh.ship_num, i.item_num,i.item_nm,i.invnt_unit,sh.ship_qty
     	from ship_mng sh join client c
     	on sh.clnt_id = c.clnt_id
     	join user u
     	on sh.user_id = u.user_id
+    	join item i
+    	on sh.item_id = i.item_id
     	order by Dlvdate desc
     	limit #{startRow},#{pageSize}
     </select>
@@ -306,10 +313,24 @@
 				where ship_id = #{shipId}
 	</update>
 	
+<!-- 	출하현황 수정 -->
+	<update id="updateCond">
+	update ship_mng 
+	set 
+	cmplt_yn = "Y"
+	where ship_id = #{shipId}
+	</update>
+	
 <!-- 	출하관리 납품 삭제 -->
 	<delete id="deleteShip">
 		delete from ship_mng
 		where ship_id = #{shipId}
+	</delete>
+	
+<!-- 	출하현황삭제 -->
+	<delete id="deleteCond">
+	delete from ship_mng
+	where ship_id = #{shipId}
 	</delete>
 
 

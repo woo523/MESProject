@@ -49,7 +49,7 @@ public interface ShipService {
 
 	public void updateShip(ShipDTO shipDTO);
 
-	public ShipDTO getShip(int shipId);
+	public Map<String, Object> getShip(int shipId);
 
 	public void deleteShip(int shipId);
 	
