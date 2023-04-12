@@ -31,10 +31,12 @@ public class LoginController {
 	private AuthService authService;
 
 	@RequestMapping(value = "/login/login", method = RequestMethod.GET)
-	public String login() {
+	public String login(HttpSession session) {
+		if(session.getAttribute("id")!=null) {
+			return "redirect:/main/main";
+		}
 		
 		return "login/login";
-		
 	}
 
 	@RequestMapping(value = "/login/loginPro", method = RequestMethod.POST)

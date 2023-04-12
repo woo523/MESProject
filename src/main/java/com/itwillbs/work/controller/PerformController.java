@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.work.domain.PageDTO;
+import com.itwillbs.auth.domain.AuthDTO;
+import com.itwillbs.auth.service.AuthService;
 import com.itwillbs.line.domain.LineDTO;
 import com.itwillbs.line.service.LineService;
 import com.itwillbs.login.service.LoginService;
@@ -41,6 +43,9 @@ public class PerformController {
 	
 	@Inject
 	private LoginService loginService;
+	
+	@Inject
+	private AuthService authService;
 	
 	@RequestMapping(value = "/work/performRegist", method = RequestMethod.GET)
 	public String performRegist(Model model, HttpServletRequest request, PageDTO pageDTO) {
@@ -490,15 +495,27 @@ public class PerformController {
 	}
 	
 	@RequestMapping(value = "/work/poplogin", method = RequestMethod.GET) // 팝화면 로그인
-	public String poplogin(HttpSession session) {
-		if((String)session.getAttribute("id")!=null) {
-			return "redirect:/work/popPfRe";
+	public String poplogin(HttpSession session, HttpServletResponse response) throws IOException {
+		if(session.getAttribute("id")!=null) {
+			if(session.getAttribute("menu15")!=null)
+			{return "redirect:/work/popPfRe";}
+			else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script type='text/javascript'>");
+				out.println("alert('해당 권한이 없습니다.');");
+				out.println("history.back()");
+				out.println("</script>");
+				out.close();
+				return null;
+				
+			}
 		}
 		return "work/poplogin";
 	}
 	
 	@RequestMapping(value = "/work/loginPro", method = RequestMethod.POST) // 팝화면 로그인pro
-	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+	public String loginPro(MemberDTO memberDTO, HttpSession session, HttpServletResponse response) throws IOException {
 		System.out.println(memberDTO.getId());
 		System.out.println(memberDTO.getPass());
 		
@@ -509,9 +526,26 @@ public class PerformController {
 			
 			session.setAttribute("id", memberDTO.getId());
 			session.setAttribute("name", memberDTO2.getName());
+			List<AuthDTO> authlist = authService.getauth(memberDTO2);
+			for(int i=0;i<authlist.size();i++) {
+				AuthDTO auth = authlist.get(i);
+				session.setAttribute("menu"+auth.getMenuCd(), auth.getMenuCd());
+			}
 
-			// 주소 변경되면서 메인페이지로 이동
-			return "redirect:/work/popPfRe";
+			if(session.getAttribute("menu15")!=null){
+				return "redirect:/work/popPfRe";	
+			}else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script type='text/javascript'>");
+				out.println("alert('해당 권한이 없습니다.');");
+				out.println("history.back()");
+				out.println("</script>");
+				out.close();
+				return null;
+				
+			}
+			
 		} else { // 아이디,비밀번호 틀림
 
 			// common/msg.jsp 만들어서 "아이디 비밀번호 틀림" 메시지 출력하고 뒤로이동
