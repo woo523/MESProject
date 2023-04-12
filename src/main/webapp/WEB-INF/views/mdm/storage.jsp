@@ -8,36 +8,58 @@
 	<title>storage</title>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 <style type="text/css">
-h2{
+h1{
 	margin : 20px 0px;
+	font-size: 22.5px;
 }
 table{
-      width: 100%;  
+    width: 100%;  
 } 
+
+.storage_body{
+	padding : 40px;
+	margin : 40px;
+}
+
    
 #th{
 	border-bottom: 1px solid black;
-	padding: 10px;
+/* 	padding: 10px; */
 /* 	margin-bottom: 10px; */
 }
+
+#th th{
+	border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    vertical-align: middle;
+    width : 8%; 	
+}
+
 button{
 display: inline-block;
     width: 70px;
     height: 28px;
     font-size: 15px;
+    margin-left: 5px;
 }
 .storage_filter{
-	border: 1px solid black;
-	margin : 20px 0px;
-	padding : 5px;
+	border : 1px solid black;
+	width : 100%;
+	margin-top : 5px;
+	margin-bottom : 30px;
 }
 
-.storage_filter tr, td{
- 	border:0px;
+.storage_filter td{
+/*  	border:0px; */
+ 	padding : 10px;
 }
 
-#data {
+#data{
 	text-align : center;
+	width:100%;
 }
  
 #data:hover{
@@ -45,13 +67,32 @@ display: inline-block;
 	cursor:pointer;
 }
 
+#data td{
+    vertical-align: middle;
+    width : 20%; 
+    text-align:center;
+    height : 15px; 
+}
+
 .StorageButtons{
 	width: 100%; 
 	text-align:right;
 }
 
+.search{
+	text-align:right;
+	display :block;	
+	padding : 3px;
+}
 
+.storagecount{
+	text-align:right;
+	margin-bottom: 8px;
+}
 
+.storage_content{
+	margin-top: 100px;
+}
 
 </style>
 
@@ -73,22 +114,24 @@ function modifyLine(obj){
 	var storId=$(obj).closest('tr').children('#helpbutton').find('input[type="hidden"]').val();
 	console.log(storId);
 	
-	window.open("${pageContext.request.contextPath}/mdm/storageupdate?storId="+storId,"popup", "width=450, height=400, left=500, top=250");
+	window.open("${pageContext.request.contextPath}/mdm/storageupdate?storId="+storId,"popup", "width=400, height=400, left=500, top=250");
 }//수정
 function insertLine(obj){
 	console.log('추가');
 	
-	window.open("/mdm/storageinsert", "a", "width=450, height=400");
+	window.open("/mdm/storageinsert", "a", "width=400, height=400, left=500, top=250");
 }//추가
 
 function deleteLine(obj){
 
 	var storId=$(obj).closest('tr').children('#helpbutton').find('input[type="hidden"]').val();
-
+	if(confirm("삭제하시겠습니까?")){
 	console.log(storId); 
 	location.href="${pageContext.request.contextPath}/mdm/storagedelete?storId="+storId+"&pageNum=${pageDTO.pageNum}";
 	$(obj).closest('tr').remove();
-	
+	}else{
+		return false;
+	}	
 } //삭제
 </script>
 
@@ -99,10 +142,10 @@ function deleteLine(obj){
 	<jsp:include page="../inc/header.jsp" />
 <!-- </header> -->
 
-<div>
-<h2>창고관리</h2><br>
+<div class="storage_body">
+<h1>창고관리</h1><br>
 <form id="storageSearch">
-<div class="search"><button type="submit">조회</button></div>	
+<div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>	
 <table class="storage_filter">
 	<tr>
 	<td>창고명</td> <td><input type="text" class="storName" name="storName"></td>
@@ -123,12 +166,9 @@ function deleteLine(obj){
 </form>
 
 	
-<div>
-<h2>창고리스트</h2><br>
+<div class="storage_content">
+<h1> 창고목록 </h1><br>
 	
-	<div class="storageButtons">
-		<button type="button" onclick="insertLine();">추가</button>
-	</div>
 	<div class="storagecount"><span id="storagecount"></span></div>
 	<form name="storagelist" id="storagelist" method="post">
 	<table border="1" class="storageList">
@@ -145,7 +185,14 @@ function deleteLine(obj){
 				<td>${storageDTO.storCode}</td>
 				<td>${storageDTO.storName}</td>
 				<td>${storageDTO.storType}</td>
-				<td>${storageDTO.useYn}</td>
+				<c:choose>
+					<c:when test="${storageDTO.useYn eq 'Y'}">
+						<td class="tduseyn" style="color: blue">${storageDTO.useYn}</td>
+					</c:when>
+					<c:otherwise>
+						<td class="tduseyn" style="color: red">${storageDTO.useYn}</td>
+					</c:otherwise>
+				</c:choose>
 				<td>${storageDTO.itemCount}</td>
 				<td id="helpbutton" style="width:10px; text-align:center;vertical-align:middle;">
 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a>

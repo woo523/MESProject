@@ -9,7 +9,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 	
 <style type="text/css">
-
+h1{
+	margin : 20px 0px;
+	font-size: 22.5px;
+}
 .item_body {
 	padding : 30px;
 }
@@ -26,17 +29,19 @@
 
 .searchitem{
 	display :block;	
+	padding : 3px;
 }
 button{
-display: inline-block;
+	display: inline-block;
     width: 70px;
     height: 28px;
     font-size: 15px;
+    margin-left : 5px;
 }
-.tableinput{
-	width : 95%;
-	border : white;
-}
+/* .tableinput{ */
+/* 	width : 95%; */
+/* 	border : white; */
+/* } */
 .datalist td{
 	border : 1px solid #black;
 	width : 10px;
@@ -71,45 +76,49 @@ display: inline-block;
     height : 15px; 
 }
 
-.imodifyList td{
-    padding: 5px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    vertical-align: middle;
-    width : 9%; 
-    text-align:center;
-    background : yellow;
-    height : 30px;
+.itemcontent:hover{
+	background-color : #e1e1e1;
+	cursor:pointer;
 }
+/* .imodifyList td{ */
+/*     padding: 5px; */
+/*     margin-bottom: 10px; */
+/*     font-weight: bold; */
+/*     vertical-align: middle; */
+/*     width : 9%;  */
+/*     text-align:center; */
+/*     background : yellow; */
+/*     height : 30px; */
+/* } */
 
 .listButtons{
 	margin-bottom: 5px;
 	text-align:right;
 }
 
-.itemcontent td input{ 
-	padding: 5px;
-    margin-bottom: 10px;
-    font-weight: bold; 
-    vertical-align: middle;
-    width : 100%;
-    text-align:center;
-    border : 0px;
-    pointer-events: none;
-    height : 80%;     
-}
+/* .itemcontent td input{  */
+/* 	padding: 5px; */
+/*     margin-bottom: 10px; */
+/*     font-weight: bold;  */
+/*     vertical-align: middle; */
+/*     width : 100%; */
+/*     text-align:center; */
+/*     border : 0px; */
+/*     pointer-events: none; */
+/*     height : 80%;      */
+/* } */
 
-.imodifyList td input{
-  	background : yellow;  
- 	border : 3px solid #elelel; 
- 	padding: 5px; 
-     margin-bottom: 10px; 
-     font-weight: bold;  
-     vertical-align: middle; 
-     width : 100%; 
-     height : 80%; 
-     text-align:center; 
-}
+/* .imodifyList td input{ */
+/*   	background : yellow;   */
+/*  	border : 3px solid #elelel;  */
+/*  	padding: 5px;  */
+/*      margin-bottom: 10px;  */
+/*      font-weight: bold;   */
+/*      vertical-align: middle;  */
+/*      width : 100%;  */
+/*      height : 80%;  */
+/*      text-align:center;  */
+/* } */
 
 .searchitem{
 	text-align:right;
@@ -117,7 +126,9 @@ display: inline-block;
 
 .itemcount{
 	text-align:right;
+	margin-bottom: 8px;
 }
+
 </style>
 	<script type="text/javascript">
 	
@@ -283,11 +294,13 @@ display: inline-block;
 	function deleteLine(obj){
 
 		var id=$(obj).closest('tr').children('#helpbutton').find('input[type="hidden"]').val();
-	
+		if(confirm("삭제하시겠습니까?")){
 		console.log(id); 
-		$(obj).closest('tr').remove();
 		location.href="${pageContext.request.contextPath}/mdm/itemdelete?itemId="+id;
-		
+		$(obj).closest('tr').remove();
+		}else{
+			return false;
+		}		
 	} //삭제
 	
 	function openmodifybox(obj) {
@@ -298,11 +311,11 @@ display: inline-block;
 		console.log(itemName);
 		var itemNum=$(obj).closest('tr').children('.tditemnum').innerText;
 		console.log(itemName);
-		window.open("${pageContext.request.contextPath}/mdm/itemupdate?itemId="+itemId,"popup", "width=450, height=600, left=500, top=250");
+		window.open("${pageContext.request.contextPath}/mdm/itemupdate?itemId="+itemId,"popup", "width=400, height=600, left=500, top=250");
 	} //수정박스
 	function openinsertbox() {
 		var id = '<%=(String)session.getAttribute("id")%>';
-		window.open("/mdm/iteminsert", "a", "width=1000, height=200");
+		window.open("/mdm/iteminsert", "a", "width=400, height=600, left=500, top=250");
 	} //추가박스
 	
 	</script>
@@ -375,7 +388,14 @@ display: inline-block;
 				<td class="tdinvntunit">${itemDTO.invntUnit}</td>
 				<td class="tdinvntqlt">${itemDTO.invntQlt}</td>
 				<td class="tdstandard">${itemDTO.standard}</td>
-				<td class="tduseyn">${itemDTO.useYn}</td>
+				<c:choose>
+					<c:when test="${itemDTO.useYn eq 'Y'}">
+						<td class="tduseyn" style="color: blue">${itemDTO.useYn}</td>
+					</c:when>
+					<c:otherwise>
+						<td class="tduseyn" style="color: red">${itemDTO.useYn}</td>
+					</c:otherwise>
+				</c:choose>
 				<td class="tdclntname">${itemDTO.clntName}</td>
 				<td class="tdsaleprice">${itemDTO.salePrice}</td>
 				<td class="tdbuyprice">${itemDTO.buyPrice}</td>
@@ -383,7 +403,7 @@ display: inline-block;
 				<td id="helpbutton" style="width:10px; text-align:center;vertical-align:middle;">
 <%-- 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a> --%>
 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="openmodifybox(this);"></a>
-				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'></a>
+				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px'  onclick="deleteLine(this);"></a>
 <%-- 				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/save.png' id="save" width='17px' onclick="saveLine(this);"></a> --%>
 <%-- 				<input type="image" src="${pageContext.request.contextPath}/resources/image/save.png" alt="" id="save" width='17px' onclick="saveLine(this);"> --%>
 <%-- 				<input class="tditemid" type="hidden"  value="${itemDTO.itemId}" readonly> --%>

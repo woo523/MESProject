@@ -8,41 +8,68 @@
 	<title>equip</title>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 <style type="text/css">
-h2{
+h1{
 	margin : 20px 0px;
+	font-size: 22.5px;
 }
 table{
       width: 100%;  
 } 
-   
+
+.equip_body{
+	padding : 20px;
+}
+
 #th{
 	border-bottom: 1px solid black;
-	padding: 10px;
+/* 	padding: 10px; */
 /* 	margin-bottom: 10px; */
 }
+
+#th th{
+	border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    vertical-align: middle;
+    width : 8%; 	
+}
+
 button{
 display: inline-block;
     width: 70px;
     height: 28px;
     font-size: 15px;
+    margin-left : 5px;
 }
 .equip_filter{
-	border: 1px solid black;
-	margin : 20px 0px;
-	padding : 5px;
+	border : 1px solid black;
+	width : 100%;
+	margin-top : 5px;
+	margin-bottom : 30px;
 }
 
-.equip_filter tr, td{
- 	border:0px;
+.equip_filter td{
+/*  	border:0px; */
+ 	padding : 10px;
 }
 
 #data {
 	text-align : center;
+	width:100%;
 }
  
 #data:hover{
 	background-color : #e1e1e1;
 	cursor:pointer;
+}
+
+#data td{
+    vertical-align: middle;
+    width : 13%; 
+    text-align:center;
+    height : 15px; 
 }
 
 .EquipButtons{
@@ -52,10 +79,13 @@ display: inline-block;
 
 .search{
 	text-align:right;
+	display :block;	
+	padding : 3px;
 }
 
 .equipcount{
 	text-align:right;
+	margin-bottom: 8px;
 }
 
 
@@ -81,12 +111,12 @@ function modifyLine(obj){
 	var equpId=$(obj).closest('tr').children('#helpbutton').find('input[type="hidden"]').val();
 	console.log(equpId);
 	
-	window.open("${pageContext.request.contextPath}/mdm/equipupdate?equpId="+equpId,"popup", "width=450, height=750, left=500, top=250");
+	window.open("${pageContext.request.contextPath}/mdm/equipupdate?equpId="+equpId,"popup", "width=450, height=500, left=500, top=250");
 }//수정
 function insertLine(obj){
 	console.log('추가');
 	
-	window.open("/mdm/equipinsert", "a", "width=700, height=800");
+	window.open("/mdm/equipinsert", "a", "width=450, height=500, left=500, top=250");
 }//추가
 
 function deleteLine(obj){
@@ -109,7 +139,7 @@ function deleteLine(obj){
 	<jsp:include page="../inc/header.jsp" />
 <!-- </header> -->
 
-<div>
+<div class="equip_body">
 <h1> 설비정보관리 </h1><br>
 <form id="equipSearch">
 <div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>	
@@ -139,7 +169,7 @@ function deleteLine(obj){
 </form>
 	
 <div>
-<h1> 설비 </h1><br>
+<h1> 설비목록 </h1><br>
 	
 	<div class="equipcount"><span id="equipcount"></span></div>
 	<form name="equiplist" id="equiplist" method="post">
@@ -163,7 +193,14 @@ function deleteLine(obj){
 				<td>${equipDTO.poNum}</td>
 				<td>${equipDTO.poDate}</td>
 				<td>${equipDTO.poAmount}</td>
-				<td>${equipDTO.useYn}</td>
+				<c:choose>
+					<c:when test="${equipDTO.useYn eq 'Y'}">
+						<td class="tduseyn" style="color: blue">${equipDTO.useYn}</td>
+					</c:when>
+					<c:otherwise>
+						<td class="tduseyn" style="color: red">${equipDTO.useYn}</td>
+					</c:otherwise>
+				</c:choose>
 				<td>${equipDTO.equpStat}</td>
 				<td id="helpbutton" style="width:10px; text-align:center;vertical-align:middle;">
 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a>

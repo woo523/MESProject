@@ -8,36 +8,59 @@
 	<title>client</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 <style type="text/css">
-h2{
+h1{
 	margin : 20px 0px;
+	font-size: 22.5px;
 }
 table{
       width: 100%;  
 } 
-   
+
+.client_body {
+	padding : 20px;
+}
+
 #th{
 	border-bottom: 1px solid black;
-	padding: 10px;
+/* 	padding: 10px; */
 /* 	margin-bottom: 10px; */
 }
+
+#th th{
+	border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    vertical-align: middle;
+    width : 8%; 	
+}
+
 button{
-display: inline-block;
+	display: inline-block;
     width: 70px;
     height: 28px;
     font-size: 15px;
+    margin-left : 5px;
 }
 .client_filter{
-	border: 1px solid black;
-	margin : 20px 0px;
-	padding : 5px;
+	border : 1px solid black;
+	width : 100%;
+	margin-top : 5px;
+	margin-bottom : 30px;
 }
 
-.client_filter tr, td{
- 	border:0px;
-}
+.client_filter td{ 
+ 	padding : 10px; 
+} 
+
+/* .client_filter tr, td{ */
+/*  	border:0px; */
+/* } */
 
 #data {
 	text-align : center;
+	width:100%;
 }
  
 #data:hover{
@@ -45,17 +68,27 @@ display: inline-block;
 	cursor:pointer;
 }
 
+#data td{
+    vertical-align: middle;
+    width : 9%; 
+    text-align:center;
+    height : 15px; 
+}
+
 .ClientButtons{
 	width: 100%; 
 	text-align:right;
 }
 
-.search{
+.searchclient{
 	text-align:right;
+	display :block;	
+	padding : 3px;
 }
 
 .clientcount{
 	text-align:right;
+	margin-bottom: 8px;
 }
 
 </style>
@@ -86,7 +119,7 @@ function modifyLine(obj){
 function insertLine(obj){
 	console.log('추가');
 	
-	window.open("/mdm/clientinsert", "a", "width=700, height=800");
+	window.open("/mdm/clientinsert", "a", "width=450, height=750, left=500, top=250");
 }//추가
 
 function deleteLine(obj){
@@ -109,10 +142,10 @@ function deleteLine(obj){
 	<jsp:include page="../inc/header.jsp" />
 <!-- </header> -->
 
-<div>
-<h2>|| 거래처정보관리 ||</h2><br>
+<div class="client_body">
+<h1> 거래처정보관리 </h1><br>
 <form id="clientSearch">
-<div class="search"><button type="submit">조회</button></div>
+<div class="searchclient"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>
 <table class="client_filter">
 	<tr>	
 	<td>거래처코드</td> <td><input type="text" class="clntCode" name="clntCode"></td>
@@ -132,11 +165,8 @@ function deleteLine(obj){
 </form>
 	
 <div>
-<h2>|| 거래처 ||</h2><br>
+<h1> 거래처 목록</h1><br>
 	
-	<div class="ClientButtons">
-		<button type="button" onclick="insertLine();">추가</button>
-	</div>
 	<div class="clientcount"><span id="clientcount"></span></div>
 	
 	<form name="clientlist" id="clientlist" method="post">
@@ -154,7 +184,7 @@ function deleteLine(obj){
 			<th>주소</th>
 			<th>상세주소</th>
 			<th>전화번호</th>
-			<th>휴대폰번호</th>
+			<th>연락처</th>
 			<th>팩스번호</th>
 			<th>E-MAIL</th>
 			<th>비고</th>
@@ -177,7 +207,14 @@ function deleteLine(obj){
 				<td>${clientDTO.fax}</td>
 				<td>${clientDTO.email}</td>
 				<td>${clientDTO.note}</td>
-				<td>${clientDTO.useYn}</td>
+				<c:choose>
+					<c:when test="${clientDTO.useYn eq 'Y'}">
+						<td class="tduseyn" style="color: blue">${clientDTO.useYn}</td>
+					</c:when>
+					<c:otherwise>
+						<td class="tduseyn" style="color: red">${clientDTO.useYn}</td>
+					</c:otherwise>
+				</c:choose>
 				<td id="helpbutton" style="width:10px; text-align:center;vertical-align:middle;">
 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a>
 				<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/del.png' width='17px' onclick="deleteLine(this);"></a>
