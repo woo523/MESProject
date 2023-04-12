@@ -251,7 +251,47 @@ public class MaterialServiceImpl implements MaterialService{
 		materialDAO.editinStorage(inmaterialDTO);
 	}
 
+	@Override
+	public void updateoutStock(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl updateoutStock()");
+		materialDAO.updateoutStock(outmaterialDTO);	
+	}
 
+	@Override
+	public void updateoutStorage(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl updateoutStorage()");
+		materialDAO.updateoutStorage(outmaterialDTO);
+	}
+
+	@Override
+	public void deloutStock(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl deloutStock()");
+		materialDAO.deloutStock(outmaterialDTO);
+	}
+
+	@Override
+	public void deloutStorage(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl deloutStorage()");
+		materialDAO.deloutStorage(outmaterialDTO);
+	}
+
+	@Override
+	public void editoutStock(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl editoutStock()");
+		materialDAO.editoutStock(outmaterialDTO);
+	}
+
+	@Override
+	public void editoutStorage(OutmaterialDTO outmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl editoutStorage()");
+		materialDAO.editoutStorage(outmaterialDTO);
+	}
+
+	@Override
+	public Integer getoutStock(int itemId) {
+		System.out.println("OutmaterialServiceImpl getoutStock()");
+		return materialDAO.getoutStock(itemId);
+	}
 
 
 

@@ -258,7 +258,7 @@
 	    <result column="clnt_cd" property="clientCode"/>
 	    <result column="clnt_nm" property="clientName"/>
 	    <result column="clnt_id" property="clientId"/>
-	    <result column="cur_stock" property="stockcur"/>
+	    <result column="outcur_stock" property="stockcur"/>
 	    <result column="whouse" property="stockwhouse"/>
 	    <result column="item_num" property="itemNum"/>
 	    <result column="item_nm" property="itemName"/>
@@ -278,7 +278,7 @@
 				outmater.note, 
 				clnt.clnt_cd,
 				clnt.clnt_nm,
-				stock.cur_stock,
+				outmater.outcur_stock,
 				stock.whouse,
 				item.item_num, 
 		    	item.item_nm,
@@ -304,7 +304,7 @@
 		outmater.note, 
 		clnt.clnt_cd,
 		clnt.clnt_nm,
-		stock.cur_stock,
+		outmater.outcur_stock,
 		stock.whouse,
 		item.item_num, 
     	item.item_nm,
@@ -380,8 +380,8 @@
 	<!-- 자재출고 등록 -->
 	<insert id="insertOutmtrl">
 		insert into out_material 
-		(item_id, clnt_id, out_mtrl_num, out_mtrl_dt, out_mtrl_qty, note, insert_id, insert_dt) 
-		VALUES (#{itemId}, #{clntId}, #{outmtrlNum},  #{outmtrlDt}, #{outmtrlQty}, #{note}, #{insertId}, #{insertDt})
+		(item_id, clnt_id, out_mtrl_num, out_mtrl_dt, out_mtrl_qty, note, insert_id, insert_dt, outcur_stock) 
+		VALUES (#{itemId}, #{clntId}, #{outmtrlNum},  #{outmtrlDt}, #{outmtrlQty}, #{note}, #{insertId}, #{insertDt}, #{outcurStock})
 	</insert>
 
    <select id="itemlist" resultType="com.itwillbs.material.domain.ItemDTO">
@@ -605,6 +605,7 @@
 	where item_id = #{itemId}
 	</select>
 
+<!-- 자재입고수량 + 현재고 등록 -->
 	<update id="updateinStock">
 	update stock
 	set cur_stock = cur_stock + #{inmtrlQty}
@@ -619,6 +620,7 @@
 	stor_id = 1
 	</update>
 	
+<!-- 자재입고수량 + 현재고 삭제 -->	
 	<update id="delinStock">
 	update stock
 	set cur_stock = cur_stock - #{inmtrlQty}
@@ -633,6 +635,7 @@
 	stor_id = 1
 	</update>
 
+<!-- 자재입고수량 + 현재고 수정 -->
 	<update id="editinStock">
 	update stock
 	set cur_stock = cur_stock + #{inmtrlQty}
@@ -647,4 +650,56 @@
 	stor_id = 1
 	</update>	
 	
+	<select id="getoutStock" resultType="java.lang.Integer">
+	select 
+	cur_stock as curStock
+	from stock
+	where item_id = #{itemId}
+	</select>
+	
+<!-- 자재출고수량 + 현재고 등록 -->	
+	<update id="updateoutStock">
+	update stock
+	set cur_stock = cur_stock - #{outmtrlQty}
+	where
+	item_id = #{itemId}
+	</update> 
+	
+	<update id="updateoutStorage">
+	update storage
+	set item_count = item_count - #{outmtrlQty}
+	where
+	stor_id = 1
+	</update>
+
+<!-- 자재출고수량 + 현재고 삭제 -->		
+	<update id="deloutStock">
+	update stock
+	set cur_stock = cur_stock + #{outmtrlQty}
+	where
+	item_id = #{itemId}
+	</update>
+
+	<update id="deloutStorage">
+	update storage
+	set item_count = item_count + #{outmtrlQty}
+	where
+	stor_id = 1
+	</update>
+
+<!-- 자재출고수량 + 현재고 수정 -->	
+	<update id="editoutStock">
+	update stock
+	set cur_stock = cur_stock - #{outmtrlQty}
+	where
+	item_id = #{itemId}
+	</update> 
+	
+	<update id="editoutStorage">
+	update storage
+	set item_count = item_count - #{outmtrlQty}
+	where
+	stor_id = 1
+	</update>	
+		
 </mapper>

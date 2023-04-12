@@ -280,7 +280,52 @@ public class MaterialDAOImpl implements MaterialDAO{
 	}
 	
 	
+	@Override
+	public void updateoutStock(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl updateoutStock()");		
+		sqlSession.update(namespace+".updateoutStock", outmaterialDTO);
+	}
 	
+	@Override
+	public void updateoutStorage(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl updateoutStorage()");		
+		sqlSession.update(namespace+".updateoutStorage", outmaterialDTO);
+	}
+
+
+	@Override
+	public void deloutStock(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl deloutStock()");
+		sqlSession.update(namespace+".deloutStock", outmaterialDTO);
+	}
+
+
+	@Override
+	public void deloutStorage(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl deloutStorage()");
+		sqlSession.update(namespace+".deloutStorage", outmaterialDTO);
+	}
+
+
+	@Override
+	public void editoutStock(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl editoutStock()");		
+		sqlSession.update(namespace+".editoutStock", outmaterialDTO);
+	}
+
+
+	@Override
+	public void editoutStorage(OutmaterialDTO outmaterialDTO) {
+		System.out.println("materialDAOImpl editoutStorage()");		
+		sqlSession.update(namespace+".editoutStorage", outmaterialDTO);
+	}
+
+
+	@Override
+	public Integer getoutStock(int itemId) {
+		System.out.println("materialDAOImpl getoutStock()");
+		return sqlSession.selectOne(namespace+".getoutStock", itemId);
+	}	
 	
 
 

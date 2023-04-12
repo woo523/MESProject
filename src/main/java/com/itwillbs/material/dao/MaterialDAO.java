@@ -86,4 +86,18 @@ public interface MaterialDAO {
 	public void editinStock(InmaterialDTO inmaterialDTO);
 	
 	public void editinStorage(InmaterialDTO inmaterialDTO);
+	
+	public void updateoutStock(OutmaterialDTO outmaterialDTO);
+	
+	public void updateoutStorage(OutmaterialDTO outmaterialDTO);
+	
+	public void deloutStock(OutmaterialDTO outmaterialDTO);
+	
+	public void deloutStorage(OutmaterialDTO outmaterialDTO);
+	
+	public void editoutStock(OutmaterialDTO outmaterialDTO);
+	
+	public void editoutStorage(OutmaterialDTO outmaterialDTO);
+
+	public Integer getoutStock(int itemId);
 }

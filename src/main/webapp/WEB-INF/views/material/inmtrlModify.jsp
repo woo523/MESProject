@@ -75,12 +75,12 @@ function openclist(){
 //유효성 검사
 function checkForm() {
 	
-	if($('.mtDate').val() == "") {
-		alert("입고 일자를 입력해주세요.");
-		$('.mtDate').focus();
+// 	if($('.mtDate').val() == "") {
+// 		alert("입고 일자를 입력해주세요.");
+// 		$('.mtDate').focus();
 		
-		return false;
-	}
+// 		return false;
+// 	}
 	
 	if($('.pcd').val() == "") {
 		alert("제품 정보를 입력해주세요.");
@@ -141,7 +141,7 @@ function checkForm() {
 <%-- 				<tr><td>등록자</td><td><input type="text"  name="insertId" value="${inmaterialDTO.insertId}" readonly></td></tr> --%>
 <%-- 				<tr><td>수정자</td><td><input type="text" name="updateId" value="${sessionScope.id}" readonly></td></tr> --%>
 				<tr><td>입고번호</td><td><input type="text"  name="inmtrlNum" value="${inmaterialDTO.inmtrlNum}" readonly></td></tr>
-				<tr><td>입고일자<span id="red">*</span></td><td><input type="date" id="Date" class="mtDate" name="inmtrlDt" value="${inmaterialDTO.inmtrlDt}"></td></tr>
+				<tr><td>입고일자<span id="red">*</span></td><td><input type="date" id="Date" class="mtDate" name="inmtrlDt" value="${inmaterialDTO.inmtrlDt}" readonly></td></tr>
 				<tr><td>제품 정보<span id="red">*</span></td><td><input type="text" id="pcd" class="pcd" value="${getInmtrl.itemNum}" onclick="openilist()">
 					   <input type="text" id="pnm" value="${getInmtrl.itemName}" readonly></td></tr>
 					    <input type="hidden" name="itemId" id="pid" value="${getInmtrl.itemId}">

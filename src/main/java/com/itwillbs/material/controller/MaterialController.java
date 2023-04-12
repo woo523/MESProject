@@ -366,14 +366,12 @@ public class MaterialController {
 	@RequestMapping(value = "/material/del", method = RequestMethod.GET)
 	public String del(HttpServletRequest request) { 
 		System.out.println("MaterialController del()");
-		
-		
+			
 		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));		
 		InmaterialDTO inmaterialDTO = materialService.getInmtrl(inmtrlId);
 		materialService.delinStock(inmaterialDTO);
 		materialService.delinStorage(inmaterialDTO);
-		materialService.deleteInmtrl(inmtrlId);
-		
+		materialService.deleteInmtrl(inmtrlId);	
 		
 		return "redirect:/material/inmaterList";
 	}
@@ -459,7 +457,11 @@ public class MaterialController {
 	public String outDel(HttpServletRequest request) { 
 		System.out.println("MaterialController outDel()");
 		
-		int outmtrlId = Integer.parseInt(request.getParameter("outmtrlId"));		
+		int outmtrlId = Integer.parseInt(request.getParameter("outmtrlId"));
+		OutmaterialDTO outmaterialDTO = materialService.getOutmtrl(outmtrlId);
+		
+		materialService.deloutStock(outmaterialDTO);
+		materialService.deloutStorage(outmaterialDTO);
 		materialService.deleteOutmtrl(outmtrlId);
 		
 		return "redirect:/material/outmaterList";
@@ -488,11 +490,14 @@ public class MaterialController {
 		outmaterialDTO.setOutmtrlNum(outmtrlNum);
 		outmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
 		outmaterialDTO.setInsertId(request.getParameter("insertId"));
-
+		int curStock = materialService.getoutStock(outmaterialDTO.getItemId());
+		int outcurStock = curStock - outmaterialDTO.getOutmtrlQty();
+		outmaterialDTO.setOutcurStock(outcurStock);
 		
+		materialService.updateoutStock(outmaterialDTO);
+		materialService.updateoutStorage(outmaterialDTO);
 		materialService.insertOutmtrl(outmaterialDTO);
 		System.out.println(outmaterialDTO);
-		
 		
 		return "redirect:/common/offwindow";
 	}
@@ -525,8 +530,18 @@ public class MaterialController {
 		outmaterialDTO.setUpdateId(id);
 		outmaterialDTO.setUpdateDt(new Timestamp(System.currentTimeMillis()));
 		
-		materialService.updateOutmtrl(outmaterialDTO);
+		OutmaterialDTO outmaterialDTO2 = materialService.getOutmtrl(outmaterialDTO.getOutmtrlId()); // 수정하기 전 출고DTO
+		materialService.deloutStock(outmaterialDTO2);
+		materialService.deloutStorage(outmaterialDTO2);
 		
+		int curStock = materialService.getoutStock(outmaterialDTO.getItemId());
+		int outcurStock = curStock - outmaterialDTO.getOutmtrlQty();
+		outmaterialDTO.setOutcurStock(outcurStock);
+		
+		materialService.updateOutmtrl(outmaterialDTO);
+		materialService.editoutStock(outmaterialDTO);
+		materialService.editoutStorage(outmaterialDTO);	
+
 		return "redirect:/common/offwindow";
 	}
 	
