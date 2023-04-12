@@ -227,6 +227,18 @@ public class MaterialServiceImpl implements MaterialService{
 		materialDAO.updateinStorage(inmaterialDTO);
 	}
 
+	@Override
+	public void delinStock(InmaterialDTO inmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl delStock()");
+		materialDAO.delinStock(inmaterialDTO);
+	}
+
+	@Override
+	public void delinStorage(InmaterialDTO inmaterialDTO) {
+		System.out.println("OutmaterialServiceImpl delStorage()");
+		materialDAO.delinStorage(inmaterialDTO);
+	}
+
 
 
 

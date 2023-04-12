@@ -366,9 +366,14 @@ public class MaterialController {
 	public String del(HttpServletRequest request) { 
 		System.out.println("MaterialController del()");
 		
+		
 		int inmtrlId = Integer.parseInt(request.getParameter("inmtrlId"));		
+		InmaterialDTO inmaterialDTO = materialService.getInmtrl(inmtrlId);
+		materialService.delinStock(inmaterialDTO);
+		materialService.delinStorage(inmaterialDTO);
 		materialService.deleteInmtrl(inmtrlId);
-
+		
+		
 		return "redirect:/material/inmaterList";
 	}
 	

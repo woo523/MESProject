@@ -127,9 +127,11 @@ function checkForm() {
 
 
 <body>
+<!-- <header> -->
+	<jsp:include page="../inc/header3.jsp" />
+<!-- </header> -->
 <div class="content_body">
 	<h2>자재입고 등록</h2>
-	<br>
 <%-- 	<div id="num">- 등록자 : ${sessionScope.id} - </div><br> --%>
 	<form action="${pageContext.request.contextPath }/material/inmtrlInsertPro" method="post" id="insert" onsubmit="return checkForm()">	
 <!-- 	<div id="num"> -->
@@ -148,7 +150,7 @@ function checkForm() {
 						<input type="hidden" name="curStock" id="stockcur">
 <!-- 			<tr><td>단위</td><td><input type="text" name="unit"></td></tr> -->
 			<tr><td>입고수량<span id="red">*</span></td><td><input type="number" class="Qty" name="inmtrlQty"></td></tr>
-			<tr><td>입고LOT<span id="red">*</span></td><td><input type="text" class="Lot" name="inmtrlLot"></td></tr>
+			<tr><td>입고LOT<span id="red">*</span></td><td><input type="number" class="Lot" value="0" min="0" name="inmtrlLot"> box</td></tr>
 			<tr><td>비고</td><td><input type="text" name="note"></td></tr>
 		</table><br>
 		<div id="bu">

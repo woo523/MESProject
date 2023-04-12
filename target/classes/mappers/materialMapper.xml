@@ -583,12 +583,6 @@
 		where stock_id = #{stockId}
 	</update>
 
-<!-- 	<update id="delStock"> -->
-<!-- 		update stock -->
-<!-- 		set cur_stock = cur_stock - #{outmtrlQty} -->
-<!-- 		where -->
-<!-- 		where stock_id = #{stockId} -->
-<!-- 	</update> -->
 
 	<select id="getStock" resultType="com.itwillbs.material.domain.StockDTO">
 		select 
@@ -625,5 +619,19 @@
 	stor_id = 1
 	</update>
 	
-    
+	<update id="delinStock">
+	update stock
+	set cur_stock = cur_stock - #{inmtrlQty}
+	where
+	item_id = #{itemId}
+	</update>
+
+	<update id="delinStorage">
+	update storage
+	set item_count = item_count - #{inmtrlQty}
+	where
+	stor_id = 1
+	</update>
+	
+	
 </mapper>

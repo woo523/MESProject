@@ -78,4 +78,8 @@ public interface MaterialDAO {
 	public void updateinStock(InmaterialDTO inmaterialDTO);
 	
 	public void updateinStorage(InmaterialDTO inmaterialDTO);
+	
+	public void delinStock(InmaterialDTO inmaterialDTO);
+	
+	public void delinStorage(InmaterialDTO inmaterialDTO);
 }
