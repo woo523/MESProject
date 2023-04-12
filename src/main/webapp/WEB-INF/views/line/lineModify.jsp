@@ -18,6 +18,35 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
 
 <style type="text/css">
+
+@import	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
+.content_body {
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
+form {
+	border:1px solid;
+	padding:10px;
+	width: 500px;
+	margin: 0px auto;
+}
+
+h2 {
+	text-align: center;
+}
+
+.content_body ul li {
+	list-style: none;
+	padding: 6px;
+}
+
+label.title {
+	width: 80px;
+	float: left;
+}
+
 .content_body textarea {
 	resize: none;
 }
@@ -26,34 +55,68 @@
 	color: red;
 }
 
+.content_body .btn {
+	text-align: center;
+}
+
+input, select, button {
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
 </style>
 
 </head>
 <body>
+
+<!-- <header> -->
+	<jsp:include page="../inc/header3.jsp" />
+<!-- </header> -->
+
 <div class="content_body">
 	<h2>라인 수정</h2> 
 	<form action="${pageContext.request.contextPath}/line/lineModifyPro" method="post" onsubmit="return checkForm()">
 		<input type="hidden" name="lineId" value="${lineDTO.lineId}">
 		<ul>
-			<li>라인코드 <span>*</span> 
-						 <input type="text" name="lineCode" class="lineCode" value="${lineDTO.lineCode}"></li>
-			<li>수정자  <input type="text" name="insertId" value="${sessionScope.id}" readonly> </li>
-			<li>라인명  <span>*</span>
-						<input type="text" name="lineName" class="lineName" value="${lineDTO.lineName}"></li>
-			<li>작업장  <span>*</span>
-						<select name="linePlace" id="linePlace" class="linePlace">
-							<c:forEach var="place" items="${lineList}">
-								<option value="${place.linePlace}">${place.linePlace}</option>
-							</c:forEach>
-						</select></li>			
-			<li>일렬번호 <span>*</span>
-						 <input type="text" name="sortOrder" class="sortOrder" value="${lineDTO.sortOrder}"></li>
-			<li>사용여부 <input type="radio" id="Y" name="useChoice" value="Y" class="sCheck">Y
-						 <input type="radio" id="N" name="useChoice" value="N" class="sCheck">N</li>
-			<li>비고 <textarea rows="5" cols="30" name="note">${lineDTO.note}</textarea></li>
+			<li>
+				<label class="title">라인코드 <span>*</span> </label>
+				<input type="text" name="lineCode" class="lineCode" value="${lineDTO.lineCode}">
+			</li>
+			<li>
+				<label class="title">수정자</label>
+				<input type="text" name="insertId" value="${sessionScope.id}" readonly>
+			</li>
+			<li>
+				<label class="title">라인명 <span>*</span> </label>
+				<input type="text" name="lineName" class="lineName" value="${lineDTO.lineName}">
+			</li>
+			<li>
+				<label class="title">작업장 <span>*</span> </label>
+				<select name="linePlace" id="linePlace" class="linePlace">
+					<c:forEach var="place" items="${lineList}">
+						<option value="${place.linePlace}">${place.linePlace}</option>
+					</c:forEach>
+				</select>
+			</li>			
+			<li>
+				<label class="title">일렬번호 <span>*</span> </label>
+				<input type="text" name="sortOrder" class="sortOrder" value="${lineDTO.sortOrder}">
+			</li>
+			<li>
+				<label class="title">사용여부</label>
+				<input type="radio" id="Y" name="useChoice" value="Y" class="sCheck">Y
+				<input type="radio" id="N" name="useChoice" value="N" class="sCheck">N
+			</li>
+			<li>
+				<label class="title">비고</label>
+				<textarea rows="5" cols="30" name="note">${lineDTO.note}</textarea>
+			</li>
 		</ul>
-		<input type="submit" value="수정">
-		<button type="reset">취소</button>
+		
+		<div class="btn">
+			<input type="submit" value="수정">
+			<button type="reset">취소</button>
+		</div>
 	</form>
 </div>
 </body>
