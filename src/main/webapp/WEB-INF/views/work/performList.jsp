@@ -116,6 +116,10 @@ button{
 	width:1125px;
 }
 
+#f{
+	font-weight: bold;
+	font-size: 22.5px;
+}
 
 </style>
 </head>
@@ -235,7 +239,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 
 <div class="content_body"> <!-- 지우면안됨 -->
 	<!-- 내용시작 -->
-<h1>생산실적 현황</h1>
+<div id="f">생산실적 현황</div>
 	<div class="search_bar">
 	<form id="search">
 	<div id="btn">
@@ -265,7 +269,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	</form>
 	</div>
 	<br><br><br>
-	<h2>생산실적</h2>
+	<div id="f">생산실적</div>
 	<br>
 	<div id="count">총 ${pageDTO.count }건</div>
 	<table border="1" id="main">
@@ -340,7 +344,7 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	</div>
 	<br><br><br>
 	
-	<h2>생산실적 현황</h2>
+	<div id="f">생산실적 현황</div>
 	<br>
 
     <div id="Require_ajax">

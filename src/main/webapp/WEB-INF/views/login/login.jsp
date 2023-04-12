@@ -90,7 +90,7 @@
             </form>
 
             <div class="already_member_box d-flex justify-content-between px-4">
-            	<a href="#"><span class="text-center" id="to_signup">팝업으로 이동 >></span></a>
+            	<a href="${pageContext.request.contextPath }/work/poplogin"><span class="text-center" id="to_signup">팝업으로 이동 >></span></a>
             </div>
           </div>
           <!--accounts_forms-->
