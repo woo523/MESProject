@@ -140,6 +140,12 @@ public class OrderServiceImpl implements OrderService{
 		
 	}
 
+	@Override
+	public boolean check(int ordId) {
+		System.out.println("OrderServiceImpl check()");
+		return orderDAO.check(ordId);
+	}
+
 
 
 

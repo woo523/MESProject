@@ -140,7 +140,10 @@ public class OrderDAOImpl implements OrderDAO{
 		
 	}
 
-
+	public boolean check(int ordId) {
+		System.out.println("OrderDAOImpl check() 화면단 정보를 db에 저장");
+		return sqlSession.selectOne(namespace+".check", ordId);
+	}
 
 
 

@@ -49,7 +49,7 @@ public interface OrderDAO {
 
 	public void deleteCmplt(OrderDTO orderDTO);
 
-
+	public boolean check(int ordId);
 
 	
 }

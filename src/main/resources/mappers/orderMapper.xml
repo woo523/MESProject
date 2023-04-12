@@ -340,5 +340,13 @@
 	where ord_id = #{ordId}
 	</delete>
 	
+	<select id="check"  resultType="boolean">
+    select
+	count(*)
+	from
+	work_instr
+	where ord_id = #{ordId}
+	</select>
+	
 </mapper>
 
