@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -404,8 +405,18 @@ public class MaterialController {
 		String id = (String)session.getAttribute("id");
 		inmaterialDTO.setUpdateId(id);
 		inmaterialDTO.setUpdateDt(new Timestamp(System.currentTimeMillis()));
+
+		InmaterialDTO inmaterialDTO2 = materialService.getInmtrl(inmaterialDTO.getInmtrlId()); // 수정하기 전 입고DTO
+		materialService.delinStock(inmaterialDTO2);
+		materialService.delinStorage(inmaterialDTO2);
+		
+		int curStock = materialService.getinStock(inmaterialDTO.getItemId());
+		int incurStock = curStock + inmaterialDTO.getInmtrlQty();
+		inmaterialDTO.setIncurStock(incurStock);
 		
 		materialService.updateInmtrl(inmaterialDTO);
+		materialService.editinStock(inmaterialDTO);
+		materialService.editinStorage(inmaterialDTO);
 		
 		return "redirect:/common/offwindow";
 	}

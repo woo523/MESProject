@@ -85,6 +85,10 @@ public interface MaterialService {
 	public void delinStock(InmaterialDTO inmaterialDTO);
 	
 	public void delinStorage(InmaterialDTO inmaterialDTO);
+	
+	public void editinStock(InmaterialDTO inmaterialDTO);
+	
+	public void editinStorage(InmaterialDTO inmaterialDTO);
 
 }
 

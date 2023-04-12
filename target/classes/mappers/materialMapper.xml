@@ -207,7 +207,7 @@
 			clnt.clnt_cd,
 			clnt.clnt_nm,
 			clnt.clnt_id,
-			stock.cur_stock,
+			inmater.incur_stock,
 			stock.whouse,
 			item.item_num, 
 	    	item.item_nm,
@@ -632,6 +632,19 @@
 	where
 	stor_id = 1
 	</update>
+
+	<update id="editinStock">
+	update stock
+	set cur_stock = cur_stock + #{inmtrlQty}
+	where
+	item_id = #{itemId}
+	</update> 
 	
+	<update id="editinStorage">
+	update storage
+	set item_count = item_count + #{inmtrlQty}
+	where
+	stor_id = 1
+	</update>	
 	
 </mapper>
