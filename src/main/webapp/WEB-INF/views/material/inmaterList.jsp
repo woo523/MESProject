@@ -299,11 +299,6 @@ $('button.ui-datepicker-current').live('click', function() {
 	$('#sDate, #eDate').datepicker('setDate', 'today').datepicker('hide').blur();
 })
 
-// function inmaterList(a){
-// 	console.log("inmaterList 호출");
-// 	var inmaterId = a;
-// }
-
 function openilist(){
     window.open("${pageContext.request.contextPath }/material/itemList","popup1", "width=500, height=500,left=100, top=100");
 }
@@ -315,11 +310,11 @@ function openclist(){
 // var inmtrlId = a;
 
 function openmodi(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=650, height=500,left=500, top=200");
+    window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=650, height=620,left=500, top=200");
 }
 
 function openInsert(a){ // 추가창
-	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=650, height=500,left=500, top=200");
+	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=650, height=600,left=500, top=200");
 }
 
 function openDelete(a){	// 삭제창

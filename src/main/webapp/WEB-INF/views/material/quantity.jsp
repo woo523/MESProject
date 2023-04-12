@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
@@ -41,22 +41,42 @@ h3{
 form{
 border:1px solid;
 padding:10px;
-width: 300px;
+width: 330px;
 margin: 0px auto;
 }
 </style>
+<script type="text/javascript">
+//유효성 검사
+function checkForm() {
+	if($('.curStock').val() == "") {
+		alert("실사량을 입력해주세요.");
+		$('.curStock').focus();
+		
+		return false;
+	}
+	 
+	let submit = confirm("등록하시겠습니까?");
+	let resultSubmit = submit ? true : false;	// 삼항연산자
+	return resultSubmit;	
+}
+</script>
 
 </head>
 <body>
+<!-- <header> -->
+	<jsp:include page="../inc/header3.jsp" />
+<!-- </header> -->
+
 <div class="content_body">
-	<h3>����� ����</h3>
-	<form action="${pageContext.request.contextPath}/material/quantityPro" id="update" method="post">
+	<h3>현재고 수정</h3>
+	<form action="${pageContext.request.contextPath}/material/quantityPro" id="update" method="post" onsubmit="return checkForm()">
 	<input type="hidden" name="stockId" value="${stockDTO.stockId}">
 		<table>
 			<tr style="text-align:center;">
-				<td>�ǻ緮:</td>
+				<td>실사량 :</td>
 				<td><input type="number" class="curStock" name="curStock" value="${stockDTO.curStock}">
-				<input type="submit" value="����"></td>
+				<input type="submit" value="저장">
+				<button type="reset">취소</button></td>
 			</tr>
 		</table>
 	</form>

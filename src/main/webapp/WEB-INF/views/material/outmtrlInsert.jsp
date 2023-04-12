@@ -120,7 +120,9 @@ function checkForm() {
 
 
 <body>
-
+<!-- <header> -->
+	<jsp:include page="../inc/header3.jsp" />
+<!-- </header> -->
 	<h2>자재출고 등록</h2>
 	
 <%-- 	<div id="num">- 등록자 : ${sessionScope.id} - </div><br> --%>
@@ -132,7 +134,7 @@ function checkForm() {
 			<tr><td>제품 정보<span id="red">*</span></td><td><input type="text" id="pcd" class="pcd" placeholder="품번코드" onclick="openilist()">
 					   <input type="text" id="pnm" placeholder="품번명" onclick="openilist()"></td></tr>
 					    <input type="hidden" name="itemId" id="pid" >
-			<tr><td>거래처 정보<span id="red">*</span></td><td><input type="text" id="ccd" class="ccd" placeholder="업체코드" onclick="openclist()">
+			<tr><td>업체 정보<span id="red">*</span></td><td><input type="text" id="ccd" class="ccd" placeholder="업체코드" onclick="openclist()">
 						 <input type="text" id="cnm" placeholder="업체명" onclick="openclist()"></td></tr>
 						 <input type="hidden" name="clntId" id="cid">
 						 <input type="hidden" name="whouse" id="whouse">
@@ -142,8 +144,8 @@ function checkForm() {
 			<tr><td>비고</td><td><input type="text" name="note"></td></tr>
 		</table><br>
 		<div id="bu">
-		<input type="submit" value="등록">
-		<button type="reset">초기화</button>
+		<input type="submit" value="저장">
+		<button type="reset">취소</button>
 		</div>
 	</form>
 	
