@@ -97,16 +97,13 @@ h2{
 <script type="text/javascript">
 
 function selectline(a, b, c, d) { // 부모창으로 값 넘기기
-	if(c == 'Y') {
-		alert("사용중인 라인은 사용할 수 없습니다.");
-		return false;
-	} else {
-		opener.document.getElementById("lineName").value = a
-		opener.document.getElementById("linePlace").value = b
-		opener.document.getElementById("useChoice").value = c
-		opener.document.getElementById("lineId").value = d
-		window.close();
-	}
+	
+	opener.document.getElementById("lineName").value = a
+	opener.document.getElementById("linePlace").value = b
+	opener.document.getElementById("useChoice").value = c
+	opener.document.getElementById("lineId").value = d
+	window.close();
+	
 }
 
 </script>

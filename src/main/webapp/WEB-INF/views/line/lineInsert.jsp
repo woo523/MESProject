@@ -79,7 +79,7 @@ input, select, button {
 				<input type="text" name="insertId" value="${sessionScope.id}" readonly>
 			</li>
 			<li>
-				<label class="title">라인명 <span>*</span> </label>
+				<label class="title">라인명</label>
 				<input type="text" name="lineName" class="lineName">
 			</li>
 			<li>
@@ -96,7 +96,7 @@ input, select, button {
 				<input type="text" name="sortOrder" class="sortOrder">
 			</li>
 			<li>
-				<label class="title">사용여부</label>
+				<label class="title">사용여부 <span>*</span> </label>
 				<input type="radio" name="useChoice" value="Y" class="sCheck">Y
 				<input type="radio" name="useChoice" value="N" class="sCheck" checked="checked" onclick="return false;">N
 			</li>
