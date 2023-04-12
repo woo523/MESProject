@@ -125,8 +125,8 @@ function checkForm() {
 		return false;
 	}
 	
-	if($('#useChoice').val() == "Y") {
-		alert("사용중인 라인은 선택할 수 없습니다.");
+	if($('.sCheck').val() != "checked") {
+		alert("지시 상태를 선택해주세요.");
 		
 		return false;
 	}
