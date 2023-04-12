@@ -79,8 +79,8 @@ input, select, button {
 		<input type="hidden" name="lineId" value="${lineDTO.lineId}">
 		<ul>
 			<li>
-				<label class="title">라인코드 <span>*</span> </label>
-				<input type="text" name="lineCode" class="lineCode" value="${lineDTO.lineCode}">
+				<label class="title">라인코드</label>
+				<input type="text" name="lineCode" class="lineCode" value="${lineDTO.lineCode}" readonly>
 			</li>
 			<li>
 				<label class="title">수정자</label>
@@ -103,7 +103,7 @@ input, select, button {
 				<input type="text" name="sortOrder" class="sortOrder" value="${lineDTO.sortOrder}">
 			</li>
 			<li>
-				<label class="title">사용여부</label>
+				<label class="title">사용여부 <span>*</span> </label>
 				<input type="radio" id="Y" name="useChoice" value="Y" class="sCheck">Y
 				<input type="radio" id="N" name="useChoice" value="N" class="sCheck">N
 			</li>
@@ -163,9 +163,15 @@ function checkForm() {
 		return false;
 	}
 	
-	if($('.sortOrder').val() == "") {
+	if($('.sCheck').val() == "") {
 		alert("일련번호를 입력해주세요.");
 		$('.sortOrder').focus();
+		
+		return false;
+	}
+	
+	if($('.sortOrder').val() != "checked") {
+		alert("사용여부를 선택해주세요.");
 		
 		return false;
 	}
