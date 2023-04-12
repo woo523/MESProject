@@ -33,8 +33,9 @@ padding: 10px;
 
 
 
-h1{
+#f{
 	font-weight: bold;
+	font-size: 22.5px;
 }
 
 .search_bar tr, td{
@@ -209,11 +210,11 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 } //PerformListPrint(array)
 
 function openmodi(a){ // 실적 수정창
-        window.open("${pageContext.request.contextPath}/work/pfmodi?performId="+a,"popup", "width=500, height=500,left=500, top=200");
+        window.open("${pageContext.request.contextPath}/work/pfmodi?performId="+a,"popup", "width=500, height=660,left=500, top=200");
     }
 
 function pfRegi(a){ // 실적 등록창
-	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=500,left=500, top=200");
+	window.open("${pageContext.request.contextPath}/work/pfInsert?instrId="+a,"popup", "width=500, height=660,left=500, top=200");
 }
 
 function closeR(a){ // 수동 마감
@@ -297,7 +298,7 @@ $(function() {
 <div class="content_body"> <!-- 지우면안됨 -->
 	<!-- 내용시작 -->
 	
-		<h1>실적등록</h1>
+		<div id="f">실적등록</div>
 	<div class="search_bar">
 	<form id="search">
 	<div id="btn">
@@ -328,7 +329,7 @@ $(function() {
 	</div>
 
 	<br><br><br>
-	<h2>작업지시</h2>
+	<div id="f">작업지시</div>
 	<br>
 	<div id="count">총 ${pageDTO.count }건</div>
 	<table border="1" id="main">
@@ -386,7 +387,7 @@ $(function() {
 	</div>
 
 	<br><br><br>
-	<h2>생산실적</h2>
+	<div id="f">생산실적</div>
 
 
     <div id="PerformList_ajax">

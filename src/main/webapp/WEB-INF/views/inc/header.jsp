@@ -37,17 +37,17 @@
 <body>
 	<div class="container">
 		<div class="topBar">
+		
 		<c:choose>
 			<c:when test="${id==null }">
 				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/login'">로그인</div>
 			</c:when>
 			<c:otherwise>
-				<div >${name }(${id })</div>
-				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/logout'">로그아웃</div>
+				<div >${name }(${id })님</div>
+				<div id="login"><a href="${pageContext.request.contextPath }/login/logout">로그아웃</a> &nbsp;&nbsp; <a href="${pageContext.request.contextPath }/work/poplogin">pop화면</a></div>
 				
 			</c:otherwise>
 		</c:choose>
-		
 		</div>
 		
 		<header>
