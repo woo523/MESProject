@@ -96,7 +96,7 @@
 		
 		
 		<div class="content_body">	
-			<h1>‖ 공통코드 - ${parentCdDTO.cdNm } 등록 ‖</h1> <br><br>
+			<h1>공통코드 - ${parentCdDTO.cdNm } 등록</h1> <br><br>
 			
 			<form action="/comCode/insert" id="createForm" method="post">
 			<input type="hidden" name="insertId" id="insertId" value="${sessionScope.id }">

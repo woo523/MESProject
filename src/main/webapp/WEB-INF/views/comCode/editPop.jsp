@@ -64,7 +64,7 @@
 		
 		
 		<div class="content_body">	
-			<h1>‖ 공통코드 - ${parentCdDTO.cdNm } 수정 ‖</h1> <br><br>
+			<h1>공통코드 - ${parentCdDTO.cdNm } 수정</h1> <br><br>
 			
 			<form action="/comCode/update" id="editForm" method="post">
 			<input type="hidden" name="updateId" id="updateId" value="${sessionScope.id }">

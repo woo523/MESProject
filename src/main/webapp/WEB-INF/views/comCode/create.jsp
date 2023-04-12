@@ -77,7 +77,7 @@
 	<c:redirect url="/login/login"></c:redirect>
 </c:if>
 
-	<h1>‖ 공통코드 등록 ‖</h1><br><br>
+	<h1>공통코드 등록</h1><br><br>
 	
 	<div style="width: 60%">
 		<form action="/comCode/insert" id="createForm" method="post">

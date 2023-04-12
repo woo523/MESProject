@@ -30,7 +30,7 @@ function openPop(cdGrp) {
 	<c:redirect url="/login/login"></c:redirect>
 </c:if>
 
-<h1>‖ 공통코드 조회 ‖</h1> <br><br>
+<h1>공통코드 조회</h1> <br><br>
 
 		<table>
 			<colgroup>

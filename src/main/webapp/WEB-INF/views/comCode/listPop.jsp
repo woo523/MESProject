@@ -46,7 +46,7 @@ function delComCd(cdGrp,cd) {
 		
 		
 		<div class="content_body">	
-			<h1>‖ 공통코드 - ${parentCdDTO.cdNm } 조회 ‖</h1> <br><br>
+			<h1>공통코드 - ${parentCdDTO.cdNm } 조회</h1> <br><br>
 			
 			<table>
 				<colgroup>

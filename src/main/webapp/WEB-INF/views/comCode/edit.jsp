@@ -37,7 +37,7 @@
 	<c:redirect url="/login/login"></c:redirect>
 </c:if>
 
-	<h1>‖ 공통코드 수정 ‖</h1><br><br>
+	<h1>공통코드 수정</h1><br><br>
 
 	<div style="width: 60%">
 		<form action="/comCode/update" id="editForm" method="post">

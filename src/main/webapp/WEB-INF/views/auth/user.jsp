@@ -95,7 +95,7 @@ h2{
 	<c:redirect url="${pageContext.request.contextPath }/login/login"></c:redirect>
 </c:if>
 
-<h1>‖ 권한 관리 ‖</h1> <br><br>
+<h1>권한 관리</h1> <br><br>
 
 
 	<table border="1" id="main">
