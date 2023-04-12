@@ -61,7 +61,7 @@ public class OrderController {
 		
 		orderService.insertOrder(orderDTO);
 		
-		return "redirect:/order/orderInsert";
+		return "redirect:/common/offwindow";
 	}
 	
 
@@ -356,7 +356,7 @@ public class OrderController {
 		int ordId=Integer.parseInt(request.getParameter("ordId"));
 		orderDTO=orderService.getOrder(ordId);
 
-		return "redirect:/order/orderMng";
+		return "redirect:/common/offwindow";
 	}
 	
 	@RequestMapping(value = "/order/updateCmplt", method = RequestMethod.GET)
@@ -444,6 +444,14 @@ public class OrderController {
 		orderService.deleteOrder(ordId);
 
 		return "redirect:/common/offwindow";
+	}
+	@RequestMapping(value = "/order/openDelete", method = RequestMethod.GET)
+	public String openDelete(HttpServletRequest request, Model model) {
+		int ordId = Integer.parseInt(request.getParameter("ordId"));
+		System.out.println("확인용"+ordId);
+		orderService.deleteOrder(ordId);
+		
+		return "redirect:/order/orderMng";
 	}
 
 	

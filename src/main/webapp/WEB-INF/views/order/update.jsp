@@ -64,6 +64,46 @@ h1{
 	margin: 0px auto;
 }
 
+#clntNm {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
+	border: 1px solid;
+}
+#userNm {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
+	border: 1px solid;
+}
+#itemNum {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
+	border: 1px solid;
+}
+#itemNm {
+	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
+}
+#invntUnit {
+	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
+}
+
+.form-control{
+	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
+}
+
+.content_body input {
+   height: 20px;
+}
+
 </style>
 </head>
 
@@ -131,7 +171,6 @@ $(function() {
 <!-- 스크립트 끝. -->
 
 <div class="content_body"> <!-- 지우면안됨 -->
-<br>
 <h1>수주폼목 수정</h1>
 <form action="${pageContext.request.contextPath}/order/updatePro" method="post">
 			<div id="btn">
@@ -146,7 +185,7 @@ $(function() {
 		<input type="hidden" id="clntId" name="clntId" value="${orderDTO.clntId }">
 		<input type="hidden" id="clntCd" name="clntCd" value="${orderDTO.clntCd }"></td></tr>
 	<tr><td>수주일자</td>
-	<td><input type="text" id="orderDt" name="orderDt" class="form-control" value="${orderDTO.orderDt }"></td></tr>
+	<td><input type="text" id="orderDt" name="orderDt" class="form-control" value="${orderDTO.orderDt }" size="20"></td></tr>
 	<tr><td>담당자</td>
 	<td><input type="text" id="userNm" name="userNm" value="${orderDTO.userNm }" onclick="openUserList()">
 		<input type="hidden" id="userId" name="userId" value="${orderDTO.userId }" >

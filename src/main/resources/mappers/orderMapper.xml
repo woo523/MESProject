@@ -296,6 +296,8 @@
 			like CONCAT('%', #{clntNm}, '%')
 		</if>
 	</select>
+	
+	   
 
 <!-- 	수주관리 주문 추가하기 -->
 	<insert id="insertOrder">

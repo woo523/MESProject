@@ -72,7 +72,7 @@ th {
 
 td, th {
 	padding: 1em .5em;
-	
+	    display: table-cell;
 	vertical-align: middle;
 }
 

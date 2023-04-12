@@ -93,11 +93,18 @@ text-align: center;
 #main{
 	padding:20px;
 }
+#main span {
+	color: red;
+}
+#main input {
+   height: 20px;
+}
+
 </style>
 </head>
 
 
-<body>
+
 
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
@@ -195,8 +202,8 @@ $(document).ready(function(){
 });
 </script>
 <!-- 스크립트 끝. -->
-
-<div id="main" style="overflow: hidden;"> <!-- 지우면안됨 -->
+<body>
+<div id="main" > 
 
 	<h1>수주품목상세</h1>
 		<form id="insertOrder" action="${pageContext.request.contextPath }/order/orderInsertPro" method="get">
@@ -204,21 +211,21 @@ $(document).ready(function(){
 				<br>
 			<table id="detail">
 				<tr>
-				<td>업체명</td>
+				<td>업체명 <span>*</span></td>
 				<td><input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly>
 					<input type="text" name="clntNm" id="clntNm" onclick="openClntList()">
 					<input type="hidden" name="clntId" id="clntId" value="">
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
-				<td>수주일자</td>
+				<td>수주일자 <span>*</span></td>
 				<td><input type="text" id="orderDt" class="form-control" name="orderDt" placeholder="날짜를 선택해주세요" readonly>
 				<td></td>
 				</tr>
 				<tr>
-				<td>담당자</td>
+				<td>담당자 <span>*</span></td>
 				<td><input type="text" name="userNm" id="userNm" onclick="openUserList()">
 					<input type="hidden" name="userId" id="userId"value="">
 					<input type="hidden" name="userNum" id="userNum" value=""></td>
-				<td>납품예정일</td>
+				<td>납품예정일 <span>*</span></td>
 				<td><input type="text" id="dlvryDt" class="form-control" name="dlvryDt" placeholder="날짜를 선택해주세요" readonly></td>
 				<td></td>
 
@@ -234,21 +241,21 @@ $(document).ready(function(){
 	<div class="orderinfo">
 			<table id="info">
 				<tr>
-				<td>품번</td>
+				<td>품번 <span>*</span></td>
 				<td><input type="hidden" name="itemId" id="itemId"  onclick="openItemList()">
 					<input type="text" name="itemNum" id="itemNum"  onclick="openItemList()"></td>
 				<td><input type="text" name= "itemNm" id="itemNm"  readonly="readonly" placeholder="품명"></td>
 				<td><input type="text" name="invntUnit" id="invntUnit" readonly="readonly" value="" placeholder="단위"></td>
 				</tr>
 				<tr>
-				<td>수량</td>
+				<td>수량 <span>*</span></td>
 				<td><input type="text" name="ordQty" id="ordQty" value="" placeholder="필수입력"></td>
 				</tr>
 			</table>
 			<br>
 				<div id="btn">
 				<button type="reset">취소</button>
-				<input type="submit" value="저장" class="submit">
+				<button type="submit" value="저장" class="submit">저장</button>
 			</div>
 	</div>
 		</form>

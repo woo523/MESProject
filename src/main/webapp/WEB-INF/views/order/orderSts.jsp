@@ -121,6 +121,10 @@ table#search {
   text-align: center;
   width:1125px;
 }
+.search_bar input {
+   height: 20px;
+}
+
 
 
 </style>
@@ -238,8 +242,8 @@ function deleteValue(){
 		    data : {
 		    	"ordId" : valueArr        // 보내고자 하는 data 변수 설정
 		    },
-            success: function(jdata){
-                if(jdata = 1) {
+            success: function(data){
+                if(data = 1) {
                     alert("삭제되었습니다");
                     location.replace("orderSts")
                 }
@@ -271,7 +275,7 @@ function cmpltValue(){
     	alert("선택된 항목이 없습니다.");
     }
     else{
-		var chk = confirm("완료처리하시겠습니까?");		
+		var chk = confirm("마감하시겠습니까?");		
 		if(chk == true ){
 		$.ajax({
 		    url : url,                    // 전송 URL
@@ -282,8 +286,7 @@ function cmpltValue(){
 		    },
             success: function(jdata){
                 if(jdata = 1) {
-                    alert("완료처리 되었습니다");
-                    location.replace("orderSts")
+                    alert("마감되었습니다");
                 }
                 else{
                     alert("수정 실패");
@@ -297,6 +300,8 @@ function cmpltValue(){
 		}
 	}
 }
+
+
 </script>
 <!-- 스크립트 끝. -->
 
@@ -352,7 +357,6 @@ function cmpltValue(){
 			</table>
 		</form>
 	</div>
-<br>
 <br>
 	<h1>목록</h1>
 	<div id="count">총 ${pageDTO.count } 건</div>

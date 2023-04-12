@@ -19,15 +19,15 @@
 	width: 1125px;
 }
 th,td{
-border-bottom: 1px solid black;
-padding: 10px;
+	border-bottom: 1px solid black;
+	padding: 10px;
 }
-#main tr{
-padding: 10px;
-text-align: center;
+#main{
+	text-align: center;
 }
 #th {
 	font-weight: bold;
+	text-align: center;
 }
 
 #con {
@@ -117,6 +117,9 @@ table#search {
   text-align: center;
   width:1125px;
 }
+.search_bar input {
+   height: 20px;
+}
 
 
 
@@ -128,10 +131,10 @@ table#search {
 <!-- 자바스크립트 들어가는 곳 -->
 
 function openInsert(a){ 
-		window.open("${pageContext.request.contextPath}/order/orderInsert","popup1", "width=700, height=500,left=100, top=100");
+		window.open("${pageContext.request.contextPath}/order/orderInsert","popup1", "width=700, height=600,left=100, top=100");
 	}
 function openContent(a){ 
-		window.open("${pageContext.request.contextPath}/order/content?ordId="+a,"popup2", "width=600, height=600,left=100, top=100");
+		window.open("${pageContext.request.contextPath}/order/content?ordId="+a,"popup2", "width=600, height=650,left=100, top=100");
 	}
 
 function openItemList(b){
@@ -231,6 +234,13 @@ $(function() {
 	});
 });
   
+function openDelete(a){	// 삭제창
+	if(confirm("삭제하시겠습니까?")) {
+		location.href="/order/openDelete?ordId=" + a;
+	} else {
+		return false;
+	}
+}
 
 
 </script>
@@ -278,10 +288,8 @@ $(function() {
 		</form>
 	</div>
 <br>
-<br>
 	<h1>목록</h1>
 	<div id="count">총 ${pageDTO.count } 건</div>
-	<br>
 	<table border="1" id="main">
 		<tr id="th">
 			<th>수주업체코드</th>
@@ -290,6 +298,7 @@ $(function() {
 			<th>납품예정일</th>
 			<th>담당자코드</th>
 			<th>담당자</th>
+			<th>상세</th>
 		</tr>
 		
 			<c:choose>
@@ -302,14 +311,18 @@ $(function() {
 				
 			<c:otherwise>
 			<c:forEach var="odto" items="${orderList}">
-			<tr onclick="openContent(${odto.ordId})">
+			<tr>
 				<td>${odto.clntCd}</td>
 				<td>${odto.clntNm}</td>
 				<td>${odto.sOdate}</td>
 				<td>${odto.eDdate}</td>
 				<td>${odto.userNum}</td>
 				<td>${odto.userNm}</td>
-				</tr>
+				<td><img src='${pageContext.request.contextPath}
+								/resources/image/modify.png' width='17px' onclick="openContent(${odto.ordId})">
+					<img src='${pageContext.request.contextPath}
+								/resources/image/del.png' width='17px' onclick="openDelete(${odto.ordId})"></td>
+			</tr>
 			</c:forEach>
 			</c:otherwise>
 			</c:choose>
