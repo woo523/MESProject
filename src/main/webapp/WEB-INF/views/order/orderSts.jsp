@@ -287,6 +287,7 @@ function cmpltValue(){
             success: function(jdata){
                 if(jdata = 1) {
                     alert("마감되었습니다");
+                    location.replace("orderSts")
                 }
                 else{
                     alert("수정 실패");
