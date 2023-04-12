@@ -232,6 +232,28 @@ public class MaterialDAOImpl implements MaterialDAO{
 		System.out.println("materialDAOImpl updateStock()");		
 		sqlSession.update(namespace+".updateStock", stockDTO);
 	}
+	
+	@Override
+	public Integer getinStock(int itemId) {
+		System.out.println("materialDAOImpl getinStock()");
+		return sqlSession.selectOne(namespace+".getinStock", itemId);
+	}
+	
+	@Override
+	public void updateinStock(InmaterialDTO inmaterialDTO) {
+		System.out.println("materialDAOImpl updateinStock()");		
+		sqlSession.update(namespace+".updateinStock", inmaterialDTO);
+	}
+	
+	@Override
+	public void updateinStorage(InmaterialDTO inmaterialDTO) {
+		System.out.println("materialDAOImpl updateinStorage()");		
+		sqlSession.update(namespace+".updateinStorage", inmaterialDTO);
+	}
+	
+	
+	
+	
 
 
 }

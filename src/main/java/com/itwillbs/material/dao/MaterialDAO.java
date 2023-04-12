@@ -72,4 +72,10 @@ public interface MaterialDAO {
 	public StockDTO getStock(int stockId);
 	
 	public void updateStock(StockDTO stockDTO);
+	
+	public Integer getinStock(int itemId);
+	
+	public void updateinStock(InmaterialDTO inmaterialDTO);
+	
+	public void updateinStorage(InmaterialDTO inmaterialDTO);
 }

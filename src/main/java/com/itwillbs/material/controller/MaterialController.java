@@ -426,7 +426,11 @@ public class MaterialController {
 		inmaterialDTO.setInmtrlNum(inmtrlNum);
 		inmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
 		inmaterialDTO.setInsertId(request.getParameter("insertId"));
-		
+		int curStock = materialService.getinStock(inmaterialDTO.getItemId());
+		int incurStock = curStock + inmaterialDTO.getInmtrlQty();
+		inmaterialDTO.setIncurStock(incurStock);
+		materialService.updateinStock(inmaterialDTO);
+		materialService.updateinStorage(inmaterialDTO);
 		materialService.insertInmtrl(inmaterialDTO);
 		System.out.println(inmaterialDTO);
 		
@@ -468,6 +472,7 @@ public class MaterialController {
 		outmaterialDTO.setOutmtrlNum(outmtrlNum);
 		outmaterialDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
 		outmaterialDTO.setInsertId(request.getParameter("insertId"));
+
 		
 		materialService.insertOutmtrl(outmaterialDTO);
 		System.out.println(outmaterialDTO);

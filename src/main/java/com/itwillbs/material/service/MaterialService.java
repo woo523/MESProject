@@ -76,6 +76,12 @@ public interface MaterialService {
 
 	public void updateStock(StockDTO stockDTO);
 	
+	public Integer getinStock(int itemId);
+	
+	public void updateinStock(InmaterialDTO inmaterialDTO);
+	
+	public void updateinStorage(InmaterialDTO inmaterialDTO);
+	
 
 }
 

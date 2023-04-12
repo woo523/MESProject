@@ -14,7 +14,14 @@ public class OutmaterialDTO {
 	private Timestamp insertDt;	// 등록일
 	private String updateId; // 변경한 사람
 	private Timestamp updateDt; // 변경일
+	private int outcurStock;
 	
+	public int getOutcurStock() {
+		return outcurStock;
+	}
+	public void setOutcurStock(int outcurStock) {
+		this.outcurStock = outcurStock;
+	}
 	public int getOutmtrlId() {
 		return outmtrlId;
 	}

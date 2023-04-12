@@ -20,7 +20,7 @@
     <result column="clnt_cd" property="clientCode"/>
     <result column="clnt_nm" property="clientName"/>
     <result column="clnt_id" property="clientId"/>
-    <result column="cur_stock" property="stockcur"/>
+    <result column="incur_stock" property="stockcur"/>
     <result column="whouse" property="stockwhouse"/>
     <result column="item_num" property="itemNum"/>
     <result column="item_nm" property="itemName"/>
@@ -40,7 +40,7 @@
 			inmater.note, 
 			clnt.clnt_cd,
 			clnt.clnt_nm,
-			stock.cur_stock,
+			inmater.incur_stock,
 			stock.whouse,
 			item.item_num, 
 	    	item.item_nm,
@@ -68,7 +68,7 @@
 			inmater.note, 
 			clnt.clnt_cd,
 			clnt.clnt_nm,
-			stock.cur_stock,
+			inmater.incur_stock,
 			stock.whouse,
 			item.item_num, 
 	    	item.item_nm,
@@ -146,8 +146,8 @@
 	<!-- 자재입고 등록 -->
 	<insert id="insertInmtrl">
 		insert into in_material 
-		(item_id, clnt_id, in_mtrl_num, in_mtrl_dt, in_mtrl_qty, in_mtrl_lot, note, insert_id, insert_dt) 
-		VALUES (#{itemId}, #{clntId}, #{inmtrlNum},  #{inmtrlDt}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{insertId}, #{insertDt})
+		(item_id, clnt_id, in_mtrl_num, in_mtrl_dt, in_mtrl_qty, in_mtrl_lot, note, insert_id, insert_dt, incur_stock) 
+		VALUES (#{itemId}, #{clntId}, #{inmtrlNum},  #{inmtrlDt}, #{inmtrlQty}, #{inmtrlLot}, #{note}, #{insertId}, #{insertDt}, #{incurStock})
 	</insert>
 
 <!-- 	<update id="updateStock"> -->
@@ -603,6 +603,27 @@
 		from stock
 		where stock_id = #{stockId}
 	</select>
+	
+	<select id="getinStock" resultType="java.lang.Integer">
+	select 
+	cur_stock as curStock
+	from stock
+	where item_id = #{itemId}
+	</select>
 
+	<update id="updateinStock">
+	update stock
+	set cur_stock = cur_stock + #{inmtrlQty}
+	where
+	item_id = #{itemId}
+	</update> 
+	
+	<update id="updateinStorage">
+	update storage
+	set item_count = item_count + #{inmtrlQty}
+	where
+	stor_id = 1
+	</update>
+	
     
 </mapper>

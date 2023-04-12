@@ -19,7 +19,14 @@ public class InmaterialDTO {
 	private Timestamp insertDt;	// 등록일
 	private String updateId; // 변경한 사람
 	private Timestamp updateDt; // 변경일
+	private int incurStock;
 	
+	public int getIncurStock() {
+		return incurStock;
+	}
+	public void setIncurStock(int incurStock) {
+		this.incurStock = incurStock;
+	}
 	public int getInmtrlId() {
 		return inmtrlId;
 	}
