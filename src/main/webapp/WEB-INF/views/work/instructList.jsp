@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>instructList</title>
+<!-- <title>instructList</title> -->
 
 <link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 <!-- Favicon icon -->

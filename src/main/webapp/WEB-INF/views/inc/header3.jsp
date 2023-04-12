@@ -22,7 +22,7 @@
 		</div>
 		
 		<header>
-			<img src="${pageContext.request.contextPath}/resources/image/logo.png" title="로고" >
+			<img src="${pageContext.request.contextPath}/resources/image/mes1.png" title="로고" >
 		</header>
 		
 	
