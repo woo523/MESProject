@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+@import	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
+.content_body {
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
+
+form {
+	border:1px solid;
+	padding:10px;
+	width: 700px;
+	margin: 0px auto;
+}
+
+h2 {
+	text-align: center;
+}
+
+.content_body ul li {
+	list-style: none;
+	padding: 6px;
+}
+
+label.title {
+	width: 80px;
+	float: left;
+}
+
+.content_body #instrDate {
+	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
+}
+
+.content_body span {
+	color: red;
+}
+
+.content_body .btn {
+	text-align: center;
+}
+
+input, select, button {
+	font-size: 12pt;
+	font-family: 'NanumSquare', sans-serif;
+}
