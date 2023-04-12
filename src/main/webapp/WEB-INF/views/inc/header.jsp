@@ -23,23 +23,16 @@
 	<script type="text/javascript" src="/resources/js/jquery/jquery.mCustomScrollbar.js"></script>
 	<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="/resources/js/bootstrap/bootstrap-datetimepicker.ko.js"></script>
-	
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 
-<!-- <style type="text/css"> -->
-<!-- /* .sub_menu ul.small_menu1,ul.small_menu2,ul.small_menu3,ul.small_menu4,ul.small_menu5{ */
-/* 		color: #333; */
-/* 	font-size: 14px; */
-/* 	font-weight: 600; */
-/* } */ -->
-<!-- </style>	 -->
+<style type="text/css">
+ 
+</style>
 </head>
 
 <!-- 스크립트 끝. -->
 <body>
 	<div class="container">
 		<div class="topBar">
-		
 		<c:choose>
 			<c:when test="${id==null }">
 				<div id="login" onclick="location.href='${pageContext.request.contextPath }/login/login'">로그인</div>
@@ -61,9 +54,9 @@
 			<div class="left_sub_menu">
                 <div class="sub_menu">
                     <c:if test="${not empty menu1 || not empty menu2 || not empty menu3}">
-                    <ul class="big_menu1">            	
+                    <ul class="big_menu">            	
                         <li>시스템관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu1" id="sub1">
+                        <ul class="small_menu" id="sub1">
                         	<c:if test="${not empty menu1}">
                             <li><a href="${pageContext.request.contextPath}/member/list">사용자 관리</a></li>
                             </c:if>
@@ -77,9 +70,9 @@
                     </ul>
                     </c:if>
                     <c:if test="${not empty menu4 || not empty menu5 || not empty menu6 || not empty menu7 || not empty menu8}">
-                    <ul class="big_menu2">
+                    <ul class="big_menu">
                         <li>기준정보 관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu2" id="sub2">
+                        <ul class="small_menu" id="sub2">
                         	<c:if test="${not empty menu4}">
                             <li><a href="${pageContext.request.contextPath}/mdm/item">품목정보 관리</a></li>
                             </c:if>
@@ -99,9 +92,9 @@
                     </ul>
                     </c:if>
                     <c:if test="${not empty menu9 || not empty menu10 || not empty menu11 || not empty menu12}">
-                    <ul class="big_menu3">
+                    <ul class="big_menu">
                         <li>영업 관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu3" id="sub3">
+                        <ul class="small_menu" id="sub3">
                         	<c:if test="${not empty menu9}">
                             <li><a href="${pageContext.request.contextPath }/order/orderMng">수주관리</a></li>
                             </c:if>
@@ -118,9 +111,9 @@
    					</ul>
    					</c:if>
    					<c:if test="${not empty menu13 || not empty menu14 || not empty menu15 || not empty menu16}">
-                    <ul class="big_menu4">
+                    <ul class="big_menu">
                         <li>생산 관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu4" id="sub4">
+                        <ul class="small_menu" id="sub4">
                         	<c:if test="${not empty menu13}">
                             <li><a href="${pageContext.request.contextPath}/work/instructList">작업지시 정보관리</a></li>
                             </c:if>
@@ -137,9 +130,9 @@
                     </ul>
                     </c:if>
                     <c:if test="${not empty menu17 || not empty menu18 || not empty menu19}">
-                     <ul class="big_menu5">
+                     <ul class="big_menu">
                         <li>자재 관리<i class="arrow fas fa-angle-right"></i></li>
-                        <ul class="small_menu5" id="sub5">
+                        <ul class="small_menu" id="sub5">
                        	    <c:if test="${not empty menu17}">
                             <li><a href="${pageContext.request.contextPath }/material/inmaterList">자재입고 관리</a></li>
                             </c:if>
@@ -150,10 +143,10 @@
                             <li><a href="${pageContext.request.contextPath }/material/materialState">자재재고 현황</a></li>
                             </c:if>
                         </ul>   
-                    	</ul>    
-                    </c:if>
-                </div>
-            </div>
+                   	</ul>    
+                   </c:if>
+               </div>
+           </div>
 		</div>
 		<div class="content">
 		
@@ -161,68 +154,56 @@
 
 <!-- 자바스크립트 들어가는 곳 -->
 <script type="text/javascript">
-// $(document).ready(function(){
+$(document).ready(function(){
 
-// 	// 왼쪽메뉴 드롭다운
-// 	$(".sub_menu ul.small_menu").hide();
-// 	$(".sub_menu ul.big_menu").click(function () {
+	// 왼쪽메뉴 드롭다운
+	$(".sub_menu ul.small_menu").hide();
+	$(".sub_menu ul.big_menu").click(function () {
 
-// 		$("ul", this).slideDown();
-// 		$(this).addClass("active");
-// 	});
-	
-// 	// 왼쪽메뉴 드롭다운
-// 	$(".sub_menu ul.big_menu").click(function () {
-// 		$("ul", this).slideUp();
-// 	});	
-// });
+		$("ul", this).slideToggle(1000);
+		$(this).addClass("active");
+	});
 
-let subToggle=true;
-$(".sub_menu ul.small_menu1,ul.small_menu2,ul.small_menu3,ul.small_menu4,ul.small_menu5").hide();
-$(".sub_menu ul.big_menu1").click(()=>{
-  if(subToggle){
-    $("#sub1").slideDown(1000);
-  }else{
-    $("#sub1").slideUp(1000);
-  }
-  subToggle=!subToggle;
 });
 
-$(".sub_menu ul.big_menu2").click(()=>{
-	  if(subToggle){
-	    $("#sub2").slideDown(1000);
-	  }else{
-	    $("#sub2").slideUp(1000);
-	  }
-	  subToggle=!subToggle;
-	});
+// let subToggle=true;
+// $(".sub_menu ul.small_menu1,ul.small_menu2,ul.small_menu3,ul.small_menu4,ul.small_menu5").hide();
+// $(".sub_menu ul.big_menu1").click(()=>{
+//   if(subToggle){
+//     $("#sub1").slideToggle(1000);
+//   }
+//   subToggle=!subToggle;
+// });
+
+// $(".sub_menu ul.big_menu2").click(()=>{
+// if(subToggle){
+//     $("#sub2").slideToggle(1000);
+//   }
+//   subToggle=!subToggle;
+// });
 	
-$(".sub_menu ul.big_menu3").click(()=>{
-	  if(subToggle){
-	    $("#sub3").slideDown(1000);
-	  }else{
-	    $("#sub3").slideUp(1000);
-	  }
-	  subToggle=!subToggle;
-	});
+// $(".sub_menu ul.big_menu3").click(()=>{
+// 	if(subToggle){
+// 	    $("#sub3").slideToggle(1000);
+// 	  }
+//   subToggle=!subToggle;
+// });
 
-$(".sub_menu ul.big_menu4").click(()=>{
-	  if(subToggle){
-	    $("#sub4").slideDown(1000);
-	  }else{
-	    $("#sub4").slideUp(1000);
-	  }
-	  subToggle=!subToggle;
-	});
+// $(".sub_menu ul.big_menu4").click(()=>{
+// 	if(subToggle){
+// 	    $("#sub1").slideToggle(1000);
+// 	  }
+//   subToggle=!subToggle;
+// });
 
-$(".sub_menu ul.big_menu5").click(()=>{
-	  if(subToggle){
-	    $("#sub5").slideDown(1000);
-	  }else{
-	    $("#sub5").slideUp(1000);
-	  }
-	  subToggle=!subToggle;
-	});
+// $(".sub_menu ul.big_menu5").click(()=>{
+//   if(subToggle){
+//     $("#sub5").slideDown(1000);
+//   }else{
+//     $("#sub5").slideUp(1000);
+//   }
+//   subToggle=!subToggle;
+// });
 
 
 </script>
