@@ -44,12 +44,12 @@ public class ShipController {
 			return "ship/shipInsert";
 	}
 	
-	@RequestMapping(value = "/ship/shipInsertPro", method = RequestMethod.GET)
-	public String shipInsertPro(ShipDTO shipDTO,HttpServletRequest request) {
+	@RequestMapping(value = "/ship/shipInsertPro", method = RequestMethod.POST)
+	public String shipInsertPro(ShipDTO shipDTO) {
 		System.out.println("ShipController shipInsertPro()");
 		
 		// 수주번호 규격코드
-		String shipDt = request.getParameter("shipDt");
+		String shipDt = shipDTO.getShipDt();
 		String date = shipDt.replaceAll("-", "");
 		String date1 = date.substring(2);
 		int count = shipService.shipSCount() + 1;
@@ -80,6 +80,10 @@ public class ShipController {
 		
 		String Dlvdate = request.getParameter("Dlvdate");
 		String Shdate = request.getParameter("Shdate");
+		
+		
+		
+		
 		
 		String userNum = request.getParameter("userNum");
 		String userNm = request.getParameter("userNm");
@@ -181,20 +185,8 @@ public class ShipController {
 	public String shipAdmin(Model model, HttpServletRequest request, PageDTO pageDTO) {
 		System.out.println("ShipController shipAdmin()");
 		
-		String insertId = request.getParameter("insertId");
-		String insertDt = request.getParameter("insertDt");
-		
-		String shipNum = request.getParameter("shipNum");
-		String shipDt = request.getParameter("shipDt");
 		String Dlvdate = request.getParameter("Dlvdate");
-		String Shdate = request.getParameter("Shdate");
-		
-		String userNum = request.getParameter("userNum");
-		String userNm = request.getParameter("userNm");
-		String userId = request.getParameter("userId");
-		
-		String itemNum = request.getParameter("itemNum");
-		String itemNm = request.getParameter("itemNm");
+		String eDlvdate = request.getParameter("eDlvdate");
 		
 		String clntNm = request.getParameter("clntNm");
 		
@@ -218,20 +210,12 @@ public class ShipController {
 		pageDTO.setEndRow(endRow);	
 		
 		Map<String,Object> search = new HashMap<>(); // sql에 들어가야할 서치 항목 및 pageDTO 항목 map에 담기
-		search.put("insertId", insertId);
-		search.put("insertDt", insertDt);
+
 		
-		search.put("shipNum", shipNum);
-		search.put("shipDt", shipDt);
+
 		search.put("Dlvdate", Dlvdate);
-		search.put("Shdate", Shdate);
-		
-		search.put("userNum", userNum);
-		search.put("userNm", userNm);
-		search.put("userId", userId);
-		
-		search.put("itemNum", itemNum);
-		search.put("itemNm", itemNm);
+		search.put("eDlvdate", eDlvdate);
+
 		
 		search.put("clntNm", clntNm);
 		
@@ -240,8 +224,7 @@ public class ShipController {
 		
 		
 		List<Map<String,Object>> shipAdmin1;
-		if(insertId == null && insertDt ==null && shipNum==null && shipDt==null && Dlvdate==null && Shdate==null
-				&& userNum==null && userNm==null && userId==null && itemNum==null&& itemNm==null&& clntNm==null) {
+		if( Dlvdate==null && eDlvdate ==null && clntNm==null) {
 			// 조회 안한 경우
 			shipAdmin1 = shipService.getShipMap(pageDTO); // page만 필요해서
 		

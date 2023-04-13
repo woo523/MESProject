@@ -72,7 +72,7 @@
     
     <!-- 	shipAdmin 조회한 페이지 가져오기 -->
     <select id="getSearchShipMap" resultMap="shipMap">
-    select ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.item_num, i.item_nm, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm
+    select o.ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.item_num, i.item_nm, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm
 	from order_mng o join item i
 	on o.item_id = i.item_id
 	join stock st
@@ -119,15 +119,14 @@
 	on o.ord_id = s.ord_id
 	join client c
 	on o.clnt_id = c.clnt_id
- 	where o.cmplt_yn="Y" and
-     c.clnt_nm like CONCAT('%', #{clntNm}, '%')  
+ 	where o.cmplt_yn="Y" 
+ 	<if test="clntNm!=null and Dlvdate!=null and eDlvdate!=null">
+     and c.clnt_nm like CONCAT('%', #{clntNm}, '%')  
     	<if test="Dlvdate!='' and eDlvdate!=''"> and o.dlvry_dt between #{Dlvdate} and #{eDlvdate}</if>
 		<if test="Dlvdate=='' and eDlvdate==''"></if>
 		<if test="Dlvdate!='' and Dlvdate!=null "> and o.dlvry_dt &gt;= #{Dlvdate}</if>
 		<if test="eDlvdate!='' and eDlvdate!=null"> and o.dlvry_dt &lt;= #{eDlvdate}</if>
-
-		order by o.dlvry_dt desc
-		limit #{startRow}, #{pageSize}
+	</if>
     
     </select>
     
@@ -311,8 +310,8 @@
 <!-- 	출하관리 납품 추가하기 -->
 	<insert id="insertShip">
 		insert into ship_mng
-		(ship_num,ord_id,insert_id,insert_dt,dlvry_dt,user_id,clnt_id,item_id, ship_qty, ship_dt, cmplt_yn)
-		values(#{shipNum},#{ordId},#{insertId},#{insertDt},#{dlvryDt},#{userId},#{clntId},#{itemId}, #{shipQty}, #{shipDt}, #{cmpltYn})
+		(ship_num,ord_id,insert_id,insert_dt,dlvry_dt,clnt_id,item_id, ship_qty, ship_dt, cmplt_yn)
+		values(#{shipNum},#{ordId},#{insertId},#{insertDt},#{dlvryDt},#{clntId},#{itemId}, #{shipQty}, #{shipDt}, #{cmpltYn})
 	</insert>
 	
 	<!-- 	출하관리 납품 추가하기 -->

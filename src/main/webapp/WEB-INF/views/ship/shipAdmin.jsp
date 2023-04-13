@@ -308,7 +308,14 @@ $(function() {
 							<td>${sdto.curStock}</td>
 							<td>${sdto.shipQty}</td>
 							<td>${sdto.clntNm}</td>
-							<td><button onclick="insertShip(${sdto.ordId})">출하</button></td>
+							<td>
+							<c:choose>
+							<c:when test="${empty sdto.shipQty}"><button onclick="insertShip(${sdto.ordId})">출하</button></c:when>
+							<c:otherwise>
+							<span style="color:red; font-weight:bold;">출하완료</span>
+							</c:otherwise>
+							</c:choose>
+							</td>
 						</tr>
 			</c:forEach>
 			</c:otherwise>
@@ -320,26 +327,26 @@ $(function() {
     <div id="pagination">
     <!-- 1페이지 이전 -->
 	<c:if test="${pageDTO.currentPage > 1}">
-	<a href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.currentPage-1}"><</a>
+	<a href="${pageContext.request.contextPath }/ship/shipAdmin?Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&clntNm=${search.clntNm }&pageNum=${pageDTO.currentPage-1}"><</a>
 	</c:if>
 
 <!-- 10페이지 이전 -->
 	 <c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
-	<a href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+	<a href="${pageContext.request.contextPath }/ship/shipAdmin?Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&clntNm=${search.clntNm }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 	</c:if>
 	
 	<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-	<a id="num" href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${i}">${i}</a> 
+	<a id="num" href="${pageContext.request.contextPath }/ship/shipAdmin?Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&clntNm=${search.clntNm }&pageNum=${i}">${i}</a> 
 	</c:forEach>
 
 <!-- 1페이지 다음 -->	
 	<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.currentPage+1}">></a>
+	<a href="${pageContext.request.contextPath }/ship/shipAdmin?Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&clntNm=${search.clntNm }&pageNum=${pageDTO.currentPage+1}">></a>
 	</c:if>
 
 <!-- 10페이지 다음 -->
  	<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
-	<a href="${pageContext.request.contextPath }/ship/shipAdmin?userNm=${search.userNm}&shipNum=${search.shipNum}&Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&sshdate=${search.sshdate}&Shdate=${search.Shdate }&itemNum=${search.itemNum }&itemNm=${search.itemNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+	<a href="${pageContext.request.contextPath }/ship/shipAdmin?Dlvdate=${search.Dlvdate }&eDlvdate=${search.eDlvdate }&clntNm=${search.clntNm }&clntNm=${search.clntNm }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 	</c:if>
 	</div>
 <br>

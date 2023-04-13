@@ -6,7 +6,7 @@ public class ShipDTO {
 	private int shipId;						// 출하관리 기본키
 	private int ordId;						// 수주관리 기본키
 	private int shipQty;					// 출하량
-	private Timestamp shipDt;				// 출하일자
+	private String shipDt;				// 출하일자
 	private String shipNum;					// 출하번호
 	private String insertId;				// 등록자
 	private Timestamp insertDt;				// 등록일
@@ -148,10 +148,10 @@ public class ShipDTO {
 	public void setShipQty(int shipQty) {
 		this.shipQty = shipQty;
 	}
-	public Timestamp getShipDt() {
+	public String getShipDt() {
 		return shipDt;
 	}
-	public void setShipDt(Timestamp shipDt) {
+	public void setShipDt(String shipDt) {
 		this.shipDt = shipDt;
 	}
 	public String getShipNum() {

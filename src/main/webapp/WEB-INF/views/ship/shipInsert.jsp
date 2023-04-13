@@ -191,7 +191,7 @@ $(document).ready(function(){
 
 <h2 style="text-align: center;">출하 실행</h2>
 	
-	<form id="insertShip"  action="${pageContext.request.contextPath }/ship/shipInsertPro" method="get">
+	<form id="insertShip"  action="${pageContext.request.contextPath }/ship/shipInsertPro" method="post">
 		<div class="shipdetail">
 
 			<br>
@@ -201,7 +201,7 @@ $(document).ready(function(){
 				<tr>
 				<td>수주업체</td>
 				<td>
-					<input type="text" name="clntNm" id="clntNm" value="${ordlist.clntNm }" readonly>
+					<input type="text" id="clntNm" value="${ordlist.clntNm }" readonly>
 					<input type="hidden" name="clntId" id="clntId" value="${ordlist.clntId }">
 					</td>
 				</tr>
@@ -227,9 +227,9 @@ $(document).ready(function(){
 				<tr>
 				<td>품번</td>
 				<td><input type="hidden" name="itemId" id="itemId" value="${ordlist.itemId }" >
-					<input type="text" name="itemNum" id="itemNum" value="${ordlist.itemNum }" readonly >
-				<input type="text" name= "itemNm" id="itemNm"  value="${ordlist.itemNm }" readonly >
-				<input type="text" name="invntUnit" id="invntUnit"  value="${ordlist.itemUnit }" readonly style="width:30px;"></td>
+					<input type="text"  id="itemNum" value="${ordlist.itemNum }" readonly >
+				<input type="text"  id="itemNm"  value="${ordlist.itemNm }" readonly >
+				<input type="text"  id="invntUnit"  value="${ordlist.itemUnit }" readonly style="width:30px;"></td>
 				</tr>
 				<tr>
 				<td>수주량</td>
