@@ -34,7 +34,7 @@ table{
     margin-bottom: 10px;
     font-weight: bold;
     vertical-align: middle;
-    width : 8%; 	
+/*     width : 8%; 	 */
 }
 
 button{
@@ -71,7 +71,7 @@ button{
 
 #data td{
     vertical-align: middle;
-    width : 9%; 
+/*     width : 9%;  */
     text-align:center;
     height : 15px; 
 }
@@ -130,6 +130,7 @@ function deleteLine(obj){
 	console.log(clntId); 
 	location.href="${pageContext.request.contextPath}/mdm/clientdelete?clntId="+clntId+"&pageNum=${pageDTO.pageNum}";
 	$(obj).closest('tr').remove();
+	alert("삭제되었습니다.");
 	}else{
 		return false;
 	}
@@ -146,7 +147,7 @@ function deleteLine(obj){
 <div class="client_body">
 <h1> 거래처정보 관리 </h1><br>
 <form id="clientSearch">
-<div class="searchclient"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>
+<div class="searchclient"><button type="submit">조회</button><button type="button" onclick="insertLine();">등록</button></div>
 <table class="client_filter">
 	<tr>	
 	<td>거래처코드</td> <td><input type="text" class="clntCode" name="clntCode"></td>
@@ -174,28 +175,28 @@ function deleteLine(obj){
 	<table border="1" class="clientList">
 		<thead>
 		<tr id="th">
-			<th>거래처코드</th>
-			<th>거래처명</th>
-			<th>거래처구분</th>
-			<th>사업자번호</th>
-			<th>업테</th>
-			<th>종목</th>
-			<th>대표자</th>
-			<th>담당자</th>
-			<th>주소</th>
-			<th>상세주소</th>
-			<th>전화번호</th>
-			<th>연락처</th>
-			<th>팩스번호</th>
-			<th>E-MAIL</th>
-			<th>비고</th>
-			<th>사용여부</th>
+			<th width="7%">거래처코드</th>
+			<th width="5%">거래처명</th>
+			<th width="4%">거래처구분</th>
+			<th width="5%">사업자번호</th>
+			<th width="5%">업테</th>
+			<th width="5%">종목</th>
+			<th width="4%">대표자</th>
+			<th width="4%">담당자</th>
+			<th width="7%">주소</th>
+			<th width="8%">상세주소</th>
+			<th width="9%">전화번호</th>
+			<th width="9%">연락처</th>
+			<th width="10%">팩스번호</th>
+			<th width="10%">E-MAIL</th>
+			<th width="5%">비고</th>
+			<th width="3%">사용여부</th>
 		</tr>
 		<c:forEach var="clientDTO" items="${clientList}">
 			<tr id="data">
-				<td>${clientDTO.clntCode}</td>
+				<td width="5%">${clientDTO.clntCode}</td>
 				<td>${clientDTO.clntName}</td>
-				<td>${clientDTO.clntType}</td>
+				<td width="3%">${clientDTO.clntType}</td>
 				<td>${clientDTO.bsnsNum}</td>
 				<td>${clientDTO.industry}</td>
 				<td>${clientDTO.event}</td>

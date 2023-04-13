@@ -109,14 +109,11 @@ function check(){
  			$("#email").focus();
  			return false;
  		}
-	} else {
-		alert('이메일을 입력해주세요.');
-			$("#email").focus();
-			return false;
-	}
+	} 
 	
 	
-	if(!valChk($("#tell"), "전화번호")) return false;
+	
+// 	if(!valChk($("#tell"), "전화번호")) return false;
 	if (!tellChk($("#tell").val())) {
 			alert('전화번호가 유효하지 않습니다.');
 			$("#tell").focus();
@@ -288,7 +285,7 @@ function clientCode(obj){
 	<tr><td>우편번호</td> <td><input type="text" name="zipCode" value="${clientDTO.zipCode}"></td></tr>
 	<tr><td>주소</td> <td><input type="text" name="address" value="${clientDTO.address}"></td></tr>
 	<tr><td>상세주소</td> <td><input type="text" name="addrDtl" value="${clientDTO.addrDtl}"></td></tr>
-	<tr><td>전화번호</td> <td><input type="text" name="tell" id="tell"  placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13" value="${clientDTO.tell}"></td></tr>
+	<tr><td>전화번호 <span class="star">*</span></td> <td><input type="text" name="tell" id="tell"  placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13" value="${clientDTO.tell}"></td></tr>
 	<tr><td>연락처 <span class="star">*</span></td> <td><input type="text" name="phone" class="phone" id="phone" placeholder="010-0000-0000" oninput="autoHyphen(this)" maxlength="13" value="${clientDTO.phone}"></td></tr>
 	<tr><td>팩스</td> <td><input type="text" name="fax" value="${clientDTO.fax}"></td></tr>
 	<tr><td>이메일</td> <td><input type="text" name="email" id="email" placeholder="예)email@naver.com" value="${clientDTO.email}"></td></tr>

@@ -131,6 +131,7 @@ function deleteLine(obj){
 	console.log(equpId); 
 	location.href="${pageContext.request.contextPath}/mdm/equipdelete?equpId="+equpId+"&pageNum=${pageDTO.pageNum}";
 	$(obj).closest('tr').remove();
+	alert("삭제되었습니다.");
 	}else{
 		return false;
 	}
@@ -147,7 +148,7 @@ function deleteLine(obj){
 <div class="equip_body">
 <h1> 설비정보 관리 </h1><br>
 <form id="equipSearch">
-<div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>	
+<div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">등록</button></div>	
 
 <table class="equip_filter">
 	<tr>	

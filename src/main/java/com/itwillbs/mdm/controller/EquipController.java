@@ -44,7 +44,7 @@ public class EquipController {
 		
 		List<Map<String,Object>> equipList;
 		
-		
+		System.out.println("테스트테스트:" + equpStat);
 		
 		if(equpCode == null && equpName == null && equpType == null && equpStat == null && useYn == null) {
 		//설비 전체 조회

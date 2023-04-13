@@ -15,7 +15,6 @@
   		<result column="item_num" property="itemNum" />
   		<result column="item_nm" property="itemNm" />
   		<result column="item_id" property="itemId" />
-  		<result column="barcord" property="barcord" />
   		<result column="invnt_unit" property="itemUnit"/> 
   		<result column="amount" property="amount" />
   		<result column="clnt_id" property="clntId" />
@@ -29,6 +28,7 @@
   		<result column="order_dt" property="orderDt" />
   		<result column="ord_qty" property="ordQty" />
   		<result column="cur_stock" property="curStock" />
+  		<result column="cmplt_yn" property="cmpltYn" />
   		
   		
   </resultMap>
@@ -55,7 +55,7 @@
     
     <!-- 	shipAdmin 조회 안할경우 페이지만 가져오기 -->
     <select id="getShipMap" resultMap="shipMap">
-	select o.ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.item_num, i.item_nm, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm
+	select o.ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.item_num, i.item_nm, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm, s.cmplt_yn
 	from order_mng o join item i
 	on o.item_id = i.item_id
 	join stock st
@@ -72,7 +72,7 @@
     
     <!-- 	shipAdmin 조회한 페이지 가져오기 -->
     <select id="getSearchShipMap" resultMap="shipMap">
-    select ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.item_num, i.item_nm, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm
+    select o.ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.item_num, i.item_nm, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm, s.cmplt_yn
 	from order_mng o join item i
 	on o.item_id = i.item_id
 	join stock st
@@ -108,37 +108,25 @@
 	and o.ord_id = #{ordId}
     </select>
     
-    
-    
-    
-    
-    
-    <!-- 	shipAdmin 페이징 처리할때 갯수 가져오기 -->
+
     <select id="countShip" resultType="java.lang.Integer">
-    select count (*)
-    from ship_mng sh join client c
-    on sh.clnt_id = c.clnt_id
-    join user u
-    on sh.user_id = u.user_id
-    <if test="(clntCd != null and clntNm != null and Dlvdate != null
-		 and eDlvdate!= null and sshdate != null and Shdate != null and userNum != null 
-			and userNm != null)">
-    
-    where c.clnt_nm like CONCAT('%', #{clntNm}, '%')
-    
-    <if test="Dlvdate!='' and eDlvdate!=''"> and o.order_dt between #{Dlvdate} and #{eDlvdate}</if>
+    select count(*)
+	from order_mng o join item i
+	on o.item_id = i.item_id
+	join stock st
+	on st.item_id = i.item_id
+	left join ship_mng s
+	on o.ord_id = s.ord_id
+	join client c
+	on o.clnt_id = c.clnt_id
+ 	where o.cmplt_yn="Y" 
+ 	<if test="clntNm!=null and Dlvdate!=null and eDlvdate!=null">
+     and c.clnt_nm like CONCAT('%', #{clntNm}, '%')  
+    	<if test="Dlvdate!='' and eDlvdate!=''"> and o.dlvry_dt between #{Dlvdate} and #{eDlvdate}</if>
 		<if test="Dlvdate=='' and eDlvdate==''"></if>
-		<if test="Dlvdate!=''"> and sh.dlvry_dt &gt;= #{Dlvdate}</if>
-		<if test="Dlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
-
-		<if test="sshdate!='' and Shdate!=''"> and o.dlvry_dt between #{sshdate} and #{Shdate}</if>
-		<if test="sshdate=='' and Shdate==''"></if>
-		<if test="sshdate!=''"> and sh.ship_dt &gt;= #{sshdate}</if>
-		<if test="sshdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
-
-		and
-		name like CONCAT('%', #{userNm}, '%')
-		</if>
+		<if test="Dlvdate!='' and Dlvdate!=null "> and o.dlvry_dt &gt;= #{Dlvdate}</if>
+		<if test="eDlvdate!='' and eDlvdate!=null"> and o.dlvry_dt &lt;= #{eDlvdate}</if>
+	</if>
     
     </select>
     
@@ -146,46 +134,42 @@
     
     <!-- 	shipList 조회 안할경우 페이지만 가져오기 -->
     	<select id="getListMap" resultMap="shipMap">
-    		select sh.ship_id, sh.ship_num, c.clnt_nm,sh.dlvry_dt as Dlvdate, u.name as userNm, i.item_num,
-    					i.item_nm,i.invnt_unit, sh.ship_dt as Shdate,sh.ship_qty
-    		from client c join ship_mng sh
-    		on sh.clnt_id = c.clnt_id
-    		join item i
-    		on sh.item_id = i.item_id
-    		join user u
-    		on sh.user_id = u.user_id
-    		order by Dlvdate desc
+    		select s.dlvry_dt, s.ship_id, s.ship_num, s.ship_dt, c.clnt_nm, i.item_num, i.item_nm, 
+			i.invnt_unit, o.ord_num, o.ord_qty, s.ship_qty, s.cmplt_yn
+			from ship_mng s join client c
+			on s.clnt_id = c.clnt_id
+			join item i
+			on i.item_id = s.item_id
+			join order_mng o
+			on o.ord_id = s.ord_id
+    		order by s.ship_dt desc
     		limit #{startRow},#{pageSize}
     	</select>
     	
     	<!-- 	shipList 조회한 페이지 가져오기 -->
     	<select id="getListShipMap" resultMap="shipMap">
-    		select sh.ship_id,sh.ship_num,c.clnt_nm,sh.dlvry_dt as Dlvdate, u.name as userNm,i.item_num,
-    					i.item_nm,i.invnt_unit, sh.ship_dt as Shdate,sh.ship_qty
-    		from client c join ship_mng sh
-    		on sh.clnt_id = c.clnt_id
-    		join item i
-    		on sh.item_id = i.item_id
-    		join user u
-    		on sh.user_id = u.user_id
+    		select s.dlvry_dt, s.ship_id, s.ship_num, s.ship_dt, c.clnt_nm, i.item_num, i.item_nm, 
+			i.invnt_unit, o.ord_num, o.ord_qty, s.ship_qty, s.cmplt_yn
+			from ship_mng s join client c
+			on s.clnt_id = c.clnt_id
+			join item i
+			on i.item_id = s.item_id
+			join order_mng o
+			on o.ord_id = s.ord_id
     		
     		where clnt_nm like CONCAT('%', #{clntNm}, '%')
     		
-    		<if test="Dlvdate!=''"> and sh.dlvry_dt = #{Dlvdate}</if>
-			<if test="Shdate!=''"> and sh.ship_dt = #{Shdate}</if>
+    		<if test="Dlvdate!=''"> and s.dlvry_dt = #{Dlvdate}</if>
+			<if test="sshdate!='' and sshdate!=null"> and s.ship_dt = #{sshdate}</if>
     	
     		and
-			item_num like CONCAT('%', #{itemNum}, '%')
+			i.item_num like CONCAT('%', #{itemNum}, '%')
 	
-			and
-			item_nm like CONCAT('%', #{itemNm}, '%')
 
-			and
-			name like CONCAT('%', #{userNm}, '%')
 			
-			<if test="cmpltYn!=''">	and sh.cmplt_yn = #{cmpltYn}</if>
+			<if test="cmpltYn!=''">	and s.cmplt_yn = #{cmpltYn}</if>
 		
-			order by Dlvdate desc
+			order by s.ship_dt desc
 			limit #{startRow}, #{pageSize}
     	</select>
     	
@@ -198,33 +182,41 @@
 	</select>
     	
     
-    <!-- 	shipList 조회할때 갯수와 조회값 가져오기 -->
-    <select id="countListShip" resultType="java.lang.Integer">
-    	select count(*)
-    	from client c join ship_mng sh
-    	on sh.clnt_id = c.clnt_id
-    	join item i
-    	on sh.item_id = i.item_id
-    	join user u
-    	on sh.user_id = u.user_id
-    	
-    	<if test="(shipNum != null and clntNm != null and Dlvdate != null and
-		 userNm != null and itemNum != null and itemNm != null and invntUnit != null and Shdate != null
-		  and shipQty != null and shipCond != null)">
-    
-    	where clnt_nm like CONCAT('%', #{clntNm}, '%')
-    	
-    	and
-		item_num like CONCAT('%', #{itemNum}, '%')
 
-		and
-		item_nm like CONCAT('%', #{itemNm}, '%')
-		
-		and
-		name like CONCAT('%', #{userNm}, '%')
-    
-    	</if>    
+    <select id="countListShip" resultType="java.lang.Integer">
+    	    select count(*)
+			from ship_mng s join client c
+			on s.clnt_id = c.clnt_id
+			join item i
+			on i.item_id = s.item_id
+			join order_mng o
+			on o.ord_id = s.ord_id
+    		
+    		
+    		where clnt_nm like CONCAT('%', #{clntNm}, '%')
+    		
+    		<if test="Dlvdate!=''"> and s.dlvry_dt = #{Dlvdate}</if>
+			<if test="sshdate!='' and sshdate!=null"> and s.ship_dt = #{sshdate}</if>
+    	
+    		and
+			i.item_num like CONCAT('%', #{itemNum}, '%')
+
+			
+			<if test="cmpltYn!=''">	and s.cmplt_yn = #{cmpltYn}</if>
+    		
     </select>
+    
+        <select id="countListShipp" resultType="java.lang.Integer">
+    	    select count(*)
+			from ship_mng s join client c
+			on s.clnt_id = c.clnt_id
+			join item i
+			on i.item_id = s.item_id
+			join order_mng o
+			on o.ord_id = s.ord_id
+   		
+    </select>
+    
     
     <select id="getItemList"
 		resultType="com.itwillbs.ship.domain.ItemDTO">
@@ -322,8 +314,8 @@
 <!-- 	출하관리 납품 추가하기 -->
 	<insert id="insertShip">
 		insert into ship_mng
-		(ship_num,ord_id,ord_info_id,insert_id,insert_dt,dlvry_dt,user_id,clnt_id,item_id)
-		values(#{shipNum},#{ordId},#{ordInfoId},#{insertId},#{insertDt},#{dlvryDt},#{userId},#{clntId},#{itemId})
+		(ship_num,ord_id,insert_id,insert_dt,dlvry_dt,clnt_id,item_id, ship_qty, ship_dt, cmplt_yn)
+		values(#{shipNum},#{ordId},#{insertId},#{insertDt},#{dlvryDt},#{clntId},#{itemId}, #{shipQty}, #{shipDt}, #{cmpltYn})
 	</insert>
 	
 	<!-- 	출하관리 납품 추가하기 -->
@@ -362,10 +354,29 @@
 	</delete>
 
 
+	<update id="delStorage">
+	update storage
+	set item_count = item_count - #{shipQty}
+	where
+	stor_id = 2 <!-- 제품창고 -->
+	</update>
+	
+	<update id="delStock">
+	update stock
+	set cur_stock = cur_stock - #{shipQty}
+	where
+	item_id = #{itemId}
+	</update>
 
 
 
 
+	<update id="updateCmplt">
+	update ship_mng
+	set cmplt_yn = "Y"
+	where
+	ship_id = #{shipId}
+	</update>
     
     
 <!--      material list --> 

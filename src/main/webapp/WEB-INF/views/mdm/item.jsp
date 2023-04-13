@@ -60,7 +60,7 @@ button{
     margin-bottom: 10px;
     font-weight: bold;
     vertical-align: middle;
-    width : 8%; 	
+/*     width : 8%; 	 */
 }
 
 .itemcontent{
@@ -72,7 +72,7 @@ button{
 /*     margin-bottom: 10px; */
 /*     font-weight: bold; */
     vertical-align: middle;
-    width : 9%; 
+/*     width : 9%;  */
     text-align:center;
     height : 15px; 
 }
@@ -360,13 +360,13 @@ button{
 	<table style="width:100%;" class="itemList">
 		<thead>
 		<tr class="itemtitle">
-			<th>품번</th>
+			<th width="7%">품번</th>
 			<th>품명</th>
 			<th>자재유형</th>
 			<th>자재구분</th>
-			<th>재고단위</th>
-			<th>재질</th>
-			<th>규격</th>
+			<th width="6%">재고단위</th>
+			<th width="6%">재질</th>
+			<th width="5%">규격</th>
 			<th>사용여부</th>
 			<th>거래처</th>
 			<th>매입단가</th>
@@ -399,8 +399,8 @@ button{
 					</c:otherwise>
 				</c:choose>
 				<td class="tdclntname">${itemDTO.clntName}</td>
-				<td class="tdsaleprice">${itemDTO.salePrice}</td>
 				<td class="tdbuyprice">${itemDTO.buyPrice}</td>
+				<td class="tdsaleprice">${itemDTO.salePrice}</td>
 				<td class="tdnote">${itemDTO.note}</td>
 				<td id="helpbutton" style="width:10px; text-align:center;vertical-align:middle;">
 <%-- 				<a href="#" class="modifyLine"><img src='${pageContext.request.contextPath}/resources/image/modify.png' id="modify" width='17px' onclick="modifyLine(this);"></a> --%>

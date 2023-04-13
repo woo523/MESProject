@@ -88,7 +88,7 @@
 				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
 			</when>
 	</choose>	
-	ORDER BY clnt_id ASC
+	ORDER BY clnt_id DESC
 	LIMIT #{startRow}, #{pageSize}	
     </select>
 	
@@ -117,7 +117,7 @@
 			   use_yn,
 			   note
 		FROM client
-		ORDER BY clnt_id ASC
+		ORDER BY clnt_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 	

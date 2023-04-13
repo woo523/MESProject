@@ -99,11 +99,11 @@ function check(){
 	}
 }
 
-//숫자
-function idChk(val) {
-	var regExp = /^[0-9]*$/ //0-9까지 입력
-	return regExp.test(val); // 형식에 맞는 경우 true 리턴
-}
+// //숫자
+// function idChk(val) {
+// 	var regExp = /^[0-9]*$/ //0-9까지 입력
+// 	return regExp.test(val); // 형식에 맞는 경우 true 리턴
+// }
 
 //설비유형에 따른 설비코드 부여
 function equipCode(obj){

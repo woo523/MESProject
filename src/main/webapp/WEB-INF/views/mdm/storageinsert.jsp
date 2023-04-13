@@ -54,11 +54,32 @@ div input, select, button{
 <meta charset="UTF-8">
 <title>StorageInsert</title>
 <script type="text/javascript">
-$('#insert').click(function(){
-	alert("추가되었습니다.");
-});
+function check(){
+	if($('.itemNum').val() == "") {
+		alert("창고코드를 입력하세요");
+		$('.storCode').focus();
+	
+		return false;
+	}
+	if($('.storCode').val().length != 4) {
+		alert("창고코드를 4자로 입력하세요.");
+		$('.storCode').focus();
+	
+		return false;
+	}
+	if($('.storName').val() == "") {
+		alert("창고명을 입력하세요.");
+		$('.storName').focus();
+		
+		return false;
+	}
 
-$("#mtrlType").val("${storageDTO.storType}").prop("selected",true);
+	if(confirm("등록하시겠습니까?")) {
+		return true;
+	} else {
+		return false;
+	}
+}
 </script>
 </head>
 <body>
@@ -68,10 +89,10 @@ $("#mtrlType").val("${storageDTO.storType}").prop("selected",true);
 <br>
 <h2> 창고추가 </h2>
 
-<form action="${pageContext.request.contextPath }/mdm/storageinsertPro" method="post" id="form">
+<form action="${pageContext.request.contextPath }/mdm/storageinsertPro" method="post" onsubmit="return check()" id="form">
 <table>
-	<tr><td>창고코드 <span class="star">*</span></td>  <td><input type="text" name="storCode" value="${storageDTO.storCode}"></td></tr>
-	<tr><td>창고명 <span class="star">*</span></td>  <td><input type="text" name="storName" value="${storageDTO.storName}"></td></tr>
+	<tr><td>창고코드 <span class="star">*</span></td>  <td><input type="text" name="storCode" value="ST00" class="storCode" maxlength="4" ></td></tr>
+	<tr><td>창고명 <span class="star">*</span></td>  <td><input type="text" name="storName" value="${storageDTO.storName}" class="storName"></td></tr>
 	<tr><td>창고유형 <span class="star">*</span></td> <td><select name="storType" id="storType">
 						<option value="자재">자재</option>
 						<option value="제품">제품</option>

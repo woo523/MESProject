@@ -81,7 +81,7 @@ public class StorageController {
 		System.out.println("StorageController insertstorageListPro()");
 		
 		storageService.insertStorage(storageDTO);
-		return "mdm/storageinsert";	
+		return "redirect:/common/offwindow";	
 	}
 	
 	@RequestMapping(value = "/mdm/storagelist", method = RequestMethod.GET)

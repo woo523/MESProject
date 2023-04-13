@@ -71,6 +71,8 @@ $(document).ready(function() {
 	console.log(invntUnit);
 	$("#invntUnit").val(invntUnit).prop("selected", true);
 	
+	var clntName = "${itemDTO.clntName}";
+	$("#clntName").val(clntName).prop("selected", true);
 });
 
 function check(){
@@ -97,7 +99,7 @@ function check(){
 		
 		return false;
 	}
-	if(confirm("등록하시겠습니까?")) {
+	if(confirm("수정하시겠습니까?")) {
 		return true;
 	} else {
 		return false;
@@ -145,26 +147,27 @@ function itemCode(obj){
 <br>
 <h2> 품목 수정 </h2>
 <form action="${pageContext.request.contextPath }/mdm/itemupdatePro" method="post" onsubmit="return check()" id="form">
+<input type="hidden" name="itemId" value="${itemDTO.itemId}">
 <table>
 	<tr><td>품번 <span class="star">*</span></td>  <td><input type="text" name="itemNum" class="itemNum" id="itemNum" maxlength="6" value="${itemDTO.itemNum}"></td></tr>
 	<tr><td>품명 <span class="star">*</span></td>  <td><input type="text" name="itemName" class="itemName" value="${itemDTO.itemName}"></td></tr>
-	<tr><td>자재유형</td> <td><select name="mtrlType" id="mtrlType" onchange="itemCode(this);">
+	<tr><td>자재유형</td> <td><select name="mtrlType" id="mtrlType" class="mtrlType" onchange="itemCode(this);">
 						<option value="원자재">원자재</option>
 						<option value="부자재">부자재</option>
 						<option value="완제품">완제품</option>
 					</select></td></tr>
-	<tr><td>자재구분</td> <td><select name="mtrlSort" id="mtrlSort">
+	<tr><td>자재구분</td> <td><select name="mtrlSort" id="mtrlSort" class="mtrlSort">
 						<option value="사내" selected>사내</option>
 						<option value="사외">사외</option>
 					</select></td></tr>
-	<tr><td>재고단위</td> <td><select name="invntUnit" id="invntUnit">
+	<tr><td>재고단위</td> <td><select name="invntUnit" class="invntUnit" id="invntUnit">
 						<option value="EA" selected>EA</option>
 						<option value="PK">PK</option>
 					</select></td></tr>
-	<tr><td>재질</td> <td><input type="text" name="invntQlt" value="${itemDTO.invntQlt}"></td></tr>
-	<tr><td>규격</td> <td><input type="text" name="standard" value="${itemDTO.standard}"></td></tr>
-	<tr><td>사용여부</td> <td><input type="radio" name="useYn" value="Y" id="Y">Y
-							<input type="radio" name="useYn" value="N" id="N">N</td></tr>
+	<tr><td>재질</td> <td><input type="text" name="invntQlt" class="invntQlt" id="invntQlt" value="${itemDTO.invntQlt}"></td></tr>
+	<tr><td>규격</td> <td><input type="text" name="standard" class="standard" id="standard" value="${itemDTO.standard}"></td></tr>
+	<tr><td>사용여부</td> <td><input type="radio" name="useYn" value="Y" class="Y" id="Y">Y
+							<input type="radio" name="useYn" value="N" class="N" id="N">N</td></tr>
 	<tr><td>거래처 <span class="star">*</span></td> <td><select name="clntName" class="clntName" id="clntName" class="clntName">
 <!-- 						<option value="">거래처</option> -->
 						<c:forEach var="clientList" items="${clientList}">
@@ -172,9 +175,9 @@ function itemCode(obj){
 						</c:forEach>
 	  				   </select>
 				  </td></tr>
-	<tr><td>매입단가</td> <td><input type="text" name="buyPrice" value="${itemDTO.buyPrice}"></td></tr>
-	<tr><td>매출단가</td> <td><input type="text" name="salePrice" value="${itemDTO.salePrice}"></td></tr>
-	<tr><td>비고</td> <td><input type="text" name="note" value="${itemDTO.note}"></td></tr>
+	<tr><td>매입단가</td> <td><input type="text" name="buyPrice" class="buyPrice" id="buyPrice"  value="${itemDTO.buyPrice}"></td></tr>
+	<tr><td>매출단가</td> <td><input type="text" name="salePrice" class="salePrice" id="salePrice" value="${itemDTO.salePrice}"></td></tr>
+	<tr><td>비고</td> <td><input type="text" name="note" class="note" id="note" value="${itemDTO.note}"></td></tr>
 </table>
 <div id="mbutton">
 	<input type="submit" value="수정" id="modify">

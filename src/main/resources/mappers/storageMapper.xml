@@ -52,7 +52,7 @@
 				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
 			</when>
 	</choose>	
-	ORDER BY stor_id ASC
+	ORDER BY stor_cd ASC
 	LIMIT #{startRow}, #{pageSize}	
     </select>
 	
@@ -69,7 +69,7 @@
 			   use_yn,
 			   item_count
 		FROM storage
-		ORDER BY stor_id ASC
+		ORDER BY stor_cd ASC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 	

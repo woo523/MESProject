@@ -39,7 +39,6 @@
 			   i.note
 		FROM item i join client c
 		ON c.clnt_id = i.clnt_id
-		limit #{startRow}, #{pageSize}
 	</select>
 	
 	 <select id="SearchItemMap" resultMap="ItemMap">
@@ -88,13 +87,15 @@
 				AND i.use_yn LIKE CONCAT('%', #{useYn}, '%')
 			</when>
 	</choose>	
-	ORDER BY i.item_id ASC
+	ORDER BY i.item_id DESC
 	LIMIT #{startRow}, #{pageSize}	
     </select>
 	
 	<select id="insertItem">
-		insert into item (item_num, item_nm, mtrl_type, mtrl_sort, invnt_unit, invnt_qlt, standard, use_yn, sale_price, buy_price, note)
-		values (#{itemNum},#{itemName},#{mtrlType},#{mtrlSort},#{invntUnit},#{invntQlt},#{standard},#{useYn},#{salePrice},#{buyPrice},#{note})
+		insert into item (item_num, item_nm, mtrl_type, mtrl_sort, invnt_unit, invnt_qlt, standard, use_yn, sale_price, buy_price, note, clnt_id)
+		values (#{itemNum},#{itemName},#{mtrlType},#{mtrlSort},#{invntUnit},#{invntQlt},#{standard},#{useYn},#{salePrice},#{buyPrice},#{note}, (select clnt_id
+		                                                                                                                                       from client
+		                                                                                                                                       where clnt_nm = #{clntName}))
 	</select>
 	
 	<select id="itemPage" resultMap="ItemMap">
@@ -114,7 +115,7 @@
 			   i.note
 		FROM item i join client c
 		ON c.clnt_id = i.clnt_id
-		ORDER BY i.item_id ASC
+		ORDER BY i.item_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 		
@@ -176,7 +177,9 @@
     </select>
 	
 	<update id="updateItem">
-    	update item set clnt_id = 3,
+    	update item set clnt_id = (select clnt_id
+    	                           from client
+    	                           where clnt_nm = #{clntName}),
     					item_num = #{itemNum},
     					item_nm = #{itemName},
     					mtrl_type = #{mtrlType},

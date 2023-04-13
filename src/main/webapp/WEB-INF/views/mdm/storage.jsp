@@ -130,6 +130,7 @@ function deleteLine(obj){
 	console.log(storId); 
 	location.href="${pageContext.request.contextPath}/mdm/storagedelete?storId="+storId+"&pageNum=${pageDTO.pageNum}";
 	$(obj).closest('tr').remove();
+	alert("삭제되었습니다.");
 	}else{
 		return false;
 	}	
@@ -144,9 +145,9 @@ function deleteLine(obj){
 <!-- </header> -->
 
 <div class="storage_body">
-<h1>창고 관리</h1><br>
+<h1>창고정보 관리</h1><br>
 <form id="storageSearch">
-<div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>	
+<div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">등록</button></div>	
 <table class="storage_filter">
 	<tr>
 	<td>창고명</td> <td><input type="text" class="storName" name="storName"></td>

@@ -118,6 +118,19 @@ function check(){
 		return false;
 	}
 	
+	if($('.bsnsNum').val() == "") {
+		alert("사업자번호를 입력하세요.");
+		$('.bsnsNum').focus();
+		
+		return false;
+	}
+	
+	if($('#email').val() == "") {
+		alert("이메일을 입력하세요.");
+		$('#email').focus();
+		
+		return false;
+	}
 	
 	if($("#email").val() != ""){
 		if (!emailChk($("#email").val())) {
@@ -125,11 +138,8 @@ function check(){
  			$("#email").focus();
  			return false;
  		}
-	} else {
-		alert('이메일을 입력해주세요.');
-			$("#email").focus();
-			return false;
-	}
+	} 
+	
 	
 	if(!valChk($("#tell"), "전화번호")) return false;
 	if (!tellChk($("#tell").val())) {
@@ -291,7 +301,7 @@ $(document).ready(function(){
 						<option value="고객사">고객사</option>
 						<option value="협력사">협력사</option>
 					</select></td></tr>
-	<tr><td class="i">사업자번호</td> <td><input type="text" name="bsnsNum" value="${clientDTO.bsnsNum}"></td></tr>
+	<tr><td class="i">사업자번호 <span class="star">*</span></td> <td><input type="text" name="bsnsNum" class="bsnsNum" value="${clientDTO.bsnsNum}"></td></tr>
 	<tr><td class="i">업태</td> <td><input type="text" name="industry" value="${clientDTO.industry}"></td></tr>
 	<tr><td class="i">종목</td> <td><input type="text" name="event" value="${clientDTO.event}"></td></tr>
 	<tr><td class="i">대표자</td> <td><input type="text" name="daepyo" value="${clientDTO.daepyo}"></td></tr>
@@ -300,10 +310,10 @@ $(document).ready(function(){
 	<a href="#" ><img src='${pageContext.request.contextPath}/resources/image/magnifying-glass.png' width='17px' onclick="execPostCode();"></a></td></tr>
 	<tr><td class="i">주소</td> <td><input type="text" name="address" value="${clientDTO.address}" readonly></td></tr>
 	<tr><td class="i">상세주소</td> <td><input type="text" name="addrDtl" value="${clientDTO.addrDtl}"></td></tr>
-	<tr><td class="i">전화번호</td> <td><input type="text" name="tell" id="tell" placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13" value="${clientDTO.tell}"></td></tr>
+	<tr><td class="i">전화번호 <span class="star">*</span></td> <td><input type="text" name="tell" id="tell" placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13" value="${clientDTO.tell}"></td></tr>
 	<tr><td class="i">연락처 <span class="star">*</span></td> <td><input type="text" name="phone" class="phone" id="phone" placeholder="010-0000-0000" oninput="autoHyphen(this)" maxlength="13" value="${clientDTO.phone}"></td></tr>
 	<tr><td class="i">팩스</td> <td><input type="text" name="fax" value="${clientDTO.fax}"></td></tr>
-	<tr><td class="i">이메일</td> <td><input type="text" name="email" id="email" placeholder="예)email@naver.com" value="${clientDTO.email}"></td></tr>
+	<tr><td class="i">이메일 <span class="star">*</span></td> <td><input type="text" name="email" id="email" placeholder="예)email@naver.com" value="${clientDTO.email}"></td></tr>
 	<tr><td class="i">사용여부</td> <td><input type="radio" name="useYn" value="Y" checked>Y
 							<input type="radio" name="useYn" value="N">N</td></tr>
 	<tr><td class="i">비고</td> <td><input type="text" name="standard" placeholder="글자수는 최대 25자 입니다" maxlength="25" value="${clientDTO.note}"> </td></tr>

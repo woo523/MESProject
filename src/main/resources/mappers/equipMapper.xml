@@ -54,13 +54,13 @@
 	</choose>
 	<choose>
 			<when test="equpStat == '가동'.toString()">
-				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+				AND equp_stat LIKE CONCAT('%', #{equpStat}, '%')
 			</when>
 			<when test="equpStat == '대기'.toString()">
-				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+				AND equp_stat LIKE CONCAT('%', #{equpStat}, '%')
 			</when>
 			<when test="equpStat == '고장'.toString()">
-				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+				AND equp_stat LIKE CONCAT('%', #{equpStat}, '%')
 			</when>
 	</choose>
 	<choose>
@@ -71,7 +71,7 @@
 				AND use_yn LIKE CONCAT('%', #{useYn}, '%')
 			</when>
 	</choose>	
-	ORDER BY equp_id ASC
+	ORDER BY equp_cd ASC
 	LIMIT #{startRow}, #{pageSize}	
     </select>
 	
@@ -91,7 +91,7 @@
 			   use_yn,
 			   equp_stat
 		FROM equipment
-		ORDER BY equp_id ASC
+		ORDER BY equp_cd ASC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
@@ -116,13 +116,13 @@
 	</choose>
 	<choose>
 			<when test="equpStat == '가동'.toString()">
-				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+				AND equp_stat LIKE CONCAT('%', #{equpStat}, '%')
 			</when>
 			<when test="equpStat == '대기'.toString()">
-				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+				AND equp_stat LIKE CONCAT('%', #{equpStat}, '%')
 			</when>
 			<when test="equpStat == '고장'.toString()">
-				AND equp_stat LIKE CONCAT('%', #{equpType}, '%')
+				AND equp_stat LIKE CONCAT('%', #{equpStat}, '%')
 			</when>
 	</choose>
 	<choose>

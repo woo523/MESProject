@@ -11,12 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-import com.itwillbs.mdm.domain.ClientDTO;
 import com.itwillbs.mdm.domain.ItemDTO;
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.mdm.service.ClientService;
@@ -83,7 +81,9 @@ public class ItemController {
 	public String insertitemList(HttpServletRequest request, Model model) {
 		System.out.println("ItemController insertitemList()");
 		List<Map<String, Object>> clientList = clientService.clientlist();
+//		List<ItemDTO> itemList = itemService.itemList();
 		model.addAttribute("clientList", clientList);
+//		model.addAttribute("clientList", itemList);
 		return "mdm/iteminsert";	
 	}
 	
@@ -92,7 +92,7 @@ public class ItemController {
 		System.out.println("ItemController insertitemListPro()");
 		
 		itemService.insertItem(itemDTO);
-		return "mdm/iteminsert";	
+		return "redirect:/common/offwindow";	
 	}
 	
 	
@@ -138,7 +138,7 @@ public class ItemController {
 		itemService.updateItem(itemDTO);
 		
 		// 주소변경 하면서 이동
-		return "redirect:/mdm/item";
+		return "redirect:/common/offwindow";
 	}
 	
 	
