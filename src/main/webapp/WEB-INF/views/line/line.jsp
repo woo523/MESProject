@@ -8,6 +8,8 @@
 <title>Line</title>
 
 <link href="${pageContext.request.contextPath}/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
+
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 </head>
 
 <body>
@@ -77,7 +79,7 @@
 									<td style="color: red">${lineDTO.useChoice}</td>
 								</c:otherwise>
 							</c:choose>
-							<td style="width: 300px">${lineDTO.note}</td>
+							<td style="width: 250px">${lineDTO.note}</td>
 							<c:if test="${! empty sessionScope.id}">
 								<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="modifyConfirm(${lineDTO.lineId})"></a></td>    
 							</c:if>
