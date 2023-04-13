@@ -132,6 +132,14 @@ public class ShipDAOImpl implements ShipDAO{
 	}
 
 	@Override
+	public int countShip(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl countShip()"); 
+		return sqlSession.selectOne(namespace+".countShip",search);
+	}
+	
+	
+	
+	@Override
 	public void updateShip(ShipDTO shipDTO) {
 		System.out.println("ShipDAOImpl updateShip() 화면단 정보를 db에 저장");
 		sqlSession.update(namespace+".updateShip", shipDTO);

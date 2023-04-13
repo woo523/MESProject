@@ -2,6 +2,7 @@ package com.itwillbs.ship.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.HashMap;
 
 import java.util.List;
@@ -56,7 +57,8 @@ public class ShipController {
 		String shipNum = String.format("ST%s%05d", date1, count);
 		
 		shipDTO.setShipNum(shipNum);
-		
+		shipDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
+		shipDTO.setCmpltYn("N");
 		shipService.insertShip(shipDTO);
 		
 		return "redirect:/common/offwindow";
@@ -250,7 +252,7 @@ public class ShipController {
 		System.out.println("itemNm"+shipAdmin1.get(0).get("itemNm"));
 		
 		//페이징 처리
-		int count = shipService.countListShip(search);
+		int count = shipService.countShip(search);
 		
 		int pageBlock = 10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;

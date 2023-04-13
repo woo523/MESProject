@@ -12,6 +12,7 @@
 
  table {
       width: 600px;  
+
    } 
 
 th,td{
@@ -55,7 +56,7 @@ table#info {
 
 #btn{
       width: 600px; 
-	text-align: right;
+	text-align: center;
  
 }
 #pagination{
@@ -116,29 +117,6 @@ text-align: center;
 	    window.open("${pageContext.request.contextPath }/order/orderMng","popup", "width=500, height=500,left=100, top=100");
 	}
 
-$(function() {
-	$("#dlvryDt").datepicker({
-		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-           ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,buttonText: "선택" //버튼 호버 텍스트              
-           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-           ,closeText: '닫기' // 닫기 버튼 패널
-           ,onClose: function ( selectedDate ) {
-        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
-           }
-	});
-});
 
 
 
@@ -211,17 +189,15 @@ $(document).ready(function(){
 
 <div id="main" style="overflow: hidden;"> <!-- 지우면안됨 -->
 
-<h2>출하정보</h2>
+<h2 style="text-align: center;">출하 실행</h2>
 	
 	<form id="insertShip"  action="${pageContext.request.contextPath }/ship/shipInsertPro" method="get">
 		<div class="shipdetail">
-			<div id="btn">
-				<button type="reset">취소</button>
-				<input type="submit" value="저장" class="submit">
-			</div>
+
 			<br>
 			<table id="insert">
-			<tr><td> <input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly></td></tr> 
+			 <input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" >
+			 <input type="hidden" name="ordId" value="${ordlist.ordId}" >
 				<tr>
 				<td>수주업체</td>
 				<td>
@@ -234,7 +210,7 @@ $(document).ready(function(){
 				<td>납품예정일</td>
 				<td><input type="text" id="dlvryDt" class="form-control" name="dlvryDt" value="${ordlist.dlvryDt }" readonly></td>
 									
-				<td>출하일자</td>
+				<td>출하일자 <span style="color:red;">*</span> </td>
 				<td><input type="date" id="shipDt" class="form-control" name="shipDt" placeholder="날짜를 선택해주세요" readonly></td>
 				<td></td>
 
@@ -245,15 +221,15 @@ $(document).ready(function(){
 		</div>	
 <br>
 <br>
-			<h1>출하정보</h1>
+
 	<div class="shiprinfo">
 			<table id="info">
 				<tr>
 				<td>품번</td>
 				<td><input type="hidden" name="itemId" id="itemId" value="${ordlist.itemId }" >
-					<input type="text" name="itemNum" id="itemNum" value="${ordlist.itemNum }" readonly ></td>
-				<td><input type="text" name= "itemNm" id="itemNm"  value="${ordlist.itemNm }" readonly ></td>
-				<td><input type="text" name="invntUnit" id="invntUnit"  value="${ordlist.itemUnit }" readonly></td>
+					<input type="text" name="itemNum" id="itemNum" value="${ordlist.itemNum }" readonly >
+				<input type="text" name= "itemNm" id="itemNm"  value="${ordlist.itemNm }" readonly >
+				<input type="text" name="invntUnit" id="invntUnit"  value="${ordlist.itemUnit }" readonly style="width:30px;"></td>
 				</tr>
 				<tr>
 				<td>수주량</td>
@@ -264,14 +240,14 @@ $(document).ready(function(){
 				<td><input type="number" name="curStock"  value="${ordlist.curStock }" readonly></td>
 				</tr>
 				<tr>
-				<td>수량</td>
+				<td>수량 <span style="color:red;">*</span></td>
 				<td><input type="number" name="shipQty" id="shipQty"  placeholder="필수입력"></td>
 				</tr>
 			</table>
 			<br>
 			<div id="btn">
 				<button type="reset">취소</button>
-				<input type="submit" value="저장" class="submit">
+				<input type="submit" value="출하" class="submit">
 			</div>
 	</div>
 	</form>

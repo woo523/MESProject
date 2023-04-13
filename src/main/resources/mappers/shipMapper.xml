@@ -108,37 +108,26 @@
 	and o.ord_id = #{ordId}
     </select>
     
-    
-    
-    
-    
-    
-    <!-- 	shipAdmin 페이징 처리할때 갯수 가져오기 -->
+
     <select id="countShip" resultType="java.lang.Integer">
-    select count (*)
-    from ship_mng sh join client c
-    on sh.clnt_id = c.clnt_id
-    join user u
-    on sh.user_id = u.user_id
-    <if test="(clntCd != null and clntNm != null and Dlvdate != null
-		 and eDlvdate!= null and sshdate != null and Shdate != null and userNum != null 
-			and userNm != null)">
-    
-    where c.clnt_nm like CONCAT('%', #{clntNm}, '%')
-    
-    <if test="Dlvdate!='' and eDlvdate!=''"> and o.order_dt between #{Dlvdate} and #{eDlvdate}</if>
+    select count(*)
+	from order_mng o join item i
+	on o.item_id = i.item_id
+	join stock st
+	on st.item_id = i.item_id
+	left join ship_mng s
+	on o.ord_id = s.ord_id
+	join client c
+	on o.clnt_id = c.clnt_id
+ 	where o.cmplt_yn="Y" and
+     c.clnt_nm like CONCAT('%', #{clntNm}, '%')  
+    	<if test="Dlvdate!='' and eDlvdate!=''"> and o.dlvry_dt between #{Dlvdate} and #{eDlvdate}</if>
 		<if test="Dlvdate=='' and eDlvdate==''"></if>
-		<if test="Dlvdate!=''"> and sh.dlvry_dt &gt;= #{Dlvdate}</if>
-		<if test="Dlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
+		<if test="Dlvdate!='' and Dlvdate!=null "> and o.dlvry_dt &gt;= #{Dlvdate}</if>
+		<if test="eDlvdate!='' and eDlvdate!=null"> and o.dlvry_dt &lt;= #{eDlvdate}</if>
 
-		<if test="sshdate!='' and Shdate!=''"> and o.dlvry_dt between #{sshdate} and #{Shdate}</if>
-		<if test="sshdate=='' and Shdate==''"></if>
-		<if test="sshdate!=''"> and sh.ship_dt &gt;= #{sshdate}</if>
-		<if test="sshdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
-
-		and
-		name like CONCAT('%', #{userNm}, '%')
-		</if>
+		order by o.dlvry_dt desc
+		limit #{startRow}, #{pageSize}
     
     </select>
     
@@ -199,32 +188,32 @@
     	
     
     <!-- 	shipList 조회할때 갯수와 조회값 가져오기 -->
-    <select id="countListShip" resultType="java.lang.Integer">
-    	select count(*)
-    	from client c join ship_mng sh
-    	on sh.clnt_id = c.clnt_id
-    	join item i
-    	on sh.item_id = i.item_id
-    	join user u
-    	on sh.user_id = u.user_id
+<!--     <select id="countListShip" resultType="java.lang.Integer"> -->
+<!--     	select count(*) -->
+<!--     	from client c join ship_mng sh -->
+<!--     	on sh.clnt_id = c.clnt_id -->
+<!--     	join item i -->
+<!--     	on sh.item_id = i.item_id -->
+<!--     	join user u -->
+<!--     	on sh.user_id = u.user_id -->
     	
-    	<if test="(shipNum != null and clntNm != null and Dlvdate != null and
-		 userNm != null and itemNum != null and itemNm != null and invntUnit != null and Shdate != null
-		  and shipQty != null and shipCond != null)">
+<!--     	<if test="(shipNum != null and clntNm != null and Dlvdate != null and -->
+<!-- 		 userNm != null and itemNum != null and itemNm != null and invntUnit != null and Shdate != null -->
+<!-- 		  and shipQty != null and shipCond != null)"> -->
     
-    	where clnt_nm like CONCAT('%', #{clntNm}, '%')
+<!--     	where clnt_nm like CONCAT('%', #{clntNm}, '%') -->
     	
-    	and
-		item_num like CONCAT('%', #{itemNum}, '%')
+<!--     	and -->
+<!-- 		item_num like CONCAT('%', #{itemNum}, '%') -->
 
-		and
-		item_nm like CONCAT('%', #{itemNm}, '%')
+<!-- 		and -->
+<!-- 		item_nm like CONCAT('%', #{itemNm}, '%') -->
 		
-		and
-		name like CONCAT('%', #{userNm}, '%')
+<!-- 		and -->
+<!-- 		name like CONCAT('%', #{userNm}, '%') -->
     
-    	</if>    
-    </select>
+<!--     	</if>     -->
+<!--     </select> -->
     
     <select id="getItemList"
 		resultType="com.itwillbs.ship.domain.ItemDTO">
@@ -322,8 +311,8 @@
 <!-- 	출하관리 납품 추가하기 -->
 	<insert id="insertShip">
 		insert into ship_mng
-		(ship_num,ord_id,ord_info_id,insert_id,insert_dt,dlvry_dt,user_id,clnt_id,item_id)
-		values(#{shipNum},#{ordId},#{ordInfoId},#{insertId},#{insertDt},#{dlvryDt},#{userId},#{clntId},#{itemId})
+		(ship_num,ord_id,insert_id,insert_dt,dlvry_dt,user_id,clnt_id,item_id, ship_qty, ship_dt, cmplt_yn)
+		values(#{shipNum},#{ordId},#{insertId},#{insertDt},#{dlvryDt},#{userId},#{clntId},#{itemId}, #{shipQty}, #{shipDt}, #{cmpltYn})
 	</insert>
 	
 	<!-- 	출하관리 납품 추가하기 -->
