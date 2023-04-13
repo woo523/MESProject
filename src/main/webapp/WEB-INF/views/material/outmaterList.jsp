@@ -258,8 +258,7 @@ $(function() {
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip          
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
@@ -286,7 +285,6 @@ $(function() {
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
 
@@ -308,11 +306,11 @@ function openclist(){
 var outmtrlId = a;
 
 function openInsert(a){ // 추가창
-	window.open("${pageContext.request.contextPath}/material/outmtrlInsert?outmtrlId="+a,"popup3", "width=650, height=500,left=500, top=200");
+	window.open("${pageContext.request.contextPath}/material/outmtrlInsert?outmtrlId="+a,"popup3", "width=650, height=550,left=500, top=200");
 }
 
 function openmodi(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/outmtrlModify?outmtrlId="+a,"popup4", "width=650, height=500,left=500, top=200");
+    window.open("${pageContext.request.contextPath}/material/outmtrlModify?outmtrlId="+a,"popup4", "width=650, height=650,left=500, top=200");
 }
 
 function openDelete(a){	// 삭제창

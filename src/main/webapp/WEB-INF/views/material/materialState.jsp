@@ -157,7 +157,7 @@ function openlist(){
 var stockId = a;
 
 function openadd(a){ // 실사량
-    window.open("${pageContext.request.contextPath}/material/quantity?stockId="+a,"popup", "width=420, height=340,left=100, top=200");
+    window.open("${pageContext.request.contextPath}/material/quantity?stockId="+a,"popup", "width=450, height=340,left=100, top=200");
 }
 </script>
 
