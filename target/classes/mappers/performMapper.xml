@@ -558,16 +558,6 @@
 	where
 	item_id = #{itemId}
 	</update>
-	
-	<update id="updateLineY"> <!-- 라인 사용여부 Y -->
-	UPDATE line
-	SET use_yn = 'Y'
-	</update>
-	
-	<update id="updateLineN"> <!-- 라인 사용여부 N -->
-	UPDATE line
-	SET use_yn = 'N'
-	</update>
 
    
 </mapper>

@@ -191,19 +191,6 @@ public class PerformDAOImpl implements PerformDAO {
 		
 		return sqlSession.selectList(namespace+".getReAmnt",itemId);
 	}
-
-	@Override
-	public void updateLineY() { // 지시상태 시작이면 라인 사용
-		
-		sqlSession.update(namespace + ".updateLineY");
-	}
-
-	@Override
-	public void updateLineN() { // 지시상태 지시 또는 마감이면 라인 사용 안함
-		
-		sqlSession.update(namespace + ".updateLineN");
-	}
-	
 	
 	
 	
