@@ -14,7 +14,7 @@ public class ShipDTO {
 	private Timestamp insertDt;				// 등록일
 	private String updateId;				// 변경자
 	private Timestamp updateDt;				// 변경일
-	private String shipCond;				// 출하상태
+	private String cmpltYn;				// 출하상태
 	private String amount;					// 수량
 	private String trackNum;				// 송장번호
 	private String itemNum;
@@ -117,11 +117,12 @@ public class ShipDTO {
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
-	public String getShipCond() {
-		return shipCond;
+	
+	public String getCmpltYn() {
+		return cmpltYn;
 	}
-	public void setShipCond(String shipCond) {
-		this.shipCond = shipCond;
+	public void setCmpltYn(String cmpltYn) {
+		this.cmpltYn = cmpltYn;
 	}
 	public int getShipId() {
 		return shipId;

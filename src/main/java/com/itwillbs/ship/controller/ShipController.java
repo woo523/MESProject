@@ -81,7 +81,7 @@ public class ShipController {
 		String itemNm = request.getParameter("itemNm");
 		String invntUnit = request.getParameter("invntUnit");
 		String shipQty = request.getParameter("shipQty");
-		String shipCond = request.getParameter("shipCond");
+		String cmpltYn = request.getParameter("cmpltYn");
 		
 		// 한 화면에 보여줄 글 개수 설정
 			int pageSize=3;
@@ -122,7 +122,7 @@ public class ShipController {
 		search.put("itemNm", itemNm);
 		search.put("invntUnit", invntUnit);
 		search.put("shipQty", shipQty);
-		search.put("shipCond", shipCond);
+		search.put("cmpltYn", cmpltYn);
 		
 		search.put("startRow", pageDTO.getStartRow());
 		search.put("pageSize", pageDTO.getPageSize());
@@ -130,7 +130,7 @@ public class ShipController {
 		List<Map<String,Object>> shipList;
 		if(shipId == null && shipNum == null && clntNm == null && Dlvdate == null
 				&& userNm == null && itemNum == null && itemNm == null && invntUnit == null
-				&& Shdate == null && shipQty == null && shipCond == null)
+				&& Shdate == null && shipQty == null && cmpltYn == null)
 		{
 		// 조회 안한 경우
 			shipList = shipService.getListMap(pageDTO); // page만 필요해서
@@ -159,6 +159,7 @@ public class ShipController {
 		
 		System.out.println("endPage :"+pageDTO.getEndPage());
 		System.out.println("count :"+pageDTO.getCount());
+//		System.out.println("cmpltYn"+shipList.get(0).get("cmpltYn"));
 		model.addAttribute("shipList", shipList); 
 		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("search", search);

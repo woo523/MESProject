@@ -437,7 +437,7 @@ function cmpltValue(){
 		
 		<div id="btn">
 			<input type="button" value="출하완료" class="btn btn-outline-info" onclick="cmpltValue();">
-			<input type="button" value="출하삭제" class="btn btn-outline-info" onclick="deleteValue();">
+<!-- 			<input type="button" value="출하삭제" class="btn btn-outline-info" onclick="deleteValue();"> -->
 <!-- 			<input type="button" value="출력" class="print-table" onclick="prtTable();"> -->
 		</div>
 		
@@ -469,11 +469,11 @@ function cmpltValue(){
 					<td>${sdto.Shdate}</td>
 					<td>${sdto.shipQty}</td>
 					<c:choose>
-					<c:when test="${sdto.shipCond eq 'Y' }">
-						<td style="color: blue">${sdto.shipCond}</td>
+					<c:when test="${sdto.cmpltYn eq 'Y' }">
+						<td style="color: blue">${sdto.cmpltYn}</td>
 					</c:when>
 					<c:otherwise>
-						<td style="color: red">${sdto.shipCond}</td>
+						<td style="color: red">N</td>
 					</c:otherwise>
 				</c:choose>
 				</tr>

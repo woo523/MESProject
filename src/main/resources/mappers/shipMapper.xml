@@ -25,6 +25,7 @@
   		<result column="user_Nm" property="userNm" />
   		<result column="clnt_cd" property="clntCd" />
   		<result column="clnt_nm" property="clntNm" />
+  		<result column="cmplt_yn" property="cmpltYn" />
   </resultMap>
 
     <select id="shipSCount" resultType="java.lang.Integer">
@@ -123,7 +124,7 @@
     <!-- 	shipList 조회 안할경우 페이지만 가져오기 -->
     	<select id="getListMap" resultMap="shipMap">
     		select sh.ship_id, sh.ship_num, c.clnt_nm,sh.dlvry_dt as Dlvdate, u.name as userNm, i.item_num,
-    					i.item_nm,i.invnt_unit, sh.ship_dt as Shdate,sh.ship_qty
+    					i.item_nm,i.invnt_unit, sh.ship_dt as Shdate,sh.ship_qty,sh.cmplt_yn
     		from client c join ship_mng sh
     		on sh.clnt_id = c.clnt_id
     		join item i
@@ -137,7 +138,7 @@
     	<!-- 	shipList 조회한 페이지 가져오기 -->
     	<select id="getListShipMap" resultMap="shipMap">
     		select sh.ship_id,sh.ship_num,c.clnt_nm,sh.dlvry_dt as Dlvdate, u.name as userNm,i.item_num,
-    					i.item_nm,i.invnt_unit, sh.ship_dt as Shdate,sh.ship_qty
+    					i.item_nm,i.invnt_unit, sh.ship_dt as Shdate,sh.ship_qty,sh.cmplt_yn
     		from client c join ship_mng sh
     		on sh.clnt_id = c.clnt_id
     		join item i
@@ -318,7 +319,7 @@
 	</update>
 	
 <!-- 	출하현황 수정 -->
-	<update id="updateCond">
+	<update id="updateCmplt">
 	update ship_mng 
 	set 
 	cmplt_yn = "Y"
