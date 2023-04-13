@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>출하정보</title>
 <%@ include file="../inc/header2.jsp"%><!-- 지우면안됨 -->
+
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+
+
+
 <style type="text/css">
 
 @import
@@ -139,7 +145,7 @@ h1{
 	<td>${shipDTO.itemNm }</td></tr>
 	<tr><td>단위</td>
 	<td>${shipDTO.invntUnit }</td></tr>
-	<tr><td>수량</td>
+	<tr><td>출하량</td>
 	<td>${shipDTO.shipQty }</td></tr>
 	</table>
 	</div>

@@ -9,6 +9,10 @@
 	<!-- <header> -->
 	<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 	
+	<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+	
+	
 <style type="text/css">
 
  table {
@@ -24,12 +28,12 @@ th,td{
 border-bottom: 1px solid black;
 padding: 10px;
 }
-#main tr{
-padding: 10px;
-text-align: center;
+#main{
+	text-align: center;
 }
 #th {
 	font-weight: bold;
+	text-align: center;
 }
 
 #con {
@@ -48,32 +52,20 @@ h1{
 	font-size: 22.5px;
 }
 
-h2 {
-  text-align: left;
-  margin-bottom: 30px;
-}
-
-.shipinfo tr, td{
+.search_bar tr, td{
  border:0px;
 }
 
-table#searchBox {
+table#search {
  border:1px solid;
 }
 
-
-table#info {
- border:1px solid;
-}
-
-
-#selectButtons, #button{
-      width: 1125px; 
+#btn{
+    width: 1125px; 
 	text-align: right;
+	 cursor : pointer;
  
 }
-
-
 
 #num:hover{
 	background-color : #e1e1e1;
@@ -86,6 +78,7 @@ table#info {
 	background-position: 98%;
 	border: 1px solid;
 }
+
 
 #clntNm {
 	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
@@ -130,6 +123,12 @@ table#info {
 .center {
   text-align: center;
   width:1125px;
+}
+.search_bar input {
+   height: 20px;
+}
+#modify,#del{
+ cursor : pointer;
 }
 
 </style>
@@ -248,61 +247,32 @@ $(function() {
 //            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
-  
-$(document).ready(function () {
-	// class = "brown" 클릭했을 때 "클릭"
-	$('.searchBox').click(function () {
-	
-	// 자바스크립트 배열(json) <= DB에서 가져옴
-	var arr = [
-			   {"subject":"제목1","date":"2023-01-01"},
-			   {"subject":"제목2","date":"2023-01-02"},
-			   {"subject":"제목3","date":"2023-01-03"}
-			  ];
-	
-	// 초기화
-	$('table').html('');
-	
-	$.ajax({
-		url:'${pageContext.request.contextPath}/board/listjson', 			// json형태로 들고옴 (페이지에 가서)
-		dataType:'json',			// json형태로 받아옴 (json형태)
-		success:function(arr){ 		// json형태로 만든 arr를 가져옴
-		
-					// 반복해서 출력 .each()
-					// arr 배열을 반복하겠다 반복할때의 기능은 어떻게 할건지?
-					$.each(arr,function(index, item){
-					// 클릭을 하면 0,1,2번 배열을 반복함
-//	 				alert(index);
-//	 				alert(item.subject);
-//	 				alert(item.date);
 
-					// 변수이기에 +로 연결시켜줘야 함
-					// 기존내용 없애고 그자리에 새로 넣기, 마지막 게 나옴 ,하나에 덮어서 써진다
-//	 				$('table').html('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
-					
-					// 추가하겠다는 함수 다시 사용 (html -> append로 바꾸기)
-					$('table').append('<tr><td class="contxt"><a href="#">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
-				});
-			}
-		});
-	});
-});
+function openDelete(a){	// 삭제창
+	if(confirm("삭제하시겠습니까?")) {
+		location.href="/order/openDelete?ordId=" + a;
+	} else {
+		return false;
+	}
+}
+  
+
 
 </script>
 
 
 <div class="content_body">
 
-	<h2>출하정보</h2>
-	<div class="shipinfo">
-	<form id="info">
-		<div id="selectButtons">
+	<h1>출하관리</h1>
+	<div class="search_bar">
+	<form id="search">
+		<div id="btn">
 			<button type="submit">조회</button>
 <!-- 			<button type="reset">취소</button> -->
 <%-- 			<button type="button" onclick="openshiplist(${shipDTO.shipId})">추가</button> --%>
 		</div>
 		<br>
-			<table id="searchBox">
+			<table id="search">
 				<tr>
 				<td>담당자</td>
 				<td><input type="text" name="userNm" id="userNm" onclick="userlist()">
@@ -316,25 +286,21 @@ $(document).ready(function () {
 				<tr>
 				<td>납품예정일</td>
 				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly></td>
-<!-- 				<td><input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr>						 -->
+				<td><input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td>
+				</tr>
+				<tr>						
 				<td>출하일자</td>
 				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
-<!-- 				<td><input type="text" id="Shdate" class="form-control" name="Shdate" readonly></td> -->
+				<td><input type="text" id="Shdate" class="form-control" name="Shdate" readonly></td>
 				</tr>
 				
 			</table>
 		</form>
 	</div>	
 		<br>
-		<br>
-		<br>
+				
 		
-			
-		
-		
-		<h2>목록</h2>
+		<h1>목록</h1>
 		<div id="count">총 ${pageDTO.count } 건</div>
 		<br>
 		
@@ -347,8 +313,18 @@ $(document).ready(function () {
 				<th>품번</th>
 				<th>품명</th>
 				<th>출하고객</th>
+				<th>상세</th>
 			</tr>
 			
+			<c:choose>
+				<c:when test="${empty shipAdmin1}">
+					<tr><td colspan="15"></td></tr>
+					<tr>
+						<td colspan="15">해당 데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:when>
+			
+			<c:otherwise>
 			<c:forEach var="sdto" items="${shipAdmin1}">
 						<tr onclick="openInfo(${sdto.shipId})">
 							<td>${sdto.userNm}</td>
@@ -358,8 +334,14 @@ $(document).ready(function () {
 							<td>${sdto.itemNum}</td>
 							<td>${sdto.itemNm}</td>
 							<td>${sdto.clntNm}</td>
+							<td><img src='${pageContext.request.contextPath}
+								/resources/image/modify.png' width='17px' id="modify" onclick="openInfo(${sdto.shipId})">
+					<img src='${pageContext.request.contextPath}
+								/resources/image/del.png' width='17px' id="del" onclick="openDelete(${sdto.shipId})"></td>
 						</tr>
 			</c:forEach>
+			</c:otherwise>
+			</c:choose>
 		</table>
 	
     <br>

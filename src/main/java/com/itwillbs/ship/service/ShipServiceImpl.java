@@ -156,6 +156,37 @@ public class ShipServiceImpl implements ShipService{
 		return shipDAO.getShipOrderId(ordId);
 	}
 
+	@Override
+	public List<Map<String, Object>> getSearchShipMap(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl getSearchShipMap()");
+		return shipDAO.getSearchShipMap(search);
+	}
+
+	@Override
+	public void updateCmplt(ShipDTO shipDTO) {
+		System.out.println("ShipServiceImpl updateCmplt()");
+		shipDAO.updateCmplt(shipDTO);
+	}
+
+	@Override
+	public void deleteCmplt(ShipDTO shipDTO) {
+		System.out.println("ShipServiceImpl deleteCmplt()");
+		shipDAO.deleteCmplt(shipDTO);
+	}
+
+	@Override
+	public boolean check(int shipId) {
+		System.out.println("ShipServiceImpl check()");
+		return shipDAO.check(shipId);
+	}
+
+	@Override
+	public void deleteOrder(int shipId) {
+		System.out.println("ShipServiceImpl deleteOrder()");
+		shipDAO.deleteOrder(shipId);
+		
+	}
+
 	
 
 

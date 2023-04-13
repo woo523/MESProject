@@ -10,15 +10,28 @@
 <%-- <jsp:include page="../inc/header.jsp" /><!-- 지우면안됨 --> --%>
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
+
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+
+
 <style type="text/css">
 
  table {
       width: 1125px;  
    } 
+#count{
+	text-align: right;
+	width: 1125px;
+}
 
 th,td{
 border-bottom: 1px solid black;
 padding: 10px;
+}
+#main tr{
+padding: 10px;
+text-align: center;
 }
 #th {
 	font-weight: bold;
@@ -34,9 +47,9 @@ padding: 10px;
 }
 
 
-
 h1{
 	font-weight: bold;
+	font-size: 22.5px;
 }
 
 .search_bar tr, td{
@@ -47,22 +60,11 @@ table#search {
  border:1px solid;
 }
 
-table#detail {
- border:1px solid;
-}
-table#info {
- border:1px solid;
-}
-
 
 #btn{
       width: 1125px; 
 	text-align: right;
- 
-}
-#pagination{
-      width: 1125px;  
-text-align: center;
+ cursor : pointer;
 }
 
 #num:hover{
@@ -75,6 +77,14 @@ text-align: center;
 	background-repeat: no-repeat;
 	background-position: 98%;
 	border: 1px solid;
+}
+
+#itemNum {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
+	
 }
 
 #clntNm {
@@ -120,6 +130,9 @@ text-align: center;
 .center {
   text-align: center;
   width:1125px;
+}
+.search_bar input {
+   height: 20px;
 }
 
 </style>	
@@ -265,7 +278,7 @@ $(function(){
 });
 
 function deleteValue(){
-	var url = "/ship/deleteCond";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
+	var url = "/ship/deleteCmplt";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
 	var valueArr = new Array();
     var list = $("input[name='RowCheck']");
     
@@ -307,7 +320,7 @@ function deleteValue(){
 }
 
 function cmpltValue(){
-	var url = "/ship/updateCond";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
+	var url = "/ship/updateCmplt";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
 	var valueArr = new Array();
     var list = $("input[name='RowCheck']");
 //     console.log(list);
@@ -348,16 +361,16 @@ function cmpltValue(){
 	}
 }
 
-function prtTable() {
-    const table = document.getElementById("shipList").outerHTML;
-    const printWindow = window.open('', 'PrintWindow', 'height=400,width=600');
-    printWindow.document.write('<html><head><title>' + document.title + '</title>');
-    printWindow.document.write('</head><body>');
-    printWindow.document.write(table);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    printWindow.print();
-  }
+// function prtTable() {
+//     const table = document.getElementById("shipList").outerHTML;
+//     const printWindow = window.open('', 'PrintWindow', 'height=400,width=600');
+//     printWindow.document.write('<html><head><title>' + document.title + '</title>');
+//     printWindow.document.write('</head><body>');
+//     printWindow.document.write(table);
+//     printWindow.document.write('</body></html>');
+//     printWindow.document.close();
+//     printWindow.print();
+//   }
 
 </script>
       
@@ -417,14 +430,15 @@ function prtTable() {
 	
 	
 		
-	<h2>목록</h2>
+	<h1>목록</h1>
 	<div id="count">총 ${pageDTO.count } 건</div>
+	<br>
 	<table border="1" id="main">
 		
 		<div id="btn">
 			<input type="button" value="출하완료" class="btn btn-outline-info" onclick="cmpltValue();">
 			<input type="button" value="출하삭제" class="btn btn-outline-info" onclick="deleteValue();">
-			<input type="button" value="출력" class="print-table" onclick="prtTable();">
+<!-- 			<input type="button" value="출력" class="print-table" onclick="prtTable();"> -->
 		</div>
 		
 		

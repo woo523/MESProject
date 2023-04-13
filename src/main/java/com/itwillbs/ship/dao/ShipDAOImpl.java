@@ -155,6 +155,38 @@ public class ShipDAOImpl implements ShipDAO{
 		return sqlSession.selectOne(namespace+".getShipOrderId",ordId);
 	}
 
+	@Override
+	public List<Map<String, Object>> getSearchShipMap(Map<String, Object> search) {
+		System.out.println("ShipDAOImpl getSearchShipMap() ");
+		return sqlSession.selectList(namespace+".getSearchShipMap",search);
+	}
+
+	@Override
+	public void updateCmplt(ShipDTO shipDTO) {
+		System.out.println("ShipDAOImpl updateCmplt() 화면단 정보를 db에 저장");
+		sqlSession.update(namespace+".updateCmplt", shipDTO);
+	}
+
+	@Override
+	public void deleteCmplt(ShipDTO shipDTO) {
+		System.out.println("ShipDAOImpl deleteCmplt() 화면단 정보를 db에 저장");
+		sqlSession.delete(namespace+".deleteCmplt", shipDTO);
+		
+	}
+
+	@Override
+	public boolean check(int shipId) {
+		System.out.println("ShipDAOImpl check() 화면단 정보를 db에 저장");
+		return sqlSession.selectOne(namespace+".check", shipId);
+	}
+
+	@Override
+	public void deleteOrder(int shipId) {
+		System.out.println("ShipDAOImpl deleteOrder() 화면단 정보를 db에 저장");
+		sqlSession.delete(namespace+".deleteOrder", shipId);
+		
+	}
+
 
 
 	

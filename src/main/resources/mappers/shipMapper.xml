@@ -69,16 +69,18 @@
     	on sh.clnt_id = c.clnt_id
     	join user u
     	on sh.user_id = u.user_id
+    	
+    	where clnt_nm like CONCAT('%', #{clntNm}, '%')
     
-    	<if test="Dlvdate!='' and eDlvdate!=''"> and o.order_dt between #{Dlvdate} and #{eDlvdate}</if>
+    	<if test="Dlvdate!='' and eDlvdate!=''"> and sh.dlvry_dt between #{Dlvdate} and #{eDlvdate}</if>
 		<if test="Dlvdate=='' and eDlvdate==''"></if>
 		<if test="Dlvdate!=''"> and sh.dlvry_dt &gt;= #{Dlvdate}</if>
-		<if test="Dlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
+		<if test="eDlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
 
-		<if test="sshdate!='' and Shdate!=''"> and o.dlvry_dt between #{sshdate} and #{Shdate}</if>
+		<if test="sshdate!='' and Shdate!=''"> and sh.ship_dt between #{sshdate} and #{Shdate}</if>
 		<if test="sshdate=='' and Shdate==''"></if>
 		<if test="sshdate!=''"> and sh.ship_dt &gt;= #{sshdate}</if>
-		<if test="sshdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
+		<if test="Shdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
 
 		and
 		name like CONCAT('%', #{userNm}, '%')
@@ -145,8 +147,8 @@
     		
     		where clnt_nm like CONCAT('%', #{clntNm}, '%')
     		
-    		<if test="Dlvdate!=''"> and o.order_dt = #{Dlvdate}</if>
-			<if test="Shdate!=''"> and o.dlvry_dt = #{Shdate}</if>
+    		<if test="Dlvdate!=''"> and sh.dlvry_dt = #{Dlvdate}</if>
+			<if test="Shdate!=''"> and sh.ship_dt = #{Shdate}</if>
     	
     		and
 			item_num like CONCAT('%', #{itemNum}, '%')
@@ -156,6 +158,8 @@
 
 			and
 			name like CONCAT('%', #{userNm}, '%')
+			
+			<if test="cmpltYn!=''">	and sh.cmplt_yn = #{cmpltYn}</if>
 		
 			order by Dlvdate desc
 			limit #{startRow}, #{pageSize}

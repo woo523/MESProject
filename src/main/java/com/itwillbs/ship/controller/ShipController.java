@@ -1,5 +1,7 @@
 package com.itwillbs.ship.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 import java.util.List;
@@ -7,6 +9,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,13 +47,13 @@ public class ShipController {
 		String date1 = date.substring(2);
 		int count = shipService.shipSCount() + 1;
 		System.out.println("확인 count:"+count);
-		String shipNum = String.format("OT%s%05d", date1, count);
+		String shipNum = String.format("ST%s%05d", date1, count);
 		
 		shipDTO.setShipNum(shipNum);
 		
 		shipService.insertShip(shipDTO);
 		
-		return "redirect:/ship/shipAdmin";
+		return "redirect:/common/offwindow";
 	}
 	
 	
@@ -234,7 +238,7 @@ public class ShipController {
 		
 		}else { 
 			// 조회값 넣은 경우
-			shipAdmin1 = shipService.getShipMap(search);
+			shipAdmin1 = shipService.getSearchShipMap(search);
 		}
 		System.out.println("itemNm"+shipAdmin1.get(0).get("itemNm"));
 		
@@ -529,33 +533,110 @@ public class ShipController {
 		
 		model.addAttribute("shipDTO", shipDTO);
 		
-		return "order/shupdate";
+		return "ship/shupdate";
 	}
 	
-//	@RequestMapping(value = "/ship/shupdatePro", method = RequestMethod.POST)
-//	public String shupdatePro(ShipDTO shipDTO,HttpServletRequest request) {
-//		System.out.println("ShipController shupdatePro()");
-//		
-//		System.out.println("shipDTO 값" +shipDTO);
-//		shipService.updateShip(shipDTO);
-//		int shipId=Integer.parseInt(request.getParameter("shipId"));
-//		shipDTO=shipService.getShip(shipId);
-//
-//		return "redirect:/ship/shipAdmin";
-//	}
-	
-	@RequestMapping(value = "/ship/shdelete", method = RequestMethod.GET)
-	public String shdelete(HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/ship/shupdatePro", method = RequestMethod.POST)
+	public String shupdatePro(ShipDTO shipDTO,HttpServletRequest request) {
+		System.out.println("ShipController shupdatePro()");
 		
+		System.out.println("shipDTO 값" +shipDTO);
+		shipService.updateShip(shipDTO);
 		int shipId=Integer.parseInt(request.getParameter("shipId"));
-		System.out.println("확인용"+shipId);
-		shipService.deleteShip(shipId);
-		
+		shipDTO=(ShipDTO) shipService.getShip(shipId);
+
 		return "redirect:/common/offwindow";
 	}
 	
+	@RequestMapping(value = "/ship/updateCmplt", method = RequestMethod.GET)
+	public String updateCmplt(HttpServletRequest request, Model model,HttpSession session) {
+		System.out.println("ShipController updateCmplt()");
+		
+		String shipId[]=request.getParameterValues("shipId");
+		ShipDTO shipDTO = new ShipDTO();
+		
+		for (int i = 0; i < shipId.length; i++) {
+			String string = shipId[i];
+		
+			System.out.println("shipId"+string);
+			shipDTO.setShipId(Integer.parseInt(string));
+			shipService.updateCmplt(shipDTO);
+		}
+		return "redirect:/ship/shipList";
+	}
 	
 	
+	@RequestMapping(value = "/ship/deleteCmplt", method = RequestMethod.GET)
+	public String deleteCmplt(HttpServletRequest request, Model model,HttpServletResponse response) throws IOException {
+		System.out.println("ShipController deleteCmplt()");
+		
+		String shipId[]=request.getParameterValues("shipId");
+		ShipDTO shipDTO = new ShipDTO();
+		System.out.println("아이디 오는지 확인"+ shipId);
+		for (int i = 0; i < shipId.length; i++) {
+			
+			String string = shipId[i];
+			System.out.println("아이디 배열"+ shipId);
+		
+			System.out.println("shipId"+string);
+			shipDTO.setShipId(Integer.parseInt(string));
+			shipService.deleteCmplt(shipDTO);
+		}
+//		if(orderService.check(ordId)) {
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			out.println("<script type='text/javascript'>");
+//			out.println("alert('해당 수주는 작업지시가 시작되었습니다.');");
+//			out.println("history.back()");
+//			out.println("</script>");
+//			out.close();
+//			return null;
+//			
+		return "redirect:/ship/shipList";
+	}
+	
+	
+	@RequestMapping(value = "/ship/shdelete", method = RequestMethod.GET)
+	public String shdelete(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException {
+		int shipId = Integer.parseInt(request.getParameter("shipId"));
+		System.out.println("확인용"+shipId);
+		System.out.println("check 확인!:"+shipService.check(shipId));
+		if(shipService.check(shipId)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script type='text/javascript'>");
+			out.println("alert('해당 출하는 작업지시가 시작되었습니다.');");
+			out.println("history.back()");
+			out.println("</script>");
+			out.close();
+			return null;
+			
+		}else{
+		
+//		orderService.deleteOrder(ordId);
+
+		return "redirect:/common/offwindow";}
+	}
+	
+	
+	@RequestMapping(value = "/ship/openDelete", method = RequestMethod.GET)
+	public String openDelete(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException {
+		int shipId = Integer.parseInt(request.getParameter("shipId"));
+		System.out.println("확인용"+shipId);
+		if(shipService.check(shipId)) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script type='text/javascript'>");
+			out.println("alert('해당 출하는 작업지시가 시작되었습니다.');");
+			out.println("history.back()");
+			out.println("</script>");
+			out.close();
+		}else {
+			shipService.deleteOrder(shipId);
+			
+		}
+		return "redirect:/ship/shipAdmin";
+	}
 	
 	
 	

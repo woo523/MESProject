@@ -64,7 +64,45 @@ h1{
 	margin: 0px auto;
 }
 
+#clntNm {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
+	border: 1px solid;
+}
+#userNm {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
+	border: 1px solid;
+}
+#itemNum {
+	background-image: url('${pageContext.request.contextPath}/resources/image/magnifying-glass.png');
+	background-repeat: no-repeat;
+	background-position:98%;
+	border: 1px solid;
+}
+#itemNm {
+	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
+}
+#invntUnit {
+	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
+}
 
+.form-control{
+	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
+	background-repeat: no-repeat;
+	background-position: 98%;
+	border: 1px solid;
+}
+
+.content_body input {
+   height: 20px;
+}
 
 </style>
 </head>
@@ -134,7 +172,7 @@ $(function() {
 
 <div class="content_body"> <!-- 지우면안됨 -->
 <br>
-<h2>출하폼목 수정</h2>
+<h1>출하폼목 수정</h1>
 <form action="${pageContext.request.contextPath}/ship/shupdatePro" method="post">
 			<div id="btn">
 				<button type="submit" >저장</button>
@@ -164,7 +202,7 @@ $(function() {
 	<td><input type="text" id="itemNm" name="itemNm" value="${shipDTO.itemNm }" readonly></td></tr>
 	<tr><td>단위</td>
 	<td><input type="text" id="invntUnit" name="invntUnit" value="${shipDTO.invntUnit }" readonly></td></tr>
-	<tr><td>수량</td>
+	<tr><td>출하량</td>
 	<td><input type="text" id="shipQty" name="shipQty" value="${shipDTO.shipQty }"></td></tr>
 	</table>
 </form>	

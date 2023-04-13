@@ -54,6 +54,16 @@ public interface ShipService {
 	public void deleteShip(int shipId);
 	
 	public ShipDTO getShipOrderId(int ordId);
+
+	public List<Map<String, Object>> getSearchShipMap(Map<String, Object> search);
+
+	public void updateCmplt(ShipDTO shipDTO);
+
+	public void deleteCmplt(ShipDTO shipDTO);
+
+	public boolean check(int shipId);
+
+	public void deleteOrder(int shipId);
 	
 
 
