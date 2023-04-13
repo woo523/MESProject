@@ -166,7 +166,7 @@ $(function() {
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
 
