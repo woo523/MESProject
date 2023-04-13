@@ -150,7 +150,7 @@
     </select>
 	
 	<update id="updateEquip">
-    	UPDATE client SET equp_cd = #{equpCode},
+    	UPDATE equipment SET equp_cd = #{equpCode},
     					  equp_nm = #{equpName},
     					  equp_type = #{equpType},
     					  po_nm = #{poNum},

@@ -121,7 +121,7 @@ public class StorageController {
 		storageService.updateStorage(storageDTO);
 		
 		// 주소변경 하면서 이동
-		return "mdm/storagemodify";
+		return "redirect:/common/offwindow";
 	}
 	
 	@RequestMapping(value = "/mdm/storagedelete", method = RequestMethod.GET)

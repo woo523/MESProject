@@ -291,7 +291,7 @@ function clientCode(obj){
 	<tr><td>전화번호</td> <td><input type="text" name="tell" id="tell"  placeholder="051-000-0000" oninput="autoHyphenTell(this)" maxlength="13" value="${clientDTO.tell}"></td></tr>
 	<tr><td>연락처 <span class="star">*</span></td> <td><input type="text" name="phone" class="phone" id="phone" placeholder="010-0000-0000" oninput="autoHyphen(this)" maxlength="13" value="${clientDTO.phone}"></td></tr>
 	<tr><td>팩스</td> <td><input type="text" name="fax" value="${clientDTO.fax}"></td></tr>
-	<tr><td>이메일</td> <td><input type="text" name="email" placeholder="예)email@naver.com" value="${clientDTO.email}"></td></tr>
+	<tr><td>이메일</td> <td><input type="text" name="email" id="email" placeholder="예)email@naver.com" value="${clientDTO.email}"></td></tr>
 	<tr><td>사용여부</td> <td><input type="radio" name="useYn" id="Y" value="Y" checked>Y
 							<input type="radio" name="useYn" id="N" value="N">N</td></tr>
 	<tr><td>비고</td> <td><input type="text" name="standard" placeholder="글자수는 최대 25자 입니다" maxlength="25" value="${clientDTO.note}"> </td></tr>

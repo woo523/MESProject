@@ -118,7 +118,7 @@
     					   stor_nm = #{storName},
     					   stor_type = #{storType},
     					   use_yn = #{useYn},
-    	   				   item_count = #{itemCount},
+    	   				   item_count = #{itemCount}
     	WHERE stor_id = #{storId}   
     </update>
     
