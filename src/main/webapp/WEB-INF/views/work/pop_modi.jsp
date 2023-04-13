@@ -303,6 +303,9 @@ $(document).ready(function(){
     <input type="hidden" name="preqty" value="${pfDTO.performQty}">
 	<input type="hidden" name="preYn" value="${pfDTO.gbYn}">
 	<input type="hidden" name="preitemId" value="${pfDTO.itemId}">
+	<input type="hidden" name="performDate" value="${pfDTO.performDate}">
+	<input type="hidden" name="performId" value="${pfDTO.performId}">
+	
     <br>
    	<table id="in">
     <tr><td>수량</td><td><input type="number" name="performQty" class="Qty" style="font-size:50pt; 	font-family: 'TheJamsil5Bold';" value="${pfDTO.performQty}"></td></tr>
