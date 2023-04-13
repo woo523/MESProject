@@ -79,7 +79,6 @@
 	<!-- 작업지시 조회 목록 개수 -->
 	<select id="instrSearchCount" resultType="java.lang.Integer">
 		<include refid="SearchCount" />
-		<include refid="Search" />
 	</select>
 	
 	<sql id="List">

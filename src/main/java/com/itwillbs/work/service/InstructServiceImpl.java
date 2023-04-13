@@ -21,11 +21,11 @@ public class InstructServiceImpl implements InstructService{
 	private InstructDAO instructDAO;
 
 	@Override
-	public List<Map<String, Object>> instrList(PageDTO pageDTO, Model model) {
+	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch, PageDTO pageDTO, Model model) {
 		// 작업지시 전체 목록
 		System.out.println("InstructServiceImpl instrList 전체");
 		
-		int totalCnt = instructDAO.instrCount();
+		int totalCnt = instructDAO.instrCount(instrSearch);
 		
 		PageUtil.getPaging(pageDTO, model, totalCnt);
 		
@@ -33,7 +33,7 @@ public class InstructServiceImpl implements InstructService{
 	}
 
 	@Override
-	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch, PageDTO pageDTO, Model model) {
+	public List<Map<String, Object>> instrListSearch(Map<String, Object> instrSearch, PageDTO pageDTO, Model model) {
 		// 작업지시 검색 목록
 		System.out.println("InstructServiceImpl instrList 검색");
 		

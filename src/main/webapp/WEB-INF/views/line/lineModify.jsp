@@ -170,12 +170,6 @@ function checkForm() {
 		return false;
 	}
 	
-	if($('.sortOrder').val() != "checked") {
-		alert("사용여부를 선택해주세요.");
-		
-		return false;
-	}
-	
 	if(confirm("수정하시겠습니까?")) {
 		return true;	// 폼 전송 O
 	} else {

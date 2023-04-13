@@ -10,9 +10,9 @@ import com.itwillbs.work.domain.InstructDTO;
 
 public interface InstructService {
 	
-	public List<Map<String, Object>> instrList(PageDTO pageDTO, Model model);
-
 	public List<Map<String, Object>> instrList(Map<String, Object> instrSearch, PageDTO pageDTO, Model model);
+
+	public List<Map<String, Object>> instrListSearch(Map<String, Object> instrSearch, PageDTO pageDTO, Model model);
 	
 	public Integer instrCount();
 	
@@ -30,6 +30,7 @@ public interface InstructService {
 	
 	public InstructDTO instrIdList(int instrId);
 	
+	// 라인 조회
 	public List<Map<String, Object>> getInstrList(int instrId);
 	
 	public void instrUpdate(InstructDTO instructDTO, int instrId);
