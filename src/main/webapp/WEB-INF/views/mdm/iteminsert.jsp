@@ -6,13 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>ItemInsert</title>
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 <style type="text/css">
 body{
 	font-family: 'NanumSquare', sans-serif;
 }
 div h2{
-	text-align: left;
+	text-align: center;
 	margin-left : 40px;
 	font-weight: 900;
 }
@@ -46,6 +47,11 @@ div input, select, button{
 .div td{
 	padding : 6px;
 }
+
+#form{
+	border:1px solid;
+	padding : 15px;
+}
 </style>
 
 <script type="text/javascript">
@@ -53,6 +59,12 @@ function check(){
 	if($('.itemNum').val() == "") {
 		alert("품번을 입력하세요");
 		$('.itemNum').focus();
+	
+		return false;
+	}
+	if($('.itemNum').val().length != 6) {
+		alert("품번을 6자로 입력하세요.");
+		$('.clntCode').focus();
 	
 		return false;
 	}
@@ -73,6 +85,38 @@ function check(){
 		return false;
 	}
 }
+// 품목에 따른 품목코드 부여
+function itemCode(obj){
+	var obj = $(obj).val();
+	console.log(obj);
+	if(obj == "원자재") {
+		$('input[name=itemNum]').attr('value',"SYRM00");
+	}
+	
+	if(obj == "부자재") {
+		$('input[name=itemNum]').attr('value',"SYSM00");
+	}
+	
+	if(obj == "완제품") {
+		$('input[name=itemNum]').attr('value',"SYPD00");
+	}
+	
+};
+
+$(document).ready(function(){
+	var obj = $('#mtrlType').val();
+	if(obj == "원자재") {
+		$('input[name=itemNum]').attr('value',"SYRM00");
+	}
+	
+	if(obj == "부자재") {
+		$('input[name=itemNum]').attr('value',"SYSM00");
+	}
+	
+	if(obj == "완제품") {
+		$('input[name=itemNum]').attr('value',"SYPD00");
+	}
+ });
 </script>
 </head>
 <body>
@@ -80,29 +124,27 @@ function check(){
 <jsp:include page="../inc/header2.jsp" />
 <div class="div">
 <h2> 품목추가 </h2><br>
-<form action="${pageContext.request.contextPath }/mdm/iteminsertPro" method="post" onsubmit="return check()">
+<form action="${pageContext.request.contextPath }/mdm/iteminsertPro" method="post" onsubmit="return check()" id="form">
 <table>
-	<tr><td>품번 <span class="star">*</span></td>  <td><input type="text" name="itemNum" class="itemNum"></td></tr>
-	<tr><td>품명 <span class="star">*</span></td>  <td><input type="text" name="itemName" class="itemNum"></td></tr>
-	<tr><td>자재유형</td> <td><select name="mtrlType">
-						<option value="원자재" selected>원자재</option>
+	<tr><td>품번 <span class="star">*</span></td>  <td><input type="text" name="itemNum" id="itemNum" maxlength="6" class="itemNum"></td></tr>
+	<tr><td>품명 <span class="star">*</span></td>  <td><input type="text" name="itemName" class="itemName"></td></tr>
+	<tr><td>자재유형</td> <td><select name="mtrlType" id="mtrlType" onchange="itemCode(this);">
+						<option value="원자재">원자재</option>
 						<option value="부자재">부자재</option>
 						<option value="완제품">완제품</option>
 					</select></td></tr>
-	<tr><td>자재구분</td> <td><select name="mtrlSort">
+	<tr><td>자재구분</td> <td><select name="mtrlSort" id="mtrlSort">
 						<option value="사내" selected>사내</option>
 						<option value="사외">사외</option>
 					</select></td></tr>
-	<tr><td>재고단위</td> <td><select name="invntUnit">
+	<tr><td>재고단위</td> <td><select name="invntUnit" id="invntUnit">
 						<option value="EA" selected>EA</option>
 						<option value="PK">PK</option>
 					</select></td></tr>
 	<tr><td>재질</td> <td><input type="text" name="invntQlt"></td></tr>
 	<tr><td>규격</td> <td><input type="text" name="standard"></td></tr>
-	<tr><td>사용여부</td> <td><select name="useYn">
-						<option value="Y">Y</option>
-						<option value="N">N</option>
-					</select></td></tr>
+	<tr><td>사용여부</td> <td><input type="radio" name="useYn" value="Y" id="Y" checked>Y
+							<input type="radio" name="useYn" value="N" id="N">N</td></tr>
 	<tr><td>거래처 <span class="star">*</span></td> <td><select name="clntName" class="clntName">
 						<option value="">-</option>
 						<c:forEach var="clientDTO" items="${clientList}">

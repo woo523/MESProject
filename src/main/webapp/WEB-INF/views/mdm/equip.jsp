@@ -6,7 +6,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>equip</title>
+	
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="/resources/js/addressapi.js"></script>
+	
 <style type="text/css">
 h1{
 	margin : 20px 0px;
@@ -140,7 +145,7 @@ function deleteLine(obj){
 <!-- </header> -->
 
 <div class="equip_body">
-<h1> 설비정보관리 </h1><br>
+<h1> 설비정보 관리 </h1><br>
 <form id="equipSearch">
 <div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>	
 
@@ -169,7 +174,7 @@ function deleteLine(obj){
 </form>
 	
 <div>
-<h1> 설비목록 </h1><br>
+<h1> 설비 목록 </h1><br>
 	
 	<div class="equipcount"><span id="equipcount"></span></div>
 	<form name="equiplist" id="equiplist" method="post">
@@ -184,6 +189,7 @@ function deleteLine(obj){
 			<th>구매금액</th>
 			<th>사용여부</th>
 			<th>설비상태</th>
+			<th></th>
 		</tr>
 		<c:forEach var="equipDTO" items="${equipList}">
 			<tr id="data">

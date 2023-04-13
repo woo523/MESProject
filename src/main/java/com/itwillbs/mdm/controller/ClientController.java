@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.itwillbs.common.PageDTO;
 import com.itwillbs.mdm.domain.ClientDTO;
 import com.itwillbs.mdm.service.ClientService;
+import com.itwillbs.member.domain.MemberDTO;
 
 @Controller
 public class ClientController {
@@ -133,5 +136,8 @@ public class ClientController {
 		clientService.deleteClient(clntId);
 		return "redirect:/mdm/client?pageNum="+pageDTO.getPageNum();	
 	}
+	
+	
+
 	
 }

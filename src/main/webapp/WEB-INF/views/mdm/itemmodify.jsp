@@ -4,13 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 <style type="text/css">
 body{
 	font-family: 'NanumSquare', sans-serif;
 }
 div h2{
-	text-align: left;
+	text-align: center;
 	margin-left : 40px;
 	font-weight: 900;
 }
@@ -44,6 +45,11 @@ div input, select, button{
 .div td{
 	padding : 6px;
 }
+
+#form{
+	border:1px solid;
+	padding : 15px;
+}
 </style>
 <meta charset="UTF-8">
 <title>ItemModify</title>
@@ -74,6 +80,12 @@ function check(){
 	
 		return false;
 	}
+	if($('.itemNum').val().length != 6) {
+		alert("품번을 6자로 입력하세요.");
+		$('.clntCode').focus();
+	
+		return false;
+	}
 	if($('.itemName').val() == "") {
 		alert("품명을 입력하세요.");
 		$('.itemName').focus();
@@ -91,6 +103,39 @@ function check(){
 		return false;
 	}
 }
+
+//품목에 따른 품목코드 부여
+function itemCode(obj){
+	var obj = $(obj).val();
+	console.log(obj);
+	if(obj == "원자재") {
+		$('input[name=itemNum]').attr('value',"SYRM00");
+	}
+	
+	if(obj == "부자재") {
+		$('input[name=itemNum]').attr('value',"SYSM00");
+	}
+	
+	if(obj == "완제품") {
+		$('input[name=itemNum]').attr('value',"SYPD00");
+	}
+	
+};
+
+// $(document).ready(function(){
+// 	var obj = $('#mtrlType').val();
+// 	if(obj == "원자재") {
+// 		$('input[name=itemNum]').attr('value',"SYRM00");
+// 	}
+	
+// 	if(obj == "부자재") {
+// 		$('input[name=itemNum]').attr('value',"SYSM00");
+// 	}
+	
+// 	if(obj == "완제품") {
+// 		$('input[name=itemNum]').attr('value',"SYPD00");
+// 	}
+//  });
 </script>
 </head>
 <body>
@@ -99,11 +144,11 @@ function check(){
 <div class="div">
 <br>
 <h2> 품목 수정 </h2>
-<form action="${pageContext.request.contextPath }/mdm/itemupdatePro" method="post" onsubmit="return check()">
+<form action="${pageContext.request.contextPath }/mdm/itemupdatePro" method="post" onsubmit="return check()" id="form">
 <table>
-	<tr><td>품번 <span class="star">*</span></td>  <td><input type="text" name="itemNum" class="itemNum" value="${itemDTO.itemNum}"></td></tr>
-	<tr><td>품명 <span class="star">*</span></td>  <td><input type="text" name="itemName" class="itemNum" value="${itemDTO.itemName}"></td></tr>
-	<tr><td>자재유형</td> <td><select name="mtrlType" id="mtrlType">
+	<tr><td>품번 <span class="star">*</span></td>  <td><input type="text" name="itemNum" class="itemNum" id="itemNum" maxlength="6" value="${itemDTO.itemNum}"></td></tr>
+	<tr><td>품명 <span class="star">*</span></td>  <td><input type="text" name="itemName" class="itemName" value="${itemDTO.itemName}"></td></tr>
+	<tr><td>자재유형</td> <td><select name="mtrlType" id="mtrlType" onchange="itemCode(this);">
 						<option value="원자재">원자재</option>
 						<option value="부자재">부자재</option>
 						<option value="완제품">완제품</option>

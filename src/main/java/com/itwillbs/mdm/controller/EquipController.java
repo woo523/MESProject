@@ -47,15 +47,18 @@ public class EquipController {
 		
 		
 		if(equpCode == null && equpName == null && equpType == null && equpStat == null && useYn == null) {
-		//아이템 전체 조회
+		//설비 전체 조회
 			equipList = equipService.equipList(pageDTO, model);
 			int equipcount = equipService.equipCount();
 			model.addAttribute("equipcount", equipcount);
+			System.out.println("테스트 :"+equipcount);
+		
 		}else {
 			// 검색시
 			equipList = equipService.equipSearch(equipSearch,pageDTO,model);
 			int searchcount = equipService.searchCount(equipSearch);
 			model.addAttribute("searchcount",searchcount);
+			System.out.println("테스트 :"+searchcount);
 		}
 		
 		model.addAttribute("equipList", equipList);

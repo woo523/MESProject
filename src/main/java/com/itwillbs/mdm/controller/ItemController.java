@@ -75,7 +75,7 @@ public class ItemController {
 		
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("itemSearch", itemSearch);
-		
+		model.addAttribute("pageDTO", pageDTO);
 		return "mdm/item";	
 	}
 
@@ -143,13 +143,13 @@ public class ItemController {
 	
 	
 	@RequestMapping(value = "/mdm/itemdelete", method = RequestMethod.GET)
-	public String itemdelete(HttpServletRequest request) {
+	public String itemdelete(HttpServletRequest request,  PageDTO pageDTO) {
 		System.out.println("ItemController itemdelete()");
 		
 		int itemId=Integer.parseInt(request.getParameter("itemId"));
 		
 		itemService.deleteItem(itemId);
-		return "mdm/item";	
+		return "redirect:/mdm/item?pageNum="+pageDTO.getPageNum();
 	}
 	
 //	@GetMapping("/clientList")

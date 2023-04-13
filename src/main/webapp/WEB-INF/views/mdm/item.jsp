@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>item</title>
+<meta charset="UTF-8">
+<title>item</title>
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 	
 <style type="text/css">
@@ -298,6 +299,7 @@ button{
 		console.log(id); 
 		location.href="${pageContext.request.contextPath}/mdm/itemdelete?itemId="+id;
 		$(obj).closest('tr').remove();
+		alert("삭제되었습니다.");
 		}else{
 			return false;
 		}		
@@ -311,11 +313,11 @@ button{
 		console.log(itemName);
 		var itemNum=$(obj).closest('tr').children('.tditemnum').innerText;
 		console.log(itemName);
-		window.open("${pageContext.request.contextPath}/mdm/itemupdate?itemId="+itemId,"popup", "width=400, height=600, left=500, top=250");
+		window.open("${pageContext.request.contextPath}/mdm/itemupdate?itemId="+itemId,"popup", "width=400, height=680, left=500, top=250");
 	} //수정박스
 	function openinsertbox() {
 		var id = '<%=(String)session.getAttribute("id")%>';
-		window.open("/mdm/iteminsert", "a", "width=400, height=600, left=500, top=250");
+		window.open("/mdm/iteminsert", "a", "width=400, height=680, left=500, top=250");
 	} //추가박스
 	
 	</script>
@@ -326,7 +328,7 @@ button{
 	<jsp:include page="../inc/header.jsp" />
 <!-- </header> -->
 <div class="item_body" id="item_body">
-<h1> 품목 정보 관리 </h1><br>
+<h1> 품목정보 관리 </h1><br>
 <form id="itemSearch">		
 <div class="searchitem"><button type="submit">조회</button><button type="button" onclick="openinsertbox();">등록</button></div>
 <table class="itemfilter">

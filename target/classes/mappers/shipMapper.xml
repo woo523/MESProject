@@ -25,6 +25,12 @@
   		<result column="user_Nm" property="userNm" />
   		<result column="clnt_cd" property="clntCd" />
   		<result column="clnt_nm" property="clntNm" />
+  		<result column="ord_num" property="ordNum" />
+  		<result column="order_dt" property="orderDt" />
+  		<result column="ord_qty" property="ordQty" />
+  		<result column="cur_stock" property="curStock" />
+  		
+  		
   </resultMap>
 
     <select id="shipSCount" resultType="java.lang.Integer">
@@ -49,45 +55,63 @@
     
     <!-- 	shipAdmin 조회 안할경우 페이지만 가져오기 -->
     <select id="getShipMap" resultMap="shipMap">
-    	select sh.ship_id, c.clnt_cd,c.clnt_nm,sh.dlvry_dt as Dlvdate, sh.ship_dt as Shdate, 
-    			u.id,u.name as userNm, sh.ship_num, i.item_num,i.item_nm,i.invnt_unit,sh.ship_qty
-    	from ship_mng sh join client c
-    	on sh.clnt_id = c.clnt_id
-    	join user u
-    	on sh.user_id = u.user_id
-    	join item i
-    	on sh.item_id = i.item_id
-    	order by Dlvdate desc
-    	limit #{startRow},#{pageSize}
+	select o.ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.item_num, i.item_nm, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm
+	from order_mng o join item i
+	on o.item_id = i.item_id
+	join stock st
+	on st.item_id = i.item_id
+	left join ship_mng s
+	on o.ord_id = s.ord_id
+	join client c
+	on o.clnt_id = c.clnt_id
+	where o.cmplt_yn="Y"
+	order by o.dlvry_dt desc
+    limit #{startRow},#{pageSize}
     </select>
+    
     
     <!-- 	shipAdmin 조회한 페이지 가져오기 -->
     <select id="getSearchShipMap" resultMap="shipMap">
-    	select sh.ship_id,c.clnt_cd,c.clnt_nm,sh.dlvry_dt as Dlvdate, sh.ship_dt as Shdate,
-    	u.id, u.name as userNm,sh.ship_num
-    	from ship_mng sh join client c
-    	on sh.clnt_id = c.clnt_id
-    	join user u
-    	on sh.user_id = u.user_id
-    	
-    	where clnt_nm like CONCAT('%', #{clntNm}, '%')
-    
-    	<if test="Dlvdate!='' and eDlvdate!=''"> and sh.dlvry_dt between #{Dlvdate} and #{eDlvdate}</if>
+    select ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.item_num, i.item_nm, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm
+	from order_mng o join item i
+	on o.item_id = i.item_id
+	join stock st
+	on st.item_id = i.item_id
+	left join ship_mng s
+	on o.ord_id = s.ord_id
+	join client c
+	on o.clnt_id = c.clnt_id
+	where o.cmplt_yn="Y" and
+     c.clnt_nm like CONCAT('%', #{clntNm}, '%')  
+    	<if test="Dlvdate!='' and eDlvdate!=''"> and o.dlvry_dt between #{Dlvdate} and #{eDlvdate}</if>
 		<if test="Dlvdate=='' and eDlvdate==''"></if>
-		<if test="Dlvdate!=''"> and sh.dlvry_dt &gt;= #{Dlvdate}</if>
-		<if test="eDlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
+		<if test="Dlvdate!='' and Dlvdate!=null "> and o.dlvry_dt &gt;= #{Dlvdate}</if>
+		<if test="eDlvdate!='' and eDlvdate!=null"> and o.dlvry_dt &lt;= #{eDlvdate}</if>
 
-		<if test="sshdate!='' and Shdate!=''"> and sh.ship_dt between #{sshdate} and #{Shdate}</if>
-		<if test="sshdate=='' and Shdate==''"></if>
-		<if test="sshdate!=''"> and sh.ship_dt &gt;= #{sshdate}</if>
-		<if test="Shdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
-
-		and
-		name like CONCAT('%', #{userNm}, '%')
-
-		order by Dlvdate desc
+		order by o.dlvry_dt desc
 		limit #{startRow}, #{pageSize}
     </select>
+    
+    
+    
+    <select id="getorder" resultMap="shipMap">
+	select o.ord_id, o.ord_num, o.order_dt, o.dlvry_dt, i.invnt_unit, i.item_num, i.item_nm, i.item_id, o.ord_qty, st.cur_stock, s.ship_qty, c.clnt_nm, c.clnt_id
+	from order_mng o join item i
+	on o.item_id = i.item_id
+	join stock st
+	on st.item_id = i.item_id
+	left join ship_mng s
+	on o.ord_id = s.ord_id
+	join client c
+	on o.clnt_id = c.clnt_id
+	where o.cmplt_yn="Y"
+	and o.ord_id = #{ordId}
+    </select>
+    
+    
+    
+    
+    
     
     <!-- 	shipAdmin 페이징 처리할때 갯수 가져오기 -->
     <select id="countShip" resultType="java.lang.Integer">
@@ -100,7 +124,7 @@
 		 and eDlvdate!= null and sshdate != null and Shdate != null and userNum != null 
 			and userNm != null)">
     
-    where clnt_nm like CONCAT('%', #{clntNm}, '%')
+    where c.clnt_nm like CONCAT('%', #{clntNm}, '%')
     
     <if test="Dlvdate!='' and eDlvdate!=''"> and o.order_dt between #{Dlvdate} and #{eDlvdate}</if>
 		<if test="Dlvdate=='' and eDlvdate==''"></if>

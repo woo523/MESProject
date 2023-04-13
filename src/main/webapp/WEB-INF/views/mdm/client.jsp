@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>client</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 <style type="text/css">
 h1{
@@ -114,12 +115,12 @@ function modifyLine(obj){
 	var clntId=$(obj).closest('tr').children('#helpbutton').find('input[type="hidden"]').val();
 	console.log(clntId);
 	
-	window.open("${pageContext.request.contextPath}/mdm/clientupdate?clntId="+clntId,"popup", "width=450, height=750, left=500, top=250");
+	window.open("${pageContext.request.contextPath}/mdm/clientupdate?clntId="+clntId,"popup", "width=500, height=830, left=500, top=250");
 }//수정
 function insertLine(obj){
 	console.log('추가');
 	
-	window.open("/mdm/clientinsert", "a", "width=450, height=750, left=500, top=250");
+	window.open("/mdm/clientinsert", "a", "width=500, height=830, left=500, top=250");
 }//추가
 
 function deleteLine(obj){
@@ -143,7 +144,7 @@ function deleteLine(obj){
 <!-- </header> -->
 
 <div class="client_body">
-<h1> 거래처정보관리 </h1><br>
+<h1> 거래처정보 관리 </h1><br>
 <form id="clientSearch">
 <div class="searchclient"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>
 <table class="client_filter">

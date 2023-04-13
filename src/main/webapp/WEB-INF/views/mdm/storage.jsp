@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>storage</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 <style type="text/css">
 h1{
@@ -143,7 +144,7 @@ function deleteLine(obj){
 <!-- </header> -->
 
 <div class="storage_body">
-<h1>창고관리</h1><br>
+<h1>창고 관리</h1><br>
 <form id="storageSearch">
 <div class="search"><button type="submit">조회</button><button type="button" onclick="insertLine();">추가</button></div>	
 <table class="storage_filter">
@@ -167,7 +168,7 @@ function deleteLine(obj){
 
 	
 <div class="storage_content">
-<h1> 창고목록 </h1><br>
+<h1> 창고 목록 </h1><br>
 	
 	<div class="storagecount"><span id="storagecount"></span></div>
 	<form name="storagelist" id="storagelist" method="post">

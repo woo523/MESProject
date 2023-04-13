@@ -12,7 +12,7 @@
     <result column="po_nm" property="poNum"/>
     <result column="po_dt" property="poDate"/>
     <result column="po_amount" property="poAmount"/>
-    <result column="ues_yn" property="useYn"/>
+    <result column="use_yn" property="useYn"/>
     <result column="equp_stat" property="equpStat"/>
     </resultMap>
 	

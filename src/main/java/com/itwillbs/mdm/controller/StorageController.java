@@ -105,7 +105,7 @@ public class StorageController {
 		System.out.println("update 창고 아이디 : "+storId);
 		
 		Map<String, Object> storageDTO = storageService.getstoragelist(storId);
-		model.addAttribute("clientDTO", storageDTO);
+		model.addAttribute("storageDTO", storageDTO);
 		// 주소변경 없이 이동
 		// /WEB-INF/views/board/updateForm.jsp
 		return "mdm/storagemodify";
