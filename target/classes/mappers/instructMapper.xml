@@ -35,6 +35,10 @@
 		<result property="name" column="name" />
 	</resultMap>
 	
+	<resultMap type="map" id="stockMap">
+		<result property="stockCur" column="cur_stock"/>
+	</resultMap>
+	
  	<resultMap type="map" id="instrMap">
  		<result property="instrId" column="instrId"/>
 		<result property="workNum" column="workNum"/>
@@ -48,12 +52,14 @@
 		<collection property="clntDTO" resultMap="clntMap" />
 		<collection property="orderMngDTO" resultMap="ordMngMap" />
 		<collection property="userDTO" resultMap="userMap" />
+		<collection property="stockDTO" resultMap="stockMap" />
 	</resultMap>
 	
 	<resultMap type="map" id="orderMap">
 		<collection property="orderMngDTO" resultMap="ordMngMap" />
 		<collection property="itemDTO" resultMap="itemMap" />
 		<collection property="clntDTO" resultMap="clntMap" />
+		<collection property="stockDTO" resultMap="stockMap" />
 	</resultMap>
 	
 	<!-- instructList 메인 전체 select 구문 -->
@@ -160,11 +166,13 @@
 			   ord.ord_id, ord.ord_qty, ord.ord_num, 
 			   work.work_sts as workSts, work.work_qty as workQty,
 			   item.item_id as itemId, item.item_num as itemNum, item.item_nm as itemName,
-			   line.line_id as lineId, line.line_nm as lineName, line.place as linePlace, line.use_yn as useChoice, clnt.clnt_nm as clientName
+			   line.line_id as lineId, line.line_nm as lineName, line.place as linePlace, line.use_yn as useChoice, 
+			   clnt.clnt_nm as clientName, sto.cur_stock
 		FROM work_instr work JOIN order_mng ord ON work.ord_id = ord.ord_id
 		JOIN item item ON item.item_id = work.item_id
 		JOIN line line ON work.line_id = line.line_id
 		JOIN client clnt ON ord.clnt_id = clnt.clnt_id
+		JOIN stock sto ON item.item_id = sto.item_id
 		WHERE work.instr_id = #{instrId}
 	</select>
 	
@@ -172,22 +180,28 @@
 	<select id="getOrdList" resultMap="orderMap">
 		SELECT ord.ord_id, ord.ord_num, ord.order_dt, ord.dlvry_dt,
 			   i.item_id as itemId, i.item_num as itemNum, i.item_nm as itemName, ord.ord_qty,
-		       c.clnt_nm as clientName
+		       c.clnt_nm as clientName,
+		       sto.cur_stock
 		FROM order_mng ord JOIN item i
 		ON ord.item_id = i.item_id
 		JOIN client c
 		ON ord.clnt_id = c.clnt_id
+		JOIN stock sto
+		ON i.item_id = sto.item_id
 	</select>
 	
 	<!-- 작업지시 등록 수주 검색 조회 -->
 	<select id="getOrdListSearch" resultMap="orderMap">
 		SELECT ord.ord_id, ord.ord_num, ord.order_dt, ord.dlvry_dt,
 			   i.item_id as itemId, i.item_num as itemNum, i.item_nm as itemName, ord.ord_qty,
-		       c.clnt_nm as clientName
+		       c.clnt_nm as clientName,
+		       sto.cur_stock
 		FROM order_mng ord JOIN item i
 		ON ord.item_id = i.item_id
 		JOIN client c
 		ON ord.clnt_id = c.clnt_id
+		JOIN stock sto
+		ON i.item_id = sto.item_id
 		WHERE ord.ord_num IS NOT NULL
 		<if test="startDate != '' and endDate != ''">
 			AND order_dt BETWEEN #{startDate} AND #{endDate}

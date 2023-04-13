@@ -38,6 +38,19 @@
 				<input type="date" id="instrDate" name="instrDate" readonly>
 			</li>
 			<li>
+				<label class="title">지시상태</label><!-- 체크 해제 못하도록 막음 -->
+				<input type="checkbox" name="workSts" value="지시" class="sCheck" checked="checked" onclick="return false;">지시
+				<input type="checkbox" name="workSts" value="시작" class="sCheck">시작
+				<input type="checkbox" name="workSts" value="마감" class="sCheck">마감
+			</li>
+			<li>
+				<label class="title">공정 정보 <span>*</span> </label>
+				<input type="hidden" id="lineId"  name="lineId"> 
+				<input type="text" id="lineName" placeholder="라인 검색" onclick="openLine()" readonly>
+				<input type="text" id="linePlace" placeholder="작업장" readonly>
+				<input type="text" id="useChoice" placeholder="라인사용여부" readonly>
+			</li>
+			<li>
 				 <label class="title">수주 <span>*</span> </label>
 				 <input type="hidden" id="ordId" name="ordId" placeholder="수주">
 				 <input type="text" id="ordNum" name="ordNum" placeholder="수주번호" onclick="openOrd()">
@@ -47,13 +60,7 @@
 			</li>
 			<li>
 				<label class="title">수주 수량</label>
-				<input type="text" id="ordQty" name="ordQty" placeholder="수주량" onclick="openOrd()" readonly>
-			</li>
-			<li>
-				<label class="title">지시상태</label><!-- 체크 해제 못하도록 막음 -->
-				<input type="checkbox" name="workSts" value="지시" class="sCheck" checked="checked" onclick="return false;">지시
-				<input type="checkbox" name="workSts" value="시작" class="sCheck">시작
-				<input type="checkbox" name="workSts" value="마감" class="sCheck">마감
+				<input type="text" id="ordQty" name="ordQty" placeholder="수주량" readonly>
 			</li>
 			<li>
 				<label class="title">제품 정보</label>
@@ -61,12 +68,10 @@
 			    <input type="text" id="itemNum" name="itemNum" placeholder="품번" readonly>
 		 	    <input type="text" id="itemName" name="itemName" placeholder="품명" readonly>
 		 	</li>
-			<li>
-				<label class="title">공정 정보 <span>*</span> </label>
-				<input type="hidden" id="lineId"  name="lineId"> 
-				<input type="text" id="lineName" placeholder="라인 검색" onclick="openLine()" readonly>
-				<input type="text" id="linePlace" placeholder="작업장" readonly>
-				<input type="text" id="useChoice" placeholder="라인사용여부" readonly></li>
+		 	<li>
+		 		<label class="title">자재 현재고</label>
+		 		<input type="text" id="stockCur" name="stockCur" placeholder="수량" readonly>
+		 	</li>
 			<li>
 				<label class="title">지시수량 <span>*</span> </label>
 				<input type="number" id="instrCnt" name="instrCnt" value="0" min="0">

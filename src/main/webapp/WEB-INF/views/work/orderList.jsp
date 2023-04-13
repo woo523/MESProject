@@ -132,10 +132,11 @@ input {
 			</tr>
 			<c:forEach var="ordList" items="${getOrdList}">
 				<input type="hidden" value="${ordList.ordId}">
-				<input type="hidden" value="${ordList.itemDTO.itemId}">  
+				<input type="hidden" value="${ordList.itemDTO.itemId}">
+				<input type="hidden" value="${ordList.stockDTO.stockCur}">
 				<tr id="con"
 					onclick="selectline('${ordList.orderMngDTO.ordId}','${ordList.orderMngDTO.ordNum}','${ordList.orderMngDTO.orderDate}','${ordList.orderMngDTO.dlvryDate}','${ordList.itemDTO.itemId}',
-										'${ordList.itemDTO.itemNum}','${ordList.itemDTO.itemName}','${ordList.orderMngDTO.ordQty}','${ordList.clntDTO.clientName}')">
+										'${ordList.itemDTO.itemNum}','${ordList.itemDTO.itemName}','${ordList.orderMngDTO.ordQty}','${ordList.clntDTO.clientName}','${ordList.stockDTO.stockCur}')">
 					<td>${ordList.orderMngDTO.ordNum}</td>
 					<td>${ordList.orderMngDTO.orderDate}</td>
 					<td>${ordList.orderMngDTO.dlvryDate}</td>
@@ -150,7 +151,7 @@ input {
 </body>
 
 <script>
-function selectline(a, b, c, d, e, f, g, h, i) { // 부모창으로 값 넘기기
+function selectline(a, b, c, d, e, f, g, h, i, j) { // 부모창으로 값 넘기기
 	
 		opener.document.getElementById("ordId").value = a
 		opener.document.getElementById("ordNum").value = b
@@ -161,6 +162,7 @@ function selectline(a, b, c, d, e, f, g, h, i) { // 부모창으로 값 넘기�
 		opener.document.getElementById("itemName").value = g
 		opener.document.getElementById("ordQty").value = h
 		opener.document.getElementById("clientName").value = i
+		opener.document.getElementById("stockCur").value = j
 		window.close();
 
 }
