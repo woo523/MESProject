@@ -223,26 +223,19 @@ $(document).ready(function(){
 			<table id="insert">
 			<tr><td> <input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly></td></tr> 
 				<tr>
-				<td>담당자</td>
-				<td><input type="text" name="userNm" id="userNm" onclick="userlist()">
-					<input type="hidden" name="userId" id="userId"value="">
-					<input type="hidden" name="userNum" id="userNum" value=""></td>
-				
-				</tr>
-				<tr>
-				<td>출하업체</td>
-				<td><input type="hidden" name="insertId" id="insertId" value="${sessionScope.id}" readonly>
-					<input type="text" name="clntNm" id="clntNm" onclick="openclntlist()">
-					<input type="hidden" name="clntId" id="clntId" value="">
-					<input type="hidden" name="clntCd" id="clntCd" value=""></td>
+				<td>수주업체</td>
+				<td>
+					<input type="text" name="clntNm" id="clntNm" value="${ordlist.clntNm }" readonly>
+					<input type="hidden" name="clntId" id="clntId" value="${ordlist.clntId }">
+					</td>
 				</tr>
 				
 				<tr>
 				<td>납품예정일</td>
-				<td><input type="text" id="dlvryDt" class="form-control" name="dlvryDt" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="text" id="dlvryDt" class="form-control" name="dlvryDt" value="${ordlist.dlvryDt }" readonly></td>
 									
 				<td>출하일자</td>
-				<td><input type="text" id="shipDt" class="form-control" name="shipDt" placeholder="날짜를 선택해주세요" readonly></td>
+				<td><input type="date" id="shipDt" class="form-control" name="shipDt" placeholder="날짜를 선택해주세요" readonly></td>
 				<td></td>
 
 				<td></td>
@@ -257,14 +250,22 @@ $(document).ready(function(){
 			<table id="info">
 				<tr>
 				<td>품번</td>
-				<td><input type="hidden" name="itemId" id="itemId"  onclick="openitemlist()">
-						<input type="text" name="itemNum" id="itemNum"  onclick="openitemlist()"></td>
-				<td><input type="text" name= "itemNm" id="itemNm"  readonly="readonly" placeholder="품명"></td>
-				<td><input type="text" name="invntUnit" id="invntUnit" readonly="readonly" value="" placeholder="단위"></td>
+				<td><input type="hidden" name="itemId" id="itemId" value="${ordlist.itemId }" >
+					<input type="text" name="itemNum" id="itemNum" value="${ordlist.itemNum }" readonly ></td>
+				<td><input type="text" name= "itemNm" id="itemNm"  value="${ordlist.itemNm }" readonly ></td>
+				<td><input type="text" name="invntUnit" id="invntUnit"  value="${ordlist.itemUnit }" readonly></td>
+				</tr>
+				<tr>
+				<td>수주량</td>
+				<td><input type="number" name="ordQty"  value="${ordlist.ordQty }" readonly></td>
+				</tr>
+				<tr>
+				<td>재고량</td>
+				<td><input type="number" name="curStock"  value="${ordlist.curStock }" readonly></td>
 				</tr>
 				<tr>
 				<td>수량</td>
-				<td><input type="text" name="shipQty" id="shipQty" value="" placeholder="필수입력"></td>
+				<td><input type="number" name="shipQty" id="shipQty"  placeholder="필수입력"></td>
 				</tr>
 			</table>
 			<br>

@@ -160,6 +160,9 @@ function openInfo(a){
 	window.open("${pageContext.request.contextPath}/ship/shipInfo?shipId="+a,"popup2", "width=600, height=600,left=100, top=100");
 }
 
+function insertShip(a){
+window.open("${pageContext.request.contextPath }/ship/shipInsert?ordId="+a,"popup", "width=700, height=600,left=500, top=200");
+}
 
 $(function() {
 	$("#sshdate").datepicker({
@@ -185,25 +188,7 @@ $(function() {
 	});
 });
 
-$(function() {
-	$("#Shdate").datepicker({
-		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-           ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,buttonText: "선택" //버튼 호버 텍스트              
-           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
-           ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
-           ,closeText: '닫기' // 닫기 버튼 패널
-//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
-	});
-});
+
 $(function() {
 	$("#Dlvdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
@@ -217,7 +202,6 @@ $(function() {
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
@@ -248,13 +232,7 @@ $(function() {
 	});
 });
 
-function openDelete(a){	// 삭제창
-	if(confirm("삭제하시겠습니까?")) {
-		location.href="/order/openDelete?ordId=" + a;
-	} else {
-		return false;
-	}
-}
+
   
 
 
@@ -274,24 +252,16 @@ function openDelete(a){	// 삭제창
 		<br>
 			<table id="search">
 				<tr>
-				<td>담당자</td>
-				<td><input type="text" name="userNm" id="userNm" onclick="userlist()">
-					<input type="hidden" name="userId" id="userId"value="">
-					<input type="hidden" name="userNum" id="userNum" value=""></td>
-				<td>출하업체</td>
+
+				<td>수주업체</td>
 				<td><input type="text" name="clntNm" id="clntNm" onclick="openclntlist()">
 					<input type="hidden" name="clntId" id="clntId" value="">
 					<input type="hidden" name="clntCd" id="clntCd" value=""></td></tr>
 					
 				<tr>
 				<td>납품예정일</td>
-				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td>
-				</tr>
-				<tr>						
-				<td>출하일자</td>
-				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
-				<td><input type="text" id="Shdate" class="form-control" name="Shdate" readonly></td>
+				<td><input type="text" id="Dlvdate" class="form-control" name="Dlvdate" placeholder="날짜를 선택해주세요" readonly> ~ <input type="text" id="eDlvdate" class="form-control" name="eDlvdate" readonly></td>
+				<td></td>
 				</tr>
 				
 			</table>
@@ -306,17 +276,16 @@ function openDelete(a){	// 삭제창
 		
 		<table border="1" id="main">
 			<tr id="th">
-				<th>등록자</th>
-				<th>출하번호</th>
+				<th>수주번호</th>
+				<th>수주일자</th>
 				<th>납품예정일</th>
-				<th>출하일자</th>
 				<th>품번</th>
 				<th>품명</th>
 				<th>수주량</th>
-				<th>재고량</th>
+				<th>현재고</th>
 				<th>출하량</th>
-				<th>출하고객</th>
-				<th>상세</th>
+				<th>수주업체</th>
+				<th>출하</th>
 			</tr>
 			
 			<c:choose>
@@ -329,21 +298,17 @@ function openDelete(a){	// 삭제창
 			
 			<c:otherwise>
 			<c:forEach var="sdto" items="${shipAdmin1}">
-						<tr onclick="openInfo(${sdto.shipId})">
-							<td>${sdto.userNm}</td>
-							<td>${sdto.shipNum}</td>
-							<td>${sdto.Dlvdate}</td>
-							<td>${sdto.shipDt}</td>
+						<tr onclick="openInfo(${sdto.ordNum})">
+							<td>${sdto.ordNum}</td>
+							<td>${sdto.orderDt}</td>
+							<td>${sdto.dlvryDt}</td>
 							<td>${sdto.itemNum}</td>
 							<td>${sdto.itemNm}</td>
 							<td>${sdto.ordQty}</td>
 							<td>${sdto.curStock}</td>
 							<td>${sdto.shipQty}</td>
 							<td>${sdto.clntNm}</td>
-							<td><img src='${pageContext.request.contextPath}
-								/resources/image/modify.png' width='17px' id="modify" onclick="openInfo(${sdto.shipId})">
-					<img src='${pageContext.request.contextPath}
-								/resources/image/del.png' width='17px' id="del" onclick="openDelete(${sdto.shipId})"></td>
+							<td><button onclick="insertShip(${sdto.ordId})">출하</button></td>
 						</tr>
 			</c:forEach>
 			</c:otherwise>

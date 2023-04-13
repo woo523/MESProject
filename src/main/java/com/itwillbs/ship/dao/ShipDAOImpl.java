@@ -187,7 +187,11 @@ public class ShipDAOImpl implements ShipDAO{
 		
 	}
 
-
+	@Override
+	public Map<String, Object> getorder(int ordId) { 
+		System.out.println("ShipDAOImpl getorder()");
+		return sqlSession.selectOne(namespace+".getorder",ordId);
+	}
 
 	
 }

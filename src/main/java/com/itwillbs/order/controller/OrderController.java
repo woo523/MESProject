@@ -378,41 +378,41 @@ public class OrderController {
 			orderService.updateCmplt(orderDTO);
 		}
 		// ---------------------------------------------------------------------------------------
-		for (int i =0; i< ordId.length;i++) {
-			String string = ordId[i];
-			OrderDTO dto=orderService.getOrder(Integer.parseInt(string));
+//		for (int i =0; i< ordId.length;i++) {
+//			String string = ordId[i];
+//			OrderDTO dto=orderService.getOrder(Integer.parseInt(string));
 
-			ShipDTO sdto=shipService.getShipOrderId(Integer.parseInt(string));
-
-			if(sdto != null) {
-				System.out.println("ordId 정보있음");
-
-			}else {
-				System.out.println("ordId 정보없음");
-
-				// 출하지시 규격코드
-				SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
-				String shipDate = sDate.format(new Timestamp(System.currentTimeMillis()));
-				String date = (shipDate.replaceAll("-", "")).substring(2);
-				int count = shipService.shipSCount() + 1;
-				String shipNum = String.format("SHP%s%05d", date, count);
-
-
-				sdto = new ShipDTO();
-				sdto.setOrdId(dto.getOrdId());
-				sdto.setOrdInfoId(dto.getOrdId());
-				sdto.setShipNum(shipNum);
-				sdto.setInsertId((String)session.getAttribute("id"));
-				sdto.setDlvryDt(dto.getDlvryDt());
-				sdto.setUserId(dto.getUserId());
-				sdto.setClntId(dto.getClntId());
-				sdto.setItemId(dto.getItemId());
-				System.out.println(sdto.getUserId());
-				System.out.println(sdto.getClntId());
-				System.out.println(sdto.getItemId());
-				shipService.insertShip(sdto);
-			}
-		}
+//			ShipDTO sdto=shipService.getShipOrderId(Integer.parseInt(string));
+//
+//			if(sdto != null) {
+//				System.out.println("ordId 정보있음");
+//
+//			}else {
+//				System.out.println("ordId 정보없음");
+//
+//				// 출하지시 규격코드
+//				SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
+//				String shipDate = sDate.format(new Timestamp(System.currentTimeMillis()));
+//				String date = (shipDate.replaceAll("-", "")).substring(2);
+//				int count = shipService.shipSCount() + 1;
+//				String shipNum = String.format("SHP%s%05d", date, count);
+//
+//
+//				sdto = new ShipDTO();
+//				sdto.setOrdId(dto.getOrdId());
+//				sdto.setOrdInfoId(dto.getOrdId());
+//				sdto.setShipNum(shipNum);
+//				sdto.setInsertId((String)session.getAttribute("id"));
+//				sdto.setDlvryDt(dto.getDlvryDt());
+//				sdto.setUserId(dto.getUserId());
+//				sdto.setClntId(dto.getClntId());
+//				sdto.setItemId(dto.getItemId());
+//				System.out.println(sdto.getUserId());
+//				System.out.println(sdto.getClntId());
+//				System.out.println(sdto.getItemId());
+//				shipService.insertShip(sdto);
+//			}
+//		}
 		// ---------------------------------------------------------------------------------------
 		return "redirect:/order/orderSts";
 	}

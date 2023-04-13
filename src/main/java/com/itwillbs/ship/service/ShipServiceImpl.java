@@ -187,8 +187,11 @@ public class ShipServiceImpl implements ShipService{
 		
 	}
 
-	
-
+	@Override
+	public Map<String, Object> getorder(int ordId){
+		System.out.println("ShipServiceImpl getorder()");
+		return shipDAO.getorder(ordId);
+	}
 
 
 }

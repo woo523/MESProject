@@ -33,7 +33,13 @@ public class ShipController {
 	
 	
 	@RequestMapping(value = "/ship/shipInsert", method = RequestMethod.GET)
-	public String shipInsert() {
+	public String shipInsert(HttpServletRequest request, Model model) {
+		
+			int ordId = Integer.parseInt(request.getParameter("ordId"));
+			Map<String, Object> ordlist = shipService.getorder(ordId);
+			
+			model.addAttribute("ordlist", ordlist);
+			
 			return "ship/shipInsert";
 	}
 	
@@ -188,11 +194,7 @@ public class ShipController {
 		String itemNum = request.getParameter("itemNum");
 		String itemNm = request.getParameter("itemNm");
 		
-		String ordQty = request.getParameter("ordQty");
-		String curStock = request.getParameter("curStock");
-		String shipQty = request.getParameter("shipQty");
-		
-		String clntId = request.getParameter("clntId");
+		String clntNm = request.getParameter("clntNm");
 		
 		// 한 화면에 보여줄 글 개수 설정
 		int pageSize = 3; // sql문에 들어가는 항목		
@@ -229,11 +231,7 @@ public class ShipController {
 		search.put("itemNum", itemNum);
 		search.put("itemNm", itemNm);
 		
-		search.put("ordQty", ordQty);
-		search.put("curStock", curStock);
-		search.put("shipQty", shipQty);
-		
-		search.put("clntId", clntId);
+		search.put("clntNm", clntNm);
 		
 		search.put("startRow", pageDTO.getStartRow());
 		search.put("pageSize", pageDTO.getPageSize());
@@ -241,7 +239,7 @@ public class ShipController {
 		
 		List<Map<String,Object>> shipAdmin1;
 		if(insertId == null && insertDt ==null && shipNum==null && shipDt==null && Dlvdate==null && Shdate==null
-				&& userNum==null && userNm==null && userId==null && itemNum==null&& itemNm==null&& ordQty==null&& curStock==null&& shipQty==null&& clntId==null) {
+				&& userNum==null && userNm==null && userId==null && itemNum==null&& itemNm==null&& clntNm==null) {
 			// 조회 안한 경우
 			shipAdmin1 = shipService.getShipMap(pageDTO); // page만 필요해서
 		
