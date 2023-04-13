@@ -66,6 +66,8 @@ public interface ShipService {
 	public void deleteOrder(int shipId);
 	
 	public Map<String, Object> getorder(int ordId);
+	
+	public int countShip(Map<String, Object> search);
 
 	
 }

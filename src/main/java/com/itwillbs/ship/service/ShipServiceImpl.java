@@ -193,5 +193,11 @@ public class ShipServiceImpl implements ShipService{
 		return shipDAO.getorder(ordId);
 	}
 
+	@Override
+	public int countShip(Map<String, Object> search) {
+		System.out.println("ShipServiceImpl countShip()");
+		return shipDAO.countShip(search);
+	}
+
 
 }

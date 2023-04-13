@@ -5,11 +5,9 @@ import java.sql.Timestamp;
 public class ShipDTO {
 	private int shipId;						// 출하관리 기본키
 	private int ordId;						// 수주관리 기본키
-	private int ordInfoId;					// 수주정보 기본키
 	private int shipQty;					// 출하량
 	private Timestamp shipDt;				// 출하일자
 	private String shipNum;					// 출하번호
-	private String barcord;					// 바코드
 	private String insertId;				// 등록자
 	private Timestamp insertDt;				// 등록일
 	private String updateId;				// 변경자
@@ -143,12 +141,7 @@ public class ShipDTO {
 	public void setOrdId(int ordId) {
 		this.ordId = ordId;
 	}
-	public int getOrdInfoId() {
-		return ordInfoId;
-	}
-	public void setOrdInfoId(int ordInfoId) {
-		this.ordInfoId = ordInfoId;
-	}
+
 	public int getShipQty() {
 		return shipQty;
 	}
@@ -167,12 +160,7 @@ public class ShipDTO {
 	public void setShipNum(String shipNum) {
 		this.shipNum = shipNum;
 	}
-	public String getBarcord() {
-		return barcord;
-	}
-	public void setBarcord(String barcord) {
-		this.barcord = barcord;
-	}
+
 	public String getInsertId() {
 		return insertId;
 	}

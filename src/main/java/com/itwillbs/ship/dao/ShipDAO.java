@@ -67,4 +67,6 @@ public interface ShipDAO {
 	
 	public Map<String, Object> getorder(int ordId);
 	
+	public int countShip(Map<String, Object> search);
+	
 }
