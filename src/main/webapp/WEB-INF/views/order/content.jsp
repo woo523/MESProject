@@ -93,8 +93,14 @@ h1{
 }
 #btn{
 	width: 500px; 
-	text-align: right;
+	text-align: center;
 	margin: 0px auto;
+}
+.content{
+border: 1px solid #a39485;
+width: 450px;
+padding: auto;
+margin: auto;
 }
 
 </style>
@@ -116,14 +122,7 @@ h1{
 
 	<h1>수주품목상세</h1>
 	<div class="content">
-		<div id="btn">
-			<input type="button" value="수정" class="btn"
-				onclick="location.href='${pageContext.request.contextPath}/order/update?ordId=${orderDTO.ordId }'">
-			<input type="button" value="삭제" class="btn"
-				onclick="location.href='${pageContext.request.contextPath}/order/delete?ordId=${orderDTO.ordId }'">
-			</div>
-				<br>
-
+	
 	<table id="content" border="1">
 <%-- 	<tr><td>${orderDTO.ordId }</td></tr> --%>
 	<tr><td>업체명</td>
@@ -145,6 +144,14 @@ h1{
 	</table>
 	</div>
 <br>
+	<div id="btn">
+			<input type="button" value="수정" class="btn"
+				onclick="location.href='${pageContext.request.contextPath}/order/update?ordId=${orderDTO.ordId }'">
+			<input type="button" value="삭제" class="btn"
+				onclick="location.href='${pageContext.request.contextPath}/order/delete?ordId=${orderDTO.ordId }'">
+			</div>
+				<br>
+
 
 </form>
 </div>

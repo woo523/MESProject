@@ -22,6 +22,9 @@
   		<result column="user_id" property="userId" />
   		<result column="id" property="userNum" />
   		<result column="ship_qty" property="shipQty" />
+  		<result column="user_Nm" property="userNm" />
+  		<result column="clnt_cd" property="clntCd" />
+  		<result column="clnt_nm" property="clntNm" />
   </resultMap>
 
     <select id="shipSCount" resultType="java.lang.Integer">
@@ -31,25 +34,29 @@
     
     
     <!-- 	shipAdmin 출하아이디 가져오기	 -->
-    <select id="getShip" resultType="com.itwillbs.ship.domain.ShipDTO">
-    	select sh.ship_id, c.clnt_nm,sh.ship_dt,u.name as userNm, sh.dlvry_dt, i.item_num,i.item_nm,i.invnt_unit,sh.ship_qty
+    <select id="getShip" resultMap="shipMap">
+    	select sh.ship_id, c.clnt_nm,sh.ship_dt,u.name as userNm, sh.dlvry_dt, i.item_num,i.item_nm,i.invnt_unit,sh.ship_qty,sh.ship_num
     	from client c join ship_mng sh
-    	on. sh.clnt_id = c.clnt_id
+    	on sh.clnt_id = c.clnt_id
     	join user u
-    	in sh.user_id = u.user_id
+    	on sh.user_id = u.user_id
     	join item i
     	on sh.item_id = i.item_id
     	where sh.ship_id = #{shipId}
+    	
+    	
      </select>
     
     <!-- 	shipAdmin 조회 안할경우 페이지만 가져오기 -->
     <select id="getShipMap" resultMap="shipMap">
-    	select sh.ship_id, c.clnt_cd,c.clnt_nm,sh.dlvry_dt as Dlvdate, sh.ship_dt as Shdate,
-    				u.id,u.name as userNm, sh.ship_num
+    	select sh.ship_id, c.clnt_cd,c.clnt_nm,sh.dlvry_dt as Dlvdate, sh.ship_dt as Shdate, 
+    			u.id,u.name as userNm, sh.ship_num, i.item_num,i.item_nm,i.invnt_unit,sh.ship_qty
     	from ship_mng sh join client c
     	on sh.clnt_id = c.clnt_id
     	join user u
     	on sh.user_id = u.user_id
+    	join item i
+    	on sh.item_id = i.item_id
     	order by Dlvdate desc
     	limit #{startRow},#{pageSize}
     </select>
@@ -62,16 +69,18 @@
     	on sh.clnt_id = c.clnt_id
     	join user u
     	on sh.user_id = u.user_id
+    	
+    	where clnt_nm like CONCAT('%', #{clntNm}, '%')
     
-    	<if test="Dlvdate!='' and eDlvdate!=''"> and o.order_dt between #{Dlvdate} and #{eDlvdate}</if>
+    	<if test="Dlvdate!='' and eDlvdate!=''"> and sh.dlvry_dt between #{Dlvdate} and #{eDlvdate}</if>
 		<if test="Dlvdate=='' and eDlvdate==''"></if>
 		<if test="Dlvdate!=''"> and sh.dlvry_dt &gt;= #{Dlvdate}</if>
-		<if test="Dlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
+		<if test="eDlvdate!=''"> and sh.dlvry_dt &lt;= #{eDlvdate}</if>
 
-		<if test="sshdate!='' and Shdate!=''"> and o.dlvry_dt between #{sshdate} and #{Shdate}</if>
+		<if test="sshdate!='' and Shdate!=''"> and sh.ship_dt between #{sshdate} and #{Shdate}</if>
 		<if test="sshdate=='' and Shdate==''"></if>
 		<if test="sshdate!=''"> and sh.ship_dt &gt;= #{sshdate}</if>
-		<if test="sshdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
+		<if test="Shdate!=''"> and sh.ship_dt &lt;= #{Shdate}</if>
 
 		and
 		name like CONCAT('%', #{userNm}, '%')
@@ -138,8 +147,8 @@
     		
     		where clnt_nm like CONCAT('%', #{clntNm}, '%')
     		
-    		<if test="Dlvdate!=''"> and o.order_dt = #{Dlvdate}</if>
-			<if test="Shdate!=''"> and o.dlvry_dt = #{Shdate}</if>
+    		<if test="Dlvdate!=''"> and sh.dlvry_dt = #{Dlvdate}</if>
+			<if test="Shdate!=''"> and sh.ship_dt = #{Shdate}</if>
     	
     		and
 			item_num like CONCAT('%', #{itemNum}, '%')
@@ -149,10 +158,21 @@
 
 			and
 			name like CONCAT('%', #{userNm}, '%')
+			
+			<if test="cmpltYn!=''">	and sh.cmplt_yn = #{cmpltYn}</if>
 		
 			order by Dlvdate desc
 			limit #{startRow}, #{pageSize}
     	</select>
+    	
+    	
+    	<!-- 	ship 하나만 아이디 가져오기	 -->
+	<select id="getShipOrderId" resultType="com.itwillbs.ship.domain.ShipDTO">
+	select *
+	from ship_mng
+	where ord_id = #{ordId}
+	</select>
+    	
     
     <!-- 	shipList 조회할때 갯수와 조회값 가져오기 -->
     <select id="countListShip" resultType="java.lang.Integer">
@@ -278,6 +298,13 @@
 <!-- 	출하관리 납품 추가하기 -->
 	<insert id="insertShip">
 		insert into ship_mng
+		(ship_num,ord_id,ord_info_id,insert_id,insert_dt,dlvry_dt,user_id,clnt_id,item_id)
+		values(#{shipNum},#{ordId},#{ordInfoId},#{insertId},#{insertDt},#{dlvryDt},#{userId},#{clntId},#{itemId})
+	</insert>
+	
+	<!-- 	출하관리 납품 추가하기 -->
+	<insert id="insertShipOrder">
+		insert into ship_mng
 		(clnt_id,dlvry_dt,user_id,ship_dt,item_id,ship_qty,insert_id,insert_dt,ship_num)
 		values(#{clntId},#{dlvryDt},#{userId},#{shipDt},#{itemId},#{shipQty},#{insertId},#{insertDt},#{shipNum})
 	</insert>
@@ -290,10 +317,24 @@
 				where ship_id = #{shipId}
 	</update>
 	
+<!-- 	출하현황 수정 -->
+	<update id="updateCond">
+	update ship_mng 
+	set 
+	cmplt_yn = "Y"
+	where ship_id = #{shipId}
+	</update>
+	
 <!-- 	출하관리 납품 삭제 -->
 	<delete id="deleteShip">
 		delete from ship_mng
 		where ship_id = #{shipId}
+	</delete>
+	
+<!-- 	출하현황삭제 -->
+	<delete id="deleteCond">
+	delete from ship_mng
+	where ship_id = #{shipId}
 	</delete>
 
 

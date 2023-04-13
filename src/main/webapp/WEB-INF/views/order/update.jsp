@@ -25,8 +25,6 @@ table {
 	border: 1px #a39485 solid;
 	font-size: 1em;
 	width: 425px;
-	border-collapse: collapse;
-	border-radius: 5px;
 	overflow: hidden;
 	
 }
@@ -60,7 +58,7 @@ h1{
 }
 #btn{
 	width: 500px; 
-	text-align: right;
+	text-align: center;
 	margin: 0px auto;
 }
 
@@ -102,6 +100,11 @@ h1{
 
 .content_body input {
    height: 20px;
+}
+table #update{
+border: 1px solid #a39485;
+padding: auto;
+margin: auto;
 }
 
 </style>
@@ -163,7 +166,7 @@ $(function() {
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
-//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
+           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
 
@@ -173,10 +176,7 @@ $(function() {
 <div class="content_body"> <!-- 지우면안됨 -->
 <h1>수주폼목 수정</h1>
 <form action="${pageContext.request.contextPath}/order/updatePro" method="post">
-			<div id="btn">
-				<button type="submit" >저장</button>
-			</div>
-			
+
 	<table id="update">
 	<tr><td>업체명</td>
 	<td><input type="text" id="clntNm" name="clntNm" value="${orderDTO.clntNm }"  onclick="openClntList()">
@@ -203,6 +203,11 @@ $(function() {
 	<td><input type="text" id="ordQty" name="ordQty" value="${orderDTO.ordQty }"></td></tr>
 	</table>
 </form>	
+<br>
+			<div id="btn">
+				<button type="submit" >저장</button>
+			</div>
+			
 </div>
 <br>
 

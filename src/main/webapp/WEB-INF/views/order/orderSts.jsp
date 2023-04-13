@@ -167,36 +167,31 @@ $(function() {
            ,closeText: '닫기' // 닫기 버튼 패널
            ,onClose: function ( selectedDate ) {
         	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+        	   $("input[name='sDdate']").datepicker("option", "minDate", selectedDate );
            }
 	});
 });
+
 
 
 $(function() {
 	$("#sDdate").datepicker({
 		 dateFormat: 'yy-mm-dd' //달력 날짜 형태
-           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+           ,showOtherMonths: true //빈 공간에 현재 월의 앞뒤 월의 날짜를 표시
+           ,showMonthAfterYear:true // 월- 년 순서가 아닌 년도 - 월 순서
            ,changeYear: true //option값 년 선택 가능
-           ,changeMonth: true //option값  월 선택 가능                
-           ,buttonText: "선택" //버튼 호버 텍스트              
+           ,changeMonth: true //option값  월 선택 가능              
            ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
            ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
-           ,onClose: function ( selectedDate ) {
-        	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
-           }
+//            ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
-
 
 
 $(function(){
@@ -244,12 +239,13 @@ function deleteValue(){
 		    	"ordId" : valueArr        // 보내고자 하는 data 변수 설정
 		    },
             success: function(data){
-                if(data = 1) {
+                if(data == 1) {
                     alert("삭제되었습니다");
                     location.replace("orderSts")
                 }
                 else{
-                    alert("삭제 실패");
+                    alert("해당 수주는 작업지시가 시작되어 삭제가 불가합니다");
+                    location.replace("orderSts")
                 }
             }
 		});

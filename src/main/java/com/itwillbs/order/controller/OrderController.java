@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.order.domain.ItemDTO;
 import com.itwillbs.order.domain.OrderDTO;
@@ -416,36 +417,57 @@ public class OrderController {
 		return "redirect:/order/orderSts";
 	}
 
-	
+@ResponseBody
 	@RequestMapping(value = "/order/deleteCmplt", method = RequestMethod.GET)
 	public String deleteCmplt(HttpServletRequest request, Model model,HttpServletResponse response) throws IOException {
 		System.out.println("OrderController deleteCmplt()");
 		
 		String ordId[]=request.getParameterValues("ordId");
 		OrderDTO orderDTO = new OrderDTO();
+		
+		String r=null;
+		
 		System.out.println("아이디 오는지 확인"+ ordId);
 		for (int i = 0; i < ordId.length; i++) {
 			
 			String string = ordId[i];
+			
 			System.out.println("아이디 배열"+ ordId);
-		
 			System.out.println("ordId"+string);
+			
 			orderDTO.setOrdId(Integer.parseInt(string));
-			orderService.deleteCmplt(orderDTO);
-		}
-//		if(orderService.check(ordId)) {
+			
+			//---------------------
+			
+			System.out.println("마지막 "+orderDTO.getOrdId());
+			System.out.println("확인!!"+orderService.check(orderDTO.getOrdId()));
+		if(orderService.check(orderDTO.getOrdId())) {
+			System.out.println("삭제 불가");
 //			response.setContentType("text/html; charset=UTF-8");
 //			PrintWriter out = response.getWriter();
 //			out.println("<script type='text/javascript'>");
-//			out.println("alert('해당 수주는 작업지시가 시작되었습니다.');");
-//			out.println("history.back()");
+//			out.println("alert('"+orderDTO.getOrdId()+"해당 수주는 작업지시가 시작되어서 삭제가 불가합니다.');");
 //			out.println("</script>");
 //			out.close();
-//			return null;
-//			
-		return "redirect:/order/orderSts";
+			r= "0";
+			
+		}else {
+			System.out.println("삭제 가능");
+			orderService.deleteCmplt(orderDTO);
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			out.println("<script type='text/javascript'>");
+//			out.println("alert('"+orderDTO.getOrdId()+"해당 수주는 삭제되었습니다.');");
+//			out.println("</script>");
+//			out.close();
+			r= "1";
+		}
+		}
+			
+//		return "redirect:/order/orderSts";
+		return r;
 	}
-	
+		
 	@RequestMapping(value = "/order/delete", method = RequestMethod.GET)
 	public String delete(HttpServletRequest request, Model model, HttpServletResponse response) throws IOException {
 		int ordId = Integer.parseInt(request.getParameter("ordId"));
@@ -455,7 +477,7 @@ public class OrderController {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script type='text/javascript'>");
-			out.println("alert('해당 수주는 작업지시가 시작되었습니다.');");
+			out.println("alert('해당 수주는 작업지시가 시작되어 삭제가 불가합니다');");
 			out.println("history.back()");
 			out.println("</script>");
 			out.close();
@@ -463,7 +485,7 @@ public class OrderController {
 			
 		}else{
 		
-//		orderService.deleteOrder(ordId);
+		orderService.deleteOrder(ordId);
 
 		return "redirect:/common/offwindow";}
 	}
@@ -477,7 +499,7 @@ public class OrderController {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script type='text/javascript'>");
-			out.println("alert('해당 수주는 작업지시가 시작되었습니다.');");
+			out.println("alert('해당 수주는 작업지시가 시작되어 삭제가 불가합니다');");
 			out.println("history.back()");
 			out.println("</script>");
 			out.close();

@@ -136,7 +136,7 @@ $(function() {
            ,closeText: '닫기' // 닫기 버튼 패널
            ,onClose: function ( selectedDate ) {
         	   // 창이 닫힐 때 선택된 날짜가 endDate의 minDate가 됨
-        	   $("input[name='edate']").datepicker("option", "minDate", selectedDate );
+        	   $("input[name='dlvryDt']").datepicker("option", "minDate", selectedDate );
            }
 	});
 });
@@ -201,12 +201,12 @@ $(document).ready(function(){
 });
 });
 
-$(function(){
-    $("#insertOrder").submit(function(event){
-      alert("저장되었습니다.");
-        return true;
-    });
-});
+// $(function(){
+//     $("#insertOrder").submit(function(event){
+//       alert("저장되었습니다.");
+//         return true;
+//     });
+// });
 </script>
 <!-- 스크립트 끝. -->
 <body>
