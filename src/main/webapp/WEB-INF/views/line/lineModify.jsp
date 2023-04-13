@@ -70,7 +70,7 @@ input, select, button {
 <body>
 
 <!-- <header> -->
-<%-- 	<jsp:include page="../inc/header3.jsp" /> --%>
+	<jsp:include page="../inc/header3.jsp" />
 <!-- </header> -->
 
 <div class="content_body">
@@ -99,7 +99,7 @@ input, select, button {
 				</select>
 			</li>			
 			<li>
-				<label class="title">일렬번호 <span>*</span> </label>
+				<label class="title">일련번호 <span>*</span> </label>
 				<input type="text" name="sortOrder" class="sortOrder" value="${lineDTO.sortOrder}">
 			</li>
 			<li>

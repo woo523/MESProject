@@ -43,8 +43,11 @@
 				 <input type="text" id="ordNum" name="ordNum" placeholder="수주번호" onclick="openOrd()">
 				 <input type="hidden" id="orderDate" name="orderDate" placeholder="일자">
 				 <input type="hidden" id="dlvryDate" name="dlvryDate" placeholder="예정일">
-				 <input type="text" id="ordQty" name="ordQty" placeholder="수주량" onclick="openOrd()" readonly>
-				 <input type="hidden" id="clientName" name="clientName" placeholder="수주업체">
+				 <input type="text" id="clientName" name="clientName" placeholder="수주업체" onclick="openOrd()" readonly>
+			</li>
+			<li>
+				<label class="title">수주 수량</label>
+				<input type="text" id="ordQty" name="ordQty" placeholder="수주량" onclick="openOrd()" readonly>
 			</li>
 			<li>
 				<label class="title">지시상태</label><!-- 체크 해제 못하도록 막음 -->

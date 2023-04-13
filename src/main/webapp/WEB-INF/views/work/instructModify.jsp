@@ -46,8 +46,11 @@
 				<input type="text" id="ordNum" name="ordNum" value="${instrList.orderMngDTO.ordNum}" placeholder="수주번호" onclick="openOrd()">
 				<input type="hidden" id="orderDate" name="orderDate" value="${instrList.orderMngDTO.orderDate}" placeholder="일자">
 				<input type="hidden" id="dlvryDate" name="dlvryDate" value="${instrList.orderMngDTO.dlvryDate}" placeholder="예정일">
+				<input type="text" id="clientName" name="clientName" value="${instrList.clntDTO.clientName}" placeholder="수주업체" onclick="openOrd()" readonly>
+			</li>
+			<li>
+				<label class="title">수주 수량</label>
 				<input type="text" id="ordQty" name="ordQty" value="${instrList.orderMngDTO.ordQty}" placeholder="수주량" onclick="openOrd()" readonly>
-				<input type="text" id="clientName" name="clientName" value="${instrList.clntDTO.clientName}" placeholder="수주업체">
 			</li>
 			<li>
 				<label class="title">지시상태</label>
@@ -121,12 +124,6 @@ function checkForm() {
 	if($('#lineName').val() == "") {
 		alert("공정 정보를 입력해주세요.");
 		$('#lineName').focus();
-		
-		return false;
-	}
-	
-	if($('.sCheck').val() != "checked") {
-		alert("지시 상태를 선택해주세요.");
 		
 		return false;
 	}

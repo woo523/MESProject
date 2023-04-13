@@ -10,8 +10,6 @@
 <!-- <title>instructList</title> -->
 
 <link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
-<!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
 
 <style type="text/css">
 

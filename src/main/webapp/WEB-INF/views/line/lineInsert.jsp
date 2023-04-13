@@ -79,7 +79,7 @@ input, select, button {
 				<input type="text" name="insertId" value="${sessionScope.id}" readonly>
 			</li>
 			<li>
-				<label class="title">라인명</label>
+				<label class="title">라인명 <span>*</span> </label>
 				<input type="text" name="lineName" class="lineName">
 			</li>
 			<li>

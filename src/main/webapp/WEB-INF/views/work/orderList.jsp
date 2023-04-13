@@ -98,6 +98,10 @@ input {
 </head>
 
 <body>
+<!-- <header> -->
+	<jsp:include page="../inc/header3.jsp" />
+<!-- </header> -->
+
 	<h2>수주 조회</h2>
 	<form>
 		<button type="submit" id="submit">조회</button>
@@ -116,33 +120,33 @@ input {
 				<td><input type="text" id="itemNum" name="itemNum"></td>
 			</tr>
 		</table>
-	</form>
-	<table class="ordList">
-		<tr>
-			<th>수주번호</th>
-			<th>수주일자</th>
-			<th>납품예정일</th>
-			<th>품번</th>
-			<th>품명</th>
-			<th>수주수량</th>
-			<th>수주업체</th>
-		</tr>
-		<c:forEach var="ordList" items="${getOrdList}">
-			<input type="hidden" value="${ordList.ordId}">
-			<input type="hidden" value="${ordList.itemDTO.itemId}">  
-			<tr id="con"
-				onclick="selectline('${ordList.orderMngDTO.ordId}','${ordList.orderMngDTO.ordNum}','${ordList.orderMngDTO.orderDate}','${ordList.orderMngDTO.dlvryDate}','${ordList.itemDTO.itemId}',
-									'${ordList.itemDTO.itemNum}','${ordList.itemDTO.itemName}','${ordList.orderMngDTO.ordQty}','${ordList.clntDTO.clientName}')">
-				<td>${ordList.orderMngDTO.ordNum}</td>
-				<td>${ordList.orderMngDTO.orderDate}</td>
-				<td>${ordList.orderMngDTO.dlvryDate}</td>
-				<td>${ordList.itemDTO.itemNum}</td>
-				<td>${ordList.itemDTO.itemName}</td>
-				<td>${ordList.orderMngDTO.ordQty}</td>
-				<td>${ordList.clntDTO.clientName}</td>
+		<table class="ordList">
+			<tr>
+				<th>수주번호</th>
+				<th>수주일자</th>
+				<th>납품예정일</th>
+				<th>품번</th>
+				<th>품명</th>
+				<th>수주수량</th>
+				<th>수주업체</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach var="ordList" items="${getOrdList}">
+				<input type="hidden" value="${ordList.ordId}">
+				<input type="hidden" value="${ordList.itemDTO.itemId}">  
+				<tr id="con"
+					onclick="selectline('${ordList.orderMngDTO.ordId}','${ordList.orderMngDTO.ordNum}','${ordList.orderMngDTO.orderDate}','${ordList.orderMngDTO.dlvryDate}','${ordList.itemDTO.itemId}',
+										'${ordList.itemDTO.itemNum}','${ordList.itemDTO.itemName}','${ordList.orderMngDTO.ordQty}','${ordList.clntDTO.clientName}')">
+					<td>${ordList.orderMngDTO.ordNum}</td>
+					<td>${ordList.orderMngDTO.orderDate}</td>
+					<td>${ordList.orderMngDTO.dlvryDate}</td>
+					<td>${ordList.itemDTO.itemNum}</td>
+					<td>${ordList.itemDTO.itemName}</td>
+					<td>${ordList.orderMngDTO.ordQty}</td>
+					<td>${ordList.clntDTO.clientName}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</form>
 </body>
 
 <script>
@@ -222,7 +226,6 @@ $(function() {
            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
            ,showButtonPanel: false // 캘린더 하단에 버튼 패널 표시
            ,closeText: '닫기' // 닫기 버튼 패널
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
 	});
 });
 </script>

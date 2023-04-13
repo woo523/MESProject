@@ -69,6 +69,10 @@ h2{
 </head>
 
 <body>
+<!-- <header> -->
+	<jsp:include page="../inc/header3.jsp" />
+<!-- </header> -->
+
 	<h2>라인 조회</h2>
 	<form>
 		<table class="lineSearch">
