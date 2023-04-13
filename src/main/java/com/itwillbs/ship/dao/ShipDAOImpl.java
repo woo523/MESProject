@@ -33,6 +33,15 @@ public class ShipDAOImpl implements ShipDAO{
 		System.out.println("ShipDAOImpl getShipCount()");
 		return sqlSession.selectOne(namespace+".getShipCount",pageDTO);
 	}
+	
+	
+	@Override
+	public int countListShipp() {
+		System.out.println("ShipDAOImpl countListShipp()");
+		return sqlSession.selectOne(namespace+".countListShipp");
+	}
+	
+	
 
 	@Override
 	public List<ShipDTO> getshipList(Map<String, Object> search) {
@@ -201,5 +210,20 @@ public class ShipDAOImpl implements ShipDAO{
 		return sqlSession.selectOne(namespace+".getorder",ordId);
 	}
 
+	@Override
+	public void delStock(ShipDTO shipDTO) {
+		System.out.println("ShipDAOImpldelStock()");
+		sqlSession.delete(namespace+".delStock", shipDTO);
+		
+	}
+	
+	
+	@Override
+	public void delStorage(ShipDTO shipDTO) {
+		System.out.println("ShipDAOImpl delStorage()");
+		sqlSession.delete(namespace+".delStorage", shipDTO);
+		
+	}
+	
 	
 }

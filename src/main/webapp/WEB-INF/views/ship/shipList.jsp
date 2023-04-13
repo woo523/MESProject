@@ -222,7 +222,6 @@ $(function() {
            ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
            ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
            ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-           ,maxDate: 0 // 0 : 오늘 날짜 이후 선택 X
            ,showButtonPanel: true // 캘린더 하단에 버튼 패널 표시
            ,currentText: '오늘' // 오늘 날짜로 이동하는 버튼 패널
            ,closeText: '닫기' // 닫기 버튼 패널
@@ -323,11 +322,12 @@ function cmpltValue(){
 	var url = "/ship/updateCmplt";    // Controller로 보내고자 하는 URL (.dh부분은 자신이 설정한 값으로 변경해야됨)
 	var valueArr = new Array();
     var list = $("input[name='RowCheck']");
+
 //     console.log(list);
     for(var i = 0; i < list.length; i++){
         if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
             valueArr.push(list[i].value);
-//         alert(list[i].value);
+        alert(list[i].value);
         }
     }
     if (valueArr.length == 0){
@@ -405,11 +405,6 @@ function cmpltValue(){
 				</tr>
 				
 				<tr>
-				<td>담당자</td>
-				<td><input type="text" name="userNm" id="userNm" onclick="userlist()">
-					<input type="hidden" name="userId" id="userId"value="">
-					<input type="hidden" name="userNum" id="userNum" value="">
-					<input type="hidden" name="itemId" id="itemId"  onclick="openitemList()"></td>
 				
 				<td>출하일자</td>
 				<td><input type="text" id="sshdate" class="form-control" name="sshdate" placeholder="날짜를 선택해주세요" readonly></td>
@@ -445,14 +440,16 @@ function cmpltValue(){
 		<tr id="th">
 			<td><input id="allCheck" type="checkbox" name="allCheck"/></td>
 			<th>출하번호</th>
+			<th>출하일자</th>
 			<th>납품예정일</th>
 			<th>출하업체</th>
-			<th>담당자</th>
 			<th>품번</th>
 			<th>품명</th>
-			<th>출하일자</th>
+			<th>단위</th>
+			<th>수주번호</th>
+			<th>수주량</th>
 			<th>출하량</th>
-			<th>출하상태</th>
+			<th>출하마감</th>
 		</tr>
 			
 			
@@ -461,12 +458,14 @@ function cmpltValue(){
 					<td><input name="RowCheck" type="checkbox" value="${sdto.shipId}"/>
 						<input type="hidden"${sdto.shipId}></td>
 					<td>${sdto.shipNum}</td>
-					<td>${sdto.Dlvdate}</td>
+					<td>${sdto.shipDt}</td>
+					<td>${sdto.dlvryDt}</td>
 					<td>${sdto.clntNm}</td>
-					<td>${sdto.userNm}</td>
 					<td>${sdto.itemNum}</td>
 					<td>${sdto.itemNm}</td>
-					<td>${sdto.Shdate}</td>
+					<td>${sdto.itemUnit}</td>
+					<td>${sdto.ordNum}</td>
+					<td>${sdto.ordQty}</td>
 					<td>${sdto.shipQty}</td>
 					<c:choose>
 					<c:when test="${sdto.cmpltYn eq 'Y' }">
@@ -487,36 +486,31 @@ function cmpltValue(){
 		<!-- 1페이지 이전 -->
 		<c:if test="${pageDTO.currentPage > 1}">
 			<a
-				href="${pageContext.request.contextPath }/ship/shipList?itemName=${search.itemName}&shipQty=${search.shipQty}&shipDt=${search.shipDt}
-				&clntId=${search.clntId}&shipNum=${search.shipNum}&insertId=${search.insertId}&shipQty=${search.shipQty}&cmpltYn=${search.cmpltYn}&pageNum=${pageDTO.currentPage-1}"><</a>
+				href="${pageContext.request.contextPath }/ship/shipList?shipDt=${search.shipDt}&clntNm=${search.clntNm}&cmpltYn=${search.cmpltYn}&Dlvdate=${search.Dlvdate}&itemNum=${search.itemNum }&pageNum=${pageDTO.currentPage-1}"><</a>
 		</c:if>
 
 		<!-- 10페이지 이전 -->
 		<c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
 			<a
-				href="${pageContext.request.contextPath }/ship/shipList?itemName=${search.itemName}&shipQty=${search.shipQty}&shipDt=${search.shipDt}
-				&clntId=${search.clntId}&shipNum=${search.shipNum}&insertId=${search.insertId}&shipQty=${search.shipQty}&cmpltYn=${search.cmpltYn}&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
+				href="${pageContext.request.contextPath }/ship/shipList?shipDt=${search.shipDt}&clntNm=${search.clntNm}&cmpltYn=${search.cmpltYn}&Dlvdate=${search.Dlvdate}&itemNum=${search.itemNum }&pageNum=${pageDTO.startPage-PageDTO.pageBlock}"><<</a>
 		</c:if>
 
 		<c:forEach var="i" begin="${pageDTO.startPage }"
 			end="${pageDTO.endPage }" step="1">
 			<a
-				href="${pageContext.request.contextPath }/ship/shipList?itemName=${search.itemName}&shipQty=${search.shipQty}&shipDt=${search.shipDt}
-				&clntId=${search.clntId}&shipNum=${search.shipNum}&insertId=${search.insertId}&shipQty=${search.shipQty}&cmpltYn=${search.cmpltYn}&pageNum=${i}">${i}</a>
+				href="${pageContext.request.contextPath }/ship/shipList?shipDt=${search.shipDt}&clntNm=${search.clntNm}&cmpltYn=${search.cmpltYn}&Dlvdate=${search.Dlvdate}&itemNum=${search.itemNum }&pageNum=${i}">${i}</a>
 		</c:forEach>
 
 		<!-- 1페이지 다음 -->
 		<c:if test="${pageDTO.currentPage < pageDTO.pageCount}">
 			<a
-				href="${pageContext.request.contextPath }/ship/shipList?itemName=${search.itemName}&shipQty=${search.shipQty}&shipDt=${search.shipDt}
-				&clntId=${search.clntId}&shipNum=${search.shipNum}&insertId=${search.insertId}&shipQty=${search.shipQty}&cmpltYn=${search.cmpltYn}&pageNum=${pageDTO.currentPage+1}">></a>
+				href="${pageContext.request.contextPath }/ship/shipList?shipDt=${search.shipDt}&clntNm=${search.clntNm}&cmpltYn=${search.cmpltYn}&Dlvdate=${search.Dlvdate}&itemNum=${search.itemNum }&pageNum=${pageDTO.currentPage+1}">></a>
 		</c:if>
 
 		<!-- 10페이지 다음 -->
 		<c:if test="${pageDTO.endPage < pageDTO.pageCount}">
 			<a
-				href="${pageContext.request.contextPath }/ship/shipList?itemName=${search.itemName}&shipQty=${search.shipQty}&shipDt=${search.shipDt}
-				&clntId=${search.clntId}&shipNum=${search.shipNum}&insertId=${search.insertId}&shipQty=${search.shipQty}&cmpltYn=${search.cmpltYn}&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
+				href="${pageContext.request.contextPath }/ship/shipList?shipDt=${search.shipDt}&clntNm=${search.clntNm}&cmpltYn=${search.cmpltYn}&Dlvdate=${search.Dlvdate}&itemNum=${search.itemNum }&pageNum=${pageDTO.startPage + pageDTO.pageBlock}">>></a>
 		</c:if>
 
 		</div>

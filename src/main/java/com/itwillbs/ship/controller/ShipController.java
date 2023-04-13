@@ -25,6 +25,8 @@ import com.itwillbs.ship.domain.MaterialDTO;
 import com.itwillbs.ship.domain.PageDTO;
 import com.itwillbs.ship.service.ShipService;
 import com.itwillbs.work.domain.ItemDTO;
+import com.itwillbs.work.domain.PerformDTO;
+import com.itwillbs.work.service.PerformService;
 
 @Controller
 public class ShipController {
@@ -32,6 +34,7 @@ public class ShipController {
 	@Inject
 	private ShipService shipService;
 	
+
 	
 	@RequestMapping(value = "/ship/shipInsert", method = RequestMethod.GET)
 	public String shipInsert(HttpServletRequest request, Model model) {
@@ -60,6 +63,9 @@ public class ShipController {
 		shipDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));
 		shipDTO.setCmpltYn("N");
 		shipService.insertShip(shipDTO);
+		shipService.delStock(shipDTO);
+		shipService.delStorage(shipDTO);
+
 		
 		return "redirect:/common/offwindow";
 	}
@@ -79,7 +85,7 @@ public class ShipController {
 		String clntNm = request.getParameter("clntNm");
 		
 		String Dlvdate = request.getParameter("Dlvdate");
-		String Shdate = request.getParameter("Shdate");
+		String sshdate = request.getParameter("sshdate");
 		
 		
 		
@@ -96,7 +102,7 @@ public class ShipController {
 		String cmpltYn = request.getParameter("cmpltYn");
 		
 		// 한 화면에 보여줄 글 개수 설정
-			int pageSize=3;
+			int pageSize=5;
 		// 현페이지 번호 가져오기
 		String pageNum=request.getParameter("pageNum");
 		if(pageNum==null) {
@@ -124,7 +130,7 @@ public class ShipController {
 		search.put("clntId", clntId);
 		
 		search.put("Dlvdate", Dlvdate);
-		search.put("Shdate", Shdate);
+		search.put("sshdate", sshdate);
 		
 		search.put("userNum", userNum);
 		search.put("userNm", userNm);
@@ -138,22 +144,24 @@ public class ShipController {
 		
 		search.put("startRow", pageDTO.getStartRow());
 		search.put("pageSize", pageDTO.getPageSize());
-		
+		int count;
 		List<Map<String,Object>> shipList;
 		if(shipId == null && shipNum == null && clntNm == null && Dlvdate == null
 				&& userNm == null && itemNum == null && itemNm == null && invntUnit == null
-				&& Shdate == null && shipQty == null && cmpltYn == null)
+				&& sshdate == null && shipQty == null && cmpltYn == null)
 		{
 		// 조회 안한 경우
 			shipList = shipService.getListMap(pageDTO); // page만 필요해서
+			count = shipService.countListShipp();
+			
 		
 		}else { // 조회값 넣은 경우
 			shipList = shipService.getListShipMap(search);
+			count = shipService.countListShip(search);
 			
 		}
 		
 		//페이징 처리
-		int count = shipService.countListShip(search);
 		
 		int pageBlock = 10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
@@ -191,7 +199,7 @@ public class ShipController {
 		String clntNm = request.getParameter("clntNm");
 		
 		// 한 화면에 보여줄 글 개수 설정
-		int pageSize = 3; // sql문에 들어가는 항목		
+		int pageSize = 5; // sql문에 들어가는 항목		
 		
 		// 현페이지 번호 가져오기
 		String pageNum = request.getParameter("pageNum");
@@ -545,7 +553,14 @@ public class ShipController {
 		System.out.println("ShipController updateCmplt()");
 		
 		String shipId[]=request.getParameterValues("shipId");
+	
+		System.out.println("배열길이!!!" +shipId.length);
+		System.out.println("확인1"+shipId[0]);
+		System.out.println("확인2"+shipId[1]);
+		
 		ShipDTO shipDTO = new ShipDTO();
+		
+		
 		
 		for (int i = 0; i < shipId.length; i++) {
 			String string = shipId[i];

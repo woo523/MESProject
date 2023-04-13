@@ -68,6 +68,12 @@ public interface ShipService {
 	public Map<String, Object> getorder(int ordId);
 	
 	public int countShip(Map<String, Object> search);
+	
+	public void delStock(ShipDTO shipDTO);
+	
+	public void delStorage(ShipDTO shipDTO);
+	
+	public int countListShipp();
 
 	
 }

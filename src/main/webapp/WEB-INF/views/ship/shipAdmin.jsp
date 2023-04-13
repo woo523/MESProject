@@ -312,7 +312,15 @@ $(function() {
 							<c:choose>
 							<c:when test="${empty sdto.shipQty}"><button onclick="insertShip(${sdto.ordId})">출하</button></c:when>
 							<c:otherwise>
-							<span style="color:red; font-weight:bold;">출하완료</span>
+								<c:choose>
+								<c:when test="${sdto.cmpltYn eq 'Y'}">
+								 <span style="color:red; font-weight:bold;">출하완료</span>
+								</c:when>
+								<c:otherwise>
+								<span style="color:blue; font-weight:bold;">출하진행</span>
+								</c:otherwise>
+								</c:choose>
+							
 							</c:otherwise>
 							</c:choose>
 							</td>

@@ -199,5 +199,23 @@ public class ShipServiceImpl implements ShipService{
 		return shipDAO.countShip(search);
 	}
 
+	@Override
+	public void delStock(ShipDTO shipDTO) {
+		System.out.println("ShipServiceImpl delStock()");
+		shipDAO.delStock(shipDTO);
+	}
+
+	@Override
+	public void delStorage(ShipDTO shipDTO) {
+		System.out.println("ShipServiceImpl delStorage()");
+		shipDAO.delStorage(shipDTO);
+	}
+
+	@Override
+	public int countListShipp() {
+		System.out.println("ShipServiceImpl countListShipp()");
+		return shipDAO.countListShipp();
+	}
+
 
 }

@@ -69,4 +69,9 @@ public interface ShipDAO {
 	
 	public int countShip(Map<String, Object> search);
 	
+	public void delStock(ShipDTO shipDTO);
+	
+	public void delStorage(ShipDTO shipDTO);
+	
+	public int countListShipp();
 }
