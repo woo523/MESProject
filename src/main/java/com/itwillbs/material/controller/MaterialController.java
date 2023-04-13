@@ -407,6 +407,7 @@ public class MaterialController {
 		InmaterialDTO inmaterialDTO2 = materialService.getInmtrl(inmaterialDTO.getInmtrlId()); // 수정하기 전 입고DTO
 		materialService.delinStock(inmaterialDTO2);
 		materialService.delinStorage(inmaterialDTO2);
+		materialService.updateIncurStock(inmaterialDTO2);
 		
 		int curStock = materialService.getinStock(inmaterialDTO.getItemId());
 		int incurStock = curStock + inmaterialDTO.getInmtrlQty();
@@ -533,6 +534,7 @@ public class MaterialController {
 		OutmaterialDTO outmaterialDTO2 = materialService.getOutmtrl(outmaterialDTO.getOutmtrlId()); // 수정하기 전 출고DTO
 		materialService.deloutStock(outmaterialDTO2);
 		materialService.deloutStorage(outmaterialDTO2);
+		materialService.updateOutcurStock(outmaterialDTO2);
 		
 		int curStock = materialService.getoutStock(outmaterialDTO.getItemId());
 		int outcurStock = curStock - outmaterialDTO.getOutmtrlQty();
@@ -541,7 +543,7 @@ public class MaterialController {
 		materialService.updateOutmtrl(outmaterialDTO);
 		materialService.editoutStock(outmaterialDTO);
 		materialService.editoutStorage(outmaterialDTO);	
-
+		
 		return "redirect:/common/offwindow";
 	}
 	

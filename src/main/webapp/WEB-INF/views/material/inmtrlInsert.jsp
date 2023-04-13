@@ -90,7 +90,7 @@ function checkForm() {
 	}
 	
 	if($('.ccd').val() == "") {
-		alert("거래처 정보를 입력해주세요.");
+		alert("업체 정보를 입력해주세요.");
 		$('.ccd').focus();
 		
 		return false;
@@ -111,7 +111,7 @@ function checkForm() {
 	 }
 	 
 		if($('.Lot').val() == "") {
-			alert("입고Lot를 입력해주세요.");
+			alert("입고LOT를 입력해주세요.");
 			$('.Lot').focus();
 			
 			return false;
@@ -120,8 +120,17 @@ function checkForm() {
 	let submit = confirm("등록하시겠습니까?");
 	let resultSubmit = submit ? true : false;	// 삼항연산자
 	return resultSubmit;
-	
 }
+$(document).ready(function(){
+    // 날짜 미래 날짜 선택 못하게
+    var today = new Date(); // 오늘 날짜
+    var year = today.getFullYear(); // 년도 YYYY
+    var month = ("0"+(today.getMonth()+1)).slice(-2); // 달 MM
+    var date = ("0"+today.getDate()).slice(-2); // 일 DD
+    var today = year+"-"+month+"-"+date; // YYYY-MM-DD
+	document.getElementById("Date").setAttribute("max", today);
+    
+});
 </script>
 </head>
 

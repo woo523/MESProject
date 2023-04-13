@@ -293,6 +293,16 @@ public class MaterialServiceImpl implements MaterialService{
 		return materialDAO.getoutStock(itemId);
 	}
 
+	@Override
+	public void updateIncurStock(InmaterialDTO inmaterialDTO) {
+		System.out.println("MaterialServiceImpl updateIncurStock()");
+		materialDAO.updateIncurStock(inmaterialDTO);
+	}
 
+	@Override
+	public void updateOutcurStock(OutmaterialDTO outmaterialDTO) {
+		System.out.println("MaterialServiceImpl updateOutcurStock()");
+		materialDAO.updateOutcurStock(outmaterialDTO);
+	}
 
 }

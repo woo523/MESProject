@@ -192,9 +192,18 @@
 			clnt_id = #{clntId},
 			in_mtrl_qty = #{inmtrlQty},
 			in_mtrl_lot = #{inmtrlLot},
+			incur_stock = #{incurStock},
 			note = #{note}
 		where in_mtrl_id = #{inmtrlId}
 	</update>
+	
+		<update id="updateIncurStock">
+		update in_material
+		set incur_stock = incur_stock - #{incurStock}
+		where in_mtrl_id = #{inmtrlId}
+	</update>
+	
+	
 
 	<select id="getInmtrlMap" resultMap="InmaterMap">
 		select 
@@ -408,9 +417,17 @@
 			item_id = #{itemId},
 			clnt_id = #{clntId},
 			out_mtrl_qty = #{outmtrlQty},
+			outcur_stock = #{outcurStock},
 			note = #{note}
 		where out_mtrl_id = #{outmtrlId}
 	</update>
+
+		<update id="updateOutcurStock">
+		update out_material
+		set outcur_stock = outcur_stock + #{outcurStock}
+		where out_mtrl_id = #{outmtrlId}
+	</update>
+
 
 	<select id="getOutmtrlMap" resultMap="OutmaterMap">
 		select 

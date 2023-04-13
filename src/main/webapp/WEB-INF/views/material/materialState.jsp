@@ -235,7 +235,6 @@ function openadd(a){ // 실사량
 </article>
 </div>
 
-<br><br>
 	<div class="center">
 	 	<div class="pagination">			
 			<c:choose>

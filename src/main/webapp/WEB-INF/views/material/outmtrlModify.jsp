@@ -90,7 +90,7 @@ function checkForm() {
 	}
 	
 	if($('.ccd').val() == "") {
-		alert("거래처 정보를 입력해주세요.");
+		alert("업체 정보를 입력해주세요.");
 		$('.ccd').focus();
 		
 		return false;

@@ -103,5 +103,9 @@ public interface MaterialService {
 	public void editoutStorage(OutmaterialDTO outmaterialDTO);
 
 	public Integer getoutStock(int itemId);
+	
+	public void updateIncurStock(InmaterialDTO inmaterialDTO);
+
+	public void updateOutcurStock(OutmaterialDTO outmaterialDTO);
 }
 

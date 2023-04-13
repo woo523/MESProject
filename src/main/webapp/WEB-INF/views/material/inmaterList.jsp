@@ -310,11 +310,11 @@ function openclist(){
 // var inmtrlId = a;
 
 function openmodi(a){ // 수정창
-    window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=650, height=620,left=500, top=200");
+    window.open("${pageContext.request.contextPath}/material/inmtrlModify?inmtrlId="+a,"popup3", "width=650, height=650,left=500, top=200");
 }
 
 function openInsert(a){ // 추가창
-	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=650, height=600,left=500, top=200");
+	window.open("${pageContext.request.contextPath}/material/inmtrlInsert?inmtrlId="+a,"popup4", "width=650, height=630,left=500, top=200");
 }
 
 function openDelete(a){	// 삭제창
