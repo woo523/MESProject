@@ -312,6 +312,9 @@ function openDelete(a){	// 삭제창
 				<th>출하일자</th>
 				<th>품번</th>
 				<th>품명</th>
+				<th>수주량</th>
+				<th>재고량</th>
+				<th>출하량</th>
 				<th>출하고객</th>
 				<th>상세</th>
 			</tr>
@@ -333,6 +336,9 @@ function openDelete(a){	// 삭제창
 							<td>${sdto.shipDt}</td>
 							<td>${sdto.itemNum}</td>
 							<td>${sdto.itemNm}</td>
+							<td>${sdto.ordQty}</td>
+							<td>${sdto.curStock}</td>
+							<td>${sdto.shipQty}</td>
 							<td>${sdto.clntNm}</td>
 							<td><img src='${pageContext.request.contextPath}
 								/resources/image/modify.png' width='17px' id="modify" onclick="openInfo(${sdto.shipId})">

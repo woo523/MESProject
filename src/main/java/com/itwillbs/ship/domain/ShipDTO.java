@@ -30,7 +30,14 @@ public class ShipDTO {
 	private String orderDt; 		
 	private String ordNum; 	
 	private int userId;
+	private int curStock;		// 현재고
 
+	public int getCurStock() {
+		return curStock;
+	}
+	public void setCurStock(int curStock) {
+		this.curStock = curStock;
+	}
 	public String getUserNm() {
 		return userNm;
 	}

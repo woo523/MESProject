@@ -92,6 +92,17 @@ h1{
 	background-position:98%;
 	border: 1px solid;
 }
+#ordQty {
+	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
+}
+#curStock {
+	background-color: #EAEAEA;
+	background-position:98%;
+	border: 1px solid;
+}
+
 
 .form-control{
 	background-image: url('${pageContext.request.contextPath}/resources/image/calendar.png');
@@ -202,6 +213,10 @@ $(function() {
 	<td><input type="text" id="itemNm" name="itemNm" value="${shipDTO.itemNm }" readonly></td></tr>
 	<tr><td>단위</td>
 	<td><input type="text" id="invntUnit" name="invntUnit" value="${shipDTO.invntUnit }" readonly></td></tr>
+	<tr><td>수주량</td>
+	<td><input type="text" id="ordQty" name="ordQty" value="${shipDTO.ordQty }" readonly></td></tr>
+	<tr><td>재고량</td>
+	<td><input type="text" id="curStock" name="curStock" value="${shipDTO.curStock }" readonly></td></tr>
 	<tr><td>출하량</td>
 	<td><input type="text" id="shipQty" name="shipQty" value="${shipDTO.shipQty }"></td></tr>
 	</table>

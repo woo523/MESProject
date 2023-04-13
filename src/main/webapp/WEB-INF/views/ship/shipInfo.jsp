@@ -145,6 +145,10 @@ h1{
 	<td>${shipDTO.itemNm }</td></tr>
 	<tr><td>단위</td>
 	<td>${shipDTO.invntUnit }</td></tr>
+	<tr><td>수주량</td>
+	<td>${shipDTO.ordQty }</td></tr>
+	<tr><td>재고량</td>
+	<td>${shipDTO.curStock }</td></tr>
 	<tr><td>출하량</td>
 	<td>${shipDTO.shipQty }</td></tr>
 	</table>
