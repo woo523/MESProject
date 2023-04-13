@@ -70,5 +70,6 @@ article input {
 }
 
 .content_body .instrStateList span {
+	width: 1280px;
 	text-align: right;
 }

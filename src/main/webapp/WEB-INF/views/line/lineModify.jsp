@@ -70,7 +70,7 @@ input, select, button {
 <body>
 
 <!-- <header> -->
-	<jsp:include page="../inc/header3.jsp" />
+<%-- 	<jsp:include page="../inc/header3.jsp" /> --%>
 <!-- </header> -->
 
 <div class="content_body">
