@@ -188,6 +188,7 @@
 		ON ord.clnt_id = c.clnt_id
 		JOIN stock sto
 		ON i.item_id = sto.item_id
+		WHERE ord.ord_id NOT IN (SELECT ord_id FROM work_instr)
 	</select>
 	
 	<!-- 작업지시 등록 수주 검색 조회 -->
@@ -202,7 +203,7 @@
 		ON ord.clnt_id = c.clnt_id
 		JOIN stock sto
 		ON i.item_id = sto.item_id
-		WHERE ord.ord_num IS NOT NULL
+		WHERE ord.ord_id NOT IN (SELECT ord_id FROM work_instr)
 		<if test="startDate != '' and endDate != ''">
 			AND order_dt BETWEEN #{startDate} AND #{endDate}
 		</if>
