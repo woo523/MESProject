@@ -589,6 +589,7 @@ public class PerformController {
 		performDTO.setItemId(preitemId);
 		
 		performService.delqty(preDTO); // 수정전 재고 삭제
+		
 		performService.updatePf(performDTO); // 업뎃
 		
 		return "redirect:/work/popPfRe";

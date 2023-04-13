@@ -150,7 +150,7 @@ function checkForm() {
 						 <input type="hidden" name="clntId" id="cid" value="${getInmtrl.clientId}">
 <%-- 				<tr><td>단위</td><td><input type="text" value="${getInmtrl.itemUnit}"></td></tr> --%>
 				<tr><td>입고수량<span id="red">*</span></td><td><input type="number" class="Qty" name="inmtrlQty" value="${inmaterialDTO.inmtrlQty}"></td></tr>
-				<tr><td>입고LOT<span id="red">*</span></td><td><input type="number" name="inmtrlLot" class="Lot" value="0" min="0" value="${inmaterialDTO.inmtrlLot}"> box</td></tr>
+				<tr><td>입고LOT<span id="red">*</span></td><td><input type="number" name="inmtrlLot" class="Lot" min="0" value="${inmaterialDTO.inmtrlLot}"> box</td></tr>
 				<tr><td>비고</td><td><input type="text" name="note" value="${inmaterialDTO.note}"></td></tr>
 			</table><br>
 			<div id="bu">
