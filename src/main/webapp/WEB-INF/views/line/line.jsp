@@ -78,7 +78,7 @@
 								</c:otherwise>
 							</c:choose>
 							<td style="width: 300px">${lineDTO.note}</td>
-							<c:if test="${! empty sessionScope.id && lineDTO.useChoice eq 'N'}">
+							<c:if test="${! empty sessionScope.id}">
 								<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="modifyConfirm(${lineDTO.lineId})"></a></td>    
 							</c:if>
 						</tr>

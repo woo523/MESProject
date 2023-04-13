@@ -89,6 +89,7 @@ input, select, button {
 					<option value="외주">외주</option>
 					<option value="작업장1">작업장1</option>
 					<option value="작업장2">작업장2</option>
+					<option value="작업장3">작업장3</option>
 				</select>
 			</li>			
 			<li>
