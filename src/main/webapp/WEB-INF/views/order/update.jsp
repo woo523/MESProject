@@ -202,11 +202,12 @@ $(function() {
 	<tr><td>수량</td>
 	<td><input type="text" id="ordQty" name="ordQty" value="${orderDTO.ordQty }"></td></tr>
 	</table>
-</form>	
-<br>
-			<div id="btn">
+	<div id="btn">
 				<button type="submit" >저장</button>
 			</div>
+</form>	
+<br>
+			
 			
 </div>
 <br>
