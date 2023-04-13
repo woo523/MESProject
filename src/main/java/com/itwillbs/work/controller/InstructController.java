@@ -53,9 +53,10 @@ public class InstructController {
 		if(lineName == null && startDate == null && endDate == null && itemNum == null && workSts1==null && workSts2==null && workSts3==null) {
 			// 작업지시 전체 조회
 			
-			instrList = instructService.instrList(pageDTO, model);
-			int instrTotal = instructService.instrCount();
-			model.addAttribute("instrTotal", instrTotal);
+			instrList = instructService.instrList(instrSearch, pageDTO, model);
+			
+			int instrSearchCount = instructService.instrCount(instrSearch);
+			model.addAttribute("instrSearchCount", instrSearchCount);
 		
 		} else {
 			// 작업지시 검색 조회
@@ -103,17 +104,16 @@ public class InstructController {
 		if(lineName == null && startDate == null && endDate == null && itemNum == null && workSts1==null && workSts2==null && workSts3==null) {
 			// 작업지시 전체 조회
 			
-			instrList = instructService.instrList(pageDTO, model);
-			int instrTotal = instructService.instrCount();
-			model.addAttribute("instrList", instrList);
-			model.addAttribute("instrTotal", instrTotal);
+			instrList = instructService.instrList(instrSearch, pageDTO, model);
+			
+			int instrSearchCount = instructService.instrCount(instrSearch);
+			model.addAttribute("instrSearchCount", instrSearchCount);
 		
 		} else {
 			// 작업지시 검색 조회
-
+			
 			instrList = instructService.instrList(instrSearch, pageDTO, model);
 			int instrSearchCount = instructService.instrCount(instrSearch);
-			model.addAttribute("instrList", instrList);
 			model.addAttribute("instrSearchCount", instrSearchCount);
 			
 		}
