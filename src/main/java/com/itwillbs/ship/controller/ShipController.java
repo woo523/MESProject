@@ -54,7 +54,7 @@ public class ShipController {
 		String date1 = date.substring(2);
 		int count = shipService.shipSCount() + 1;
 		System.out.println("확인 count:"+count);
-		String shipNum = String.format("ST%s%05d", date1, count);
+		String shipNum = String.format("SP%s%05d", date1, count);
 		
 		shipDTO.setShipNum(shipNum);
 		shipDTO.setInsertDt(new Timestamp(System.currentTimeMillis()));

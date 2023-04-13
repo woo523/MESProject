@@ -143,42 +143,45 @@ $(function() {
 
 
 $(document).ready(function(){
-	$('#insertOrder').submit(function() {
 	
-	if ($('#clntNm').val()=="") {
-		alert("업체명을 입력하세요");
-		$('#clntNm').focus();
-		return false;
-	}
+ 
 	
-	if ($('#dlvryDt').val()=="") {
-		alert("납품예정일을 입력하세요");7
-		$('#dlvryDt').focus();
-		return false;
-	}
-	
-	if ($('#userNm').val()=="") {
-		alert("담당자를 입력하세요");
-		$('#userNm').focus();
-		return false;
-	}
-	
+	$('#insertShip').submit(function() {
+
 	if ($('#shipDt').val()=="") {
 		alert("출하일자를 입력하세요");
 		$('#shipDt').focus();
 		return false;
 	}
-	
-	if ($('#itemNum').val()=="") {
-		alert("품번을 입력하세요");
-		$('#clntNm').focus();
-		return false;
-	}
-	
+		
 	if ($('#shipQty').val()=="") {
 		alert("수량을 입력하세요");
 		$('#shipQty').focus();
 		return false;
+	}
+	
+	if ($('#shipQty').val()> $('#curStock').val()) {
+		alert("재고가 부족합니다");
+		$('#shipQty').focus();
+		return false;
+	}
+	
+	if ($('#shipQty').val()< $('#ordQty').val()) {
+		alert("출하량이 수주량보다 적습니다.");
+		if(confirm("그래도 출하를 하시겠습니까?")){
+			return true;
+		}else{
+		$('#shipQty').focus();
+		return false;}
+	}
+	
+	if ($('#shipQty').val()> $('#ordQty').val()) {
+		alert("출하량이 수주량보다 많습니다.");
+		if(confirm("그래도 출하를 하시겠습니까?")){
+			return true;
+		}else{
+		$('#shipQty').focus();
+		return false;}
 	}
 	
 
@@ -233,11 +236,11 @@ $(document).ready(function(){
 				</tr>
 				<tr>
 				<td>수주량</td>
-				<td><input type="number" name="ordQty"  value="${ordlist.ordQty }" readonly></td>
+				<td><input type="number" name="ordQty" id="ordQty"  value="${ordlist.ordQty }" readonly></td>
 				</tr>
 				<tr>
 				<td>재고량</td>
-				<td><input type="number" name="curStock"  value="${ordlist.curStock }" readonly></td>
+				<td><input type="number" name="curStock" id="curStock"  value="${ordlist.curStock }" readonly></td>
 				</tr>
 				<tr>
 				<td>수량 <span style="color:red;">*</span></td>
