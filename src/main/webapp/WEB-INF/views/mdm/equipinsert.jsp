@@ -181,7 +181,7 @@ $(document).ready(function(){
 					</select></td></tr>
 	<tr><td>구매처</td> <td><input type="text" name="poNum" value="${equipDTO.poNum}"></td></tr>
 	<tr><td>구매일자</td> <td><input type="text" id="poDate" class="form-control" name="poDate" placeholder="날짜를 선택해주세요" readonly /></td></tr>
-	<tr><td>구매금액</td> <td><input type="text" name="poAmount" id="poAmount" value="${equipDTO.poAmount}"></td></tr>
+	<tr><td>구매금액</td> <td><input type="text" name="poAmount" id="poAmount" value="0" placeholder="숫자만 입력하세요"></td></tr>
 	<tr><td>사용여부</td> <td><input type="radio" name="useYn" value="Y" checked>Y
 							<input type="radio" name="useYn" value="N">N</td></tr>
 	<tr><td>설비상태</td> <td><select name="equpStat" id="equpStat">
