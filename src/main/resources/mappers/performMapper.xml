@@ -25,6 +25,7 @@
     <result column="pqty" property="pqty"/>
     <result column="Y" property="Y"/>
     <result column="N" property="N"/>
+    <result column="invnt_unit" property="invntUnit"/>
     
     </resultMap>
     
@@ -36,6 +37,7 @@
     l.line_nm,
     it.item_num,
     it.item_nm,
+    it.invnt_unit,
     i.work_sts,
     i.work_dt,
     i.work_qty,
@@ -68,6 +70,7 @@
     l.line_nm,
     it.item_num,
     it.item_nm,
+    it.invnt_unit,
     i.work_sts,
     i.work_dt,
     i.work_qty,
@@ -127,6 +130,7 @@
     l.line_nm,
     it.item_num,
     it.item_nm,
+    it.invnt_unit,
     i.work_sts,
     i.work_dt,
     i.work_qty,

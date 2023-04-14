@@ -64,6 +64,7 @@ public class PerformAjaxController {
 			jsobject.put("workSts", pfliDTO.get("workSts"));
 			jsobject.put("insertId", pfliDTO.get("insertId"));
 			jsobject.put("name", pfliDTO.get("name"));
+			jsobject.put("invntUnit", pfliDTO.get("invntUnit"));
 			// 제이슨객체에 한개씩 담기
 			System.out.println("dbReason : " + pfliDTO.get("dbReason"));
 			

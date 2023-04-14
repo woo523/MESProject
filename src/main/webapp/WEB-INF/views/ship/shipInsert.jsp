@@ -244,7 +244,7 @@ $(document).ready(function(){
 				<td><input type="number" name="curStock" id="curStock"  value="${ordlist.curStock }" readonly></td>
 				</tr>
 				<tr>
-				<td>수량 <span style="color:red;">*</span></td>
+				<td>출하량 <span style="color:red;">*</span></td>
 				<td><input type="number" name="shipQty" id="shipQty"  placeholder="필수입력"></td>
 				</tr>
 			</table>

@@ -142,7 +142,8 @@ $(document).ready(function(){
 <tr><td>품번</td><td><input type="text"  value="${getInstr.itemNum}" readonly></td> </tr>
 <tr><td>품명</td><td><input type="text"  value="${getInstr.itemName}" readonly></td> </tr>
 <tr><td>실적일 <span id="red">*</span></td><td><input type="date" id="Date" class="pfDate" name="performDate"></td></tr>
-<tr><td>실적수량 <span id="red">*</span></td><td><input type="number" class="Qty" name="performQty"></td></tr>
+<tr><td>지시수량 </td><td><input type="text" value="${getInstr.workQty}" readonly> (${getInstr.invntUnit})</td></tr>
+<tr><td>실적수량 <span id="red">*</span></td><td><input type="number" class="Qty" name="performQty"> (${getInstr.invntUnit})</td></tr>
 <tr><td>양불여부 <span id="red">*</span></td><td><input type="radio" name="gbYn" value="Y"> Y(양품)
 		<input type="radio"  name="gbYn" value="N"> N(불량)
 		</td></tr>

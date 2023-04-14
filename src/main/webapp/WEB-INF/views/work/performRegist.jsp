@@ -179,11 +179,11 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 	output=output+"<div id='btn'><button onclick='closeR("+array[0].instrId+")'>수동 마감</button>&nbsp;&nbsp;<button id='add' onclick='pfRegi("+array[0].instrId+")'>실적 등록</button></div><br>";
 	if(array[0].itemNum==null){
 		output=output+"<div id='count'>총 0건</div><br>";
-		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th><th></th></tr>";
-		output=output+"<tr id='con'><td colspan='7'> 해당 자료가 없습니다. 실적을 등록해주세요. </td> </tr>";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>단위</th><th>불량사유</th><th>등록자</th><th></th></tr>";
+		output=output+"<tr id='con'><td colspan='8'> 해당 자료가 없습니다. 실적을 등록해주세요. </td> </tr>";
 	}else{
 		output=output+"<div id='count'>총 "+ array.length +"건</div><br>";
-		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th><th>등록자</th><th></th></tr>";
+		output=output+"<table border='1'><tr id='th'><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>단위</th><th>불량사유</th><th>등록자</th><th></th></tr>";
 	for (var i=0; i<array.length; i++) {
 	
 		output=output+"<tr id='con'>";
@@ -191,7 +191,8 @@ function PerformListPrint(array){ // 해당 생산실적 출력
 		output=output+"<td>"+array[i].itemName+"</td>";
 		output=output+"<td>"+array[i].performDate+"</td>";
 		output=output+"<td>"+array[i].gbYn+"</td>";	
-		output=output+"<td>"+array[i].performQty+"</td>";	
+		output=output+"<td>"+array[i].performQty+"</td>";
+		output=output+"<td>"+array[i].invntUnit+"</td>";
 		output=output+"<td>"+array[i].dbReason+"</td>";
 		output=output+"<td>"+array[i].name+"</td>";
 		if(${sessionScope.id}==array[i].insertId){
@@ -334,7 +335,7 @@ $(function() {
 	<div id="count">총 ${pageDTO.count }건</div>
 	<table border="1" id="main">
 	
-	<tr id="th"><th>작업지시번호</th><th>라인</th><th>라인명</th><th>품번</th><th>품명</th><th>지시상태</th><th>지시일자</th><th>지시수량</th><th>수주번호</th><th>업체</th></tr>
+	<tr id="th"><th>작업지시번호</th><th>라인</th><th>라인명</th><th>품번</th><th>품명</th><th>지시상태</th><th>지시일자</th><th>지시수량</th><th>단위</th><th>수주번호</th><th>업체</th></tr>
 	
 	
 	<c:forEach var="idto" items="${instrList }">
@@ -352,6 +353,7 @@ $(function() {
 	 	<td id="ma">${idto.workSts}</td></c:if>
 	  	<td>${idto.workDate}</td>
 	  	<td>${idto.workQty}</td>
+	  	<td>${idto.invntUnit}</td>
 	  	<td>${idto.ordNum}</td>
 	  	<td>${idto.ClientName}</td></tr>
 	</c:forEach>
@@ -392,8 +394,8 @@ $(function() {
 
     <div id="PerformList_ajax">
 	<table border="1">
-	<tr id="th"><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>불량사유</th></tr>
-	<tr id="con"><td colspan="6"> 실적 등록할 작업 지시를 클릭해주세요 </td></tr>
+	<tr id="th"><th>품번</th><th>품명</th><th>실적일</th><th>양불여부</th><th>실적수량</th><th>단위</th><th>불량사유</th></tr>
+	<tr id="con"><td colspan="7"> 실적 등록할 작업 지시를 클릭해주세요 </td></tr>
     </table>
     </div>
 
