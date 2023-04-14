@@ -92,7 +92,7 @@ function check(){
 // 		return false;
 // 	}
 	
-	if(confirm("추가하시겠습니까?")) {
+	if(confirm("등록하시겠습니까?")) {
 		return true;
 	} else {
 		return false;

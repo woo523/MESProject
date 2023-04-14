@@ -72,9 +72,27 @@ $(document).ready(function(){
 	$("#storType").val(select).prop("selected",true);
 });
 
-// function effecheck() {
-// 	if($())
-// }
+function effecheck() {
+	
+	if($('.storCode').val() == "") {
+		alert("창고코드를 입력하세요.");
+		$('.clntCode').focus();
+	
+		return false;
+	}
+	if($('.storName').val() == "") {
+		alert("창고명을 입력하세요.");
+		$('.storName').focus();
+		
+		return false;
+	}
+	
+	if(confirm("수정하시겠습니까?")) {
+		return true;
+	} else {
+		return false;
+	}
+}
 
 </script>
 </head>
@@ -87,8 +105,8 @@ $(document).ready(function(){
 <form action="${pageContext.request.contextPath }/mdm/storageupdatePro" method="post" onsubmit="return effecheck()" id="form">
 <input type="hidden" name="storId" value="${storageDTO.storId}">
 <table>
-	<tr><td>창고코드 <span class="star">*</span></td>  <td><input type="text" name="storCode" value="${storageDTO.storCode}"></td></tr>
-	<tr><td>창고명 <span class="star">*</span></td>  <td><input type="text" name="storName" value="${storageDTO.storName}">
+	<tr><td>창고코드 <span class="star">*</span></td>  <td><input type="text" name="storCode" class="storCode" value="${storageDTO.storCode}"></td></tr>
+	<tr><td>창고명 <span class="star">*</span></td>  <td><input type="text" name="storName" class="storName" value="${storageDTO.storName}">
 						<input type="hidden" name="industry" value="${storageDTO.itemCount}"></td></tr>
 	<tr><td>창고유형</td> <td><select name="storType" id="storType">
 						<option value="자재">자재</option>

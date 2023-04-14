@@ -152,8 +152,8 @@ $(document).ready(function(){
 						</c:forEach>
 	  				   </select>
 				  </td></tr>
-	<tr><td>매입단가</td> <td><input type="text" name="buyPrice"></td></tr>
-	<tr><td>매출단가</td> <td><input type="text" name="salePrice"></td></tr>
+	<tr><td>매입단가</td> <td><input type="text" name="buyPrice" value="0" placeholder="숫자만 입력하세요"></td></tr>
+	<tr><td>매출단가</td> <td><input type="text" name="salePrice" value="0" placeholder="숫자만 입력하세요"></td></tr>
 	<tr><td>비고</td> <td><input type="text" name="note"></td></tr>
 
 </table>
