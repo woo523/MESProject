@@ -191,6 +191,8 @@ public class ShipController {
 //	출하관리
 	@RequestMapping(value="/ship/shipAdmin", method = RequestMethod.GET)
 	public String shipAdmin(Model model, HttpServletRequest request, PageDTO pageDTO) {
+		
+		try {
 		System.out.println("ShipController shipAdmin()");
 		
 		String Dlvdate = request.getParameter("Dlvdate");
@@ -261,12 +263,15 @@ public class ShipController {
 		
 		System.out.println("endPage :"+pageDTO.getEndPage());
 		System.out.println("count :"+pageDTO.getCount());
+
 		model.addAttribute("shipAdmin1", shipAdmin1); 
 		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("search", search);
 		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "ship/shipAdmin";
-		
 	}
 	
 	// 제품정보
