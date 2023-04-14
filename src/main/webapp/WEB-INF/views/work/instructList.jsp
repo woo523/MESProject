@@ -38,7 +38,7 @@
 
 <div class="content_body">
 <article>
-	<h1>작업지시</h1>
+	<h1>작업지시 정보관리</h1>
 	<form id="instr">
 		<div class="selectButtons">
 			<button type="submit" id="submit">조회</button>

@@ -52,6 +52,7 @@ public class InstructAjaxController {
 				object.put("itemNum", 	  stateDTO.get("itemNum"));
 				object.put("itemName", 	  stateDTO.get("itemName"));
 				object.put("invntUnit",   stateDTO.get("invntUnit"));
+				object.put("performQty", stateDTO.get("performQty"));
 				// 양품여부가 Y 또는 N일 경우
 				if(stateDTO.get("gbYn").equals("Y")) {
 					object.put("gbY", stateDTO.get("gbYn"));

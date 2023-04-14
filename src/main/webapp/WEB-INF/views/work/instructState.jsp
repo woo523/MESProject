@@ -165,13 +165,14 @@
 	</div> <!-- 페이징 -->
 	
 	<div>
-		<h1>작업지시현황</h1>
+		<h1>작업지시 현황</h1>
 		
 		<table border="1" class="instrStateList">
 			<tr>
 				<th>실적일자</th>
 				<th>품번</th>
 				<th>품명</th>
+				<th>실적수량</th>
 				<th>단위</th>
 				<th>양품</th>
 				<th>불량</th>
@@ -295,19 +296,20 @@ function InstrStateListPri(arr) { // 해당 작업지시현황 출력
 	
 	if(arr[0].itemNum == null) {
 		output = output + "<span>총 0건</span>";
-		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th style='width: 250px'>불량사유</th></tr>";
-		output = output + "<tr><td colspan='7'></td></tr>";
-		output = output + "<tr><td colspan='7'> 해당 실적이 존재하지 않습니다. </td></tr>";	
+		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>실적수량</th><th>단위</th><th>양품</th><th>불량</th><th style='width: 250px'>불량사유</th></tr>";
+		output = output + "<tr><td colspan='8'></td></tr>";
+		output = output + "<tr><td colspan='8'> 해당 실적이 존재하지 않습니다. </td></tr>";	
 	
 	} else {
 		output = output + "<span>총 " + arr.length + "건</span>";
-		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>단위</th><th>양품</th><th>불량</th><th style='width: 250px'>불량사유</th></tr>";
+		output = output + "<table border='1' class='instrStateList'><tr><th>실적일자</th><th>품번</th><th>품명</th><th>실적수량</th><th>단위</th><th>양품</th><th>불량</th><th style='width: 250px'>불량사유</th></tr>";
 		
 		for(var i = 0; i < arr.length; i++) {
 			output = output+"<tr id = 'instrList'>";
 			output = output+"<td>"+arr[i].performDate+"</td>";
 			output = output+"<td>"+arr[i].itemNum+"</td>";
 			output = output+"<td>"+arr[i].itemName+"</td>";
+			output = output+"<td>"+arr[i].performQty+"</td>";
 			output = output+"<td>"+arr[i].invntUnit+"</td>";
 			output = output+"<td>"+arr[i].gbY+"</td>";
 			output = output+"<td>"+arr[i].gbN+"</td>";
