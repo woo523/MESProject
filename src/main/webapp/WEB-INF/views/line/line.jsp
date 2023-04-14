@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Line</title>
+<!-- <title>Line</title> -->
 
 <link href="${pageContext.request.contextPath}/resources/css/instruct/line.css" rel="stylesheet" type="text/css">
 
