@@ -327,7 +327,7 @@ function cmpltValue(){
     for(var i = 0; i < list.length; i++){
         if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
             valueArr.push(list[i].value);
-        alert(list[i].value);
+
         }
     }
     if (valueArr.length == 0){
