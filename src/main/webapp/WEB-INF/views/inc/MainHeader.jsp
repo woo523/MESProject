@@ -8,10 +8,7 @@
 	<title>MES 주식회사</title>
 	
 	<!-- 공통CSS-->
-<!-- 	<link href="/resources/css/reset.css"  rel="stylesheet" type="text/css"> -->
-<!-- 	<link href="/resources/css/style.css"  rel="stylesheet" type="text/css"> -->
 	<link href="/resources/css/jquery/jquery-ui.min.css" rel="stylesheet" type="text/css"  />
-<!-- 	<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap/bootstrap-datetimepicker.min.css"  media="screen"> -->
 	
 	<!-- 공통JS-->
 	<script type="text/javascript" src="/resources/js/jquery/jquery-3.6.3.js"></script>

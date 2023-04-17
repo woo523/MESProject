@@ -1,4 +1,4 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -8,7 +8,8 @@
 <!-- <title>Insert title here</title> -->
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
-<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
 <style type="text/css">
 
  table {

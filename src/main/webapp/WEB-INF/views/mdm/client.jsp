@@ -6,7 +6,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>client</title>
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+	<!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 <style type="text/css">
 h1{

@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>instruct insert</title>
 
+	<!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
+
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.6.3.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-ui-1.9.2.custom.js"></script>  
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-migrate-1.4.1.min.js"></script>  

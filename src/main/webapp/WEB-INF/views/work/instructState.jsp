@@ -8,8 +8,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>instructState</title>
+<!-- <title>instructState</title> -->
 
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
 <link href="${pageContext.request.contextPath}/resources/css/instruct/instrList.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
@@ -32,10 +34,13 @@
 </style>
 </head>
 
-<body>
 <!-- <header> -->
 	<jsp:include page="../inc/header.jsp" />
 <!-- </header> -->
+
+<body>
+
+
 
 <div class="content_body">
 <article>

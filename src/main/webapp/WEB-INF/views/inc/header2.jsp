@@ -12,6 +12,8 @@
 	<link href="/resources/css/style.css"  rel="stylesheet" type="text/css">
 	<link href="/resources/css/jquery/jquery-ui.min.css" rel="stylesheet" type="text/css"  />
 	<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap/bootstrap-datetimepicker.min.css"  media="screen">
+	<!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
 	
 	<!-- 공통JS-->
 	<script type="text/javascript" src="/resources/js/jquery/jquery-3.6.3.js"></script>

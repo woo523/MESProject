@@ -5,8 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Order List</title>
+<!-- <title>Order List</title> -->
 
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
 <link href="/resources/css/jquery/jquery-ui.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap/bootstrap-datetimepicker.min.css"  media="screen">
 

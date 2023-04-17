@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- <title>Insert title here</title> -->
 <!-- 헤더 -->
 <%@ include file="../inc/header.jsp" %>
 <style type="text/css">

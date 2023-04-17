@@ -6,6 +6,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>MES 주식회사</title>
+	<!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
 	<!--Bootstrap Css-->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 	<!--Font-aweome-->

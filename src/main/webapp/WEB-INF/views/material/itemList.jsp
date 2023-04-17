@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
+
 <style type="text/css">
 
 @import

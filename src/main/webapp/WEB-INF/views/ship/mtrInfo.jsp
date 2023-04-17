@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>mtrInfo</title>
+
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
+
 <style type="text/css">
 	#sh:hover {
 		background-color: #e1e1e1;

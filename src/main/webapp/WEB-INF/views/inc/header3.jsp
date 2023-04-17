@@ -9,7 +9,8 @@
 	
 	<!-- 공통CSS-->
 	<link href="${pageContext.request.contextPath}/resources/css/style.css"  rel="stylesheet" type="text/css">
-
+	<!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
 
 	
 </head>

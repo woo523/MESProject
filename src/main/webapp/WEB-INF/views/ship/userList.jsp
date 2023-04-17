@@ -7,6 +7,9 @@
 <meta charset="EUC-KR">
 <title>담당자 조회</title>
 
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
+
 <style type="text/css">
 @import
 	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)

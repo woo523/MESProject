@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/image/favicon-32x32.png">
 <style type="text/css">
 
 .content_body button {

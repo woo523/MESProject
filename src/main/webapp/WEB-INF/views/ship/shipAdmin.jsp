@@ -9,9 +9,6 @@
 	<!-- <header> -->
 	<%@ include file="../inc/header.jsp"%><!-- 지우면안됨 -->
 	
-	<!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
-	
 	
 <style type="text/css">
 
