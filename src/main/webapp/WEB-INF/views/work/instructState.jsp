@@ -136,7 +136,8 @@
 							<td>${instrDTO.lineDTO.lineCode}</td>
 							<td>${instrDTO.lineDTO.lineName}</td>
 							<td>${instrDTO.workQty}</td>
-							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
+<%-- 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td> --%>
+							<td><fmt:formatDate value="${instrDTO.insertDate}" pattern="yyyy-MM-dd"/></td>
 							<td>${instrDTO.userDTO.name}</td>
 						</tr>
 					</c:forEach>

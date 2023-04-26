@@ -136,7 +136,8 @@
 							<td>${instrDTO.lineDTO.lineCode}</td>
 							<td>${instrDTO.lineDTO.lineName}</td>
 							<td>${instrDTO.workQty}</td>
-							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td>
+<%-- 							<td><tf:FormatDateTime value="${instrDTO.insertDate}" pattern="yyyy-MM-dd" /></td> --%>
+							<td><fmt:formatDate value="${instrDTO.insertDate}" pattern="yyyy-MM-dd"/></td>
 							<td>${instrDTO.userDTO.name}</td>
 							<c:if test="${! empty sessionScope.id && instrDTO.workSts eq '지시'}">
 								<td><a style="cursor: pointer;"><img src='${pageContext.request.contextPath}/resources/image/modify.png' width='17px' onclick="instrModify(${instrDTO.instrId})"></a>
