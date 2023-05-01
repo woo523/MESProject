@@ -1,6 +1,6 @@
 # ◆ MES(주) 주사기제조공장의 생산관리시스템(MES) ◆
 
-![MES주식회사](images/MES_main.PNG) 
+![MES주식회사](BESimages/MES_main.PNG) 
 
 
 ## ◆ 호스팅 사이트 : http://itwillbs19.cafe24.com/login/login ◆
