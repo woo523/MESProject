@@ -24,19 +24,19 @@
 
 * Model,Controller
 
-  * [로그인 JAVA 파일](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/java/com/itwillbs/login/)
-
-  * [사용자관리 JAVA 파일](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/java/com/itwillbs/member/)
+  * [로그인 JAVA 파일](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/java/com/itwillbs/login)
+ 
+  * [사용자관리 JAVA 파일](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/java/com/itwillbs/member)
   
-  * [공통코드 JAVA 파일](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/java/com/itwillbs/comcode/)
+  * [공통코드 JAVA 파일](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/java/com/itwillbs/comcode)
  
 * View
 
-  * [로그인 화면](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/webapp/WEB-INF/views/login/)
+  * [로그인 화면](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/webapp/WEB-INF/views/login)
   
-  * [사용자관리 화면](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/webapp/WEB-INF/views/member/)
+  * [사용자관리 화면](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/webapp/WEB-INF/views/member)
   
-  * [공통코드 화면](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/webapp/WEB-INF/views/comCode/)
+  * [공통코드 화면](https://github.com/Baek0218/MESProject/blob/develop/MESProject/src/main/webapp/WEB-INF/views/comCode)
 
 
 ---
