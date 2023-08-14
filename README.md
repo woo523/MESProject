@@ -1,22 +1,26 @@
 # MES주식회사 (주사기 제조 공장 생산 관리 시스템)
 
+---
+
+
 ![MES주식회사](BESimages/MES_main.PNG) 
 
 
-## 호스팅 사이트 : http://itwillbs19.cafe24.com/login/login ◆
-### 사용언어 : JAVA(SE-11), JSP, HTML, CSS, JAVASCRIPT
-### 사용 프레임 워크 : Spring
-### 사용 라이브러리 : JQUERY, JSTL, Mybatis
-### 사용 DB : MySQL v8.0.17
-### 사용 툴 : STS, Workbench
-### 주제 : Spring 기반 MES시스템 설계
+## 호스팅 사이트 : http://itwillbs19.cafe24.com/login/login
 
----
+프로젝트 기간 : 3월 8일 ~ 4월 14일
 
-### ◆ 프로젝트 기간 : 3월 8일 ~ 4월 14일
-### ◆ 담당 기능 : 생산실적 등록, 수정, 삭제 / 생산자화면(POP화면) / 메뉴 권한 관리
+### 개발환경
 
----
+* 개발도구 : STS 3, Workbench
+* 언어 : JAVA(SE-11), JSP, HTML, CSS, JAVASCRIPT
+* 프레임 워크 : Spring(4.3.8)
+* 라이브러리 : JQUERY(3.6.3), JSTL(1.2), Mybatis(3.4.1)
+* DB : MySQL v8.0.17
+* 주제 : Spring 기반 MES시스템 설계
+
+ 담당 기능 : 생산실적 등록, 수정, 삭제 / 생산자화면(POP화면) / 메뉴 권한 관리
+
 
 
 ## <개발 코드>
