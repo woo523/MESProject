@@ -1,8 +1,5 @@
 # MES주식회사 (주사기 제조 공장 생산 관리 시스템)
 
----
-
-
 ![MES주식회사](BESimages/MES_main.PNG) 
 
 
@@ -19,13 +16,11 @@
 * DB : MySQL v8.0.17
 * 주제 : Spring 기반 MES시스템 설계
 
- 담당 기능 : 생산실적 등록, 수정, 삭제 / 생산자화면(POP화면) / 메뉴 권한 관리
+### 담당 기능 : 생산실적 등록, 수정, 삭제 / 생산자화면(POP화면) / 메뉴 권한 관리
 
+## 개발 코드
 
-
-## <개발 코드>
-
-### ◆ 생산실적 등록, 수정, 삭제 / 생산자 화면(POP 화면)
+### 생산실적 등록, 수정, 삭제 / 생산자 화면(POP 화면)
 
 * Model
   * 생산실적 DTO [PerformDTO.java](src/main/java/com/itwillbs/work/domain/PerformDTO.java)
@@ -54,7 +49,7 @@
   * 생산실적 Contriller [PerformController.java](src/main/java/com/itwillbs/work/controller/PerformController.java)
   * 생산실적 ajax Controller [PerformAjaxController.java](src/main/java/com/itwillbs/work/controller/PerformAjaxController.java)
 
-### ◆ 권한 관리
+### 권한 관리
 
 * Model
   * 권한 DTO [AuthDTO.java](src/main/java/com/itwillbs/auth/domain/AuthDTO.java)
