@@ -63,6 +63,7 @@
 * View
   *  직원 리스트 [user.jsp](src/main/webapp/WEB-INF/views/auth/user.jsp)
   *  권한 설정 [auth.jsp](src/main/webapp/WEB-INF/views/auth/auth.jsp)
+  *  권한 있는 메뉴만 보이게 [main.jsp](src/main/webapp/WEB-INF/views/main/main.jsp)
   
 * Controller
   * 권한 Controller [AuthController.java](src/main/java/com/itwillbs/auth/controller/AuthController.java)
