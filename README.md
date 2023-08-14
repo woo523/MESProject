@@ -4,8 +4,7 @@
 
 
 ## 호스팅 사이트 : http://itwillbs19.cafe24.com/login/login
-### ID : 0001
-### PW : 123
+### ID : 0001   PW : 123
 
 프로젝트 기간 : 3월 8일 ~ 4월 14일
 
