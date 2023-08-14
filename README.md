@@ -68,7 +68,7 @@
   
 * Controller
   * 권한 Controller [AuthController.java](src/main/java/com/itwillbs/auth/controller/AuthController.java)
-  * 로그인할 때 권한 세션값에 저장 [LoginController.java](src/main/java/com/itwillbs/login/controller/LoginController.java)
+  * 로그인할 때 권한 세션값에 저장 [LoginController.java](src/main/java/com/itwillbs/login/controller/LoginController.java#L56-L59)
 
 
 ---
